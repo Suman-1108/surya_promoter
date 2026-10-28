@@ -17,15 +17,17 @@ export default function Navbar() {
         <div className="mx-auto flex w-full max-w-[1760px] items-center justify-between px-6 sm:px-10 lg:px-16 2xl:px-24 py-3.5 md:py-4">
           {/* Left: Brand Identity */}
           <Link href="/" className="group flex items-center gap-3.5">
-            <div className="relative h-11 w-11 shrink-0">
-              <Image
-                src="/images/surya-logo.png"
-                alt="Surya Promoters Logo"
-                fill
-                priority
-                sizes="48px"
-                className="object-contain"
-              />
+            <div className="relative h-12 w-12 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A15B] bg-white shadow-xs p-1 transition-all group-hover:border-[#C6A15B] group-hover:shadow-md group-hover:scale-105">
+              <div className="relative h-full w-full rounded-full overflow-hidden">
+                <Image
+                  src="/images/surya-logo.png"
+                  alt="Surya Promoters Logo"
+                  fill
+                  priority
+                  sizes="48px"
+                  className="object-contain scale-105"
+                />
+              </div>
             </div>
             <div className="flex flex-col">
               <span className="font-display text-lg md:text-xl font-extrabold tracking-wider text-[#111827] uppercase transition-colors group-hover:text-[#C6A15B]">

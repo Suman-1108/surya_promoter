@@ -22,15 +22,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-14">
           {/* Column 1: Brand & Socials (Nexora Reference) */}
           <div className="lg:col-span-4 space-y-6">
-            <Link href="/" className="inline-flex items-center gap-3.5">
-              <div className="relative h-11 w-11 shrink-0">
-                <Image
-                  src="/images/surya-logo.png"
-                  alt="Surya Promoters Logo"
-                  fill
-                  sizes="48px"
-                  className="object-contain"
-                />
+            <Link href="/" className="inline-flex items-center gap-3.5 group">
+              <div className="relative h-12 w-12 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A15B] bg-white shadow-xs p-1 transition-all group-hover:scale-105">
+                <div className="relative h-full w-full rounded-full overflow-hidden">
+                  <Image
+                    src="/images/surya-logo.png"
+                    alt="Surya Promoters Logo"
+                    fill
+                    sizes="48px"
+                    className="object-contain scale-105"
+                  />
+                </div>
               </div>
               <div className="flex flex-col">
                 <span className="font-display text-xl font-extrabold tracking-wider text-[#111827]">
@@ -43,8 +45,9 @@ export default function Footer() {
             </Link>
 
             <p className="text-sm leading-relaxed text-[#6B7280] max-w-md">
-              Surya Promoters is your trusted partner in finding exceptional land and property investment
-              opportunities across Madurai and Tamil Nadu.
+              Surya Promoters is your trusted partner in finding exceptional
+              land and property investment opportunities across Madurai and
+              Tamil Nadu.
             </p>
 
             {/* Social Icons */}
@@ -79,9 +82,7 @@ export default function Footer() {
 
           {/* Column 2: Quick Links */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-base font-bold text-[#111827]">
-              Quick Links
-            </h4>
+            <h4 className="text-base font-bold text-[#111827]">Quick Links</h4>
             <ul className="space-y-3 text-sm font-medium text-[#6B7280]">
               <li>
                 <Link href="/" className="hover:text-blue-600 transition">
@@ -94,22 +95,34 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-blue-600 transition">
+                <Link
+                  href="/projects"
+                  className="hover:text-blue-600 transition"
+                >
                   Properties
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-blue-600 transition">
+                <Link
+                  href="/services"
+                  className="hover:text-blue-600 transition"
+                >
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="hover:text-blue-600 transition">
+                <Link
+                  href="/gallery"
+                  className="hover:text-blue-600 transition"
+                >
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-blue-600 transition">
+                <Link
+                  href="/contact"
+                  className="hover:text-blue-600 transition"
+                >
                   Contact Us
                 </Link>
               </li>
@@ -118,32 +131,45 @@ export default function Footer() {
 
           {/* Column 3: Our Services */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-base font-bold text-[#111827]">
-              Our Services
-            </h4>
+            <h4 className="text-base font-bold text-[#111827]">Our Services</h4>
             <ul className="space-y-3 text-sm font-medium text-[#6B7280]">
               <li>
-                <Link href="/services" className="hover:text-blue-600 transition">
+                <Link
+                  href="/services"
+                  className="hover:text-blue-600 transition"
+                >
                   Commercial &amp; Industrial Land
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-blue-600 transition">
+                <Link
+                  href="/services"
+                  className="hover:text-blue-600 transition"
+                >
                   Managed Agricultural Farms
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-blue-600 transition">
+                <Link
+                  href="/services"
+                  className="hover:text-blue-600 transition"
+                >
                   Residential Plot Layouts
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-blue-600 transition">
+                <Link
+                  href="/services"
+                  className="hover:text-blue-600 transition"
+                >
                   Legal Title Verification Advisory
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-blue-600 transition">
+                <Link
+                  href="/contact"
+                  className="hover:text-blue-600 transition"
+                >
                   Escorted On-Ground Site Visits
                 </Link>
               </li>
@@ -152,11 +178,10 @@ export default function Footer() {
 
           {/* Column 4: Newsletter */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-base font-bold text-[#111827]">
-              Newsletter
-            </h4>
+            <h4 className="text-base font-bold text-[#111827]">Newsletter</h4>
             <p className="text-sm text-[#6B7280] leading-relaxed">
-              Subscribe to get the latest updates on verified land releases and investment opportunities.
+              Subscribe to get the latest updates on verified land releases and
+              investment opportunities.
             </p>
 
             {!subscribed ? (

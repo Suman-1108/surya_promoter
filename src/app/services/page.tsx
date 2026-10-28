@@ -25,7 +25,8 @@ export default function ServicesPage() {
             Our Development Services
           </h1>
           <p className="mt-2 text-base text-[#77766F]">
-            From land acquisition and title verification to layout masterplanning and property sales coordination across Madurai.
+            From land acquisition and title verification to layout
+            masterplanning and property sales coordination across Madurai.
           </p>
         </div>
       </div>
@@ -37,4 +38,3 @@ export default function ServicesPage() {
     </main>
   );
 }
-

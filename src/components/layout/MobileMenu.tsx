@@ -37,14 +37,16 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {/* Header */}
           <div className="flex items-center justify-between border-b border-[#EAE5DC] pb-4">
             <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 shrink-0">
-                <Image
-                  src="/images/surya-logo.png"
-                  alt="Surya Promoters Logo"
-                  fill
-                  sizes="40px"
-                  className="object-contain"
-                />
+              <div className="relative h-11 w-11 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A15B] bg-white shadow-xs p-1">
+                <div className="relative h-full w-full rounded-full overflow-hidden">
+                  <Image
+                    src="/images/surya-logo.png"
+                    alt="Surya Promoters Logo"
+                    fill
+                    sizes="40px"
+                    className="object-contain scale-105"
+                  />
+                </div>
               </div>
               <div className="flex flex-col">
                 <span className="font-display text-base font-extrabold tracking-wider text-[#111827]">
