@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import SmoothScroll from "@/components/animations/SmoothScroll";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#FFFFFF] text-[#242820] font-sans antialiased selection:bg-[#C6A15B] selection:text-white">
         <LanguageProvider>
           <SmoothScroll>{children}</SmoothScroll>
+          <ScrollToTop />
         </LanguageProvider>
       </body>
     </html>
