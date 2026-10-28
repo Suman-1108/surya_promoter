@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/hooks/useLanguage";
 import {
@@ -24,6 +24,51 @@ export default function ModernHero({ onSearch }: ModernHeroProps) {
   const [propertyType, setPropertyType] = useState("All Types");
   const [priceRange, setPriceRange] = useState("Any Status");
   const [size, setSize] = useState("Any Size");
+
+  // Typewriter effect for headline
+  const line1Target = language === "ta" ? "சூர்யா புரமோட்டர்ஸ்" : "Surya Promoters";
+  const line2Target = language === "ta" ? "நில மேம்பாட்டாளர்கள்" : "Land & Property Developers";
+
+  const [typedLine1, setTypedLine1] = useState("");
+  const [typedLine2, setTypedLine2] = useState("");
+  const [isTypingLine1, setIsTypingLine1] = useState(true);
+  const [isDoneTyping, setIsDoneTyping] = useState(false);
+
+  useEffect(() => {
+    setTypedLine1("");
+    setTypedLine2("");
+    setIsTypingLine1(true);
+    setIsDoneTyping(false);
+
+    let charIndex1 = 0;
+    let charIndex2 = 0;
+    let timeoutId: NodeJS.Timeout;
+
+    const typeLine1 = () => {
+      if (charIndex1 < line1Target.length) {
+        setTypedLine1(line1Target.slice(0, charIndex1 + 1));
+        charIndex1++;
+        timeoutId = setTimeout(typeLine1, 60);
+      } else {
+        setIsTypingLine1(false);
+        timeoutId = setTimeout(typeLine2, 180);
+      }
+    };
+
+    const typeLine2 = () => {
+      if (charIndex2 < line2Target.length) {
+        setTypedLine2(line2Target.slice(0, charIndex2 + 1));
+        charIndex2++;
+        timeoutId = setTimeout(typeLine2, 50);
+      } else {
+        setIsDoneTyping(true);
+      }
+    };
+
+    timeoutId = setTimeout(typeLine1, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [language, line1Target, line2Target]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,18 +99,20 @@ export default function ModernHero({ onSearch }: ModernHeroProps) {
               </span>
             </div>
 
-            {/* Main Headline (Bold Sans-Serif Typography - matches reference) */}
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-[76px] font-extrabold leading-[1.08] tracking-tight text-[#111827]">
-              {language === "ta" ? (
-                <>
-                  சூர்யா புரமோட்டர்ஸ் <br />
-                  <span className="text-[#C6A15B]">நில மேம்பாட்டாளர்கள்</span>
-                </>
-              ) : (
-                <>
-                  Surya Promoters <br />
-                  <span className="text-[#C6A15B]">Land &amp; Property Developers</span>
-                </>
+            {/* Main Headline (Typewriter Animated) */}
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-[76px] font-extrabold leading-[1.08] tracking-tight text-[#111827] min-h-[120px] sm:min-h-[140px] lg:min-h-[165px]">
+              <span>{typedLine1}</span>
+              {isTypingLine1 && (
+                <span className="inline-block w-1.5 h-10 sm:h-12 lg:h-14 bg-[#111827] ml-1.5 align-middle animate-pulse" />
+              )}
+              <br />
+              <span className="text-[#C6A15B]">{typedLine2}</span>
+              {!isTypingLine1 && (
+                <span
+                  className={`inline-block w-1.5 h-10 sm:h-12 lg:h-14 bg-[#C6A15B] ml-1.5 align-middle ${
+                    isDoneTyping ? "animate-pulse" : ""
+                  }`}
+                />
               )}
             </h1>
 
