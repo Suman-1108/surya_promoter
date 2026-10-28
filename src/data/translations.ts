@@ -1,0 +1,452 @@
+export const translations = {
+  en: {
+    nav: {
+      home: "Home",
+      about: "About",
+      services: "Services",
+      projects: "Projects",
+      approach: "Development",
+      gallery: "Gallery",
+      contact: "Contact",
+      enquire: "Enquire Now",
+      callUs: "Call Directly",
+      estd: "Estd. 2010 · Madurai",
+    },
+    hero: {
+      badge: "SURYA PROMOTERS · ESTABLISHED 2010 · MADURAI",
+      headlineLine1: "From Land.",
+      headlineLine2: "To Legacy.",
+      subtitle:
+        "Discover thoughtfully developed land opportunities and mastercrafted architectural residences across Madurai.",
+      exploreBtn: "Explore Our Projects",
+      storyBtn: "Discover Our Story",
+      scrollIndicator: "SCROLL TO BUILD",
+      constructionMilestones: [
+        {
+          stage: "STAGE 01 · EMPTY LAND",
+          title: "Every Great Dream Begins With A Vision.",
+          desc: "Untouched residential acreage ready for architectural masterplanning.",
+          progressRange: [0, 0.15],
+        },
+        {
+          stage: "STAGE 02 · FOUNDATION",
+          title: "Building Strong Foundations.",
+          desc: "Precision grading, excavation, and structural reinforced concrete slabs.",
+          progressRange: [0.15, 0.3],
+        },
+        {
+          stage: "STAGE 03 · STRUCTURAL FRAMING",
+          title: "Every Detail Shapes Your Future.",
+          desc: "Two-storey precision timber framework, studs, and engineered roof trusses.",
+          progressRange: [0.3, 0.7],
+        },
+        {
+          stage: "STAGE 04 · FINISHING",
+          title: "Designed With Purpose. Built With Care.",
+          desc: "Exterior white siding, weather-sealed roofing, windows, and artisanal trims.",
+          progressRange: [0.7, 0.9],
+        },
+        {
+          stage: "STAGE 05 · FINAL REVEAL",
+          title: "From Vision To Reality.",
+          desc: "A fully completed premium two-storey residence crafted with defense-grade integrity.",
+          progressRange: [0.9, 1.0],
+        },
+      ],
+      stages: [
+        {
+          num: "01",
+          title: "Empty Residential Land",
+          desc: "A clean, natural terrain awaiting visionary architectural development.",
+        },
+        {
+          num: "02",
+          title: "Excavation & Ground Preparation",
+          desc: "Deep trenching, foundation leveling, and site grading.",
+        },
+        {
+          num: "03",
+          title: "Concrete Foundation Slab",
+          desc: "Heavy-duty concrete floor slab with staged structural materials.",
+        },
+        {
+          num: "04",
+          title: "Ground-Floor Timber Framing",
+          desc: "Precision-cut wall studs, load-bearing headers, and door openings.",
+        },
+        {
+          num: "05",
+          title: "Second-Floor Framework",
+          desc: "Upper-level framing, floor joists, and structural wall framing.",
+        },
+        {
+          num: "06",
+          title: "Roof Trusses & Gables",
+          desc: "Architectural roof truss installation and pitched gable framing.",
+        },
+        {
+          num: "07",
+          title: "Roofing & Wall Paneling",
+          desc: "Weatherproofing shingles, protective sheathing, and exterior walls.",
+        },
+        {
+          num: "08",
+          title: "Windows & White Siding",
+          desc: "Insulated multi-pane windows, entrance doors, and crisp exterior siding.",
+        },
+        {
+          num: "09",
+          title: "Landscaping & Trims",
+          desc: "Lush green lawn integration, boundary fencing, and architectural trims.",
+        },
+        {
+          num: "10",
+          title: "Completed Masterpiece",
+          desc: "Fully realized luxury two-storey white residence matching the architectural vision.",
+        },
+      ],
+    },
+    about: {
+      badge: "LEGACY & PRINCIPLES",
+      title: "Building Trust, Grounded in Discipline",
+      lead: "Surya Promoters was established in 2010 by Mr. Manickam Natarajan, an Indian Air Force veteran, bringing defense-level integrity and precision to real estate in Madurai.",
+      p1: "Over more than a decade of steadfast commitment, Surya Promoters has established an unassailable track record in residential, commercial, industrial, and agricultural land developments across Madurai and southern Tamil Nadu.",
+      p2: "Unlike conventional property brokers, our model is driven by legal transparency, strict due diligence, masterplanned layouts, and direct customer welfare. We identify high-growth corridors and turn raw land into secure, appreciating assets.",
+      founderTitle: "Mr. Manickam Natarajan",
+      founderRole: "Founder & Managing Director · Indian Air Force Veteran",
+      founderQuote:
+        "“In the Armed Forces, integrity and precision are absolute. We bring that identical discipline to every piece of land we touch—ensuring clear documentation, transparent handovers, and lifelong security for every family and investor.”",
+      stats: [
+        { value: "2010", label: "Year Established" },
+        { value: "100%", label: "Documented Clear Titles" },
+        { value: "Madurai", label: "Prime Development Hub" },
+        { value: "IAF", label: "Veteran-Led Discipline" },
+      ],
+    },
+    approach: {
+      badge: "OUR 6-STAGE METHODOLOGY",
+      title: "The Surya Development Standard",
+      subtitle:
+        "How we transform untouched acreage into high-value, legally secure, master-planned developments.",
+    },
+    services: {
+      badge: "OUR CORE EXPERTISE",
+      title: "Comprehensive Real Estate Solutions",
+      subtitle:
+        "From prime residential plots in expanding corridors to strategic commercial parcels and fertile agricultural groves.",
+      cta: "Schedule Site Visit",
+    },
+    projects: {
+      badge: "PORTFOLIO OF EXCELLENCE",
+      title: "Featured Property Developments",
+      subtitle:
+        "Verified land developments meticulously surveyed and positioned in Madurai's most promising appreciation sectors.",
+      viewDetails: "Explore Property",
+      filterAll: "All Properties",
+      filterCommercial: "Commercial Land",
+      filterFarm: "Farm Plots & Orchards",
+      filterResidential: "Residential",
+      directions: "View on Google Maps",
+      downloadBrochure: "Request Brochure",
+      scheduleVisit: "Book Site Visit",
+    },
+    gallery: {
+      badge: "VISUAL ARCHIVE",
+      title: "On-Ground Development Showcase",
+      subtitle: "Glimpses into our active project sites, surveyed layouts, tree plantations, and completed infrastructure.",
+    },
+    videoShowcase: {
+      badge: "CINEMATIC WALKTHROUGH",
+      title: "Experience The Land Firsthand",
+      subtitle: "Watch aerial drone views highlighting access roads, surrounding growth, and layout masterplanning.",
+    },
+    whyUs: {
+      badge: "WHY SURYA PROMOTERS",
+      title: "A Benchmark of Uncompromising Trust",
+      items: [
+        {
+          title: "Defense Veteran Leadership",
+          desc: "Founded by an Indian Air Force veteran, our principles are built on duty, exactitude, and absolute transparency in all commitments.",
+        },
+        {
+          title: "100% Verified Legal Documents",
+          desc: "Every plot undergoes strict legal verification, parent document vetting, and clear encumbrance certificates.",
+        },
+        {
+          title: "Strategic Madurai Corridors",
+          desc: "Locations positioned directly along major ring roads, national highways, hospital corridors, and burgeoning industrial zones.",
+        },
+        {
+          title: "End-to-End Handholding",
+          desc: "From initial site visit, boundary demarcation, registration assistance to post-purchase support and patta coordination.",
+        },
+      ],
+    },
+    siteVisit: {
+      badge: "EXPERIENCE THE LOCATION",
+      title: "Schedule Your Free Guided Site Visit",
+      subtitle:
+        "We arrange convenient, escorted visits to our properties around Madurai with complete documentation reviews on site.",
+      form: {
+        name: "Your Full Name",
+        phone: "Mobile / WhatsApp Number",
+        email: "Email Address",
+        project: "Select Preferred Property",
+        date: "Preferred Date",
+        message: "Any specific requirements or questions?",
+        submit: "Confirm Site Visit Request",
+        submitting: "Submitting...",
+        success: "Thank you! Our site coordinator will call you within 24 hours to confirm your visit.",
+      },
+    },
+    contact: {
+      badge: "GET IN TOUCH",
+      title: "Start Your Land Journey Today",
+      subtitle: "Visit our Madurai office or connect with our senior advisory team directly via phone or WhatsApp.",
+      phoneLabel: "Call Directly",
+      phone: "+91 77089 66452",
+      emailLabel: "Official Email",
+      email: "suryconstruction@gmail.com",
+      addressLabel: "Head Office Location",
+      address:
+        "No. 11, Arasu Nagar, Near Rio Hospital, Pandi Kovil Ring Road, Vandiyur, Madurai – 625020, Tamil Nadu.",
+      whatsappBtn: "Chat on WhatsApp",
+      callBtn: "Call +91 77089 66452",
+      hours: "Monday – Saturday: 9:00 AM – 7:30 PM | Sunday: By Appointment",
+    },
+    footer: {
+      tagline:
+        "Premier land and property developers in Madurai since 2010. Dedicated to creating lasting value through defense-grade integrity.",
+      quickLinks: "Quick Navigation",
+      legalNotice:
+        "Disclaimer: All information, images and layouts provided are for representational and developmental insight. Surya Promoters adheres strictly to lawful property development guidelines.",
+      copyright: "Surya Promoters. All Rights Reserved. Established 2010.",
+      bilingualNotice: "Switch to தமிழ் (Tamil) anytime using the top navigation bar.",
+    },
+  },
+  ta: {
+    nav: {
+      home: "முகப்பு",
+      about: "எங்களைப் பற்றி",
+      services: "சேவைகள்",
+      projects: "திட்டங்கள்",
+      approach: "வளர்ச்சி முறை",
+      gallery: "புகைப்படங்கள்",
+      contact: "தொடர்புக்கு",
+      enquire: "விசாரிக்க",
+      callUs: "அழைக்க",
+      estd: "2010 முதல் · மதுரை",
+    },
+    hero: {
+      badge: "சூர்யா புரமோட்டர்ஸ் · 2010 முதல் · மதுரை",
+      headlineLine1: "நிலத்திலிருந்து.",
+      headlineLine2: "நிலைத்த புகழுக்கு.",
+      subtitle:
+        "மதுரையில் வாழ்வதற்கும் முதலீட்டிற்கும் சிறப்பான மனை வாய்ப்புகள் மற்றும் தரமான கட்டுமானங்கள்.",
+      exploreBtn: "எங்கள் திட்டங்களை பார்க்க",
+      storyBtn: "எங்கள் பயணத்தை அறிய",
+      scrollIndicator: "கட்டமைப்பை காண உருட்டவும்",
+      constructionMilestones: [
+        {
+          stage: "படி 01 · இயற்கை நிலம்",
+          title: "ஒவ்வொரு பெரிய கனவும் ஒரு தொலைநோக்குடன் தொடங்குகிறது.",
+          desc: "கட்டுமானத்திற்கு தயாராக உள்ள இயற்கை திறந்த நிலப்பரப்பு.",
+          progressRange: [0, 0.15],
+        },
+        {
+          stage: "படி 02 · அடித்தளம்",
+          title: "வலுவான அடித்தளங்களை உருவாக்குதல்.",
+          desc: "முறையான தரை சமன்படுத்துதல் மற்றும் உறுதியான கான்கிரீட் தளம்.",
+          progressRange: [0.15, 0.3],
+        },
+        {
+          stage: "படி 03 · மரக்கட்டமைப்பு",
+          title: "ஒவ்வொரு விவரமும் உங்கள் எதிர்காலத்தை வடிவமைக்கிறது.",
+          desc: "இரண்டு அடுக்கு துல்லியமான மரச்சட்டம் மற்றும் கூரை கட்டமைப்பு.",
+          progressRange: [0.3, 0.7],
+        },
+        {
+          stage: "படி 04 · இறுதி வடிவமைப்பு",
+          title: "நோக்கத்துடன் வடிவமைக்கப்பட்டு, கவனத்துடன் கட்டப்பட்டது.",
+          desc: "வெள்ளை வெளிப்புற பக்கவாட்டு சுவர்கள், ஜன்னல்கள் மற்றும் கூரை வேலைகள்.",
+          progressRange: [0.7, 0.9],
+        },
+        {
+          stage: "படி 05 · முழுமை",
+          title: "கனவிலிருந்து நிஜத்திற்கு.",
+          desc: "இராணுவ ஒழுக்கத்துடன் முழுமையாக கட்டி முடிக்கப்பட்ட ஆடம்பர வெள்ளை மாளிகை.",
+          progressRange: [0.9, 1.0],
+        },
+      ],
+      stages: [
+        {
+          num: "01",
+          title: "இயற்கை திறந்த நிலம்",
+          desc: "கட்டுமானத்திற்கு தயாராக உள்ள இயற்கை திறந்த நிலப்பரப்பு.",
+        },
+        {
+          num: "02",
+          title: "அடித்தள குழி வெட்டுதல்",
+          desc: "முறையான தரை சமன்படுத்துதல் மற்றும் மண் அகழ்வு.",
+        },
+        {
+          num: "03",
+          title: "கான்கிரீட் அடித்தள தளம்",
+          desc: "உறுதியான கான்கிரீட் அடித்தள தளம் மற்றும் கட்டுமான பொருட்கள்.",
+        },
+        {
+          num: "04",
+          title: "முதல் தள மரக்கட்டமைப்பு",
+          desc: "துல்லியமான மரத் தூண்கள் மற்றும் சுவர்கள் கட்டமைப்பு.",
+        },
+        {
+          num: "05",
+          title: "இரண்டாம் தள கட்டமைப்பு",
+          desc: "மேல் தள மரச் சட்டங்கள் மற்றும் தாங்கும் சுவர்கள்.",
+        },
+        {
+          num: "06",
+          title: "கூரை முகடு & சட்டங்கள்",
+          desc: "அழகிய முகப்பு கூரை மற்றும் மரக்கட்டமைப்பு.",
+        },
+        {
+          num: "07",
+          title: "சுவர்கள் & கூரை பதித்தல்",
+          desc: "வானிலை பாதுகாப்பு கூரை மற்றும் பக்கவாட்டு பலகைகள்.",
+        },
+        {
+          num: "08",
+          title: "ஜன்னல்கள் & வெள்ளை பூச்சு",
+          desc: "நேர்த்தியான ஜன்னல்கள், கதவுகள் மற்றும் வெள்ளை வர்ணம்.",
+        },
+        {
+          num: "09",
+          title: "பசுமை தோட்டம் & சூழல்",
+          desc: "புல்வெளி, மரங்கள் மற்றும் சுற்றுவேலி அமைப்பு.",
+        },
+        {
+          num: "10",
+          title: "முழுமையான மாளிகை ஒப்படைப்பு",
+          desc: "அனைத்து வேலைகளும் நிறைவடைந்த கனவு இல்லம்.",
+        },
+      ],
+    },
+    about: {
+      badge: "பாரம்பரியமும் ஒழுக்கமும்",
+      title: "இராணுவ ஒழுக்கத்துடன் கூடிய அசைக்க முடியாத நம்பிக்கை",
+      lead: "சூர்யா புரமோட்டர்ஸ் 2010 ஆம் ஆண்டு இந்திய விமானப்படை ஓய்வுபெற்ற அதிகாரியான திரு. மாணிக்கம் நடராஜன் அவர்களால் தொடங்கப்பட்டது.",
+      p1: "ஒரு தசாப்தத்திற்கும் மேலான அர்ப்பணிப்புடன், சூர்யா புரமோட்டர்ஸ் மதுரையைச் சுற்றிலும் வீட்டு மனைகள், வணிக வளாகங்கள், தொழிற்பேட்டை நிலங்கள் மற்றும் பண்ணைத் தோட்டத் திட்டங்களில் தலைசிறந்து விளங்குகிறது.",
+      p2: "வழக்கமான இடைத்தரகர்கள் போல் அல்லாமல், சட்டப்பூர்வ வெளிப்படைத்தன்மை, அசல் ஆவணங்களின் துல்லியமான சரிபார்ப்பு மற்றும் வாடிக்கையாளர்களின் எதிர்கால முதலீட்டு பாதுகாப்புக்கு முன்னுரிமை அளிக்கிறோம்.",
+      founderTitle: "திரு. மாணிக்கம் நடராஜன்",
+      founderRole: "நிறுவனர் & நிர்வாக இயக்குனர் · இந்திய விமானப்படை முன்னாள் அதிகாரி",
+      founderQuote:
+        "“இராணுவத்தில் ஒழுக்கமும் வாய்மையும் அடிப்படையானவை. அதே உயர்ந்த ஒழுக்கத்தை நாங்கள் கையாளும் ஒவ்வொரு நிலத்திலும் செலுத்துகிறோம்—சட்டப்பூர்வ தூய்மை, தெளிவான ஆவணங்கள் மற்றும் வாடிக்கையாளரின் அமைதியான வாழ்க்கை எங்கள் உறுதிமொழி.”",
+      stats: [
+        { value: "2010", label: "தொடங்கப்பட்ட ஆண்டு" },
+        { value: "100%", label: "தெளிவான மூலப்பத்திரங்கள்" },
+        { value: "மதுரை", label: "முதன்மை வளர்ச்சி மண்டலம்" },
+        { value: "விமானப்படை", label: "ஒழுக்கமிக்க தலைமை" },
+      ],
+    },
+    approach: {
+      badge: "எங்களின் 6-படி வளர்ச்சி முறை",
+      title: "சூர்யாவின் தரக்கட்டுப்பாட்டு வளர்ச்சி முறை",
+      subtitle:
+        "திறந்த நிலத்தை உயர் மதிப்புமிக்க, சட்டப்பூர்வ பாதுகாப்புடைய சொத்தாக மாற்றும் விரிவான வழிமுறை.",
+    },
+    services: {
+      badge: "எங்கள் சிறப்பு சேவைகள்",
+      title: "முழுமையான ரியல் எஸ்டேட் தீர்வுகள்",
+      subtitle:
+        "மதுரையின் அதிவேக வளர்ச்சி பகுதிகளில் குடியிருப்பு மனைகள், வணிக நிலங்கள் மற்றும் இயற்கை பண்ணைத் தோட்டங்கள்.",
+      cta: "நேரடி பார்வைக்கு பதியுங்கள்",
+    },
+    projects: {
+      badge: "எங்கள் முக்கிய திட்டங்கள்",
+      title: "சிறந்த சொத்து மேம்பாட்டு திட்டங்கள்",
+      subtitle:
+        "சட்டப்பூர்வமாக சரிபார்க்கப்பட்டு, சிறந்த முதலீட்டு மதிப்புடைய இடங்களில் அமைந்துள்ள எங்கள் நிலத் திட்டங்கள்.",
+      viewDetails: "முழு விபரம் பார்க்க",
+      filterAll: "அனைத்து திட்டங்கள்",
+      filterCommercial: "வணிக நிலங்கள்",
+      filterFarm: "பண்ணைத் தோட்டங்கள்",
+      filterResidential: "குடியிருப்பு மனைகள்",
+      directions: "கூகுள் வரைபடத்தில் பார்க்க",
+      downloadBrochure: "விவரக் குறிப்பேடு கோரவும்",
+      scheduleVisit: "நேரில் பார்வையிட",
+    },
+    gallery: {
+      badge: "புகைப்பட தொகுப்பு",
+      title: "நேரடி வளர்ச்சிப் படங்கள்",
+      subtitle: "எங்கள் திட்டங்களின் தார்ச்சாலைகள், எல்லைக் கற்கள், பசுமை தோட்டங்கள் மற்றும் நில வளர்ச்சி காட்சிகள்.",
+    },
+    videoShowcase: {
+      badge: "வீடியோ பார்வை",
+      title: "நிலத்தின் அழகை வீடியோவில் காண்க",
+      subtitle: "அணுகு சாலைகள், சுற்றியுள்ள முன்னேற்றங்கள் மற்றும் மனைப்பிரிவுகளின் ட்ரோன் காட்சிகள்.",
+    },
+    whyUs: {
+      badge: "ஏன் சூர்யா புரமோட்டர்ஸ்?",
+      title: "அசைக்க முடியாத நம்பிக்கையின் அடையாளம்",
+      items: [
+        {
+          title: "இராணுவ வீரரின் நேர்மையான தலைமை",
+          desc: "இந்திய விமானப்படை வீரரால் நிறுவப்பட்டு, நேர்மை, உண்மை மற்றும் துல்லியமான வார்த்தை மாறா செயல்பாடுகள்.",
+        },
+        {
+          title: "100% சரிபார்க்கப்பட்ட வில்லங்கமில்லா ஆவணங்கள்",
+          desc: "மூலப்பத்திரங்கள், அரசு வழிகாட்டுதல்கள் மற்றும் சட்ட வல்லுநர்களின் முழுமையான சரிபார்ப்புக்குப் பின்பே விற்பனை.",
+        },
+        {
+          title: "மதுரையின் முக்கிய இணைப்புச் சாலைகள்",
+          desc: "ரிங் ரோடு, தேசிய நெடுஞ்சாலைகள் மற்றும் மருத்துவமனை மண்டலங்களில் விரைவான விலை ஏற்றம் காணும் இடங்கள்.",
+        },
+        {
+          title: "முழுமையான பத்திரப்பதிவு மற்றும் பட்டா உதவி",
+          desc: "நேரில் காண்பித்தல் முதல், பதிவு செய்தல் மற்றும் பட்டா பெயர் மாற்றம் வரை வாடிக்கையாளர்களுக்கு முழு உதவி.",
+        },
+      ],
+    },
+    siteVisit: {
+      badge: "இடத்தை நேரில் காணுங்கள்",
+      title: "இலவச வழிகாட்டல் தளப் பார்வை முன்பதிவு",
+      subtitle: "எங்கள் வாகனத்தில் அழைத்துச் சென்று அனைத்து சட்ட ஆவணங்களையும் நேரில் விளக்கும் இலவச வசதி.",
+      form: {
+        name: "உங்கள் முழுப் பெயர்",
+        phone: "கைபேசி / வாட்ஸ்அப் எண்",
+        email: "மின்னஞ்சல் முகவரி",
+        project: "விருப்பமான திட்டத்தைத் தேர்ந்தெடுக்கவும்",
+        date: "வர விரும்பும் தேதி",
+        message: "உங்கள் கூடுதல் தேவைகள் அல்லது கேள்விகள்",
+        submit: "தளப் பார்வை முன்பதிவு செய்க",
+        submitting: "பதிவாகிறது...",
+        success: "நன்றி! எங்கள் ஒருங்கிணைப்பாளர் உங்களை 24 மணி நேரத்திற்குள் தொடர்புகொள்வார்.",
+      },
+    },
+    contact: {
+      badge: "தொடர்பு கொள்ள",
+      title: "உங்கள் நில கனவை இன்றே தொடங்குங்கள்",
+      subtitle: "எங்கள் மதுரை அலுவலகத்திற்கு வாருங்கள் அல்லது தொலைபேசி/வாட்ஸ்அப் வழியாக தொடர்புகொள்ளுங்கள்.",
+      phoneLabel: "நேரடி அழைப்பு",
+      phone: "+91 77089 66452",
+      emailLabel: "அலுவலக மின்னஞ்சல்",
+      email: "suryconstruction@gmail.com",
+      addressLabel: "தலைமை அலுவலக முகவரி",
+      address:
+        "எண் 11, அரசு நகர், ரியோ மருத்துவமனை அருகில், பாண்டி கோவில் ரிங் ரோடு, வந்தியூர், மதுரை – 625020, தமிழ்நாடு.",
+      whatsappBtn: "வாட்ஸ்அப்பில் பேசவும்",
+      callBtn: "அழைக்க: +91 77089 66452",
+      hours: "திங்கள் – சனி: காலை 9:00 – மாலை 7:30 | ஞாயிறு: முன்பதிவின் பேரில்",
+    },
+    footer: {
+      tagline:
+        "மதுரையில் 2010 முதல் முன்னணி நில மற்றும் சொத்து மேம்பாட்டாளர்கள். இராணுவ ஒழுக்கத்துடன் கூடிய சிறந்த முதலீட்டு வாய்ப்புகள்.",
+      quickLinks: "முக்கிய இணைப்புகள்",
+      legalNotice:
+        "அறிவிப்பு: வழங்கப்பட்ட அனைத்து தகவல்களும் விழிப்புணர்வு மற்றும் திட்ட வளர்ச்சிக்காக மட்டுமே. சூர்யா புரமோட்டர்ஸ் அரசு விதிகளை முழுமையாகப் பின்பற்றுகிறது.",
+      copyright: "சூர்யா புரமோட்டர்ஸ். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை. 2010 முதல்.",
+      bilingualNotice: "மேலே உள்ள பட்டன் மூலம் ஆங்கிலம் (English) மாற்றிக்கொள்ளலாம்.",
+    },
+  },
+};
+

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  --color-white: #ffffff;
+  --color-cream: #f8f5ef;
+  --color-beige: #f0eadf;
+  --color-charcoal: #111827;
+  --color-muted: #6b7280;
+  --color-gold: #c6a15b;
+  --color-border-subtle: #eae5dc;
+}
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f5ef;
+  --bg-beige: #f0eadf;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --gold: #c6a15b;
+  --border: #eae5dc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  color: #111827;
+  font-family: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f5ef;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c6a15b;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b5924d;
+}
