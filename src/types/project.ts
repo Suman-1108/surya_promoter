@@ -1,4 +1,5 @@
 export type ProjectCategory = 'commercial' | 'farm' | 'residential' | 'industrial';
+export type ProjectStatus = 'running' | 'completed' | 'ongoing' | 'available' | 'development' | 'prime';
 
 export interface LocalizedString {
   en: string;
@@ -28,7 +29,8 @@ export interface Project {
   suitableFor: LocalizedArray;
   highlights: LocalizedArray;
   layoutPlanImage?: string;
-  status: 'ongoing' | 'available' | 'development' | 'prime';
+  status: ProjectStatus;
+  projectType?: 'running' | 'completed';
 }
 
 export interface ServiceItem {
@@ -42,4 +44,3 @@ export interface ServiceItem {
 }
 
 export type Language = 'en' | 'ta';
-

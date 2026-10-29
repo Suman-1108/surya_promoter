@@ -27,6 +27,7 @@ interface ProjectDetailsProps {
 export default function ProjectDetails({ project }: ProjectDetailsProps) {
   const { language } = useLanguage();
   const [copied, setCopied] = useState(false);
+  const isCompleted = project.status === "completed" || project.projectType === "completed";
 
   const handleShare = () => {
     if (typeof navigator !== "undefined" && navigator.clipboard) {
@@ -53,12 +54,12 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#77766F] transition hover:text-[#242820]"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1 text-[#C6A15B]" />
-            <span>Back to All Projects</span>
+            <span>{language === "ta" ? "அனைத்து திட்டங்களுக்கும் திரும்புக" : "Back to All Projects"}</span>
           </Link>
 
           <button
             onClick={handleShare}
-            className="inline-flex items-center gap-1.5 rounded-full border border-[#E8E2D7] bg-[#F8F5EF] px-3.5 py-1.5 text-xs text-[#242820] transition hover:border-[#C6A15B]"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[#E8E2D7] bg-[#F8F5EF] px-3.5 py-1.5 text-xs text-[#242820] transition hover:border-[#C6A15B] cursor-pointer"
           >
             <Share2 className="h-3.5 w-3.5 text-[#C6A15B]" />
             <span>{copied ? "Link Copied!" : "Share Property"}</span>
@@ -77,7 +78,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#242820]/75 via-[#242820]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#242820]/80 via-[#242820]/30 to-transparent" />
 
           {/* Overlaid Details */}
           <div className="absolute bottom-8 left-6 right-6 md:left-12 md:right-12">
@@ -85,10 +86,20 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               <span className="rounded-full bg-white/95 px-3.5 py-1 font-mono text-xs uppercase tracking-wider text-[#242820] shadow-xs border border-[#E8E2D7]">
                 {project.categoryLabel[language]}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#314B3C] px-3.5 py-1 text-xs font-mono font-medium uppercase tracking-wider text-white shadow-xs">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                {language === 'ta' ? 'நடைபெறுகிறது' : 'Ongoing'}
-              </span>
+
+              {/* Status Badge */}
+              {isCompleted ? (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-700/90 px-3.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-white shadow-xs backdrop-blur-xs">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-blue-300" />
+                  {language === "ta" ? "நிறைவடைந்தது (100% Delivered)" : "Completed Project (Delivered)"}
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-700/90 px-3.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-white shadow-xs backdrop-blur-xs">
+                  <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
+                  {language === "ta" ? "நடைபெறும் திட்டம் (Running)" : "Running Project (Ongoing)"}
+                </span>
+              )}
+
               <span className="rounded-full bg-white/90 px-3.5 py-1 text-xs text-[#242820] shadow-xs border border-[#E8E2D7] flex items-center gap-1.5">
                 <ShieldCheck className="h-3.5 w-3.5 text-[#C6A15B]" />
                 <span>100% Documented Clear Titles</span>
@@ -125,7 +136,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
           {/* Overview Section */}
           <div className="rounded-2xl border border-[#E8E2D7] bg-[#F8F5EF] p-8 shadow-xs">
             <h2 className="font-display text-2xl font-normal text-[#242820]">
-              Property Overview
+              {language === "ta" ? "திட்ட கண்ணோட்டம்" : "Property Overview"}
             </h2>
             <p className="mt-4 text-base leading-relaxed text-[#77766F]">
               {project.fullOverview[language]}
@@ -134,7 +145,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             {/* Suitable For */}
             <div className="mt-8 border-t border-[#E8E2D7] pt-6">
               <h3 className="font-display text-lg font-medium text-[#242820]">
-                Recommended Suitability & Development Potential
+                {language === "ta" ? "பொருத்தமான பயன்பாடுகள் & சாத்தியங்கள்" : "Recommended Suitability & Development Potential"}
               </h3>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {project.suitableFor[language].map((item, idx) => (
@@ -149,7 +160,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             {/* Highlights */}
             <div className="mt-8 border-t border-[#E8E2D7] pt-6">
               <h3 className="font-display text-lg font-medium text-[#242820]">
-                Location & Survey Highlights
+                {language === "ta" ? "திட்டத்தின் சிறப்பம்சங்கள்" : "Location & Survey Highlights"}
               </h3>
               <div className="mt-4 space-y-2.5">
                 {project.highlights[language].map((highlight, idx) => (
@@ -164,38 +175,35 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             </div>
           </div>
 
-          {/* Project Media Gallery */}
+          {/* Photo Gallery */}
           <div>
             <h2 className="font-display text-2xl font-normal text-[#242820] mb-6">
-              On-Site Photography & Boundaries
+              {language === "ta" ? "திட்ட புகைப்படங்கள்" : "Property Photo Gallery"}
             </h2>
-            <ProjectGallery images={project.galleryImages} title={project.title[language]} />
+            <ProjectGallery
+              images={project.galleryImages}
+              title={project.title[language]}
+            />
           </div>
 
-          {/* Layout Blueprint Preview */}
+          {/* Layout Blueprint Image if available */}
           {project.layoutPlanImage && (
             <div className="rounded-2xl border border-[#E8E2D7] bg-[#F8F5EF] p-8 shadow-xs">
               <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h2 className="font-display text-2xl font-normal text-[#242820]">
-                    Master Layout & Demarcation Plan
-                  </h2>
-                  <p className="text-xs text-[#77766F]">
-                    Surveyed layout schematic with road network alignments and boundaries
-                  </p>
-                </div>
-                <div className="rounded-full bg-white px-3 py-1 font-mono text-[10px] text-[#242820] border border-[#E8E2D7]">
-                  FMB SKETCH READY
-                </div>
+                <h3 className="font-display text-xl font-normal text-[#242820]">
+                  {language === "ta" ? "தள வரைபடம் & சர்வே திட்டம்" : "Layout Masterplan & Survey Drawing"}
+                </h3>
+                <span className="text-xs font-mono uppercase text-[#C6A15B]">
+                  Verified Cadastral Map
+                </span>
               </div>
 
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-[#E8E2D7] bg-white">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-[#E8E2D7] bg-white">
                 <Image
                   src={project.layoutPlanImage}
                   alt={`${project.title[language]} Layout Plan`}
                   fill
-                  sizes="(max-width: 1280px) 100vw, 1200px"
-                  className="object-cover"
+                  className="object-contain p-2"
                 />
               </div>
 
@@ -205,7 +213,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                 </p>
                 <button
                   onClick={handleBrochureDownload}
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#C6A15B] px-5 py-2.5 text-xs font-semibold uppercase text-white shadow-xs transition hover:bg-[#b5924d]"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#C6A15B] px-5 py-2.5 text-xs font-semibold uppercase text-white shadow-xs transition hover:bg-[#b5924d] cursor-pointer"
                 >
                   <Download className="h-4 w-4" />
                   <span>Request Full Blueprint</span>
@@ -227,22 +235,38 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                 Interested in {project.title[language]}?
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-[#77766F]">
-                Connect directly with Mr. Manickam Natarajan&apos;s executive advisory team.
+                {isCompleted
+                  ? "This project is fully registered and handed over. Contact us to inquire about upcoming adjacent releases or similar developments."
+                  : "Connect directly with Mr. Manickam Natarajan's executive advisory team for current plots and live site visits."}
               </p>
 
               {/* Action Buttons */}
               <div className="mt-6 space-y-3">
-                <a
-                  href={`https://wa.me/917708966452?text=${encodeURIComponent(
-                    `Hello Surya Promoters, I am interested in ${project.title.en} (${project.location.en}). Please share details.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#C6A15B] py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition hover:bg-[#b5924d]"
-                >
-                  <MessageSquare className="h-4 w-4" />
-                  <span>Inquire via WhatsApp</span>
-                </a>
+                {isCompleted ? (
+                  <a
+                    href={`https://wa.me/917708966452?text=${encodeURIComponent(
+                      `Hello Surya Promoters, I saw your completed project ${project.title.en} and would like to inquire about similar upcoming developments.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#242820] py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition hover:bg-black"
+                  >
+                    <CheckCircle2 className="h-4 w-4 text-[#C6A15B]" />
+                    <span>Inquire Similar Developments</span>
+                  </a>
+                ) : (
+                  <a
+                    href={`https://wa.me/917708966452?text=${encodeURIComponent(
+                      `Hello Surya Promoters, I am interested in ${project.title.en} (${project.location.en}). Please share price and details.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#C6A15B] py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition hover:bg-[#b5924d]"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Inquire via WhatsApp</span>
+                  </a>
+                )}
 
                 <a
                   href="tel:+917708966452"
@@ -254,7 +278,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
 
                 <button
                   onClick={handleBrochureDownload}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#E8E2D7] bg-white py-3 text-xs font-medium text-[#242820] transition hover:border-[#C6A15B]"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#E8E2D7] bg-white py-3 text-xs font-medium text-[#242820] transition hover:border-[#C6A15B] cursor-pointer"
                 >
                   <FileText className="h-4 w-4 text-[#C6A15B]" />
                   <span>Download Documentation Pack</span>

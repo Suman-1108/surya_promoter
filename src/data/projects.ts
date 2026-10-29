@@ -31,7 +31,8 @@ export const projectsData: Project[] = [
     ],
     videoUrl: "/videos/projects/showcase.mp4",
     layoutPlanImage: "/images/gallery/gallery-5.jpg",
-    status: "ongoing",
+    status: "running",
+    projectType: "running",
     description: {
       en: "Commercial land suitable for proposed hospitals, hospitality establishments, godowns, warehouses and other commercial developments.",
       ta: "மருத்துவமனைகள், தங்கும் விடுதிகள், குடோன்கள், சரக்குக் கிடங்குகள் மற்றும் பிற வணிக நிறுவனங்கள் அமைப்பதற்கு மிகவும் உகந்த வணிக நிலம்.",
@@ -100,7 +101,8 @@ export const projectsData: Project[] = [
     ],
     videoUrl: "/videos/projects/showcase.mp4",
     layoutPlanImage: "/images/gallery/gallery-4.jpg",
-    status: "ongoing",
+    status: "running",
+    projectType: "running",
     description: {
       en: "Farm plots for agricultural activities, fruit cultivation, farmhouse development and investment.",
       ta: "விவசாய பணிகள், பழத்தோட்ட சாகுபடி, பண்ணை வீடு அமைத்தல் மற்றும் நீண்ட கால முதலீட்டிற்கான சிறந்த பண்ணை நிலங்கள்.",
@@ -168,7 +170,8 @@ export const projectsData: Project[] = [
     ],
     videoUrl: "/videos/projects/showcase.mp4",
     layoutPlanImage: "/images/gallery/gallery-1.jpg",
-    status: "ongoing",
+    status: "completed",
+    projectType: "completed",
     description: {
       en: "A farm project offering opportunities for orchard development, farmhouse ownership and investment.",
       ta: "பழத்தோட்ட வளர்ச்சி, பண்ணை வீடு உரிமை மற்றும் எதிர்கால முதலீட்டிற்கான வாய்ப்புகளை வழங்கும் ஒரு சிறப்பு பண்ணைத் திட்டம்.",
@@ -206,5 +209,72 @@ export const projectsData: Project[] = [
       ],
     },
   },
+  {
+    id: "surya-green-enclave",
+    slug: "surya-green-enclave",
+    title: {
+      en: "Surya Green Enclave",
+      ta: "சூர்யா கிரீன் என்கிளேவ்",
+    },
+    subtitle: {
+      en: "DTCP & RERA Approved Gated Residential Layout",
+      ta: "DTCP மற்றும் RERA அனுமதி பெற்ற பிரீமியம் மனைப்பிரிவு",
+    },
+    category: "residential",
+    categoryLabel: {
+      en: "Residential Plots & Township",
+      ta: "குடியிருப்பு மனைப்பிரிவு",
+    },
+    location: {
+      en: "Madurai Fast-Growth Residential Corridor",
+      ta: "வேகமாக வளரும் குடியிருப்பு பகுதி, மதுரை",
+    },
+    googleMapsUrl: "https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw",
+    heroImage: "/images/projects/vaigai-commercial.jpg",
+    galleryImages: [
+      "/images/projects/vaigai-commercial.jpg",
+      "/images/gallery/gallery-1.jpg",
+      "/images/gallery/gallery-2.jpg",
+    ],
+    videoUrl: "/videos/projects/showcase.mp4",
+    layoutPlanImage: "/images/gallery/gallery-3.jpg",
+    status: "completed",
+    projectType: "completed",
+    description: {
+      en: "A landmark residential gated community development featuring wide blacktop roads, avenues of trees, clear title patta documentation, and 100% delivered to proud homeowners.",
+      ta: "அகலமான தார்ச் சாலைகள், நிழல் தரும் மரங்கள், தெளிவான பட்டா ஆவணங்களுடன் 100% வெற்றிகரமாக முடிக்கப்பட்டு வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்ட பிரீமியம் குடியிருப்பு திட்டம்.",
+    },
+    fullOverview: {
+      en: "Surya Green Enclave is one of Surya Promoters' flagship completed residential developments. Featuring DTCP & RERA layout approvals, compound wall security, reliable sweet groundwater supply, and ready-to-build villa plots. All plots have been registered and handed over to homeowners.",
+      ta: "சூர்யா கிரீன் என்கிளேவ் என்பது சூர்யா புரமோட்டர்ஸின் வெற்றிகரமாக முடிக்கப்பட்ட பிரதான குடியிருப்பு திட்டங்களில் ஒன்றாகும். DTCP & RERA அனுமதி, சுற்றுச்சுவர் பாதுகாப்பு, நல்ல குடிநீர் வசதியுடன் அனைத்து மனைகளும் வாடிக்கையாளர்களிடம் பத்திரப்பதிவு செய்து ஒப்படைக்கப்பட்டுள்ளது.",
+    },
+    suitableFor: {
+      en: [
+        "Immediate Independent Villa Construction",
+        "Gated Community Family Living",
+        "Secure Long-term Land Investment",
+        "Peaceful Suburban Residence",
+      ],
+      ta: [
+        "உடனடி தனிநபர் வீடு கட்டுதல்",
+        "பாதுகாப்பான குடும்ப வாழ்க்கை",
+        "நீண்டகால நில முதலீடு",
+        "அமைதியான புறநகர் குடியிருப்பு",
+      ],
+    },
+    highlights: {
+      en: [
+        "100% Completed, Registered & Successfully Delivered",
+        "DTCP & RERA Approved Residential Masterplan",
+        "Wide 30ft & 40ft Bitumen Roads with Solar Streetlights",
+        "Clear Individual Patta & Freehold Ownership",
+      ],
+      ta: [
+        "100% முடிக்கப்பட்டு வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்டது",
+        "DTCP & RERA அனுமதி பெற்ற மனைப்பிரிவு",
+        "அகலமான 30 மற்றும் 40 அடி தார்ச் சாலைகள்",
+        "தனிநபர் பட்டா மற்றும் தெளிவான உரிமை ஆவணங்கள்",
+      ],
+    },
+  },
 ];
-

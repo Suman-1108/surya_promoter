@@ -152,11 +152,11 @@ export default function ModernHero() {
 
               {/* Stat 4 */}
               <div className="border-l-2 border-[#EAB308] pl-3.5">
-                <div className="font-display text-2xl lg:text-3xl font-extrabold text-white">
-                  3
+                <div className="font-display text-2xl lg:text-3xl font-extrabold text-[#EAB308]">
+                  2 + 2
                 </div>
                 <div className="font-mono text-[10px] tracking-wider uppercase text-gray-400 mt-0.5">
-                  ONGOING PROJECTS
+                  {language === "ta" ? "நடைபெறும் & நிறைவடைந்தது" : "RUNNING & COMPLETED"}
                 </div>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function ModernHero() {
         {/* Scroll Down Indicator (Exact element from Screenshot 1) */}
         <div className="mt-12 md:mt-16 flex flex-col items-center justify-center text-center">
           <a
-            href="#experience"
+            href="#featured-projects"
             className="group flex flex-col items-center gap-1.5 text-gray-400 hover:text-[#EAB308] transition-colors"
           >
             <span className="font-mono text-[10px] tracking-[0.25em] uppercase font-bold">

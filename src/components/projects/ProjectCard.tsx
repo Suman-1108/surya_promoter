@@ -13,6 +13,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const { language } = useLanguage();
+  const isCompleted = project.status === "completed" || project.projectType === "completed";
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#E8E2D7] bg-[#FFFFFF] transition-all duration-300 hover:border-[#C6A15B] hover:shadow-md">
@@ -33,12 +34,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
 
-        {/* Status Badge: Ongoing */}
+        {/* Status Badge: Running vs Completed */}
         <div className="absolute top-4 right-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#314B3C] px-3 py-1 text-[10px] font-mono font-medium uppercase tracking-wider text-white shadow-xs">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            {language === 'ta' ? 'நடைபெறுகிறது' : 'Ongoing'}
-          </span>
+          {isCompleted ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-700/90 px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-white shadow-xs backdrop-blur-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-300" />
+              {language === "ta" ? "நிறைவடைந்தது" : "Completed"}
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-700/90 px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-white shadow-xs backdrop-blur-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
+              {language === "ta" ? "நடைபெறுகிறது" : "Running"}
+            </span>
+          )}
         </div>
 
         {/* Location Badge on Image */}
