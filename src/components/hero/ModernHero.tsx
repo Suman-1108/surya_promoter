@@ -171,6 +171,7 @@ export default function ModernHero() {
                 alt="Surya Promoters Farmland & Property Developments in Madurai"
                 fill
                 priority
+                quality={95}
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1280px) 100vw, 50vw"
               />
