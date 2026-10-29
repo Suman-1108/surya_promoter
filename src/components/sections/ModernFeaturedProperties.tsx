@@ -161,145 +161,157 @@ export default function ModernFeaturedProperties() {
           </button>
         </div>
 
-        {/* Project Cards (Exact Layout from Screenshot 3) */}
+        {/* Project Cards in Zig-Zag Alternating Layout */}
         <div className="mt-8 space-y-10">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-lg transition-all"
-            >
-              {/* Card Top Bar (Screenshot 3 header: 01 + category + status pill) */}
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-6 mb-8">
-                <div className="flex items-center gap-4">
-                  <span className="font-mono text-3xl sm:text-4xl font-extrabold text-[#EAB308]">
-                    {project.num}
-                  </span>
-                  <div>
-                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#B45309] block">
-                      {language === "ta" ? project.categoryBadgeTa : project.categoryBadge}
+          {filteredProjects.map((project, index) => {
+            const isEven = index % 2 === 0;
+
+            return (
+              <div
+                key={project.id}
+                className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-lg transition-all"
+              >
+                {/* Card Top Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-6 mb-8">
+                  <div className="flex items-center gap-4">
+                    <span className="font-mono text-3xl sm:text-4xl font-extrabold text-[#EAB308]">
+                      {project.num}
                     </span>
-                    <span className="text-xs text-[#6B7280] font-medium flex items-center gap-1.5 mt-0.5">
-                      <MapPin className="h-3.5 w-3.5 text-gray-400" />
-                      {language === "ta" ? project.locationTa : project.location}
-                    </span>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#B45309] block">
+                        {language === "ta" ? project.categoryBadgeTa : project.categoryBadge}
+                      </span>
+                      <span className="text-xs text-[#6B7280] font-medium flex items-center gap-1.5 mt-0.5">
+                        <MapPin className="h-3.5 w-3.5 text-gray-400" />
+                        {language === "ta" ? project.locationTa : project.location}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-emerald-800">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>2026 ONGOING</span>
                   </div>
                 </div>
 
-                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-emerald-800">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>2026 ONGOING</span>
+                {/* Card Body: Zig-Zag Alternating 2 Columns */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  
+                  {/* Image Column */}
+                  <div
+                    className={`order-1 lg:col-span-6 ${
+                      isEven ? "lg:order-1" : "lg:order-2"
+                    }`}
+                  >
+                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 shadow-sm group">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                    </div>
+                  </div>
+
+                  {/* Details Column */}
+                  <div
+                    className={`order-2 lg:col-span-6 space-y-6 ${
+                      isEven ? "lg:order-2" : "lg:order-1"
+                    }`}
+                  >
+                    <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#111827] leading-snug">
+                      {language === "ta" ? project.titleTa : project.title}
+                    </h3>
+
+                    {/* 2x2 Meta Grid (Matching Reference) */}
+                    <div className="grid grid-cols-2 gap-3 rounded-2xl border border-gray-100 bg-[#F9FAFB] p-4 text-xs">
+                      <div>
+                        <span className="block font-mono text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">
+                          STRUCTURE / PROPERTY TYPE
+                        </span>
+                        <span className="block font-display text-sm font-bold text-[#111827] mt-0.5">
+                          {project.propertyType}
+                        </span>
+                      </div>
+
+                      <div>
+                        <span className="block font-mono text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">
+                          SUITABILITY & SCOPE
+                        </span>
+                        <span className="block font-display text-sm font-bold text-[#111827] mt-0.5">
+                          {project.suitability}
+                        </span>
+                      </div>
+
+                      <div>
+                        <span className="block font-mono text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">
+                          LOCATION
+                        </span>
+                        <span className="block font-display text-sm font-bold text-[#111827] mt-0.5">
+                          {project.location}
+                        </span>
+                      </div>
+
+                      <div>
+                        <span className="block font-mono text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">
+                          PROJECT STATUS
+                        </span>
+                        <span className="block font-display text-sm font-bold text-emerald-700 mt-0.5">
+                          {project.status}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm sm:text-base leading-relaxed text-[#4B5563]">
+                      {language === "ta" ? project.descriptionTa : project.description}
+                    </p>
+
+                    {/* Bottom Action Buttons */}
+                    <div className="flex flex-wrap items-center gap-3 pt-2">
+                      {/* Primary Button: Price & Info (WhatsApp) */}
+                      <a
+                        href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20please%20share%20price%20and%20details%20for%20${encodeURIComponent(
+                          project.title
+                        )}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl bg-[#EAB308] px-5 py-3 font-display text-xs font-bold uppercase tracking-wider text-[#0A0D12] shadow-sm hover:bg-[#ca9a07] transition"
+                      >
+                        <MessageSquare className="h-4 w-4" />
+                        <span>{language === "ta" ? "விலை & விவரங்கள்" : "Price & Info"}</span>
+                      </a>
+
+                      {/* Secondary Button: Book Site Visit */}
+                      <a
+                        href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20book%20a%20site%20visit%20for%20${encodeURIComponent(
+                          project.title
+                        )}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-3 font-display text-xs font-bold uppercase tracking-wider text-[#111827] hover:bg-gray-50 transition"
+                      >
+                        <Calendar className="h-4 w-4 text-[#B45309]" />
+                        <span>{language === "ta" ? "நேரடி பார்வை பதிவு" : "Site Visit"}</span>
+                      </a>
+
+                      {/* Details Link */}
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111827] hover:text-[#EAB308] transition ml-auto"
+                      >
+                        <span>{language === "ta" ? "முழு விவரங்கள்" : "View Details"}</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  </div>
+
                 </div>
               </div>
-
-              {/* Card Body: Split 2 columns (Left: Photo, Right: Meta & Details) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                
-                {/* Left Column: Large Project Photo */}
-                <div className="lg:col-span-6">
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 shadow-sm group">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                  </div>
-                </div>
-
-                {/* Right Column: Title + 2x2 Meta Grid + Description + Actions */}
-                <div className="lg:col-span-6 space-y-6">
-                  <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#111827] leading-snug">
-                    {language === "ta" ? project.titleTa : project.title}
-                  </h3>
-
-                  {/* 2x2 Meta Grid (Matching Screenshot 3) */}
-                  <div className="grid grid-cols-2 gap-3 rounded-2xl border border-gray-100 bg-[#F9FAFB] p-4 text-xs">
-                    <div>
-                      <span className="block font-mono text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">
-                        STRUCTURE / PROPERTY TYPE
-                      </span>
-                      <span className="block font-display text-sm font-bold text-[#111827] mt-0.5">
-                        {project.propertyType}
-                      </span>
-                    </div>
-
-                    <div>
-                      <span className="block font-mono text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">
-                        SUITABILITY & SCOPE
-                      </span>
-                      <span className="block font-display text-sm font-bold text-[#111827] mt-0.5">
-                        {project.suitability}
-                      </span>
-                    </div>
-
-                    <div>
-                      <span className="block font-mono text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">
-                        LOCATION
-                      </span>
-                      <span className="block font-display text-sm font-bold text-[#111827] mt-0.5">
-                        {project.location}
-                      </span>
-                    </div>
-
-                    <div>
-                      <span className="block font-mono text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">
-                        PROJECT STATUS
-                      </span>
-                      <span className="block font-display text-sm font-bold text-emerald-700 mt-0.5">
-                        {project.status}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm sm:text-base leading-relaxed text-[#4B5563]">
-                    {language === "ta" ? project.descriptionTa : project.description}
-                  </p>
-
-                  {/* Bottom Action Buttons */}
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
-                    {/* Primary Button: Price & Info (WhatsApp) */}
-                    <a
-                      href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20please%20share%20price%20and%20details%20for%20${encodeURIComponent(
-                        project.title
-                      )}.`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-xl bg-[#EAB308] px-5 py-3 font-display text-xs font-bold uppercase tracking-wider text-[#0A0D12] shadow-sm hover:bg-[#ca9a07] transition"
-                    >
-                      <MessageSquare className="h-4 w-4" />
-                      <span>{language === "ta" ? "விலை & விவரங்கள்" : "Price & Info"}</span>
-                    </a>
-
-                    {/* Secondary Button: Book Site Visit */}
-                    <a
-                      href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20book%20a%20site%20visit%20for%20${encodeURIComponent(
-                        project.title
-                      )}.`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-3 font-display text-xs font-bold uppercase tracking-wider text-[#111827] hover:bg-gray-50 transition"
-                    >
-                      <Calendar className="h-4 w-4 text-[#B45309]" />
-                      <span>{language === "ta" ? "நேரடி பார்வை பதிவு" : "Site Visit"}</span>
-                    </a>
-
-                    {/* Details Link */}
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111827] hover:text-[#EAB308] transition ml-auto"
-                    >
-                      <span>{language === "ta" ? "முழு விவரங்கள்" : "View Details"}</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

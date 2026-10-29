@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-heading: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-heading: var(--font-playfair), Georgia, serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
 
   --color-white: #ffffff;
   --color-cream: #f8f5ef;
   --color-beige: #f0eadf;
-  --color-charcoal: #111827;
-  --color-muted: #6b7280;
+  --color-charcoal: #292b27;
+  --color-muted: #77766f;
   --color-gold: #c6a15b;
   --color-border-subtle: #eae5dc;
 }
@@ -19,8 +19,8 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f8f5ef;
   --bg-beige: #f0eadf;
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
+  --text-primary: #292b27;
+  --text-secondary: #77766f;
   --gold: #c6a15b;
   --border: #eae5dc;
 }
@@ -36,8 +36,12 @@ html {
 body {
   margin: 0;
   background-color: #ffffff;
-  color: #111827;
-  font-family: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
+  color: #292b27;
+  font-family:
+    var(--font-inter),
+    system-ui,
+    -apple-system,
+    sans-serif;
   overflow-x: hidden;
 }
 
@@ -47,8 +51,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-jakarta), var(--font-inter), system-ui, -apple-system, sans-serif;
-  letter-spacing: -0.025em;
+  font-family: var(--font-playfair), Georgia, serif;
+  color: #292b27;
+  letter-spacing: -0.015em;
 }
 
 /* Custom minimal scrollbar */
