@@ -2,7 +2,6 @@ import Navbar from "@/components/layout/Navbar";
 import ModernHero from "@/components/hero/ModernHero";
 import ModernExperienceSection from "@/components/sections/ModernExperienceSection";
 import ModernFeaturedProperties from "@/components/sections/ModernFeaturedProperties";
-import WhatWeOfferSection from "@/components/sections/WhatWeOfferSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import ModernFounderSection from "@/components/sections/ModernFounderSection";
 import ContactSection from "@/components/sections/ContactSection";
@@ -16,7 +15,6 @@ export default function Home() {
       <ModernHero />
       <ModernExperienceSection />
       <ModernFeaturedProperties />
-      <WhatWeOfferSection />
       <ServicesSection />
       <ModernFounderSection />
       <ContactSection />

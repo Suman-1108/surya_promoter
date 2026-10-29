@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import WhatWeOfferSection from "@/components/sections/WhatWeOfferSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import ApproachSection from "@/components/sections/ApproachSection";
 import SiteVisitSection from "@/components/sections/SiteVisitSection";
@@ -17,7 +16,6 @@ export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-[#FFFFFF] text-[#242820]">
       <Navbar />
-      <WhatWeOfferSection />
       <ServicesSection />
       <ApproachSection />
       <SiteVisitSection />
