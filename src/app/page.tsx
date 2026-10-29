@@ -1,8 +1,8 @@
 import Navbar from "@/components/layout/Navbar";
 import ModernHero from "@/components/hero/ModernHero";
-import AboutSection from "@/components/sections/AboutSection";
-import ServicesSection from "@/components/sections/ServicesSection";
+import ModernExperienceSection from "@/components/sections/ModernExperienceSection";
 import ModernFeaturedProperties from "@/components/sections/ModernFeaturedProperties";
+import ServicesSection from "@/components/sections/ServicesSection";
 import ModernFounderSection from "@/components/sections/ModernFounderSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/layout/Footer";
@@ -13,9 +13,9 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       <Navbar />
       <ModernHero />
-      <AboutSection />
-      <ServicesSection />
+      <ModernExperienceSection />
       <ModernFeaturedProperties />
+      <ServicesSection />
       <ModernFounderSection />
       <ContactSection />
       <Footer />

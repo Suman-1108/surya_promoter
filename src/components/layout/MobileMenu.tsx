@@ -17,10 +17,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   const navLinks = [
     { label: language === "ta" ? "முகப்பு" : "Home", href: "/" },
-    { label: language === "ta" ? "எங்களைப் பற்றி" : "About", href: "/about" },
-    { label: language === "ta" ? "திட்டங்கள்" : "Projects", href: "/#projects" },
-    { label: language === "ta" ? "சேவைகள்" : "Services", href: "/#services" },
-    { label: language === "ta" ? "புகைப்படங்கள்" : "Gallery", href: "/#gallery" },
+    { label: language === "ta" ? "திட்டங்கள்" : "Projects", href: "/projects" },
+    { label: language === "ta" ? "சேவைகள்" : "Services", href: "/services" },
+    { label: language === "ta" ? "எங்களைப் பற்றி" : "About Us", href: "/about" },
+    { label: language === "ta" ? "புகைப்படங்கள்" : "Gallery", href: "/gallery" },
     { label: language === "ta" ? "தொடர்புக்கு" : "Contact", href: "/contact" },
   ];
 
@@ -32,12 +32,12 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 flex flex-col justify-between bg-[#FFFFFF] px-6 py-6 text-[#292B27] md:hidden shadow-xl"
+          className="fixed inset-0 z-50 flex flex-col justify-between bg-[#0A0D12] px-6 py-6 text-white md:hidden shadow-2xl"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-[#EAE5DC] pb-4">
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
             <div className="flex items-center gap-3">
-              <div className="relative h-11 w-11 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A15B] bg-white shadow-xs p-1">
+              <div className="relative h-11 w-11 shrink-0 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-1">
                 <div className="relative h-full w-full rounded-full overflow-hidden">
                   <Image
                     src="/images/surya-logo.png"
@@ -49,10 +49,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="font-display text-base font-extrabold tracking-wider text-[#111827]">
+                <span className="font-display text-base font-extrabold tracking-wider text-white">
                   SURYA PROMOTERS
                 </span>
-                <span className="font-sans text-[9px] tracking-[0.25em] uppercase text-[#77766F]">
+                <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-[#EAB308]">
                   ESTD. 2010 · MADURAI
                 </span>
               </div>
@@ -60,61 +60,53 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             <button
               onClick={onClose}
-              className="rounded-full border border-[#EAE5DC] p-2 text-[#292B27] hover:bg-[#F8F5EF]"
+              className="rounded-lg border border-white/10 p-2 text-gray-300 hover:text-white"
               aria-label="Close menu"
             >
-              <X className="h-5 w-5" />
+              <X className="h-6 w-6" />
             </button>
           </div>
 
           {/* Navigation Links */}
-          <div className="my-auto flex flex-col gap-3 py-6">
-            {navLinks.map((link, idx) => (
-              <motion.div
+          <nav className="my-auto flex flex-col gap-5 py-6">
+            {navLinks.map((link) => (
+              <Link
                 key={link.href}
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: idx * 0.04 }}
+                href={link.href}
+                onClick={onClose}
+                className="flex items-center justify-between font-display text-2xl font-bold uppercase tracking-wider text-gray-200 transition-colors hover:text-[#EAB308]"
               >
-                <Link
-                  href={link.href}
-                  onClick={onClose}
-                  className="group flex items-center justify-between py-2 text-xl font-display font-bold text-[#111827] transition hover:text-[#C6A15B]"
-                >
-                  <span>{link.label}</span>
-                  <ArrowRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100 group-hover:translate-x-1 text-[#C6A15B]" />
-                </Link>
-              </motion.div>
+                <span>{link.label}</span>
+                <ArrowRight className="h-5 w-5 text-[#EAB308]" />
+              </Link>
             ))}
-          </div>
+          </nav>
 
-          {/* Footer Controls & CTAs */}
-          <div className="space-y-4 border-t border-[#EAE5DC] pt-4">
-            {/* Language Switcher */}
-            <div className="flex items-center justify-between rounded-xl bg-[#F8F5EF] p-3 border border-[#EAE5DC]">
-              <span className="text-xs text-[#77766F]">Language / மொழி:</span>
+          {/* Footer Actions */}
+          <div className="space-y-4 border-t border-white/10 pt-5">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs text-gray-400">Language / மொழி:</span>
               <button
                 onClick={toggleLanguage}
-                className="rounded-full bg-[#C6A15B] px-4 py-1 text-xs font-semibold text-white"
+                className="rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-bold text-white hover:border-[#EAB308]"
               >
-                {language === "en" ? "தமிழ்" : "English"}
+                {language === "en" ? "தமிழ் (Tamil)" : "English"}
               </button>
             </div>
 
-            {/* Direct Contact Buttons */}
             <div className="grid grid-cols-2 gap-3">
               <a
                 href="tel:+917708966452"
-                className="flex items-center justify-center gap-2 rounded-xl border border-[#EAE5DC] bg-[#F8F5EF] py-3 text-xs font-medium text-[#292B27] transition hover:bg-[#F0EADF]"
+                className="flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 py-3 text-xs font-bold uppercase text-white"
               >
-                <Phone className="h-4 w-4 text-[#C6A15B]" />
-                <span>Call Us</span>
+                <Phone className="h-4 w-4 text-[#EAB308]" />
+                <span>Call Now</span>
               </a>
               <a
-                href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20your%20properties."
+                href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20discuss%20my%20property%20requirements."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 rounded-xl bg-[#C6A15B] py-3 text-xs font-semibold text-white transition hover:bg-[#b5924d]"
+                className="flex items-center justify-center gap-2 rounded-xl bg-[#EAB308] py-3 text-xs font-bold uppercase text-[#0A0D12]"
               >
                 <MessageSquare className="h-4 w-4" />
                 <span>WhatsApp</span>
