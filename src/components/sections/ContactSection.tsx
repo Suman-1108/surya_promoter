@@ -170,7 +170,7 @@ export default function ContactSection() {
             {/* Quick Contact Form */}
             <ScrollReveal delay={0.2} direction="left">
               <div className="rounded-2xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 md:p-8">
-                <h3 className="font-serif text-xl font-normal text-[#242820]">
+                <h3 className="font-display text-xl font-normal text-[#242820]">
                   Quick Message
                 </h3>
                 <p className="mt-1 text-xs text-[#77766F]">

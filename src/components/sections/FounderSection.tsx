@@ -82,7 +82,7 @@ export default function FounderSection() {
                     <Shield className="h-10 w-10 text-[#C6A15B]" />
                   </div>
 
-                  <span className="font-serif text-2xl font-normal text-[#242820]">
+                  <span className="font-display text-2xl font-normal text-[#242820]">
                     Mr. Manickam Natarajan
                   </span>
                   <span className="mt-1.5 text-xs font-mono tracking-widest text-[#C6A15B] uppercase">

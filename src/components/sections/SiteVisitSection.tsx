@@ -63,7 +63,7 @@ export default function SiteVisitSection() {
                 <div className="flex items-start gap-3 rounded-xl border border-[#E8E2D7] bg-[#FFFFFF] p-4">
                   <Car className="h-5 w-5 text-[#C6A15B] shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-serif text-sm font-medium text-[#242820]">
+                    <h4 className="font-display text-sm font-medium text-[#242820]">
                       Escorted Madurai Transport
                     </h4>
                     <p className="text-xs text-[#77766F]">
@@ -75,7 +75,7 @@ export default function SiteVisitSection() {
                 <div className="flex items-start gap-3 rounded-xl border border-[#E8E2D7] bg-[#FFFFFF] p-4">
                   <Shield className="h-5 w-5 text-[#C6A15B] shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-serif text-sm font-medium text-[#242820]">
+                    <h4 className="font-display text-sm font-medium text-[#242820]">
                       Live Document Scrutiny On-Site
                     </h4>
                     <p className="text-xs text-[#77766F]">
@@ -179,7 +179,7 @@ export default function SiteVisitSection() {
                     <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
                       <CheckCircle className="h-7 w-7" />
                     </div>
-                    <h3 className="mt-4 font-serif text-2xl font-normal text-[#242820]">
+                    <h3 className="mt-4 font-display text-2xl font-normal text-[#242820]">
                       Site Visit Request Received
                     </h3>
                     <p className="mx-auto mt-2 max-w-md text-sm text-[#77766F]">

@@ -47,7 +47,7 @@ export default function PortfolioHero({
               </span>
             </div>
 
-            <h1 className="mt-4 font-serif text-3xl md:text-5xl lg:text-[54px] font-normal leading-[1.15] text-[#242820]">
+            <h1 className="mt-4 font-display text-3xl md:text-5xl lg:text-[54px] font-normal leading-[1.15] text-[#242820]">
               {language === "ta" ? (
                 <>
                   முதன்மை வணிக மனைகள் &amp; <br className="hidden sm:inline" />
@@ -72,7 +72,7 @@ export default function PortfolioHero({
           <div className="lg:col-span-4">
             <div className="grid grid-cols-3 gap-3 rounded-2xl border border-[#E8E2D7] bg-[#FFFFFF] p-4 md:p-5 shadow-xs">
               <div className="text-center">
-                <span className="block font-serif text-2xl md:text-3xl font-semibold text-[#242820]">
+                <span className="block font-display text-2xl md:text-3xl font-semibold text-[#242820]">
                   100%
                 </span>
                 <span className="mt-1 block text-[10px] md:text-[11px] font-medium leading-tight text-[#77766F]">
@@ -80,7 +80,7 @@ export default function PortfolioHero({
                 </span>
               </div>
               <div className="border-x border-[#E8E2D7] px-2 text-center">
-                <span className="block font-serif text-2xl md:text-3xl font-semibold text-[#242820]">
+                <span className="block font-display text-2xl md:text-3xl font-semibold text-[#242820]">
                   DTCP
                 </span>
                 <span className="mt-1 block text-[10px] md:text-[11px] font-medium leading-tight text-[#77766F]">
@@ -88,7 +88,7 @@ export default function PortfolioHero({
                 </span>
               </div>
               <div className="text-center">
-                <span className="block font-serif text-2xl md:text-3xl font-semibold text-[#242820]">
+                <span className="block font-display text-2xl md:text-3xl font-semibold text-[#242820]">
                   1,200+
                 </span>
                 <span className="mt-1 block text-[10px] md:text-[11px] font-medium leading-tight text-[#77766F]">

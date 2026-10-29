@@ -113,10 +113,10 @@ export default function ApproachSection() {
                 </div>
 
                 {/* Content */}
-                <h3 className="mt-6 font-serif text-xl font-normal text-[#242820] group-hover:text-[#C6A15B] transition-colors">
+                <h3 className="mt-6 font-display text-xl font-normal text-[#242820] group-hover:text-[#C6A15B] transition-colors">
                   {step.title}
                 </h3>
-                <p className="mt-1 text-xs text-[#C6A15B] font-serif">
+                <p className="mt-1 text-xs text-[#C6A15B] font-display">
                   {step.titleTa}
                 </p>
 

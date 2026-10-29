@@ -95,7 +95,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               </span>
             </div>
 
-            <h1 className="mt-4 font-serif text-3xl font-normal text-white md:text-5xl lg:text-6xl drop-shadow-sm">
+            <h1 className="mt-4 font-display text-3xl font-normal text-white md:text-5xl lg:text-6xl drop-shadow-sm">
               {project.title[language]}
             </h1>
 
@@ -124,7 +124,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
         <div className="lg:col-span-8 space-y-12">
           {/* Overview Section */}
           <div className="rounded-2xl border border-[#E8E2D7] bg-[#F8F5EF] p-8 shadow-xs">
-            <h2 className="font-serif text-2xl font-normal text-[#242820]">
+            <h2 className="font-display text-2xl font-normal text-[#242820]">
               Property Overview
             </h2>
             <p className="mt-4 text-base leading-relaxed text-[#77766F]">
@@ -133,7 +133,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
 
             {/* Suitable For */}
             <div className="mt-8 border-t border-[#E8E2D7] pt-6">
-              <h3 className="font-serif text-lg font-medium text-[#242820]">
+              <h3 className="font-display text-lg font-medium text-[#242820]">
                 Recommended Suitability & Development Potential
               </h3>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -148,7 +148,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
 
             {/* Highlights */}
             <div className="mt-8 border-t border-[#E8E2D7] pt-6">
-              <h3 className="font-serif text-lg font-medium text-[#242820]">
+              <h3 className="font-display text-lg font-medium text-[#242820]">
                 Location & Survey Highlights
               </h3>
               <div className="mt-4 space-y-2.5">
@@ -166,7 +166,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
 
           {/* Project Media Gallery */}
           <div>
-            <h2 className="font-serif text-2xl font-normal text-[#242820] mb-6">
+            <h2 className="font-display text-2xl font-normal text-[#242820] mb-6">
               On-Site Photography & Boundaries
             </h2>
             <ProjectGallery images={project.galleryImages} title={project.title[language]} />
@@ -177,7 +177,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             <div className="rounded-2xl border border-[#E8E2D7] bg-[#F8F5EF] p-8 shadow-xs">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="font-serif text-2xl font-normal text-[#242820]">
+                  <h2 className="font-display text-2xl font-normal text-[#242820]">
                     Master Layout & Demarcation Plan
                   </h2>
                   <p className="text-xs text-[#77766F]">
@@ -223,7 +223,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#C6A15B]">
                 DIRECT PROMOTER INQUIRY
               </span>
-              <h3 className="mt-1.5 font-serif text-xl font-normal text-[#242820]">
+              <h3 className="mt-1.5 font-display text-xl font-normal text-[#242820]">
                 Interested in {project.title[language]}?
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-[#77766F]">
@@ -277,7 +277,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             {/* Location Map Shortcut */}
             <div className="rounded-2xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 text-center">
               <MapPin className="mx-auto h-7 w-7 text-[#C6A15B]" />
-              <h4 className="mt-2 font-serif text-base font-normal text-[#242820]">
+              <h4 className="mt-2 font-display text-base font-normal text-[#242820]">
                 Visit On-Site Location
               </h4>
               <p className="mt-1 text-xs text-[#77766F]">

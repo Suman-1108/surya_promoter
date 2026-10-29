@@ -60,7 +60,7 @@ export default function VideoShowcaseSection() {
             <TextReveal
               text={t.videoShowcase.title}
               as="h2"
-              className="font-serif text-3xl font-medium text-white md:text-5xl"
+              className="font-display text-3xl font-medium text-white md:text-5xl"
             />
           </div>
 

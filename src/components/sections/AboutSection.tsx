@@ -32,7 +32,7 @@ export default function AboutSection() {
             <div className="absolute -bottom-5 -right-2 hidden sm:block md:-bottom-6 md:right-4">
               <ScrollReveal delay={0.2} direction="up">
                 <div className="rounded-xl border border-[#EAE5DC] bg-[#F8F5EF] px-5 py-3 shadow-xs">
-                  <span className="block font-serif text-2xl font-bold text-[#C6A15B]">
+                  <span className="block font-display text-2xl font-bold text-[#C6A15B]">
                     2010
                   </span>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#77766F]">

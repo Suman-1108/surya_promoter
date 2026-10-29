@@ -93,7 +93,7 @@ export default function GallerySection() {
                 <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <div className="flex items-center justify-between text-white">
                     <div>
-                      <h4 className="font-serif text-lg font-medium">
+                      <h4 className="font-display text-lg font-medium">
                         {item.title}
                       </h4>
                       <p className="text-xs text-white/80">{item.subtitle}</p>

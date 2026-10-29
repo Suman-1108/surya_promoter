@@ -1,25 +1,27 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Space_Mono, Inter } from "next/font/google";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import SmoothScroll from "@/components/animations/SmoothScroll";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-jakarta",
   display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  display: "swap",
+  weight: ["400", "700"],
 });
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
   display: "swap",
 });
 
@@ -69,8 +71,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable} ${jakarta.variable}`}>
-      <body className="min-h-screen bg-[#FFFFFF] text-[#242820] font-sans antialiased selection:bg-[#C6A15B] selection:text-white">
+    <html lang="en" className={`${jakarta.variable} ${spaceMono.variable} ${inter.variable}`}>
+      <body className="min-h-screen bg-[#FFFFFF] text-[#242820] font-sans antialiased selection:bg-[#EAB308] selection:text-[#0A0D12]">
         <LanguageProvider>
           <SmoothScroll>{children}</SmoothScroll>
           <ScrollToTop />

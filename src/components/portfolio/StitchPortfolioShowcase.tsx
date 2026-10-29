@@ -111,7 +111,7 @@ export default function StitchPortfolioShowcase() {
                   {language === "ta" ? "முதன்மை வணிக நிலம்" : "FLAGSHIP COMMERCIAL LAND"}
                 </span>
 
-                <h2 className="mt-2 font-serif text-3xl md:text-4xl lg:text-[40px] font-normal leading-tight text-[#242820]">
+                <h2 className="mt-2 font-display text-3xl md:text-4xl lg:text-[40px] font-normal leading-tight text-[#242820]">
                   Vaigai Elite Commercial Land
                 </h2>
 
@@ -205,7 +205,7 @@ export default function StitchPortfolioShowcase() {
                   {language === "ta" ? "விவசாய பழத்தோட்ட நிலங்கள்" : "FERTILE AGRICULTURAL ORCHARDS"}
                 </span>
 
-                <h2 className="mt-2 font-serif text-3xl md:text-4xl lg:text-[40px] font-normal leading-tight text-[#242820]">
+                <h2 className="mt-2 font-display text-3xl md:text-4xl lg:text-[40px] font-normal leading-tight text-[#242820]">
                   Madurai Farms &amp; Fruits
                 </h2>
 
@@ -372,7 +372,7 @@ export default function StitchPortfolioShowcase() {
                   {language === "ta" ? "ரிசார்ட் வகை பண்ணை வாழ்க்கை" : "RESORT-STYLE LIVING"}
                 </span>
 
-                <h2 className="mt-2 font-serif text-3xl md:text-4xl lg:text-[40px] font-normal leading-tight text-[#242820]">
+                <h2 className="mt-2 font-display text-3xl md:text-4xl lg:text-[40px] font-normal leading-tight text-[#242820]">
                   Orange Garden Farmhouse Enclave
                 </h2>
 
@@ -462,7 +462,7 @@ export default function StitchPortfolioShowcase() {
             <span className="font-mono text-xs font-semibold tracking-widest uppercase text-[#C6A15B]">
               PORTFOLIO COMPARISON MATRIX
             </span>
-            <h2 className="mt-2 font-serif text-3xl md:text-4xl text-[#242820] font-normal">
+            <h2 className="mt-2 font-display text-3xl md:text-4xl text-[#242820] font-normal">
               Strategic Selection at a Glance
             </h2>
             <p className="mt-3 text-sm text-[#77766F]">
@@ -579,7 +579,7 @@ export default function StitchPortfolioShowcase() {
                 VIP ON-SITE SURVEY &amp; LEGAL BRIEFINGS
               </span>
 
-              <h2 className="font-serif text-3xl md:text-5xl font-normal leading-tight text-white">
+              <h2 className="font-display text-3xl md:text-5xl font-normal leading-tight text-white">
                 Seamless Site Inspections Arranged On Your Terms
               </h2>
 
@@ -632,7 +632,7 @@ export default function StitchPortfolioShowcase() {
             {/* Right Booking Form Card */}
             <div className="lg:col-span-6">
               <div className="rounded-2xl border border-white/10 bg-white p-6 md:p-8 text-[#242820] shadow-xl">
-                <h3 className="font-serif text-2xl font-normal text-[#242820]">
+                <h3 className="font-display text-2xl font-normal text-[#242820]">
                   Book Consultation or Private Site Visit
                 </h3>
                 <p className="mt-1 text-xs text-[#77766F]">
@@ -761,7 +761,7 @@ export default function StitchPortfolioShowcase() {
                 ) : (
                   <div className="py-8 text-center text-emerald-700">
                     <CheckCircle2 className="mx-auto h-10 w-10 text-emerald-600" />
-                    <h4 className="mt-3 font-serif text-lg font-medium text-[#242820]">
+                    <h4 className="mt-3 font-display text-lg font-medium text-[#242820]">
                       Inspection Request Registered
                     </h4>
                     <p className="mt-1 text-xs text-[#77766F]">

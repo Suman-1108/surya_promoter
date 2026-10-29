@@ -28,7 +28,7 @@ export default function HeroText({ progress }: HeroTextProps) {
 
       {/* Center Left: Elegant Minimal Headline & CTAs (Positioned so it doesn't block the central house) */}
       <div className="my-auto max-w-2xl py-6 pointer-events-auto">
-        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.12] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+        <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.12] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
           {language === "ta"
             ? "உங்கள் எதிர்காலத்தை வடிவமைக்கும் இடங்கள்."
             : "Spaces That Shape Your Future."}
