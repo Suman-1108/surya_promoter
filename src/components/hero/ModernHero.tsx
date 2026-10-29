@@ -65,34 +65,34 @@ export default function ModernHero() {
           {/* Left Column: Heading, Subtitle, Copy, Buttons, Facts */}
           <div className="xl:col-span-6 space-y-4 lg:space-y-5">
             
-            {/* Main Headline (Optimized balanced text size so both lines fit cleanly without overflowing) */}
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] font-extrabold leading-[1.12] tracking-tight min-h-[85px] sm:min-h-[100px] lg:min-h-[115px]">
+            {/* Main Headline (Increased prominent headline size as requested) */}
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[62px] font-extrabold leading-[1.08] tracking-tight min-h-[95px] sm:min-h-[115px] lg:min-h-[135px]">
               <span className="text-white">{typedLine1}</span>
               {isTypingLine1 && (
-                <span className="inline-block w-1 h-7 sm:h-9 lg:h-11 bg-white ml-1.5 align-middle animate-pulse" />
+                <span className="inline-block w-1.5 h-8 sm:h-10 lg:h-12 bg-white ml-1.5 align-middle animate-pulse" />
               )}
               <br />
               <span className="text-[#EAB308]">{typedLine2}</span>
               {!isTypingLine1 && (
                 <span
-                  className={`inline-block w-1 h-7 sm:h-9 lg:h-11 bg-[#EAB308] ml-1.5 align-middle ${
+                  className={`inline-block w-1.5 h-8 sm:h-10 lg:h-12 bg-[#EAB308] ml-1.5 align-middle ${
                     isDoneTyping ? "animate-pulse" : ""
                   }`}
                 />
               )}
             </h1>
 
-            {/* Sublabel / Tagline */}
+            {/* Sublabel / Tagline (Reduced text size as requested) */}
             <div className="pt-0.5">
-              <p className="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#9CA3AF]">
+              <p className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#9CA3AF]">
                 {language === "ta"
                   ? "நிறுவப்பட்டது 2010 · மதுரை, தமிழ்நாடு · இந்திய விமானப்படை தலைமை"
                   : "FOUNDED 2010 · MADURAI, TAMIL NADU · IAF VETERAN LEADERSHIP"}
               </p>
             </div>
 
-            {/* Description (Well-proportioned, crisp text size) */}
-            <p className="max-w-xl text-sm sm:text-base leading-relaxed text-[#9CA3AF]">
+            {/* Description (Reduced text size as requested - sleek & compact) */}
+            <p className="max-w-xl text-xs sm:text-[13px] md:text-sm leading-relaxed text-[#9CA3AF]">
               {language === "ta"
                 ? "சூர்யா புரமோட்டர்ஸ் 2010 ஆம் ஆண்டு இந்திய விமானப்படை ஓய்வுபெற்ற அதிகாரியான திரு. மாணிக்கம் நடராஜன் அவர்களால் நிறுவப்பட்டது. நாங்கள் மதுரையைச் சுற்றிலும் குடியிருப்பு, வணிகம், தொழிற்பேட்டை மற்றும் விவசாய நில மேம்பாடு மற்றும் விற்பனையில் நிபுணத்துவம் பெற்றுள்ளோம்."
                 : "Surya Promoters was established in 2010 by Mr. Manickam Natarajan, an Indian Air Force veteran. We specialize in property development and marketing across residential, commercial, industrial and agricultural property categories in and around Madurai."}
@@ -118,7 +118,7 @@ export default function ModernHero() {
               </a>
             </div>
 
-            {/* Horizontal Metrics Strip (Compact, clean alignment matching reference) */}
+            {/* Horizontal Metrics Strip */}
             <div className="pt-4 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
               {/* Stat 1 */}
               <div className="border-l-2 border-[#EAB308] pl-3">
@@ -163,28 +163,18 @@ export default function ModernHero() {
 
           </div>
 
-          {/* Right Column: Large landscape media card with subtle gold glow border */}
+          {/* Right Column: Large landscape property photo with new aerial farmland image & gold glow border */}
           <div className="xl:col-span-6">
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border-2 border-[#EAB308]/60 shadow-[0_0_35px_rgba(234,179,8,0.2)] bg-[#161B22] group">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                poster="/images/hero/hero_image.png"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              >
-                <source src="/videos/herosection.mp4" type="video/mp4" />
-                <Image
-                  src="/images/hero/hero_image.png"
-                  alt="Surya Promoters Completed Premium Residential Property in Madurai"
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1280px) 100vw, 50vw"
-                />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <Image
+                src="/images/hero/hero-aerial-farmland.jpg"
+                alt="Surya Promoters Farmland & Property Developments in Madurai"
+                fill
+                priority
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1280px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
               {/* Information Strip at bottom of image */}
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-xl bg-[#0A0D12]/90 px-4 py-2.5 backdrop-blur-md shadow-lg border border-white/15">
