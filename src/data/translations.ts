@@ -129,6 +129,16 @@ export const translations = {
       subtitle:
         "How we transform untouched acreage into high-value, legally secure, master-planned developments.",
     },
+    whatWeOffer: {
+      badge: "OUR OFFERINGS",
+      title: "What We Offer?",
+      subtitle:
+        "More than just land, we deliver peace of mind, lasting value, and complete legal security. When you partner with Surya Promoters, you get a full-service experience designed to make your land acquisition easy, transparent, and rewarding.",
+      item1: "Complete Project Management",
+      item2: "High-Visibility Commercial Parcels",
+      item3: "Fertile Agro & Farm Plots",
+      item4: "100% Legal Title & Patta Handover",
+    },
     services: {
       badge: "OUR CORE EXPERTISE",
       titleLine1: "Comprehensive",
@@ -382,6 +392,16 @@ export const translations = {
       title: "சூர்யாவின் தரக்கட்டுப்பாட்டு வளர்ச்சி முறை",
       subtitle:
         "திறந்த நிலத்தை உயர் மதிப்புமிக்க, சட்டப்பூர்வ பாதுகாப்புடைய சொத்தாக மாற்றும் விரிவான வழிமுறை.",
+    },
+    whatWeOffer: {
+      badge: "எங்கள் சேவைகள்",
+      title: "நாங்கள் வழங்குபவை என்ன?",
+      subtitle:
+        "வெறும் நில விற்பனை மட்டுமல்லாமல், மன அமைதி, நிலையான சொத்து மதிப்பு மற்றும் முழுமையான சட்டப் பாதுகாப்பை வழங்குகிறோம். சூர்யா புரமோட்டர்ஸுடன் இணையும் போது, உங்கள் நில முதலீடு பாதுகாப்பானதாகவும் நம்பகமானதாகவும் அமைகிறது.",
+      item1: "முழுமையான மனை மேம்பாட்டு மேலாண்மை",
+      item2: "நெடுஞ்சாலை வணிக நிலங்கள்",
+      item3: "செழிப்பான பண்ணை மனைகள்",
+      item4: "100% தெளிவான பட்டா ஆவணங்கள்",
     },
     services: {
       badge: "எங்கள் சிறப்பு சேவைகள்",
