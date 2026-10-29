@@ -163,12 +163,12 @@ export default function ModernHero() {
 
           </div>
 
-          {/* Right Column: Large landscape property photo with new aerial farmland image & gold glow border */}
+          {/* Right Column: Large landscape property photo with gated community plotted layout image & gold glow border */}
           <div className="xl:col-span-6">
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border-2 border-[#EAB308]/60 shadow-[0_0_35px_rgba(234,179,8,0.2)] bg-[#161B22] group">
               <Image
-                src="/images/hero/hero-aerial-farmland.jpg"
-                alt="Surya Promoters Farmland & Property Developments in Madurai"
+                src="/images/hero/hero-gated-layout.jpg"
+                alt="Surya Promoters Gated Plotted Community & Property Developments in Madurai"
                 fill
                 priority
                 quality={95}
