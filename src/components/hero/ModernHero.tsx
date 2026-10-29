@@ -10,15 +10,13 @@ import {
   ArrowUpRight,
   Play,
   X,
-  Compass,
   CheckCircle2,
-  SlidersHorizontal,
+  ChevronDown,
 } from "lucide-react";
 
 export default function ModernHero() {
   const { language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   // Popular locations data matching reference design
@@ -298,6 +296,19 @@ export default function ModernHero() {
             <span className="h-1.5 w-2 rounded-full bg-gray-300" />
             <span className="h-1.5 w-2 rounded-full bg-gray-300" />
             <span className="h-1.5 w-2 rounded-full bg-gray-300" />
+          </div>
+
+          {/* Scroll Down Indicator with ChevronDown */}
+          <div className="mt-10 flex flex-col items-center justify-center text-center">
+            <a
+              href="#featured-projects"
+              className="group flex flex-col items-center gap-1.5 text-gray-400 hover:text-[#B45309] transition-colors"
+            >
+              <span className="font-mono text-[10px] tracking-[0.25em] uppercase font-bold">
+                {language === "ta" ? "திட்டங்களை காண்க" : "EXPLORE DEVELOPMENTS"}
+              </span>
+              <ChevronDown className="h-4 w-4 animate-bounce text-[#EAB308]" />
+            </a>
           </div>
 
         </div>
