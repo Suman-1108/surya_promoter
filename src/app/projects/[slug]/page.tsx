@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ProjectDetails from "@/components/projects/ProjectDetails";
+import MobileActionBar from "@/components/layout/MobileActionBar";
 import { projectsData } from "@/data/projects";
 
 
@@ -50,6 +51,7 @@ export default async function ProjectPage({ params }: Props) {
       <Navbar />
       <ProjectDetails project={project} />
       <Footer />
+      <MobileActionBar />
     </main>
   );
 }
