@@ -1,224 +1,222 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/hooks/useLanguage";
-import {
-  Search,
-  MapPin,
-  Play,
-  X,
-  CheckCircle2,
-  ChevronDown,
-} from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
 export default function ModernHero() {
   const { language } = useLanguage();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const target = document.getElementById("featured-projects");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // Typewriter effect for headline
+  const line1Target = language === "ta" ? "சூர்யா புரமோட்டர்ஸ்" : "Surya Promoters";
+  const line2Target = language === "ta" ? "நில மேம்பாட்டாளர்கள்" : "Land & Property Developers";
+
+  const [typedLine1, setTypedLine1] = useState("");
+  const [typedLine2, setTypedLine2] = useState("");
+  const [isTypingLine1, setIsTypingLine1] = useState(true);
+  const [isDoneTyping, setIsDoneTyping] = useState(false);
+
+  useEffect(() => {
+    setTypedLine1("");
+    setTypedLine2("");
+    setIsTypingLine1(true);
+    setIsDoneTyping(false);
+
+    let charIndex1 = 0;
+    let charIndex2 = 0;
+    let timeoutId: NodeJS.Timeout;
+
+    const typeLine1 = () => {
+      if (charIndex1 < line1Target.length) {
+        setTypedLine1(line1Target.slice(0, charIndex1 + 1));
+        charIndex1++;
+        timeoutId = setTimeout(typeLine1, 45);
+      } else {
+        setIsTypingLine1(false);
+        timeoutId = setTimeout(typeLine2, 140);
+      }
+    };
+
+    const typeLine2 = () => {
+      if (charIndex2 < line2Target.length) {
+        setTypedLine2(line2Target.slice(0, charIndex2 + 1));
+        charIndex2++;
+        timeoutId = setTimeout(typeLine2, 35);
+      } else {
+        setIsDoneTyping(true);
+      }
+    };
+
+    timeoutId = setTimeout(typeLine1, 80);
+
+    return () => clearTimeout(timeoutId);
+  }, [language, line1Target, line2Target]);
 
   return (
-    <div className="w-full bg-[#FAF8F5] text-[#111827]">
-      {/* =========================================================================
-          HERO TOP: Centered Headline, Subtitle, Search Bar (Matches Reference)
-      ========================================================================= */}
-      <section className="relative pt-12 pb-14 md:pt-16 md:pb-20 overflow-hidden border-b border-gray-200/80">
-        {/* Subtle City / Blueprint Line Watermark Background */}
-        <div 
-          className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#111827_1px,transparent_1px)] [background-size:24px_24px]"
-        />
+    <section className="relative w-full bg-[#0A0D12] text-white pt-6 pb-8 md:pt-8 md:pb-12 border-b border-white/10 overflow-hidden">
+      {/* Background glow subtleties */}
+      <div className="absolute top-1/4 left-[-10%] w-[500px] h-[500px] rounded-full bg-[#EAB308]/5 blur-3xl pointer-events-none" />
 
-        <div className="relative mx-auto w-full max-w-[1760px] px-6 sm:px-10 lg:px-16 2xl:px-24">
-          <div className="mx-auto max-w-4xl text-center">
+      {/* Main Wide Container */}
+      <div className="w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24">
+        <div className="grid grid-cols-1 items-center gap-8 lg:gap-10 xl:grid-cols-12 xl:gap-12">
+          
+          {/* Left Column: Heading, Subtitle, Copy, Buttons, Facts */}
+          <div className="xl:col-span-6 space-y-4 lg:space-y-5">
             
-            {/* Top Verified Tag */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/80 px-4 py-1.5 shadow-xs mb-5 backdrop-blur-xs">
-              <span className="h-2 w-2 rounded-full bg-[#EAB308] animate-pulse" />
-              <span className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[#B45309]">
-                {language === "ta"
-                  ? "சூர்யா புரமோட்டர்ஸ் · மதுரை · இந்திய விமானப்படை தலைமை"
-                  : "SURYA PROMOTERS · MADURAI · IAF VETERAN LEADERSHIP"}
-              </span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold tracking-tight text-[#111827] leading-[1.1]">
-              {language === "ta" ? (
-                <>
-                  மதுரையில் நிலங்கள் &amp; <br />
-                  <span className="text-[#B45309]">மனைப்பிரிவுகளை</span> கண்டறியுங்கள்
-                </>
-              ) : (
-                <>
-                  Discover Land and <br />
-                  <span className="text-[#111827]">Homes for Sale</span>
-                </>
+            {/* Main Headline (Optimized balanced text size so both lines fit cleanly without overflowing) */}
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] font-extrabold leading-[1.12] tracking-tight min-h-[85px] sm:min-h-[100px] lg:min-h-[115px]">
+              <span className="text-white">{typedLine1}</span>
+              {isTypingLine1 && (
+                <span className="inline-block w-1 h-7 sm:h-9 lg:h-11 bg-white ml-1.5 align-middle animate-pulse" />
+              )}
+              <br />
+              <span className="text-[#EAB308]">{typedLine2}</span>
+              {!isTypingLine1 && (
+                <span
+                  className={`inline-block w-1 h-7 sm:h-9 lg:h-11 bg-[#EAB308] ml-1.5 align-middle ${
+                    isDoneTyping ? "animate-pulse" : ""
+                  }`}
+                />
               )}
             </h1>
 
-            {/* Subtitle */}
-            <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-gray-600 leading-relaxed">
+            {/* Sublabel / Tagline */}
+            <div className="pt-0.5">
+              <p className="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#9CA3AF]">
+                {language === "ta"
+                  ? "நிறுவப்பட்டது 2010 · மதுரை, தமிழ்நாடு · இந்திய விமானப்படை தலைமை"
+                  : "FOUNDED 2010 · MADURAI, TAMIL NADU · IAF VETERAN LEADERSHIP"}
+              </p>
+            </div>
+
+            {/* Description (Well-proportioned, crisp text size) */}
+            <p className="max-w-xl text-sm sm:text-base leading-relaxed text-[#9CA3AF]">
               {language === "ta"
-                ? "மதுரை மற்றும் அதன் சுற்றுவட்டாரப் பகுதிகளில் முதலீடு மற்றும் குடியிருப்புக்கான அங்கீகரிக்கப்பட்ட வீட்டுமனைகள், வணிக நிலங்கள் மற்றும் பண்ணைத் தோட்டங்களை எளிதாகக் கண்டறியுங்கள்."
-                : "Browse a wide range of land and homes available across top locations. Whether you're investing or settling down, find the perfect property with ease."}
+                ? "சூர்யா புரமோட்டர்ஸ் 2010 ஆம் ஆண்டு இந்திய விமானப்படை ஓய்வுபெற்ற அதிகாரியான திரு. மாணிக்கம் நடராஜன் அவர்களால் நிறுவப்பட்டது. நாங்கள் மதுரையைச் சுற்றிலும் குடியிருப்பு, வணிகம், தொழிற்பேட்டை மற்றும் விவசாய நில மேம்பாடு மற்றும் விற்பனையில் நிபுணத்துவம் பெற்றுள்ளோம்."
+                : "Surya Promoters was established in 2010 by Mr. Manickam Natarajan, an Indian Air Force veteran. We specialize in property development and marketing across residential, commercial, industrial and agricultural property categories in and around Madurai."}
             </p>
 
-            {/* Search Pill Bar (Centered, pill-shaped with Yellow Search button) */}
-            <div className="mt-8 sm:mt-10 mx-auto max-w-2xl">
-              <form
-                onSubmit={handleSearchSubmit}
-                className="relative flex items-center rounded-full bg-white p-2 shadow-lg border border-gray-200 transition-all focus-within:border-[#EAB308] focus-within:ring-2 focus-within:ring-[#EAB308]/20"
+            {/* Two Action Buttons side-by-side */}
+            <div className="flex flex-wrap items-center gap-3.5 pt-1">
+              <a
+                href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20discuss%20my%20property%20requirements."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-xl bg-[#EAB308] px-6 py-3.5 font-display text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#0A0D12] shadow-md transition-all hover:bg-[#ca9a07] hover:shadow-lg hover:scale-[1.02]"
               >
-                <div className="pl-4 pr-2 text-gray-400">
-                  <MapPin className="h-5 w-5 text-[#B45309]" />
+                <span>{language === "ta" ? "கலந்தாலோசிக்க" : "Discuss Your Next Property"}</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
+
+              <a
+                href="#featured-projects"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-transparent px-6 py-3.5 font-display text-xs sm:text-sm font-extrabold uppercase tracking-widest text-white transition hover:bg-white/10"
+              >
+                <span>{language === "ta" ? "திட்டங்களை காண்க" : "View Project Record"}</span>
+              </a>
+            </div>
+
+            {/* Horizontal Metrics Strip (Compact, clean alignment matching reference) */}
+            <div className="pt-4 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
+              {/* Stat 1 */}
+              <div className="border-l-2 border-[#EAB308] pl-3">
+                <div className="font-display text-xl sm:text-2xl lg:text-[26px] font-extrabold text-white">
+                  16+ <span className="text-xs font-semibold text-gray-400">Yrs</span>
                 </div>
+                <div className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase text-gray-400 mt-0.5">
+                  ESTD. 2010
+                </div>
+              </div>
 
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={
-                    language === "ta"
-                      ? "இடம், திட்டம் அல்லது மனை வகை தேடுக..."
-                      : "State, city or zip code"
-                  }
-                  className="w-full bg-transparent py-2.5 text-sm sm:text-base text-gray-800 placeholder-gray-400 focus:outline-hidden"
-                />
+              {/* Stat 2 */}
+              <div className="border-l-2 border-white/20 pl-3">
+                <div className="font-display text-xl sm:text-2xl lg:text-[26px] font-extrabold text-white">
+                  IAF Vet
+                </div>
+                <div className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase text-gray-400 mt-0.5">
+                  LEADERSHIP
+                </div>
+              </div>
 
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center rounded-full bg-[#EAB308] px-7 py-3 font-display text-sm font-extrabold text-[#0A0D12] shadow-sm transition hover:bg-[#ca9a07] hover:scale-[1.02] cursor-pointer shrink-0"
-                >
-                  <Search className="h-4 w-4 mr-1.5" />
-                  <span>{language === "ta" ? "தேடுக" : "Search"}</span>
-                </button>
-              </form>
+              {/* Stat 3 */}
+              <div className="border-l-2 border-white/20 pl-3">
+                <div className="font-display text-xl sm:text-2xl lg:text-[26px] font-extrabold text-white">
+                  Madurai
+                </div>
+                <div className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase text-gray-400 mt-0.5">
+                  LOCATION (TN)
+                </div>
+              </div>
+
+              {/* Stat 4 */}
+              <div className="border-l-2 border-[#EAB308] pl-3">
+                <div className="font-display text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#EAB308]">
+                  2 + 2
+                </div>
+                <div className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase text-gray-400 mt-0.5">
+                  {language === "ta" ? "நடைபெறும் & நிறைவடைந்தது" : "RUNNING & COMPLETED"}
+                </div>
+              </div>
             </div>
 
           </div>
 
-          {/* =========================================================================
-              AERIAL DRONE FARMLAND PHOTO (Large Panoramic Showcase Below Search)
-          ========================================================================= */}
-          <div className="mt-10 sm:mt-12">
-            <div className="relative aspect-[16/8] sm:aspect-[16/7] md:aspect-[21/9] w-full overflow-hidden rounded-3xl sm:rounded-[32px] border border-gray-200 bg-emerald-950 shadow-2xl">
-              <Image
-                src="/images/hero/hero-farmland-aerial.jpg"
-                alt="Aerial drone view of lush green agricultural farmland in Madurai"
-                fill
-                priority
-                className="object-cover transition-transform duration-1000 hover:scale-105"
-                sizes="(max-width: 1760px) 100vw, 1760px"
-              />
-
-              {/* Gradient lighting overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-
-              {/* Floating Top Left Badge: Location / verified indicator */}
-              <div className="absolute top-5 left-5 sm:top-7 sm:left-7 flex items-center gap-2 rounded-full bg-black/65 px-4 py-2 backdrop-blur-md border border-white/20 text-white shadow-lg">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider">
-                  MADURAI AGRO & COMMERCIAL CORRIDOR
-                </span>
-              </div>
-
-              {/* Center Play Button for Drone Video Tour */}
-              <button
-                onClick={() => setIsVideoOpen(true)}
-                className="group absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-3 rounded-full bg-white/90 hover:bg-white px-6 py-3.5 shadow-2xl backdrop-blur-md transition-all hover:scale-105 cursor-pointer border border-white"
-                aria-label="Play Drone Video Tour"
-              >
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EAB308] text-[#0A0D12] shadow-sm group-hover:scale-110 transition-transform">
-                  <Play className="h-4 w-4 fill-current ml-0.5" />
-                </div>
-                <span className="font-display text-xs sm:text-sm font-bold uppercase tracking-wider text-[#111827]">
-                  {language === "ta" ? "ட்ரோன் வீடியோவை பார்க்க" : "Watch Drone Video Tour"}
-                </span>
-              </button>
-
-              {/* Bottom Info Strip Overlaid on Farmland Photo */}
-              <div className="absolute bottom-5 left-5 right-5 sm:bottom-7 sm:left-7 sm:right-7 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-black/70 px-6 py-4 backdrop-blur-md border border-white/15 text-white">
-                <div className="flex flex-wrap items-center gap-6 text-xs sm:text-sm">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
-                    <span className="font-medium">100% Verified Patta & Title</span>
-                  </div>
-                  <div className="hidden md:flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
-                    <span className="font-medium">Sweet Groundwater & Motorable Roads</span>
-                  </div>
-                  <div className="hidden lg:flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
-                    <span className="font-medium">IAF Veteran Ground Survey</span>
-                  </div>
-                </div>
-
-                <div className="font-mono text-xs font-bold uppercase text-[#EAB308]">
-                  ESTD. 2010 · 16+ YEARS EXCELLENCE
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Scroll Down Indicator with ChevronDown */}
-          <div className="mt-10 sm:mt-12 flex flex-col items-center justify-center text-center">
-            <a
-              href="#featured-projects"
-              className="group flex flex-col items-center gap-1.5 text-gray-500 hover:text-[#B45309] transition-colors"
-            >
-              <span className="font-mono text-[10px] tracking-[0.25em] uppercase font-bold">
-                {language === "ta" ? "திட்டங்களை காண்க" : "EXPLORE DEVELOPMENTS"}
-              </span>
-              <ChevronDown className="h-4 w-4 animate-bounce text-[#EAB308]" />
-            </a>
-          </div>
-
-        </div>
-      </section>
-
-      {/* =========================================================================
-          VIDEO MODAL: Watch Drone Showcase Video
-      ========================================================================= */}
-      {isVideoOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-5xl overflow-hidden rounded-3xl bg-black shadow-2xl border border-white/10">
-            <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 text-white">
-              <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#EAB308]" />
-                <span className="font-display text-sm font-bold uppercase tracking-wider">
-                  Surya Promoters · Aerial Drone Showcase
-                </span>
-              </div>
-              <button
-                onClick={() => setIsVideoOpen(false)}
-                className="rounded-full p-2 text-gray-400 hover:bg-white/10 hover:text-white transition cursor-pointer"
-                aria-label="Close video modal"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            <div className="relative aspect-video w-full bg-black">
+          {/* Right Column: Large landscape media card with subtle gold glow border */}
+          <div className="xl:col-span-6">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border-2 border-[#EAB308]/60 shadow-[0_0_35px_rgba(234,179,8,0.2)] bg-[#161B22] group">
               <video
-                src="/videos/herosection.mp4"
-                controls
                 autoPlay
-                className="h-full w-full object-contain"
+                loop
+                muted
+                playsInline
+                poster="/images/hero/hero_image.png"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               >
-                Your browser does not support the video tag.
+                <source src="/videos/herosection.mp4" type="video/mp4" />
+                <Image
+                  src="/images/hero/hero_image.png"
+                  alt="Surya Promoters Completed Premium Residential Property in Madurai"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 1280px) 100vw, 50vw"
+                />
               </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+              {/* Information Strip at bottom of image */}
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-xl bg-[#0A0D12]/90 px-4 py-2.5 backdrop-blur-md shadow-lg border border-white/15">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="font-display text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
+                    SURYA PROMOTERS · MADURAI
+                  </span>
+                </div>
+                <span className="font-mono text-[11px] sm:text-xs font-bold text-[#EAB308] uppercase tracking-wider">
+                  ESTD. 2010
+                </span>
+              </div>
             </div>
           </div>
+
         </div>
-      )}
-    </div>
+
+        {/* Scroll Down Indicator */}
+        <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center text-center">
+          <a
+            href="#featured-projects"
+            className="group flex flex-col items-center gap-1 text-gray-400 hover:text-[#EAB308] transition-colors"
+          >
+            <span className="font-mono text-[9px] tracking-[0.25em] uppercase font-bold">
+              SCROLL DOWN
+            </span>
+            <ChevronDown className="h-3.5 w-3.5 animate-bounce text-[#EAB308]" />
+          </a>
+        </div>
+
+      </div>
+    </section>
   );
 }
