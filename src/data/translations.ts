@@ -131,10 +131,39 @@ export const translations = {
     },
     services: {
       badge: "OUR CORE EXPERTISE",
+      titleLine1: "Comprehensive",
+      titleLine2: "Real Estate Solutions",
       title: "Comprehensive Real Estate Solutions",
       subtitle:
-        "From prime residential plots in expanding corridors to strategic commercial parcels and fertile agricultural groves.",
+        "Directly connecting you to 100% verified land parcels, clear legal documentation, and lifetime appreciation across Madurai's fastest-growing corridors.",
       cta: "Schedule Site Visit",
+      stats: [
+        { value: "100%", label: "Documented Titles" },
+        { value: "16+ Yrs", label: "Ground Experience" },
+        { value: "4.9 ★", label: "Client Trust Rating" },
+      ],
+      items: [
+        {
+          highlight: "Explore",
+          title: "great residential layouts",
+          desc: "DTCP & RERA approved villa plots with wide bitumen roads, sweet groundwater, and immediate individual patta.",
+        },
+        {
+          highlight: "Find highly",
+          title: "rated commercial corridors",
+          desc: "High-exposure parcels along NH-44 and Madurai Ring Road tailored for warehouses, godowns, and hospitals.",
+        },
+        {
+          highlight: "Discover",
+          title: "fertile agricultural farms",
+          desc: "Rich soils, perennial water tables, and pre-planted fruit groves for tranquil weekend farmhouse retreats.",
+        },
+        {
+          highlight: "Receive",
+          title: "expert legal title advisory",
+          desc: "Rigorous 30-year encumbrance scrutiny, revenue survey vetting, and complete buyer protection by IAF veterans.",
+        },
+      ],
     },
     projects: {
       badge: "PORTFOLIO OF EXCELLENCE",
@@ -356,10 +385,39 @@ export const translations = {
     },
     services: {
       badge: "எங்கள் சிறப்பு சேவைகள்",
+      titleLine1: "முழுமையான",
+      titleLine2: "ரியல் எஸ்டேட் தீர்வுகள்",
       title: "முழுமையான ரியல் எஸ்டேட் தீர்வுகள்",
       subtitle:
-        "மதுரையின் அதிவேக வளர்ச்சி பகுதிகளில் குடியிருப்பு மனைகள், வணிக நிலங்கள் மற்றும் இயற்கை பண்ணைத் தோட்டங்கள்.",
+        "மதுரையின் அதிவேக வளர்ச்சி பகுதிகளில் 100% தெளிவான ஆவணங்களுடன் கூடிய மனைப்பிரிவுகள் மற்றும் பண்ணை நிலங்களை வாடிக்கையாளர்களுக்கு நேரடியாக வழங்குகிறோம்.",
       cta: "நேரடி பார்வைக்கு பதியுங்கள்",
+      stats: [
+        { value: "100%", label: "தெளிவான மூலப்பத்திரங்கள்" },
+        { value: "16+ Yrs", label: "கள அனுபவம்" },
+        { value: "4.9 ★", label: "வாடிக்கையாளர் நம்பிக்கை" },
+      ],
+      items: [
+        {
+          highlight: "தேர்ந்தெடுங்கள்",
+          title: "சிறந்த குடியிருப்பு மனைகள்",
+          desc: "DTCP மற்றும் RERA அனுமதி, அகலமான தார்ச்சாலைகள், நல்ல குடிநீர் மற்றும் உடனடி பட்டாவுடன் கூடிய வீட்டு மனைகள்.",
+        },
+        {
+          highlight: "முதலீடு செய்யுங்கள்",
+          title: "வணிக & நெடுஞ்சாலை நிலங்கள்",
+          desc: "NH-44 மற்றும் மதுரை ரிங் ரோட்டில் குடோன்கள், மருத்துவமனைகள் மற்றும் நிறுவனங்களுக்கான முக்கிய இடங்கள்.",
+        },
+        {
+          highlight: "கண்டறியுங்கள்",
+          title: "செழிப்பான விவசாயப் பண்ணைகள்",
+          desc: "செழிப்பான மண்வளம், வற்றாத நீர்வளம் மற்றும் பழ மரங்களுடன் அமைதியான வார இறுதி பண்ணை மனைகள்.",
+        },
+        {
+          highlight: "ஆலோசனை பெறுங்கள்",
+          title: "சட்டப்பூர்வ ஆவண சரிபார்ப்பு",
+          desc: "30 ஆண்டு வில்லங்க சரிபார்ப்பு, பட்டா ஆவண ஆய்வு மற்றும் இந்திய விமானப்படை ஒழுக்கத்துடன் கூடிய வழிகாட்டுதல்.",
+        },
+      ],
     },
     projects: {
       badge: "எங்கள் முக்கிய திட்டங்கள்",
