@@ -2,12 +2,10 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useLanguage } from "@/hooks/useLanguage";
 import {
   Search,
   MapPin,
-  ArrowUpRight,
   Play,
   X,
   CheckCircle2,
@@ -18,46 +16,6 @@ export default function ModernHero() {
   const { language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [isVideoOpen, setIsVideoOpen] = useState(false);
-
-  // Popular locations data matching reference design
-  const popularLocations = [
-    {
-      id: "nh44",
-      title: language === "ta" ? "மதுரை வெளிவட்டச் சாலை (NH-44)" : "NH-44 Bypass Corridor",
-      count: language === "ta" ? "வணிக நிலம்" : "Commercial Logistics",
-      slug: "vaigai-elite-commercial-land",
-      image: "/images/projects/vaigai-commercial.jpg",
-      badge: "Commercial",
-      type: "commercial",
-    },
-    {
-      id: "agro",
-      title: language === "ta" ? "மதுரை சுற்றுவட்டார விவசாய பூமி" : "Madurai Agro Surroundings",
-      count: language === "ta" ? "பண்ணை நிலம்" : "Fertile Agro Plots",
-      slug: "madurai-farms-and-fruits",
-      image: "/images/projects/madurai-farms.jpg",
-      badge: "Farm Plots",
-      type: "farm",
-    },
-    {
-      id: "orchard",
-      title: language === "ta" ? "ஆரஞ்ச் கார்டன் தோட்டம்" : "Orange Garden Estate",
-      count: language === "ta" ? "பழத்தோட்டம்" : "Harvested Orchards",
-      slug: "orange-garden",
-      image: "/images/projects/orange-garden.jpg",
-      badge: "Orchard Farm",
-      type: "farm",
-    },
-    {
-      id: "suburban",
-      title: language === "ta" ? "மதுரை புறநகர் குடியிருப்பு" : "Madurai Suburban Corridor",
-      count: language === "ta" ? "குடியிருப்பு மனை" : "Gated Villa Plots",
-      slug: "surya-green-enclave",
-      image: "/images/hero/hero_image.png",
-      badge: "Residential",
-      type: "residential",
-    },
-  ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,7 +30,7 @@ export default function ModernHero() {
       {/* =========================================================================
           HERO TOP: Centered Headline, Subtitle, Search Bar (Matches Reference)
       ========================================================================= */}
-      <section className="relative pt-12 pb-6 md:pt-16 md:pb-10 overflow-hidden">
+      <section className="relative pt-12 pb-14 md:pt-16 md:pb-20 overflow-hidden border-b border-gray-200/80">
         {/* Subtle City / Blueprint Line Watermark Background */}
         <div 
           className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#111827_1px,transparent_1px)] [background-size:24px_24px]"
@@ -91,7 +49,7 @@ export default function ModernHero() {
               </span>
             </div>
 
-            {/* Main Headline (Exact Style & Structure from Reference Image) */}
+            {/* Main Headline */}
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold tracking-tight text-[#111827] leading-[1.1]">
               {language === "ta" ? (
                 <>
@@ -106,7 +64,7 @@ export default function ModernHero() {
               )}
             </h1>
 
-            {/* Subtitle (Exact matches reference text tone) */}
+            {/* Subtitle */}
             <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-gray-600 leading-relaxed">
               {language === "ta"
                 ? "மதுரை மற்றும் அதன் சுற்றுவட்டாரப் பகுதிகளில் முதலீடு மற்றும் குடியிருப்புக்கான அங்கீகரிக்கப்பட்ட வீட்டுமனைகள், வணிக நிலங்கள் மற்றும் பண்ணைத் தோட்டங்களை எளிதாகக் கண்டறியுங்கள்."
@@ -210,99 +168,11 @@ export default function ModernHero() {
             </div>
           </div>
 
-        </div>
-      </section>
-
-      {/* =========================================================================
-          POPULAR LOCATIONS TO BUY LAND (Exact Section from Reference Screenshot)
-      ========================================================================= */}
-      <section className="relative py-12 md:py-16 border-b border-gray-200/80 bg-[#FAF8F5]">
-        <div className="mx-auto w-full max-w-[1760px] px-6 sm:px-10 lg:px-16 2xl:px-24">
-          
-          {/* Header row: "POPULAR STATES TO BUY LAND" ... "See all Land" */}
-          <div className="flex items-center justify-between gap-4 mb-8">
-            <div>
-              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-[#111827]">
-                {language === "ta" ? "நிலம் வாங்க புகழ்பெற்ற இடங்கள்" : "POPULAR LOCATIONS TO BUY LAND"}
-              </h2>
-            </div>
-
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-gray-700 shadow-2xs hover:border-[#EAB308] hover:text-[#B45309] hover:bg-gray-50 transition cursor-pointer"
-            >
-              <span>{language === "ta" ? "அனைத்து நிலங்களையும் காண்க" : "See all Land"}</span>
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          {/* 4 Parcel Cards Grid (Exact Style from Reference with Red Pin & Yellow Arrow) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {popularLocations.map((item) => (
-              <Link
-                key={item.id}
-                href={`/projects/${item.slug}`}
-                className="group relative flex flex-col overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                {/* Parcel Image with Centered Red Pin */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-108"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-
-                  {/* Centered Red Location Pin (Iconic feature from Reference Image) */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 group-hover:scale-115">
-                    <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-red-600 text-white shadow-xl ring-4 ring-white/80">
-                      <MapPin className="h-5 w-5 fill-white text-red-600" />
-                    </div>
-                  </div>
-
-                  {/* Category Pill Tag top-left */}
-                  <div className="absolute top-3 left-3">
-                    <span className="rounded-full bg-white/90 px-3 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-gray-800 shadow-xs backdrop-blur-xs">
-                      {item.badge}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Bottom Meta with Title & Yellow Diagonal Arrow Button */}
-                <div className="flex items-center justify-between p-4.5 bg-white">
-                  <div className="pr-3">
-                    <h3 className="font-display text-sm sm:text-base font-bold text-[#111827] group-hover:text-[#B45309] transition-colors line-clamp-1">
-                      {item.title}
-                    </h3>
-                    <p className="font-mono text-xs text-gray-500 mt-0.5 font-medium">
-                      {item.count}
-                    </p>
-                  </div>
-
-                  {/* Yellow Arrow Button in bottom right corner (Matches Reference) */}
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EAB308] text-[#0A0D12] shadow-xs transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#ca9a07]">
-                    <ArrowUpRight className="h-5 w-5" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* Pagination Carousel Indicator (Matching Reference Image) */}
-          <div className="mt-8 flex items-center justify-center gap-2">
-            <span className="h-1.5 w-8 rounded-full bg-[#111827]" />
-            <span className="h-1.5 w-2 rounded-full bg-gray-300" />
-            <span className="h-1.5 w-2 rounded-full bg-gray-300" />
-            <span className="h-1.5 w-2 rounded-full bg-gray-300" />
-          </div>
-
           {/* Scroll Down Indicator with ChevronDown */}
-          <div className="mt-10 flex flex-col items-center justify-center text-center">
+          <div className="mt-10 sm:mt-12 flex flex-col items-center justify-center text-center">
             <a
               href="#featured-projects"
-              className="group flex flex-col items-center gap-1.5 text-gray-400 hover:text-[#B45309] transition-colors"
+              className="group flex flex-col items-center gap-1.5 text-gray-500 hover:text-[#B45309] transition-colors"
             >
               <span className="font-mono text-[10px] tracking-[0.25em] uppercase font-bold">
                 {language === "ta" ? "திட்டங்களை காண்க" : "EXPLORE DEVELOPMENTS"}
