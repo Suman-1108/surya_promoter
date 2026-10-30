@@ -1,5 +1,7 @@
 import { Project } from "@/types/project";
 
+export const MAPBHOOMI_SURYA_URL = "https://mapbhoomi.com/l/surya-promoters";
+
 export const projectsData: Project[] = [
   {
     id: "vaigai-elite-commercial-land",
@@ -22,6 +24,10 @@ export const projectsData: Project[] = [
       ta: "ரிங் ரோடு மண்டலம், மதுரை, தமிழ்நாடு",
     },
     googleMapsUrl: "https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw",
+    mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/madurai-rameshwaram-nh-road",
+    brochureUrl: "https://mapbhoomi.com/l/surya-promoters/madurai-rameshwaram-nh-road/brochure?layout=01a16275-c6df-721b-adaa-45994b084ec7",
+    mapBhoomiTotalUnits: 6,
+    mapBhoomiAvailableUnits: 6,
     heroImage: "/images/projects/vaigai-commercial.jpg",
     galleryImages: [
       "/images/projects/vaigai-commercial.jpg",
@@ -92,6 +98,10 @@ export const projectsData: Project[] = [
     },
     googleMapsUrl: "https://goo.gl/maps/J8aSHD1Rk38qMPKE6?g_st=aw",
     photographyReferenceUrl: "https://goo.gl/maps/qvGsEjuSPPX18vBK6",
+    mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres",
+    brochureUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres/brochure?layout=01a18209-99f6-73b0-a2a4-6677a87c2098",
+    mapBhoomiTotalUnits: 15,
+    mapBhoomiAvailableUnits: 15,
     heroImage: "/images/projects/madurai-farms.jpg",
     galleryImages: [
       "/images/projects/madurai-farms.jpg",

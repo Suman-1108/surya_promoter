@@ -177,6 +177,23 @@ export default function ModernHero() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
+              {/* MapBhoomi Interactive Layout Pill on Hero Image */}
+              <a
+                href="https://mapbhoomi.com/l/surya-promoters"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute top-4 right-4 z-10 flex items-center gap-2 rounded-full bg-[#0A0D12]/90 border border-[#EAB308]/60 px-3.5 py-1.5 backdrop-blur-md shadow-lg transition-all hover:bg-[#0A0D12] hover:scale-105 group/bhoomi"
+                title="View Live 3D Masterplans on MapBhoomi"
+              >
+                <span className="h-2 w-2 rounded-full bg-[#EAB308] animate-pulse" />
+                <span className="font-mono text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider group-hover/bhoomi:text-[#EAB308]">
+                  {language === "ta" ? "3D வரைபடங்கள் (MapBhoomi)" : "3D Layouts (MapBhoomi)"}
+                </span>
+                <span className="text-[9px] font-mono font-bold text-[#EAB308] bg-[#EAB308]/20 px-1.5 py-0.5 rounded-full">
+                  LIVE
+                </span>
+              </a>
+
               {/* Information Strip at bottom of image */}
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-xl bg-[#0A0D12]/90 px-4 py-2.5 backdrop-blur-md shadow-lg border border-white/15">
                 <div className="flex items-center gap-2">

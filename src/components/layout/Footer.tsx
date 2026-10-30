@@ -103,6 +103,17 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <a
+                  href="https://mapbhoomi.com/l/surya-promoters"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-amber-600 transition flex items-center gap-1.5 text-[#B45309] font-bold"
+                >
+                  <span>3D Layouts (MapBhoomi)</span>
+                  <span className="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full font-mono font-bold">LIVE</span>
+                </a>
+              </li>
+              <li>
                 <Link
                   href="/services"
                   className="hover:text-blue-600 transition"

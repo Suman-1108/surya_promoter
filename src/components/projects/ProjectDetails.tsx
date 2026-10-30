@@ -18,6 +18,9 @@ import {
   FileText,
   ArrowLeft,
   Share2,
+  Map,
+  Layers,
+  Sparkles,
 } from "lucide-react";
 
 interface ProjectDetailsProps {
@@ -124,6 +127,19 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                 <span>Google Maps</span>
                 <ExternalLink className="h-3 w-3" />
               </a>
+
+              {project.mapBhoomiUrl && (
+                <a
+                  href={project.mapBhoomiUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#EAB308] px-3.5 py-1 text-xs font-bold text-[#0A0D12] shadow-sm hover:bg-[#ca9a07] transition"
+                >
+                  <span className="h-2 w-2 rounded-full bg-[#0A0D12] animate-pulse" />
+                  <span>{language === "ta" ? "நேரடி 3D வரைபடம் (MapBhoomi)" : "Interactive 3D/2D Map (MapBhoomi)"}</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -185,6 +201,144 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               title={project.title[language]}
             />
           </div>
+
+          {/* Interactive Digital Twin / MapBhoomi Section */}
+          {project.mapBhoomiUrl && (
+            <div className="rounded-3xl border-2 border-[#EAB308]/40 bg-gradient-to-br from-[#0A0D12] to-[#161B22] p-6 sm:p-8 text-white shadow-xl">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#EAB308] text-[#0A0D12] shadow-md">
+                    <Layers className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#EAB308]">
+                        MAPBHOOMI DIGITAL TWIN
+                      </span>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2 py-0.5 text-[10px] font-mono font-bold text-emerald-300">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        LIVE
+                      </span>
+                    </div>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">
+                      {language === "ta"
+                        ? "நேரடி 3D / 2D மனைப்பிரிவு வரைபடம்"
+                        : "Interactive 3D / 2D Layout Masterplan"}
+                    </h3>
+                  </div>
+                </div>
+
+                <a
+                  href={project.mapBhoomiUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#EAB308] px-5 py-2.5 font-display text-xs font-extrabold uppercase tracking-wider text-[#0A0D12] shadow-md transition hover:bg-[#ca9a07] hover:scale-105"
+                >
+                  <Map className="h-4 w-4" />
+                  <span>{language === "ta" ? "வரைபடத்தை திறக்கவும்" : "Launch Live Map"}</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+
+              {/* Live Inventory Status Badges */}
+              <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="rounded-xl border border-white/10 bg-white/5 p-3.5 text-center">
+                  <span className="block font-mono text-[10px] uppercase tracking-wider text-gray-400 font-bold">
+                    {language === "ta" ? "மொத்த மனைகள்" : "TOTAL UNITS"}
+                  </span>
+                  <span className="block font-display text-2xl font-extrabold text-white mt-1">
+                    {project.mapBhoomiTotalUnits ?? "—"}
+                  </span>
+                </div>
+
+                <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/30 p-3.5 text-center">
+                  <span className="block font-mono text-[10px] uppercase tracking-wider text-emerald-400 font-bold">
+                    {language === "ta" ? "விற்பனைக்கு உள்ளவை" : "AVAILABLE"}
+                  </span>
+                  <span className="block font-display text-2xl font-extrabold text-emerald-400 mt-1">
+                    {project.mapBhoomiAvailableUnits ?? "—"}
+                  </span>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/5 p-3.5 text-center">
+                  <span className="block font-mono text-[10px] uppercase tracking-wider text-gray-400 font-bold">
+                    {language === "ta" ? "ஒதுக்கீடு நிலை" : "HOLD / BOOKED"}
+                  </span>
+                  <span className="block font-display text-2xl font-extrabold text-gray-300 mt-1">
+                    0
+                  </span>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/5 p-3.5 text-center">
+                  <span className="block font-mono text-[10px] uppercase tracking-wider text-gray-400 font-bold">
+                    {language === "ta" ? "பார்வை முறை" : "VIEW MODES"}
+                  </span>
+                  <span className="block font-display text-lg font-bold text-[#EAB308] mt-1.5">
+                    3D &amp; 2D Live
+                  </span>
+                </div>
+              </div>
+
+              {/* Instructions and Capabilities */}
+              <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-4 sm:p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <Sparkles className="h-4 w-4 text-[#EAB308]" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-gray-200">
+                    {language === "ta"
+                      ? "மேப்போமி நேரடி வரைபடத்தின் சிறப்பம்சங்கள்:"
+                      : "How to use the Interactive Map on MapBhoomi:"}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-gray-300">
+                  <div className="flex items-start gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#EAB308] shrink-0 mt-1.5" />
+                    <span>
+                      <strong className="text-white">Tap any unit</strong> to inspect real-time boundary dimensions, sq.ft/cents area, and price.
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#EAB308] shrink-0 mt-1.5" />
+                    <span>
+                      <strong className="text-white">3D Elevation &amp; Pinch:</strong> Rotate and zoom on mobile touchscreens or desktop scroll.
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#EAB308] shrink-0 mt-1.5" />
+                    <span>
+                      <strong className="text-white">Government Boundary Alignment:</strong> Accurate survey boundary markers and approach roads.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons inside Card */}
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <a
+                  href={project.mapBhoomiUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 rounded-xl bg-[#EAB308] py-3 px-4 font-display text-xs font-bold uppercase tracking-wider text-[#0A0D12] hover:bg-[#ca9a07] transition text-center"
+                >
+                  <Map className="h-4 w-4" />
+                  <span>{language === "ta" ? "3D வரைபடத்தில் மனைகளை பார்க்க" : "Explore Interactive Map"}</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+
+                {project.brochureUrl && (
+                  <a
+                    href={project.brochureUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 py-3 px-4 font-display text-xs font-bold uppercase tracking-wider text-white hover:bg-white/10 transition text-center"
+                  >
+                    <Download className="h-4 w-4 text-[#EAB308]" />
+                    <span>{language === "ta" ? "டிஜிட்டல் வரைபட கையேடு" : "Digital Brochure Layout"}</span>
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Layout Blueprint Image if available */}
           {project.layoutPlanImage && (
@@ -268,6 +422,19 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                   </a>
                 )}
 
+                {project.mapBhoomiUrl && (
+                  <a
+                    href={project.mapBhoomiUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0A0D12] py-3.5 text-xs font-bold uppercase tracking-wider text-[#EAB308] border border-[#EAB308]/40 shadow-xs transition hover:bg-[#161B22] hover:scale-[1.01]"
+                  >
+                    <Layers className="h-4 w-4 text-[#EAB308]" />
+                    <span>{language === "ta" ? "நேரடி 3D வரைபடம் (MapBhoomi)" : "Explore 3D Map (MapBhoomi)"}</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                )}
+
                 <a
                   href="tel:+917708966452"
                   className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#E8E2D7] bg-white py-3.5 text-xs font-semibold uppercase tracking-wider text-[#242820] transition hover:bg-[#F1EBDD]"
@@ -307,15 +474,29 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               <p className="mt-1 text-xs text-[#77766F]">
                 Explore surrounding access routes and infrastructure on Google Maps.
               </p>
-              <a
-                href={project.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-xl border border-[#E8E2D7] bg-white px-5 py-2 text-xs font-semibold text-[#242820] transition hover:border-[#C6A15B]"
-              >
-                <span>Open Google Maps</span>
-                <ExternalLink className="h-3.5 w-3.5 text-[#C6A15B]" />
-              </a>
+              <div className="mt-4 flex flex-col gap-2">
+                {project.mapBhoomiUrl && (
+                  <a
+                    href={project.mapBhoomiUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A0D12] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[#EAB308] transition hover:bg-black"
+                  >
+                    <Layers className="h-3.5 w-3.5 text-[#EAB308]" />
+                    <span>Interactive MapBhoomi Layout</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                )}
+                <a
+                  href={project.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#E8E2D7] bg-white px-5 py-2 text-xs font-semibold text-[#242820] transition hover:border-[#C6A15B]"
+                >
+                  <span>Open Google Maps</span>
+                  <ExternalLink className="h-3.5 w-3.5 text-[#C6A15B]" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

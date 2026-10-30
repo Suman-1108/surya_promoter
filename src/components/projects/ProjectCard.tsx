@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Project } from "@/types/project";
 import { useLanguage } from "@/hooks/useLanguage";
-import { MapPin, ArrowRight } from "lucide-react";
+import { MapPin, ArrowRight, Layers, ExternalLink } from "lucide-react";
 
 interface ProjectCardProps {
   project: Project;
@@ -28,10 +28,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         />
 
         {/* Top Category Badge */}
-        <div className="absolute top-4 left-4">
+        <div className="absolute top-4 left-4 flex flex-col gap-1.5 items-start">
           <span className="rounded-full bg-[#FFFFFF]/90 px-3.5 py-1 text-[11px] font-mono uppercase tracking-wider text-[#242820] backdrop-blur-xs border border-[#E8E2D7] shadow-xs">
             {project.categoryLabel[language]}
           </span>
+          {project.mapBhoomiUrl && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A0D12]/85 px-3 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#EAB308] backdrop-blur-xs border border-[#EAB308]/40 shadow-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#EAB308] animate-pulse" />
+              <span>3D Map Live</span>
+            </span>
+          )}
         </div>
 
         {/* Status Badge: Running vs Completed */}
@@ -85,7 +91,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Bottom CTA Row */}
-        <div className="mt-8 flex items-center justify-between border-t border-[#E8E2D7] pt-5">
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-[#E8E2D7] pt-5">
           <Link
             href={`/projects/${project.slug}`}
             className="group/link inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#242820] transition-colors hover:text-[#C6A15B]"
@@ -94,14 +100,28 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1 text-[#C6A15B]" />
           </Link>
 
-          <a
-            href={project.googleMapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-[#77766F] transition hover:text-[#242820] underline"
-          >
-            Google Maps
-          </a>
+          <div className="flex items-center gap-3 text-xs">
+            {project.mapBhoomiUrl && (
+              <a
+                href={project.mapBhoomiUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-bold text-[#B45309] hover:text-[#D97706] transition"
+              >
+                <Layers className="h-3.5 w-3.5" />
+                <span>3D Layout</span>
+                <ExternalLink className="h-2.5 w-2.5" />
+              </a>
+            )}
+            <a
+              href={project.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#77766F] transition hover:text-[#242820] underline"
+            >
+              Google Maps
+            </a>
+          </div>
         </div>
       </div>
     </div>

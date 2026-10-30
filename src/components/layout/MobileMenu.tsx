@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/hooks/useLanguage";
-import { X, Phone, MessageSquare, ArrowRight } from "lucide-react";
+import { X, Phone, MessageSquare, ArrowRight, ExternalLink, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface MobileMenuProps {
@@ -80,6 +80,25 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 <ArrowRight className="h-5 w-5 text-[#EAB308]" />
               </Link>
             ))}
+
+
+            <a
+              href="https://mapbhoomi.com/l/surya-promoters"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              className="flex items-center justify-between font-display text-xl font-bold uppercase tracking-wider text-[#EAB308] border-t border-white/10 pt-4"
+            >
+              <span className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-[#EAB308] animate-pulse" />
+                <span>{language === "ta" ? "நேரடி 3D வரைபடங்கள் (MapBhoomi)" : "Live 3D Maps (MapBhoomi)"}</span>
+              </span>
+              <ExternalLink className="h-5 w-5 text-[#EAB308]" />
+            </a>
+
+
+
+
           </nav>
 
           {/* Footer Actions */}

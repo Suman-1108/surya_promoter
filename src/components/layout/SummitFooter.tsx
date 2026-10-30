@@ -43,7 +43,7 @@ export default function SummitFooter() {
             </Link>
 
             <p className="text-sm leading-relaxed text-gray-400 max-w-md">
-              Madurai’s premier real estate & land development firm. 16+ years of disciplined,
+              Madurai’s premier real estate &amp; land development firm. 16+ years of disciplined,
               transparent property acquisition and development guided by Indian Air Force veteran leadership.
             </p>
 
@@ -111,6 +111,17 @@ export default function SummitFooter() {
               </li>
               <li>
                 <Link href="/projects" className="hover:text-white transition">Properties</Link>
+              </li>
+              <li>
+                <a
+                  href="https://mapbhoomi.com/l/surya-promoters"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#EAB308] transition flex items-center gap-1.5 text-[#EAB308] font-bold"
+                >
+                  <span>3D Maps (MapBhoomi)</span>
+                  <span className="text-[9px] bg-[#EAB308]/20 text-[#EAB308] px-1.5 py-0.5 rounded-full font-mono font-bold">LIVE</span>
+                </a>
               </li>
               <li>
                 <Link href="/services" className="hover:text-white transition">Services</Link>
@@ -195,4 +206,3 @@ export default function SummitFooter() {
     </footer>
   );
 }
-

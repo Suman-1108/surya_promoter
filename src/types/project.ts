@@ -21,6 +21,10 @@ export interface Project {
   location: LocalizedString;
   googleMapsUrl: string;
   photographyReferenceUrl?: string;
+  mapBhoomiUrl?: string;
+  brochureUrl?: string;
+  mapBhoomiTotalUnits?: number;
+  mapBhoomiAvailableUnits?: number;
   heroImage: string;
   galleryImages: string[];
   videoUrl?: string;

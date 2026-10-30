@@ -7,7 +7,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import ProjectCard from "@/components/projects/ProjectCard";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import TextReveal from "@/components/animations/TextReveal";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Layers, ExternalLink, Map } from "lucide-react";
 
 export default function ProjectsSection() {
   const { language, t } = useLanguage();
@@ -163,6 +163,47 @@ export default function ProjectsSection() {
           >
             {language === "ta" ? "குடியிருப்பு மனைகள்" : "Residential Plots"}
           </button>
+        </div>
+
+        {/* MapBhoomi Digital Twin Spotlight Banner */}
+        <div className="mt-8 rounded-3xl border border-[#EAB308]/40 bg-gradient-to-r from-[#0A0D12] via-[#161B22] to-[#0A0D12] p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#EAB308] text-[#0A0D12] shadow-md">
+              <Layers className="h-6 w-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-[#EAB308]">
+                  MAPBHOOMI INTERACTIVE PLATFORM
+                </span>
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2 py-0.5 text-[10px] font-mono font-bold text-emerald-300">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  3 LIVE MAPS
+                </span>
+              </div>
+              <h3 className="font-display text-lg sm:text-xl font-bold text-white mt-1">
+                {language === "ta"
+                  ? "நேரடி 3D & 2D மனை வரைபடங்களை மேப்போமியில் காண்க"
+                  : "Explore Surya Promoters' Live Interactive Layouts on MapBhoomi"}
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-300 mt-1 max-w-2xl">
+                {language === "ta"
+                  ? "மதுரை பார்ம்ஸ் & ஃப்ரூட்ஸ், வைகை எலைட் கார்டன் மற்றும் பூம்பிடகாய் திட்டங்களின் நேரடி நிலப்பரப்பு மற்றும் மனை இருப்பு நிலையை ஆராயுங்கள்."
+                  : "Rotate in 3D, zoom into individual plots, and tap for dimensions, pricing, and live availability across Madurai Farms, Vaigai Elite, and Poombidagai."}
+              </p>
+            </div>
+          </div>
+
+          <a
+            href="https://mapbhoomi.com/l/surya-promoters"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#EAB308] px-6 py-3 font-display text-xs font-extrabold uppercase tracking-wider text-[#0A0D12] shadow-md hover:bg-[#ca9a07] transition hover:scale-105 shrink-0"
+          >
+            <Map className="h-4 w-4" />
+            <span>{language === "ta" ? "நேரடி வரைபடங்கள்" : "Launch Map Portal"}</span>
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
         </div>
 
         {/* Projects Cards Grid */}
