@@ -57,6 +57,7 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
               alt={title}
               fill
               className="object-contain"
+              sizes="(max-width: 1280px) 100vw, 1200px"
             />
           </div>
         </div>

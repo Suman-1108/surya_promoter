@@ -47,16 +47,6 @@ export default function Navbar() {
             >
               {language === "ta" ? "திட்டங்கள்" : "PROJECTS"}
             </Link>
-            <a
-              href="https://mapbhoomi.com/l/surya-promoters"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-display text-xs font-bold tracking-widest uppercase text-[#EAB308] hover:text-white transition-colors"
-              title="Explore 3D Layout Maps on MapBhoomi"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#EAB308] animate-pulse" />
-              <span>{language === "ta" ? "3D வரைபடங்கள்" : "3D MAPS"}</span>
-            </a>
             <Link
               href="/services"
               className="font-display text-xs font-bold tracking-widest uppercase text-gray-200 hover:text-[#EAB308] transition-colors"

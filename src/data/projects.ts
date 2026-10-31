@@ -7,7 +7,7 @@ export const projectsData: Project[] = [
     id: "vaigai-elite-commercial-land",
     slug: "vaigai-elite-commercial-land",
     title: {
-      en: "Vaigai Elite Commercial Land",
+       en: "Vaigai Elite Commercial Land",
       ta: "வைகை எலைட் வணிக நிலம்",
     },
     subtitle: {
