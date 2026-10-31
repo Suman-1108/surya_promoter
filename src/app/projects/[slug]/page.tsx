@@ -6,10 +6,6 @@ import ProjectDetails from "@/components/projects/ProjectDetails";
 import MobileActionBar from "@/components/layout/MobileActionBar";
 import { projectsData } from "@/data/projects";
 
-// Next.js 16 prerendering configuration for dynamic params
-export const instant = false;
-export const dynamicParams = false;
-
 interface Props {
   params: Promise<{ slug: string }>;
 }
