@@ -3,7 +3,6 @@ import ModernHero from "@/components/hero/ModernHero";
 import ModernExperienceSection from "@/components/sections/ModernExperienceSection";
 import ModernFeaturedProperties from "@/components/sections/ModernFeaturedProperties";
 import ServicesSection from "@/components/sections/ServicesSection";
-import ModernFounderSection from "@/components/sections/ModernFounderSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/layout/Footer";
 import MobileActionBar from "@/components/layout/MobileActionBar";
@@ -16,7 +15,6 @@ export default function Home() {
       <ModernExperienceSection />
       <ModernFeaturedProperties />
       <ServicesSection />
-      <ModernFounderSection />
       <ContactSection />
       <Footer />
       <MobileActionBar />
