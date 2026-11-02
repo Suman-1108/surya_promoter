@@ -1,24 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import TextReveal from "@/components/animations/TextReveal";
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 export default function ContactSection() {
   const { t } = useLanguage();
-  const [form, setForm] = useState({ name: "", phone: "", email: "", inquiry: "" });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    const text = encodeURIComponent(
-      `General Inquiry for Surya Promoters:\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nInquiry: ${form.inquiry}`
-    );
-    window.open(`https://wa.me/917708966452?text=${text}`, "_blank");
-  };
 
   return (
     <section id="contact" className="relative bg-[#FFFFFF] py-6 text-[#242820] md:py-10 border-b border-[#E8E2D7]">
@@ -49,10 +38,10 @@ export default function ContactSection() {
           </ScrollReveal>
         </div>
 
-        {/* Contact Grid: Cards + Form + Map */}
-        <div className="mt-8 md:mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+        {/* Contact Grid: Cards + Map */}
+        <div className="mt-8 md:mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12 items-stretch">
           {/* Left Column: Direct Contact Info & Hours */}
-          <div className="space-y-4 lg:col-span-5">
+          <div className="space-y-4 lg:col-span-5 flex flex-col justify-between">
             {/* Phone & WhatsApp Card */}
             <ScrollReveal delay={0.1}>
               <div className="rounded-2xl border border-[#E8E2D7] bg-[#F8F5EF] p-6">
@@ -62,32 +51,16 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <span className="text-[11px] uppercase tracking-wider text-[#77766F]">
-                      {t.contact.phoneLabel} & WhatsApp
+                      {t.contact.phoneLabel}
                     </span>
                     <a
                       href="tel:+917708966452"
-                      className="block font-mono text-lg font-bold text-[#242820] transition hover:text-[#C6A15B]"
+                      className="block text-base font-semibold text-[#242820] transition hover:text-[#C6A15B]"
                     >
                       +91 77089 66452
                     </a>
+                    <span className="text-xs text-[#77766F]">Direct Phone & WhatsApp</span>
                   </div>
-                </div>
-
-                <div className="mt-4 flex gap-3">
-                  <a
-                    href="tel:+917708966452"
-                    className="flex-1 rounded-xl border border-[#E8E2D7] bg-white py-2.5 text-center text-xs font-medium text-[#242820] transition hover:bg-[#F1EBDD]"
-                  >
-                    Click to Call
-                  </a>
-                  <a
-                    href="https://wa.me/917708966452"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 rounded-xl bg-[#C6A15B] py-2.5 text-center text-xs font-semibold text-white shadow-xs transition hover:bg-[#b5924d]"
-                  >
-                    WhatsApp Chat
-                  </a>
                 </div>
               </div>
             </ScrollReveal>
@@ -150,84 +123,20 @@ export default function ContactSection() {
             </ScrollReveal>
           </div>
 
-          {/* Right Column: Google Maps & Fast Inquiry */}
-          <div className="space-y-6 lg:col-span-7">
-            {/* Embedded Google Map with clean natural presentation */}
-            <ScrollReveal direction="left">
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-[#E8E2D7] shadow-xs bg-[#F8F5EF]">
+          {/* Right Column: Embedded Google Map */}
+          <div className="lg:col-span-7 flex flex-col">
+            <ScrollReveal direction="left" className="h-full">
+              <div className="relative h-full min-h-[380px] md:min-h-[440px] w-full overflow-hidden rounded-2xl border border-[#E8E2D7] shadow-xs bg-[#F8F5EF]">
                 <iframe
                   title="Surya Promoters Madurai Location"
                   src="https://maps.google.com/maps?q=Surya%20Promoters%20Pandi%20Kovil%20Ring%20Road%20Madurai&t=&z=14&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
+                  className="absolute inset-0 w-full h-full"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                 />
-              </div>
-            </ScrollReveal>
-
-            {/* Quick Contact Form */}
-            <ScrollReveal delay={0.2} direction="left">
-              <div className="rounded-2xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 md:p-8">
-                <h3 className="font-display text-xl font-normal text-[#242820]">
-                  Quick Message
-                </h3>
-                <p className="mt-1 text-xs text-[#77766F]">
-                  Send your enquiry and our advisory team will connect with you.
-                </p>
-
-                {!submitted ? (
-                  <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <input
-                        type="text"
-                        required
-                        placeholder="Your Name"
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className="rounded-xl border border-[#E8E2D7] bg-white px-4 py-3 text-sm text-[#242820] placeholder-[#77766F]/50 focus:border-[#C6A15B] focus:outline-none"
-                      />
-                      <input
-                        type="tel"
-                        required
-                        placeholder="Mobile / WhatsApp Number"
-                        value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        className="rounded-xl border border-[#E8E2D7] bg-white px-4 py-3 text-sm text-[#242820] placeholder-[#77766F]/50 focus:border-[#C6A15B] focus:outline-none"
-                      />
-                    </div>
-
-                    <input
-                      type="email"
-                      placeholder="Email Address (optional)"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="w-full rounded-xl border border-[#E8E2D7] bg-white px-4 py-3 text-sm text-[#242820] placeholder-[#77766F]/50 focus:border-[#C6A15B] focus:outline-none"
-                    />
-
-                    <textarea
-                      rows={2}
-                      placeholder="Your questions or land inquiry..."
-                      value={form.inquiry}
-                      onChange={(e) => setForm({ ...form, inquiry: e.target.value })}
-                      className="w-full rounded-xl border border-[#E8E2D7] bg-white px-4 py-3 text-sm text-[#242820] placeholder-[#77766F]/50 focus:border-[#C6A15B] focus:outline-none"
-                    />
-
-                    <button
-                      type="submit"
-                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#C6A15B] py-3 text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-[#b5924d]"
-                    >
-                      <span>Send Direct Message</span>
-                      <Send className="h-3.5 w-3.5" />
-                    </button>
-                  </form>
-                ) : (
-                  <div className="py-6 text-center text-emerald-700">
-                    <CheckCircle2 className="mx-auto h-8 w-8" />
-                    <p className="mt-2 text-sm text-[#242820]">Thank you! Opening WhatsApp for instant message delivery.</p>
-                  </div>
-                )}
               </div>
             </ScrollReveal>
           </div>
