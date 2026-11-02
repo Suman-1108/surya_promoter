@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/hooks/useLanguage";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import HeroCTA from "./HeroCTA";
 
 export default function ModernHero() {
   const { language } = useLanguage();
@@ -210,6 +211,9 @@ export default function ModernHero() {
           </div>
 
         </div>
+
+        {/* Hero Interactive CTA Section */}
+        <HeroCTA />
 
         {/* Scroll Down Indicator */}
         <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center text-center">
