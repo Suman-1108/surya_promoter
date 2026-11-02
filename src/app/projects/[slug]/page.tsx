@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ProjectPage({ params }: Props) {
+async function ProjectContent({ params }: Props) {
   const { slug } = await params;
   const project = projectsData.find((p) => p.slug === slug);
 
@@ -45,10 +46,27 @@ export default async function ProjectPage({ params }: Props) {
     notFound();
   }
 
+  return <ProjectDetails project={project} />;
+}
+
+export default function ProjectPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-[#FFFFFF] text-[#242820]">
       <Navbar />
-      <ProjectDetails project={project} />
+      <Suspense
+        fallback={
+          <div className="mx-auto flex min-h-[60vh] max-w-[1760px] items-center justify-center px-6">
+            <div className="flex flex-col items-center gap-3">
+              <div className="h-9 w-9 animate-spin rounded-full border-3 border-[#C6A15B] border-t-transparent" />
+              <span className="font-mono text-xs uppercase tracking-widest text-[#77766F]">
+                Loading Project...
+              </span>
+            </div>
+          </div>
+        }
+      >
+        <ProjectContent params={params} />
+      </Suspense>
       <Footer />
       <MobileActionBar />
     </main>
