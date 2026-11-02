@@ -181,47 +181,6 @@ export default function ModernFeaturedProperties() {
           </p>
         </div>
 
-        {/* MapBhoomi Digital Twin Spotlight Banner */}
-        <div className="mt-8 rounded-3xl border border-[#EAB308]/40 bg-gradient-to-r from-[#0A0D12] via-[#161B22] to-[#0A0D12] p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-start sm:items-center gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#EAB308] text-[#0A0D12] shadow-md">
-              <Layers className="h-6 w-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-[#EAB308]">
-                  OFFICIAL MAPBHOOMI PARTNER PORTAL
-                </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2 py-0.5 text-[10px] font-mono font-bold text-emerald-300">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  3 LIVE MAPS
-                </span>
-              </div>
-              <h3 className="font-display text-lg sm:text-xl font-bold text-white mt-1">
-                {language === "ta"
-                  ? "மேப்போமியில் சூர்யா புரமோட்டர்ஸின் நேரடி 3D & 2D வரைபடங்கள்"
-                  : "Explore Surya Promoters' Interactive 3D & 2D Layouts"}
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-300 mt-1 max-w-2xl">
-                {language === "ta"
-                  ? "எங்கள் மனைப்பிரிவுகளில் மனைகளின் அளவுகள், விலை மற்றும் தற்போதைய முன்பதிவு நிலையை 3D வரைபடத்தில் நேரடியாகக் காண்க."
-                  : "Tap individual units to inspect real-time availability, plot boundaries, exact square footage, and pricing on MapBhoomi."}
-              </p>
-            </div>
-          </div>
-
-          <a
-            href="https://mapbhoomi.com/l/surya-promoters"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#EAB308] px-6 py-3 font-display text-xs font-extrabold uppercase tracking-wider text-[#0A0D12] shadow-md hover:bg-[#ca9a07] transition hover:scale-105 shrink-0"
-          >
-            <Map className="h-4 w-4" />
-            <span>{language === "ta" ? "வரைபடங்களை பார்க்க" : "View Live Maps"}</span>
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
-        </div>
-
         {/* Dual-Level Filter Bar: 1. Project Type (Running vs Completed) + 2. Categories */}
         <div className="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-5">
           {/* Main 2 Types: Running Projects & Completed Projects */}
