@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useLanguage } from "@/hooks/useLanguage";
 import { ArrowRight, Calendar, MessageSquare, MapPin, CheckCircle2, Clock, Layers, ExternalLink, Map } from "lucide-react";
 
@@ -33,6 +34,7 @@ interface ProjectItem {
 }
 
 export default function ModernFeaturedProperties() {
+  const router = useRouter();
   const { language } = useLanguage();
   const [activeType, setActiveType] = useState<"all" | "running" | "completed">("all");
   const [activeCategory, setActiveCategory] = useState<"all" | "commercial" | "farm" | "residential">("all");
@@ -332,7 +334,12 @@ export default function ModernFeaturedProperties() {
               return (
                 <div
                   key={project.id}
-                  className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-lg transition-all"
+                  onClick={(e) => {
+                    const target = e.target as HTMLElement;
+                    if (target.closest("a, button")) return;
+                    router.push(`/projects/${project.slug}`);
+                  }}
+                  className="group relative cursor-pointer rounded-3xl border border-gray-200 bg-white p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-[#EAB308]/60 transition-all duration-300"
                 >
                   {/* Card Top Bar */}
                   <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-6 mb-8">
@@ -408,7 +415,7 @@ export default function ModernFeaturedProperties() {
                         isEven ? "lg:order-2" : "lg:order-1"
                       }`}
                     >
-                      <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#111827] leading-snug">
+                      <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#111827] group-hover:text-[#B45309] transition-colors leading-snug">
                         {language === "ta" ? project.titleTa : project.title}
                       </h3>
 
@@ -469,6 +476,7 @@ export default function ModernFeaturedProperties() {
                               )}.`}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
                               className="inline-flex items-center gap-2 rounded-xl bg-[#EAB308] px-5 py-3 font-display text-xs font-bold uppercase tracking-wider text-[#0A0D12] shadow-sm hover:bg-[#ca9a07] transition"
                             >
                               <MessageSquare className="h-4 w-4" />
@@ -482,6 +490,7 @@ export default function ModernFeaturedProperties() {
                               )}.`}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
                               className="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-3 font-display text-xs font-bold uppercase tracking-wider text-[#111827] hover:bg-gray-50 transition"
                             >
                               <Calendar className="h-4 w-4 text-[#B45309]" />
@@ -494,6 +503,7 @@ export default function ModernFeaturedProperties() {
                                 href={project.mapBhoomiUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
                                 className="inline-flex items-center gap-1.5 rounded-xl border border-[#EAB308]/60 bg-[#0A0D12] px-4 py-3 font-display text-xs font-bold uppercase tracking-wider text-[#EAB308] hover:bg-black transition shadow-xs"
                               >
                                 <Layers className="h-4 w-4 text-[#EAB308]" />
@@ -511,6 +521,7 @@ export default function ModernFeaturedProperties() {
                               )}%20and%20would%20like%20to%20inquire%20about%20similar%20upcoming%20developments.`}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
                               className="inline-flex items-center gap-2 rounded-xl bg-[#0A0D12] px-5 py-3 font-display text-xs font-bold uppercase tracking-wider text-white shadow-sm hover:bg-gray-800 transition"
                             >
                               <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
@@ -524,6 +535,7 @@ export default function ModernFeaturedProperties() {
                               )}.`}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
                               className="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-3 font-display text-xs font-bold uppercase tracking-wider text-[#111827] hover:bg-gray-50 transition"
                             >
                               <Calendar className="h-4 w-4 text-blue-600" />
@@ -533,13 +545,12 @@ export default function ModernFeaturedProperties() {
                         )}
 
                         {/* Details Link */}
-                        <Link
-                          href={`/projects/${project.slug}`}
-                          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111827] hover:text-[#EAB308] transition ml-auto"
+                        <div
+                          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111827] group-hover:text-[#B45309] transition ml-auto"
                         >
                           <span>{language === "ta" ? "முழு விவரங்கள்" : "View Details"}</span>
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 text-[#EAB308]" />
+                        </div>
                       </div>
                     </div>
 

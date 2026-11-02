@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Project } from "@/types/project";
 import { useLanguage } from "@/hooks/useLanguage";
 import { MapPin, ArrowRight, Layers, ExternalLink } from "lucide-react";
@@ -12,11 +13,19 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const router = useRouter();
   const { language } = useLanguage();
   const isCompleted = project.status === "completed" || project.projectType === "completed";
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#E8E2D7] bg-[#FFFFFF] transition-all duration-300 hover:border-[#C6A15B] hover:shadow-md">
+    <div
+      onClick={(e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest("a, button")) return;
+        router.push(`/projects/${project.slug}`);
+      }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#E8E2D7] bg-[#FFFFFF] transition-all duration-300 hover:border-[#C6A15B] hover:shadow-xl cursor-pointer"
+    >
       {/* Media Image Banner */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F8F5EF]">
         <Image
@@ -92,13 +101,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Bottom CTA Row */}
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-[#E8E2D7] pt-5">
-          <Link
-            href={`/projects/${project.slug}`}
-            className="group/link inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#242820] transition-colors hover:text-[#C6A15B]"
+          <div
+            className="group/link inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#242820] transition-colors group-hover:text-[#C6A15B]"
           >
             <span>View Project</span>
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1 text-[#C6A15B]" />
-          </Link>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1.5 text-[#C6A15B]" />
+          </div>
 
           <div className="flex items-center gap-3 text-xs">
             {project.mapBhoomiUrl && (
@@ -106,6 +114,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 href={project.mapBhoomiUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="inline-flex items-center gap-1 font-bold text-[#B45309] hover:text-[#D97706] transition"
               >
                 <Layers className="h-3.5 w-3.5" />
@@ -117,6 +126,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="text-[#77766F] transition hover:text-[#242820] underline"
             >
               Google Maps
