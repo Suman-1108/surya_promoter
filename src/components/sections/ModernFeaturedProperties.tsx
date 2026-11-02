@@ -90,7 +90,7 @@ export default function ModernFeaturedProperties() {
         "Fertile agricultural land plots blessed with rich soil profiles and copious sweet groundwater. Ideal for personal weekend farmhouses, organic fruit groves, long-term agro-investments, and peaceful countryside retreats with motorable blacktop access.",
       descriptionTa:
         "வளமான மண் மற்றும் நிலத்தடி நீர் வசதியுடன் கூடிய விவசாய நிலங்கள். தனிநபர் வார இறுதி பண்ணை வீடுகள், இயற்கை பழத்தோட்டங்கள் மற்றும் பாதுகாப்பான நீண்டகால முதலீட்டிற்கு ஏற்ற நிலங்கள்.",
-      image: "/images/projects/madurai-farms.jpg",
+      image: "/images/projects/madurai-farms/aerial-cottage.jpg",
       googleMapsUrl: "https://maps.google.com/?q=Madurai+Tamil+Nadu+Farm+Land",
       mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres",
       brochureUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres/brochure?layout=01a18209-99f6-73b0-a2a4-6677a87c2098",

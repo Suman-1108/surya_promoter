@@ -18,9 +18,19 @@ export default function GallerySection() {
       subtitle: "Madurai Ring Road Corridor",
     },
     {
-      src: "/images/projects/madurai-farms.jpg",
-      title: "Natural Farm Land",
-      subtitle: "Agrarian Belt & Sweet Groundwater",
+      src: "/images/projects/madurai-farms/aerial-cottage.jpg",
+      title: "Madurai Farms Aerial Canopy",
+      subtitle: "Lush Orchard Belt & Farmhouse Estate",
+    },
+    {
+      src: "/images/projects/madurai-farms/panoramic-view.jpg",
+      title: "Madurai Farms Countryside Panorama",
+      subtitle: "Wide Motorable Approach & Vast Green Horizon",
+    },
+    {
+      src: "/images/projects/madurai-farms/aerial-grove.jpg",
+      title: "Agro Groves & Coconut Plantations",
+      subtitle: "Copious Sweet Groundwater & Fertile Soil",
     },
     {
       src: "/images/projects/orange-garden.jpg",
@@ -28,19 +38,9 @@ export default function GallerySection() {
       subtitle: "Fruit Cultivation & Farmhouse Terrain",
     },
     {
-      src: "/images/gallery/gallery-1.jpg",
-      title: "Surveyed Plot Demarcation",
-      subtitle: "Precision GPS Layout Boundary Stones",
-    },
-    {
-      src: "/images/gallery/gallery-2.jpg",
-      title: "Blacktop Access Roadways",
-      subtitle: "Heavy Vehicle Maneuvering Corridor",
-    },
-    {
-      src: "/images/gallery/gallery-3.jpg",
-      title: "Avenue Plantation & Greenery",
-      subtitle: "Enduring Eco-Friendly Infrastructure",
+      src: "/images/projects/madurai-farms/concrete-pathway.jpg",
+      title: "Internal Paved Plantation Avenues",
+      subtitle: "Dedicated Streetlights & All-Weather Access",
     },
   ];
 
@@ -131,6 +131,7 @@ export default function GallerySection() {
               alt="Gallery Preview"
               fill
               className="object-contain"
+              sizes="(max-width: 1280px) 100vw, 1200px"
             />
           </div>
         </div>
