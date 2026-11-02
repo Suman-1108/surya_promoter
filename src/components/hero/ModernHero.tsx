@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
@@ -82,24 +83,39 @@ export default function ModernHero() {
               )}
             </h1>
 
-            {/* Sublabel / Tagline (Reduced text size as requested) */}
-            <div className="pt-0.5">
+            {/* Sublabel / Tagline */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="pt-0.5"
+            >
               <p className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#9CA3AF]">
                 {language === "ta"
                   ? "நிறுவப்பட்டது 2010 · மதுரை, தமிழ்நாடு · இந்திய விமானப்படை தலைமை"
                   : "FOUNDED 2010 · MADURAI, TAMIL NADU · IAF VETERAN LEADERSHIP"}
               </p>
-            </div>
+            </motion.div>
 
-            {/* Description (Reduced text size as requested - sleek & compact) */}
-            <p className="max-w-xl text-xs sm:text-[13px] md:text-sm leading-relaxed text-[#9CA3AF]">
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-xl text-xs sm:text-[13px] md:text-sm leading-relaxed text-[#9CA3AF]"
+            >
               {language === "ta"
                 ? "சூர்யா புரமோட்டர்ஸ் 2010 ஆம் ஆண்டு இந்திய விமானப்படை ஓய்வுபெற்ற அதிகாரியான திரு. மாணிக்கம் நடராஜன் அவர்களால் நிறுவப்பட்டது. நாங்கள் மதுரையைச் சுற்றிலும் குடியிருப்பு, வணிகம், தொழிற்பேட்டை மற்றும் விவசாய நில மேம்பாடு மற்றும் விற்பனையில் நிபுணத்துவம் பெற்றுள்ளோம்."
                 : "Surya Promoters was established in 2010 by Mr. Manickam Natarajan, an Indian Air Force veteran. We specialize in property development and marketing across residential, commercial, industrial and agricultural property categories in and around Madurai."}
-            </p>
+            </motion.p>
 
             {/* Two Action Buttons side-by-side */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-1">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-wrap items-center gap-3.5 pt-1"
+            >
               <a
                 href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20discuss%20my%20property%20requirements."
                 target="_blank"
@@ -116,10 +132,15 @@ export default function ModernHero() {
               >
                 <span>{language === "ta" ? "திட்டங்களை காண்க" : "View Project Record"}</span>
               </a>
-            </div>
+            </motion.div>
 
             {/* Horizontal Metrics Strip */}
-            <div className="pt-4 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="pt-4 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5"
+            >
               {/* Stat 1 */}
               <div className="border-l-2 border-[#EAB308] pl-3">
                 <div className="font-display text-xl sm:text-2xl lg:text-[26px] font-extrabold text-white">
@@ -159,12 +180,17 @@ export default function ModernHero() {
                   {language === "ta" ? "நடைபெறும் & நிறைவடைந்தது" : "RUNNING & COMPLETED"}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
 
           {/* Right Column: Large landscape property photo with gated community plotted layout image & gold glow border */}
-          <div className="xl:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="xl:col-span-6"
+          >
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border-2 border-[#EAB308]/60 shadow-[0_0_35px_rgba(234,179,8,0.2)] bg-[#161B22] group">
               <Image
                 src="/images/hero/hero-gated-layout.jpg"
@@ -207,7 +233,7 @@ export default function ModernHero() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
 

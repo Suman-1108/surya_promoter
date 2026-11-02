@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ScrollReveal from "@/components/animations/ScrollReveal";
 import { Send, Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
@@ -17,224 +18,242 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#FFFFFF] text-[#111827] border-t border-gray-100">
+    <footer className="w-full bg-[#FFFFFF] text-[#111827] border-t border-gray-100 overflow-hidden">
       <div className="w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 py-10 lg:py-14">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-14">
           {/* Column 1: Brand & Socials (Nexora Reference) */}
-          <div className="lg:col-span-4 space-y-6">
-            <Link href="/" className="inline-flex items-center gap-3.5 group">
-              <div className="relative h-12 w-12 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A15B] bg-white shadow-xs p-1 transition-all group-hover:scale-105">
-                <div className="relative h-full w-full rounded-full overflow-hidden">
-                  <Image
-                    src="/images/surya-logo.png"
-                    alt="Surya Promoters Logo"
-                    fill
-                    sizes="48px"
-                    className="object-contain scale-105"
-                  />
+          <div className="lg:col-span-4">
+            <ScrollReveal direction="up" delay={0.1}>
+              <div className="space-y-6">
+                <Link href="/" className="inline-flex items-center gap-3.5 group">
+                  <div className="relative h-12 w-12 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A15B] bg-white shadow-xs p-1 transition-all group-hover:scale-105">
+                    <div className="relative h-full w-full rounded-full overflow-hidden">
+                      <Image
+                        src="/images/surya-logo.png"
+                        alt="Surya Promoters Logo"
+                        fill
+                        sizes="48px"
+                        className="object-contain scale-105"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-display text-xl font-extrabold tracking-wider text-[#111827]">
+                      SURYA PROMOTERS
+                    </span>
+                    <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#6B7280]">
+                      ESTD. 2010 · MADURAI
+                    </span>
+                  </div>
+                </Link>
+
+                <p className="text-sm leading-relaxed text-[#6B7280] max-w-md">
+                  Surya Promoters is your trusted partner in finding exceptional
+                  land and property investment opportunities across Madurai and
+                  Tamil Nadu.
+                </p>
+
+                {/* Social Icons */}
+                <div className="flex items-center gap-3.5 pt-2">
+                  <a
+                    href="https://wa.me/917708966452"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#111827] transition hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-105"
+                    aria-label="WhatsApp"
+                  >
+                    <Phone className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="mailto:suryconstruction@gmail.com"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#111827] transition hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-105"
+                    aria-label="Email"
+                  >
+                    <Mail className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#111827] transition hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-105"
+                    aria-label="Location"
+                  >
+                    <MapPin className="h-5 w-5" />
+                  </a>
                 </div>
               </div>
-              <div className="flex flex-col">
-                <span className="font-display text-xl font-extrabold tracking-wider text-[#111827]">
-                  SURYA PROMOTERS
-                </span>
-                <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#6B7280]">
-                  ESTD. 2010 · MADURAI
-                </span>
-              </div>
-            </Link>
-
-            <p className="text-sm leading-relaxed text-[#6B7280] max-w-md">
-              Surya Promoters is your trusted partner in finding exceptional
-              land and property investment opportunities across Madurai and
-              Tamil Nadu.
-            </p>
-
-            {/* Social Icons */}
-            <div className="flex items-center gap-3.5 pt-2">
-              <a
-                href="https://wa.me/917708966452"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#111827] transition hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-105"
-                aria-label="WhatsApp"
-              >
-                <Phone className="h-5 w-5" />
-              </a>
-              <a
-                href="mailto:suryconstruction@gmail.com"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#111827] transition hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-105"
-                aria-label="Email"
-              >
-                <Mail className="h-5 w-5" />
-              </a>
-              <a
-                href="https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#111827] transition hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-105"
-                aria-label="Location"
-              >
-                <MapPin className="h-5 w-5" />
-              </a>
-            </div>
+            </ScrollReveal>
           </div>
 
           {/* Column 2: Quick Links */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-base font-bold text-[#111827]">Quick Links</h4>
-            <ul className="space-y-3 text-sm font-medium text-[#6B7280]">
-              <li>
-                <Link href="/" className="hover:text-blue-600 transition">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-blue-600 transition">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects"
-                  className="hover:text-blue-600 transition"
-                >
-                  Properties
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="https://mapbhoomi.com/l/surya-promoters"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-amber-600 transition flex items-center gap-1.5 text-[#B45309] font-bold"
-                >
-                  <span>3D Layouts (MapBhoomi)</span>
-                  <span className="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full font-mono font-bold">LIVE</span>
-                </a>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-blue-600 transition"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/gallery"
-                  className="hover:text-blue-600 transition"
-                >
-                  Gallery
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-blue-600 transition"
-                >
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
+          <div className="lg:col-span-2">
+            <ScrollReveal direction="up" delay={0.2}>
+              <div className="space-y-4">
+                <h4 className="text-base font-bold text-[#111827]">Quick Links</h4>
+                <ul className="space-y-3 text-sm font-medium text-[#6B7280]">
+                  <li>
+                    <Link href="/" className="hover:text-blue-600 transition">
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/about" className="hover:text-blue-600 transition">
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/projects"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Properties
+                    </Link>
+                  </li>
+                  <li>
+                    <a
+                      href="https://mapbhoomi.com/l/surya-promoters"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-amber-600 transition flex items-center gap-1.5 text-[#B45309] font-bold"
+                    >
+                      <span>3D Layouts (MapBhoomi)</span>
+                      <span className="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full font-mono font-bold">LIVE</span>
+                    </a>
+                  </li>
+                  <li>
+                    <Link
+                      href="/services"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Services
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/gallery"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Gallery
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
           </div>
 
           {/* Column 3: Our Services */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-base font-bold text-[#111827]">Our Services</h4>
-            <ul className="space-y-3 text-sm font-medium text-[#6B7280]">
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-blue-600 transition"
-                >
-                  Commercial &amp; Industrial Land
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-blue-600 transition"
-                >
-                  Managed Agricultural Farms
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-blue-600 transition"
-                >
-                  Residential Plot Layouts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-blue-600 transition"
-                >
-                  Legal Title Verification Advisory
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-blue-600 transition"
-                >
-                  Escorted On-Ground Site Visits
-                </Link>
-              </li>
-            </ul>
+          <div className="lg:col-span-3">
+            <ScrollReveal direction="up" delay={0.3}>
+              <div className="space-y-4">
+                <h4 className="text-base font-bold text-[#111827]">Our Services</h4>
+                <ul className="space-y-3 text-sm font-medium text-[#6B7280]">
+                  <li>
+                    <Link
+                      href="/services"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Commercial &amp; Industrial Land
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/services"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Managed Agricultural Farms
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/services"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Residential Plot Layouts
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/services"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Legal Title Verification Advisory
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="hover:text-blue-600 transition"
+                    >
+                      Escorted On-Ground Site Visits
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
           </div>
 
           {/* Column 4: Newsletter */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-base font-bold text-[#111827]">Newsletter</h4>
-            <p className="text-sm text-[#6B7280] leading-relaxed">
-              Subscribe to get the latest updates on verified land releases and
-              investment opportunities.
-            </p>
+          <div className="lg:col-span-3">
+            <ScrollReveal direction="up" delay={0.4}>
+              <div className="space-y-4">
+                <h4 className="text-base font-bold text-[#111827]">Newsletter</h4>
+                <p className="text-sm text-[#6B7280] leading-relaxed">
+                  Subscribe to get the latest updates on verified land releases and
+                  investment opportunities.
+                </p>
 
-            {!subscribed ? (
-              <form onSubmit={handleSubscribe} className="space-y-3">
-                <div className="relative">
-                  <input
-                    type="email"
-                    required
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 pr-14 text-sm text-[#111827] placeholder-gray-400 focus:border-blue-600 focus:bg-white focus:outline-none"
-                  />
-                  <button
-                    type="submit"
-                    aria-label="Subscribe"
-                    className="absolute right-1.5 top-1.5 bottom-1.5 flex w-11 items-center justify-center rounded-lg bg-blue-600 text-white shadow-md transition hover:bg-blue-700"
-                  >
-                    <Send className="h-4 w-4" />
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <p className="text-sm font-semibold text-emerald-600">
-                Thank you for subscribing!
-              </p>
-            )}
+                {!subscribed ? (
+                  <form onSubmit={handleSubscribe} className="space-y-3">
+                    <div className="relative">
+                      <input
+                        type="email"
+                        required
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 pr-14 text-sm text-[#111827] placeholder-gray-400 focus:border-blue-600 focus:bg-white focus:outline-none"
+                      />
+                      <button
+                        type="submit"
+                        aria-label="Subscribe"
+                        className="absolute right-1.5 top-1.5 bottom-1.5 flex w-11 items-center justify-center rounded-lg bg-blue-600 text-white shadow-md transition hover:bg-blue-700"
+                      >
+                        <Send className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <p className="text-sm font-semibold text-emerald-600">
+                    Thank you for subscribing!
+                  </p>
+                )}
+              </div>
+            </ScrollReveal>
           </div>
         </div>
 
         {/* Bottom Line */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-gray-100 pt-8 text-sm text-[#6B7280] md:flex-row">
-          <p>© 2026 Surya Promoters. All Rights Reserved.</p>
-          <div className="flex items-center gap-8">
-            <Link href="/about" className="hover:text-[#111827] transition">
-              Privacy Policy
-            </Link>
-            <Link href="/about" className="hover:text-[#111827] transition">
-              Terms &amp; Conditions
-            </Link>
+        <ScrollReveal direction="up" delay={0.2}>
+          <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-gray-100 pt-8 text-sm text-[#6B7280] md:flex-row">
+            <p>© 2026 Surya Promoters. All Rights Reserved.</p>
+            <div className="flex items-center gap-8">
+              <Link href="/about" className="hover:text-[#111827] transition">
+                Privacy Policy
+              </Link>
+              <Link href="/about" className="hover:text-[#111827] transition">
+                Terms &amp; Conditions
+              </Link>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </footer>
   );

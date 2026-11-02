@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/hooks/useLanguage";
+import ScrollReveal from "@/components/animations/ScrollReveal";
 import { ArrowRight, Calendar, MessageSquare, MapPin, CheckCircle2, Clock, Layers, ExternalLink, Map } from "lucide-react";
 
 interface ProjectItem {
@@ -160,115 +161,119 @@ export default function ModernFeaturedProperties() {
       <div className="w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24">
         
         {/* Section Header */}
-        <div className="space-y-3 max-w-3xl">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#EAB308]" />
-            <span className="font-mono text-xs font-bold tracking-[0.22em] uppercase text-[#B45309]">
-              {language === "ta" ? "சரிபார்க்கப்பட்ட திட்ட ஆவணங்கள்" : "VERIFIED PROPERTY DEVELOPMENTS"}
-            </span>
+        <ScrollReveal direction="up" delay={0.1}>
+          <div className="space-y-3 max-w-3xl">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#EAB308]" />
+              <span className="font-mono text-xs font-bold tracking-[0.22em] uppercase text-[#B45309]">
+                {language === "ta" ? "சரிபார்க்கப்பட்ட திட்ட ஆவணங்கள்" : "VERIFIED PROPERTY DEVELOPMENTS"}
+              </span>
+            </div>
+
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#111827]">
+              {language === "ta"
+                ? "நடைபெறும் & நிறைவடைந்த திட்டங்கள்"
+                : "Running & Completed Projects"}
+            </h2>
+
+            <p className="text-base text-[#6B7280]">
+              {language === "ta"
+                ? "மதுரை மற்றும் அதன் சுற்றுவட்டாரப் பகுதிகளில் சூர்யா புரமோட்டர்ஸின் தீவிர செயல்பாட்டில் உள்ள திட்டங்கள் மற்றும் வெற்றிகரமாக முடிக்கப்பட்ட நில மேம்பாடுகளைக் காண்க."
+                : "Explore our active ongoing land developments and successfully delivered, registered layouts across Madurai."}
+            </p>
           </div>
-
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#111827]">
-            {language === "ta"
-              ? "நடைபெறும் & நிறைவடைந்த திட்டங்கள்"
-              : "Running & Completed Projects"}
-          </h2>
-
-          <p className="text-base text-[#6B7280]">
-            {language === "ta"
-              ? "மதுரை மற்றும் அதன் சுற்றுவட்டாரப் பகுதிகளில் சூர்யா புரமோட்டர்ஸின் தீவிர செயல்பாட்டில் உள்ள திட்டங்கள் மற்றும் வெற்றிகரமாக முடிக்கப்பட்ட நில மேம்பாடுகளைக் காண்க."
-              : "Explore our active ongoing land developments and successfully delivered, registered layouts across Madurai."}
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Dual-Level Filter Bar: 1. Project Type (Running vs Completed) + 2. Categories */}
-        <div className="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-5">
-          {/* Main 2 Types: Running Projects & Completed Projects */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            <button
-              onClick={() => setActiveType("all")}
-              className={`rounded-xl px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-                activeType === "all"
-                  ? "bg-[#0A0D12] text-white shadow-sm"
-                  : "bg-gray-100 text-[#4B5563] hover:bg-gray-200"
-              }`}
-            >
-              <span>{language === "ta" ? "அனைத்து திட்டங்கள்" : "ALL PROJECTS"}</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeType === "all" ? "bg-white/20 text-white" : "bg-gray-200 text-gray-700"}`}>
-                {projects.length}
-              </span>
-            </button>
+        <ScrollReveal direction="up" delay={0.2}>
+          <div className="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-5">
+            {/* Main 2 Types: Running Projects & Completed Projects */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              <button
+                onClick={() => setActiveType("all")}
+                className={`rounded-xl px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+                  activeType === "all"
+                    ? "bg-[#0A0D12] text-white shadow-sm"
+                    : "bg-gray-100 text-[#4B5563] hover:bg-gray-200"
+                }`}
+              >
+                <span>{language === "ta" ? "அனைத்து திட்டங்கள்" : "ALL PROJECTS"}</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeType === "all" ? "bg-white/20 text-white" : "bg-gray-200 text-gray-700"}`}>
+                  {projects.length}
+                </span>
+              </button>
 
-            <button
-              onClick={() => setActiveType("running")}
-              className={`rounded-xl px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-                activeType === "running"
-                  ? "bg-[#EAB308] text-[#0A0D12] shadow-sm font-extrabold"
-                  : "bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100"
-              }`}
-            >
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>{language === "ta" ? "நடைபெறும் திட்டங்கள்" : "RUNNING PROJECTS"}</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeType === "running" ? "bg-[#0A0D12]/20 text-[#0A0D12]" : "bg-emerald-200/70 text-emerald-900"}`}>
-                {runningCount}
-              </span>
-            </button>
+              <button
+                onClick={() => setActiveType("running")}
+                className={`rounded-xl px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+                  activeType === "running"
+                    ? "bg-[#EAB308] text-[#0A0D12] shadow-sm font-extrabold"
+                    : "bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100"
+                }`}
+              >
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>{language === "ta" ? "நடைபெறும் திட்டங்கள்" : "RUNNING PROJECTS"}</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeType === "running" ? "bg-[#0A0D12]/20 text-[#0A0D12]" : "bg-emerald-200/70 text-emerald-900"}`}>
+                  {runningCount}
+                </span>
+              </button>
 
-            <button
-              onClick={() => setActiveType("completed")}
-              className={`rounded-xl px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-                activeType === "completed"
-                  ? "bg-[#0A0D12] text-white shadow-sm font-extrabold"
-                  : "bg-blue-50 text-blue-800 border border-blue-200 hover:bg-blue-100"
-              }`}
-            >
-              <CheckCircle2 className="h-3.5 w-3.5 text-blue-600" />
-              <span>{language === "ta" ? "நிறைவடைந்த திட்டங்கள்" : "COMPLETED PROJECTS"}</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeType === "completed" ? "bg-white/20 text-white" : "bg-blue-200/70 text-blue-900"}`}>
-                {completedCount}
+              <button
+                onClick={() => setActiveType("completed")}
+                className={`rounded-xl px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+                  activeType === "completed"
+                    ? "bg-[#0A0D12] text-white shadow-sm font-extrabold"
+                    : "bg-blue-50 text-blue-800 border border-blue-200 hover:bg-blue-100"
+                }`}
+              >
+                <CheckCircle2 className="h-3.5 w-3.5 text-blue-600" />
+                <span>{language === "ta" ? "நிறைவடைந்த திட்டங்கள்" : "COMPLETED PROJECTS"}</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeType === "completed" ? "bg-white/20 text-white" : "bg-blue-200/70 text-blue-900"}`}>
+                  {completedCount}
+                </span>
+              </button>
+            </div>
+
+            {/* Sub-Category Filter Pills */}
+            <div className="flex flex-wrap items-center gap-1.5 text-xs">
+              <span className="font-mono text-[11px] font-semibold text-gray-400 uppercase tracking-wider mr-1">
+                {language === "ta" ? "வகை:" : "Filter:"}
               </span>
-            </button>
+              <button
+                onClick={() => setActiveCategory("all")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  activeCategory === "all" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setActiveCategory("commercial")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  activeCategory === "commercial" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                Commercial
+              </button>
+              <button
+                onClick={() => setActiveCategory("farm")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  activeCategory === "farm" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                Farm Plots
+              </button>
+              <button
+                onClick={() => setActiveCategory("residential")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  activeCategory === "residential" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                Residential
+              </button>
+            </div>
           </div>
-
-          {/* Sub-Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 text-xs">
-            <span className="font-mono text-[11px] font-semibold text-gray-400 uppercase tracking-wider mr-1">
-              {language === "ta" ? "வகை:" : "Filter:"}
-            </span>
-            <button
-              onClick={() => setActiveCategory("all")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                activeCategory === "all" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              All
-            </button>
-            <button
-              onClick={() => setActiveCategory("commercial")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                activeCategory === "commercial" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              Commercial
-            </button>
-            <button
-              onClick={() => setActiveCategory("farm")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                activeCategory === "farm" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              Farm Plots
-            </button>
-            <button
-              onClick={() => setActiveCategory("residential")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                activeCategory === "residential" ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              Residential
-            </button>
-          </div>
-        </div>
+        </ScrollReveal>
 
         {/* Project Cards in Zig-Zag Alternating Layout */}
         <div className="mt-8 space-y-10">
@@ -291,15 +296,21 @@ export default function ModernFeaturedProperties() {
               const isRunning = project.projectType === "running";
 
               return (
-                <div
+                <ScrollReveal
                   key={project.id}
-                  onClick={(e) => {
-                    const target = e.target as HTMLElement;
-                    if (target.closest("a, button")) return;
-                    router.push(`/projects/${project.slug}`);
-                  }}
-                  className="group relative cursor-pointer rounded-3xl border border-gray-200 bg-white p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-[#EAB308]/60 transition-all duration-300"
+                  direction="up"
+                  delay={0.1}
+                  distance={45}
+                  duration={0.8}
                 >
+                  <div
+                    onClick={(e) => {
+                      const target = e.target as HTMLElement;
+                      if (target.closest("a, button")) return;
+                      router.push(`/projects/${project.slug}`);
+                    }}
+                    className="group relative cursor-pointer rounded-3xl border border-gray-200 bg-white p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-[#EAB308]/60 transition-all duration-300"
+                  >
                   {/* Card Top Bar */}
                   <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-6 mb-8">
                     <div className="flex items-center gap-4">
@@ -515,8 +526,9 @@ export default function ModernFeaturedProperties() {
 
                   </div>
                 </div>
-              );
-            })
+              </ScrollReveal>
+            );
+          })
           )}
         </div>
 
