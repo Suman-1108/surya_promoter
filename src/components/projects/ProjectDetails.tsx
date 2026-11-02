@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Project } from "@/types/project";
 import { useLanguage } from "@/hooks/useLanguage";
 import ProjectGallery from "./ProjectGallery";
@@ -28,6 +29,7 @@ interface ProjectDetailsProps {
 }
 
 export default function ProjectDetails({ project }: ProjectDetailsProps) {
+  const router = useRouter();
   const { language } = useLanguage();
   const [copied, setCopied] = useState(false);
   const isCompleted = project.status === "completed" || project.projectType === "completed";
@@ -51,14 +53,37 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
     <article className="min-h-screen bg-[#FFFFFF] text-[#242820] pt-6 pb-12">
       {/* Back Navigation Bar */}
       <div className="w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 mb-6">
-        <div className="flex items-center justify-between">
-          <Link
-            href="/projects"
-            className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#77766F] transition hover:text-[#242820]"
-          >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1 text-[#C6A15B]" />
-            <span>{language === "ta" ? "அனைத்து திட்டங்களுக்கும் திரும்புக" : "Back to All Projects"}</span>
-          </Link>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                if (typeof window !== "undefined" && window.history.length > 1) {
+                  router.back();
+                } else {
+                  router.push("/projects");
+                }
+              }}
+              className="group inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#111827] border border-[#E8E2D7] shadow-2xs hover:bg-[#111827] hover:text-white hover:border-[#111827] transition-all cursor-pointer"
+              title="Go back to previous page"
+            >
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1 text-[#C6A15B] group-hover:text-[#EAB308]" />
+              <span>{language === "ta" ? "முந்தைய பக்கம்" : "Back"}</span>
+            </button>
+
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#F8F5EF] px-3 py-2 text-xs font-mono font-semibold uppercase tracking-wider text-[#77766F] border border-[#E8E2D7] hover:text-[#111827] hover:bg-white transition"
+            >
+              <span>{language === "ta" ? "அனைத்து திட்டங்கள்" : "All Projects"}</span>
+            </Link>
+
+            <Link
+              href="/"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#F8F5EF] px-3 py-2 text-xs font-mono font-semibold uppercase tracking-wider text-[#77766F] border border-[#E8E2D7] hover:text-[#111827] hover:bg-white transition"
+            >
+              <span>{language === "ta" ? "முகப்பு" : "Home"}</span>
+            </Link>
+          </div>
 
           <button
             onClick={handleShare}

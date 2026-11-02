@@ -2,14 +2,16 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { projectsData } from "@/data/projects";
 import { useLanguage } from "@/hooks/useLanguage";
 import ProjectCard from "@/components/projects/ProjectCard";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import TextReveal from "@/components/animations/TextReveal";
-import { ArrowRight, CheckCircle2, Layers, ExternalLink, Map } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Layers, ExternalLink, Map } from "lucide-react";
 
 export default function ProjectsSection() {
+  const router = useRouter();
   const { language, t } = useLanguage();
   const [activeType, setActiveType] = useState<"all" | "running" | "completed">("all");
   const [activeCategory, setActiveCategory] = useState<"all" | "commercial" | "farm" | "residential">("all");
@@ -42,6 +44,31 @@ export default function ProjectsSection() {
         {/* Header & Filter Controls */}
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
+            {/* Back Navigation Button */}
+            <div className="mb-4 flex items-center gap-2">
+              <button
+                onClick={() => {
+                  if (typeof window !== "undefined" && window.history.length > 1) {
+                    router.back();
+                  } else {
+                    router.push("/");
+                  }
+                }}
+                className="group inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#111827] border border-[#E8E2D7] shadow-2xs hover:bg-[#111827] hover:text-white hover:border-[#111827] transition-all cursor-pointer"
+                title="Go back to previous page"
+              >
+                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1 text-[#C6A15B] group-hover:text-[#EAB308]" />
+                <span>{language === "ta" ? "முந்தைய பக்கம்" : "Back"}</span>
+              </button>
+
+              <Link
+                href="/"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-white/80 px-3 py-2 text-xs font-mono font-semibold uppercase tracking-wider text-[#77766F] border border-[#E8E2D7] hover:text-[#111827] hover:bg-white transition"
+              >
+                <span>{language === "ta" ? "முகப்பு" : "Home"}</span>
+              </Link>
+            </div>
+
             <ScrollReveal>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#E8E2D7] bg-[#FFFFFF] px-3.5 py-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#C6A15B]" />
