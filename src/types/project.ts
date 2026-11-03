@@ -28,6 +28,7 @@ export interface Project {
   heroImage: string;
   galleryImages: string[];
   videoUrl?: string;
+  videoUrls?: string[];
   description: LocalizedString;
   fullOverview: LocalizedString;
   suitableFor: LocalizedArray;

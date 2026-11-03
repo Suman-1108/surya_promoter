@@ -22,6 +22,8 @@ import {
   Map,
   Layers,
   Sparkles,
+  Film,
+  Play,
 } from "lucide-react";
 
 interface ProjectDetailsProps {
@@ -32,6 +34,13 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
   const router = useRouter();
   const { language } = useLanguage();
   const [copied, setCopied] = useState(false);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+
+  const videos = project.videoUrls && project.videoUrls.length > 0
+    ? project.videoUrls
+    : project.videoUrl
+    ? [project.videoUrl]
+    : [];
   const isCompleted = project.status === "completed" || project.projectType === "completed";
 
   const handleShare = () => {
@@ -226,6 +235,85 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               title={project.title[language]}
             />
           </div>
+
+          {/* On-Site Drone & Video Tour Section */}
+          {videos.length > 0 && (
+            <div className="rounded-3xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 sm:p-8 shadow-xs">
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#142C23] text-[#E6B84D] shadow-md">
+                    <Film className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A15B]">
+                        {language === "ta" ? "நேரடி கள ஆய்வு வீடியோ" : "ON-SITE DRONE FOOTAGE"}
+                      </span>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-700/10 border border-emerald-600/30 px-2 py-0.5 text-[10px] font-mono font-bold text-emerald-800">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                        HD VIDEO
+                      </span>
+                    </div>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-[#242820] mt-0.5">
+                      {language === "ta"
+                        ? "நேரடி கள வீடியோ & ட்ரோன் பார்வை"
+                        : "On-Site Aerial & Walkthrough Video"}
+                    </h3>
+                  </div>
+                </div>
+                {videos.length > 1 && (
+                  <span className="font-mono text-xs font-semibold text-[#77766F] bg-white px-3 py-1.5 rounded-xl border border-[#E8E2D7]">
+                    {language === "ta" ? `${videos.length} வீடியோ காட்சிகள்` : `${videos.length} Videos Available`}
+                  </span>
+                )}
+              </div>
+
+              {/* Video Player */}
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-lg border border-black/10">
+                <video
+                  key={videos[activeVideoIndex]}
+                  src={videos[activeVideoIndex]}
+                  poster={project.heroImage}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+
+              {/* Multi-video switcher buttons if > 1 */}
+              {videos.length > 1 && (
+                <div className="mt-4 flex flex-wrap items-center gap-2.5">
+                  <span className="text-xs font-mono uppercase tracking-wider text-[#77766F] mr-1">
+                    {language === "ta" ? "வீடியோ தேர்வு:" : "Select Video:"}
+                  </span>
+                  {videos.map((vid, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveVideoIndex(idx)}
+                      className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition cursor-pointer ${
+                        activeVideoIndex === idx
+                          ? "bg-[#142C23] text-[#E6B84D] shadow-md ring-2 ring-[#C6A15B]"
+                          : "bg-white text-[#242820] border border-[#E8E2D7] hover:border-[#C6A15B] hover:bg-[#FAF8F5]"
+                      }`}
+                    >
+                      <Play className={`h-3 w-3 ${activeVideoIndex === idx ? "fill-[#E6B84D] text-[#E6B84D]" : "text-[#77766F]"}`} />
+                      <span>
+                        {language === "ta" ? `வீடியோ 0${idx + 1}` : `Clip 0${idx + 1}`}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              <p className="mt-4 text-xs text-[#77766F] leading-relaxed">
+                {language === "ta"
+                  ? "திட்டத்தின் உண்மையான கள நிலவரம், அகலமான அணுகு சாலை மற்றும் நில எல்லைகள் ஆகியவை நேரடியாக பதிவு செய்யப்பட்டுள்ளது."
+                  : "Authentic drone and ground perspective capturing actual road access, survey boundaries, and surrounding connectivity."}
+              </p>
+            </div>
+          )}
 
           {/* Interactive Digital Twin / MapBhoomi Section */}
           {project.mapBhoomiUrl && (
