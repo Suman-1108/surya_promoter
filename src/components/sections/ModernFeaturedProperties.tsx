@@ -142,7 +142,7 @@ export default function ModernFeaturedProperties() {
         "Fully completed and delivered DTCP approved gated community residential layout with wide 30ft & 40ft blacktop roads, avenues of shade trees, streetlights, individual water connections, and clear individual patta deeds.",
       descriptionTa:
         "அகலமான 30 & 40 அடி தார்ச் சாலைகள், மரக்கன்றுகள், தெருவிளக்குகள் மற்றும் 100% தெளிவான பட்டா ஆவணங்களுடன் வெற்றிகரமாக முடிக்கப்பட்டு வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்ட பிரீமியம் குடியிருப்பு மனைப்பிரிவு.",
-      image: "/images/projects/vaigai-commercial.jpg",
+      image: "/images/projects/surya-green-enclave.jpg",
       googleMapsUrl: "https://maps.google.com/?q=Madurai+Residential+Plots",
     },
   ];
