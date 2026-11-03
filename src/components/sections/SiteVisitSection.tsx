@@ -135,7 +135,7 @@ export default function SiteVisitSection() {
                         >
                           <option value="Vaigai Elite Commercial Land">Vaigai Elite Commercial Land</option>
                           <option value="Madurai Farms and Fruits">Madurai Farms and Fruits</option>
-                          <option value="Orange Garden">Orange Garden Farm Project</option>
+                          <option value="Orange Garden">Orange Garden: Gated Orchard & Farm Estate Plots</option>
                           <option value="General Residential Plots">General Residential Plot Options</option>
                         </select>
                       </div>

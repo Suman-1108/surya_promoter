@@ -334,7 +334,7 @@ export default function StitchPortfolioShowcase() {
               <div className="relative h-full w-full">
                 <Image
                   src="/images/projects/orange-garden.jpg"
-                  alt="Orange Garden Farmhouse Enclave"
+                  alt="Orange Garden: Gated Orchard & Farm Estate Plots"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -373,7 +373,7 @@ export default function StitchPortfolioShowcase() {
                 </span>
 
                 <h2 className="mt-2 font-display text-3xl md:text-4xl lg:text-[40px] font-normal leading-tight text-[#242820]">
-                  Orange Garden Farmhouse Enclave
+                  Orange Garden: Gated Orchard & Farm Estate Plots
                 </h2>
 
                 <p className="mt-4 text-sm md:text-base leading-relaxed text-[#77766F]">
