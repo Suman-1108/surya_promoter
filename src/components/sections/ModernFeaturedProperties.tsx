@@ -68,6 +68,7 @@ export default function ModernFeaturedProperties() {
       mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/madurai-rameshwaram-nh-road",
       brochureUrl: "https://mapbhoomi.com/l/surya-promoters/madurai-rameshwaram-nh-road/brochure?layout=01a16275-c6df-721b-adaa-45994b084ec7",
     },
+    
     {
       id: "madurai-farms",
       num: "02",
@@ -95,6 +96,7 @@ export default function ModernFeaturedProperties() {
       mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres",
       brochureUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres/brochure?layout=01a18209-99f6-73b0-a2a4-6677a87c2098",
     },
+
     {
       id: "orange-garden",
       num: "03",
@@ -120,6 +122,7 @@ export default function ModernFeaturedProperties() {
       image: "/images/projects/orange-garden.jpg",
       googleMapsUrl: "https://maps.google.com/?q=Madurai+Orchard+Land",
     },
+
     {
       id: "surya-green-enclave",
       num: "04",

@@ -281,7 +281,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
           </div>
 
           {/* On-Site Drone & Video Tour Section */}
-          {videos.length > 0 && (
+          {videos.length > 0 ? (
             <div className="rounded-3xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 sm:p-8 shadow-xs">
               <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
@@ -371,6 +371,59 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                   ? "திட்டத்தின் உண்மையான கள நிலவரம், அகலமான அணுகு சாலை மற்றும் நில எல்லைகள் ஆகியவை நேரடியாக பதிவு செய்யப்பட்டுள்ளது."
                   : "Authentic drone and ground perspective capturing actual road access, survey boundaries, and surrounding connectivity."}
               </p>
+            </div>
+          ) : (
+            <div className="rounded-3xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 sm:p-8 shadow-xs">
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#77766F]/15 text-[#77766F]">
+                    <Film className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#77766F]">
+                        {language === "ta" ? "கள ஆய்வு வீடியோ" : "ON-SITE DRONE FOOTAGE"}
+                      </span>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 border border-amber-500/30 px-2.5 py-0.5 text-[10px] font-mono font-bold text-amber-800">
+                        {language === "ta" ? "வீடியோ தற்போது கிடைக்கவில்லை" : "VIDEO CURRENTLY UNAVAILABLE"}
+                      </span>
+                    </div>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-[#242820] mt-0.5">
+                      {language === "ta" ? "நேரடி வீடியோ காட்சி" : "On-Site Aerial & Video Tour"}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative aspect-[21/9] min-h-[220px] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#1C201C] to-[#2B3028] border border-white/10 p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-inner">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-white/70 mb-3 backdrop-blur-sm">
+                  <Film className="h-7 w-7 text-amber-400" />
+                </div>
+                <h4 className="font-display text-lg sm:text-xl font-bold text-white">
+                  {language === "ta" ? "இந்த திட்டத்திற்கான வீடியோ தற்போது கிடைக்கவில்லை" : "Drone Video Footage Currently Unavailable"}
+                </h4>
+                <p className="mt-2 text-xs sm:text-sm text-gray-300 max-w-lg leading-relaxed">
+                  {language === "ta"
+                    ? `${project.title.ta} திட்டத்திற்கான புதிய வான்வழி ட்ரோன் மற்றும் நேரடி கள ஆய்வு வீடியோ தற்போது படப்பிடிப்பில் உள்ளது. புதிய காட்சிகள் விரைவில் இங்கு பதிவேற்றப்படும்.`
+                    : `The official high-definition drone tour and on-ground walkthrough for ${project.title.en} is currently in production and will be published shortly.`}
+                </p>
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                  <button
+                    onClick={handleBrochureDownload}
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#C6A15B] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition hover:bg-[#b5924d] cursor-pointer"
+                  >
+                    <MessageSquare className="h-3.5 w-3.5" />
+                    <span>{language === "ta" ? "நேரடி புகைப்படங்கள் கேட்க" : "Request On-Site Media"}</span>
+                  </button>
+                  <a
+                    href="tel:+917708966452"
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow-xs backdrop-blur-sm transition hover:bg-white/20"
+                  >
+                    <Phone className="h-3.5 w-3.5" />
+                    <span>{language === "ta" ? "தொடர்பு கொள்ள" : "Call Promoter"}</span>
+                  </a>
+                </div>
+              </div>
             </div>
           )}
 

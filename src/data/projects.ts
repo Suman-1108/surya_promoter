@@ -264,15 +264,14 @@ export const projectsData: Project[] = [
       ta: "மதுரை மண்டலம், தமிழ்நாடு",
     },
     googleMapsUrl: "https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw",
-    heroImage: "/images/projects/orange-garden.jpg",
+    heroImage: "/images/projects/orange-garden/hero-orchard.jpg",
     galleryImages: [
-      "/images/projects/orange-garden.jpg",
-      "/images/projects/madurai-farms/aerial-grove.jpg",
-      "/images/projects/madurai-farms/panoramic-view.jpg",
+      "/images/projects/orange-garden/hero-orchard.jpg",
+      "/images/projects/orange-garden/farm-plots.jpg",
+      "/images/projects/orange-garden/orchard-aerial.jpg",
       "/images/projects/madurai-farms/concrete-pathway.jpg",
     ],
-    videoUrl: "/videos/projects/showcase.mp4",
-    layoutPlanImage: "/images/projects/orange-garden.jpg",
+    layoutPlanImage: "/images/projects/orange-garden/orchard-aerial.jpg",
     status: "completed",
     projectType: "completed",
     description: {
@@ -311,6 +310,52 @@ export const projectsData: Project[] = [
         "பழ மரக்கன்றுகள் வளர்ப்பு மற்றும் பராமரிப்புக்கான தொழில்முறை வழிகாட்டல்",
       ],
     },
+    nearbyFeatures: [
+      {
+        name: {
+          en: "Madurai Ring Road & Highway Connectivity",
+          ta: "மதுரை ரிங் ரோடு & நெடுஞ்சாலை இணைப்பு",
+        },
+        distance: {
+          en: "12 Mins",
+          ta: "12 நிமிடங்கள்",
+        },
+        category: "road",
+      },
+      {
+        name: {
+          en: "Perennial Groundwater Aquifer & Canal System",
+          ta: "வற்றாத நிலத்தடி நீரூற்று & வாய்க்கால் பாசனம்",
+        },
+        distance: {
+          en: "Direct On-Site",
+          ta: "நேரடி பாசன வசதி",
+        },
+        category: "water",
+      },
+      {
+        name: {
+          en: "Madurai International Airport",
+          ta: "மதுரை சர்வதேச விமான நிலையம்",
+        },
+        distance: {
+          en: "20 Mins",
+          ta: "20 நிமிடங்கள்",
+        },
+        category: "transport",
+      },
+      {
+        name: {
+          en: "Madurai Central Agricultural & Fruit Mandi",
+          ta: "மதுரை மத்திய வேளாண்மை & பழ மொத்த சந்தை",
+        },
+        distance: {
+          en: "18 Mins",
+          ta: "18 நிமிடங்கள்",
+        },
+        category: "landmark",
+      },
+    ],
   },
   {
     id: "surya-green-enclave",
