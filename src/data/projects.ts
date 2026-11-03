@@ -162,7 +162,12 @@ export const projectsData: Project[] = [
       "/images/projects/madurai-farms/concrete-pathway.jpg",
       "/images/projects/madurai-farms/entrance-gate.jpg",
     ],
-    videoUrl: "/videos/projects/showcase.mp4",
+    videoUrl: "/videos/madurai-farms-tour.mp4",
+    videoUrls: [
+      "/videos/madurai-farms-tour.mp4",
+      "/videos/0k.webm",
+      "/videos/projects/showcase.mp4",
+    ],
     layoutPlanImage: "/images/projects/madurai-farms/panoramic-view.jpg",
     status: "running",
     projectType: "running",

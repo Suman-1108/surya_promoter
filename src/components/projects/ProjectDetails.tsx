@@ -316,13 +316,19 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-lg border border-black/10">
                 <video
                   key={videos[activeVideoIndex]}
-                  src={videos[activeVideoIndex]}
+
                   poster={project.heroImage}
                   controls
                   playsInline
                   preload="metadata"
                   className="h-full w-full object-cover"
-                />
+                >
+                  <source
+                    src={videos[activeVideoIndex]}
+                    type={videos[activeVideoIndex].endsWith(".webm") ? "video/webm" : "video/mp4"}
+                  />
+                  Your browser does not support the video tag.
+                </video>
               </div>
 
               {/* Multi-video switcher buttons if > 1 */}
@@ -331,23 +337,32 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                   <span className="text-xs font-mono uppercase tracking-wider text-[#77766F] mr-1">
                     {language === "ta" ? "வீடியோ தேர்வு:" : "Select Video:"}
                   </span>
-                  {videos.map((vid, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setActiveVideoIndex(idx)}
-                      className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition cursor-pointer ${
-                        activeVideoIndex === idx
-                          ? "bg-[#142C23] text-[#E6B84D] shadow-md ring-2 ring-[#C6A15B]"
-                          : "bg-white text-[#242820] border border-[#E8E2D7] hover:border-[#C6A15B] hover:bg-[#FAF8F5]"
-                      }`}
-                    >
-                      <Play className={`h-3 w-3 ${activeVideoIndex === idx ? "fill-[#E6B84D] text-[#E6B84D]" : "text-[#77766F]"}`} />
-                      <span>
-                        {language === "ta" ? `வீடியோ 0${idx + 1}` : `Clip 0${idx + 1}`}
-                      </span>
-                    </button>
-                  ))}
+                  {videos.map((vid, idx) => {
+                    const isTour = vid.includes("tour") || vid.includes("0k");
+                    const isShowcase = vid.includes("showcase");
+                    let clipLabel = language === "ta" ? `வீடியோ 0${idx + 1}` : `Clip 0${idx + 1}`;
+                    if (isTour) {
+                      clipLabel = language === "ta" ? "நேரடி பண்ணை வீடியோ" : "On-Site Agro Tour";
+                    } else if (isShowcase) {
+                      clipLabel = language === "ta" ? "திட்ட கண்ணோட்டம்" : "Project Showcase";
+                    }
+
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setActiveVideoIndex(idx)}
+                        className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition cursor-pointer ${
+                          activeVideoIndex === idx
+                            ? "bg-[#142C23] text-[#E6B84D] shadow-md ring-2 ring-[#C6A15B]"
+                            : "bg-white text-[#242820] border border-[#E8E2D7] hover:border-[#C6A15B] hover:bg-[#FAF8F5]"
+                        }`}
+                      >
+                        <Play className={`h-3 w-3 ${activeVideoIndex === idx ? "fill-[#E6B84D] text-[#E6B84D]" : "text-[#77766F]"}`} />
+                        <span>{clipLabel}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 

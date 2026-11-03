@@ -43,3 +43,6 @@ next-env.d.ts
 .playwright-mcp/
 /public/frames/
 
+# Large raw video captures (>100MB)
+/public/videos/0k.webm
+
