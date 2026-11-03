@@ -42,7 +42,7 @@ interface ProjectApp {
   category: "commercial" | "farm" | "residential";
   categoryLabel: string;
   categoryLabelTa: string;
-  projectType: "running" | "completed";
+  projectType: "running" | "completed" | "upcoming";
   statusText: string;
   statusTextTa: string;
   location: string;
@@ -75,7 +75,7 @@ export default function ProjectIconGrid() {
   const { language } = useLanguage();
   const [selectedProject, setSelectedProject] = useState<ProjectApp | null>(null);
   const [viewMode, setViewMode] = useState<"icons" | "cards">("icons");
-  const [filterType, setFilterType] = useState<"all" | "running" | "completed">("all");
+  const [filterType, setFilterType] = useState<"all" | "running" | "upcoming" | "completed">("all");
 
   const projectApps: ProjectApp[] = [
     {
@@ -142,20 +142,20 @@ export default function ProjectIconGrid() {
       category: "farm",
       categoryLabel: "Gated Orchard Estate",
       categoryLabelTa: "பழத்தோட்ட எஸ்டேட்",
-      projectType: "completed",
-      statusText: "100% COMPLETED",
-      statusTextTa: "நிறைவடைந்தது",
+      projectType: "upcoming",
+      statusText: "UPCOMING PROJECT",
+      statusTextTa: "வரவிருக்கும் திட்டம்",
       location: "Scenic Green Belt, Madurai",
       locationTa: "பசுமை மண்டலம், மதுரை",
       image: "/images/projects/orange-garden/hero-orchard.jpg",
-      gradient: "from-orange-500 via-amber-600 to-yellow-600",
+      gradient: "from-amber-500 via-orange-500 to-amber-700",
       icon: Wheat,
       googleMapsUrl: "https://maps.google.com/?q=Madurai+Orchard+Land",
       specs: [
         { icon: Wheat, label: "Harvested Orchards", labelTa: "பழத்தோட்டங்கள்" },
         { icon: Home, label: "Farmhouse Plots", labelTa: "பண்ணை வீடு" },
         { icon: ShieldCheck, label: "Registered Patta", labelTa: "பதிவு செய்யப்பட்ட பட்டா" },
-        { icon: CheckCircle2, label: "100% Delivered", labelTa: "ஒப்படைக்கப்பட்டது" },
+        { icon: Sparkles, label: "Launching Soon", labelTa: "விரைவில் தொடக்கம்" },
       ],
     },
     {
@@ -217,25 +217,6 @@ export default function ProjectIconGrid() {
       targetUrl: "https://mapbhoomi.com/l/surya-promoters",
     },
     {
-      id: "site-visit",
-      name: "Site Visit",
-      nameTa: "நேரடி பார்வை",
-      icon: Calendar,
-      gradient: "from-rose-500 to-red-600",
-      actionType: "whatsapp",
-      targetUrl: "https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20book%20an%20escorted%20site%20visit.",
-    },
-    {
-      id: "legal-patta",
-      name: "Clear Patta",
-      nameTa: "தெளிவான பட்டா",
-      badge: "100%",
-      icon: ShieldCheck,
-      gradient: "from-amber-600 to-yellow-700",
-      actionType: "link",
-      targetUrl: "/about",
-    },
-    {
       id: "gallery",
       name: "Site Photos",
       nameTa: "புகைப்படங்கள்",
@@ -252,16 +233,6 @@ export default function ProjectIconGrid() {
       gradient: "from-red-500 to-pink-600",
       actionType: "external",
       targetUrl: "https://maps.google.com/?q=Surya+Promoters+Madurai",
-    },
-    {
-      id: "about-iaf",
-      name: "IAF Veteran",
-      nameTa: "விமானப்படை",
-      badge: "16+ Yrs",
-      icon: Award,
-      gradient: "from-cyan-600 to-blue-800",
-      actionType: "link",
-      targetUrl: "/about",
     },
   ];
 
@@ -307,20 +278,29 @@ export default function ProjectIconGrid() {
               <button
                 onClick={() => setFilterType("running")}
                 className={`px-3 py-1.5 rounded-xl font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 ${
-                  filterType === "running" ? "bg-emerald-500 text-white" : "text-emerald-400 hover:text-emerald-300"
+                  filterType === "running" ? "bg-emerald-500 text-white font-extrabold" : "text-emerald-400 hover:text-emerald-300"
                 }`}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
                 <span>{language === "ta" ? "நடைபெறுபவை" : "Running"} (2)</span>
               </button>
               <button
+                onClick={() => setFilterType("upcoming")}
+                className={`px-3 py-1.5 rounded-xl font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 ${
+                  filterType === "upcoming" ? "bg-[#EAB308] text-[#0A0D12] font-extrabold" : "text-amber-400 hover:text-amber-300"
+                }`}
+              >
+                <Sparkles className="h-3 w-3" />
+                <span>{language === "ta" ? "வரவிருக்கும் திட்டம்" : "Upcoming"} (1)</span>
+              </button>
+              <button
                 onClick={() => setFilterType("completed")}
                 className={`px-3 py-1.5 rounded-xl font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 ${
-                  filterType === "completed" ? "bg-blue-600 text-white" : "text-blue-400 hover:text-blue-300"
+                  filterType === "completed" ? "bg-blue-600 text-white font-extrabold" : "text-blue-400 hover:text-blue-300"
                 }`}
               >
                 <CheckCircle2 className="h-3 w-3" />
-                <span>{language === "ta" ? "நிறைவடைந்தவை" : "Completed"} (2)</span>
+                <span>{language === "ta" ? "நிறைவடைந்தவை" : "Completed"} (1)</span>
               </button>
             </div>
 
@@ -398,10 +378,15 @@ export default function ProjectIconGrid() {
 
                           {/* Top Status Notification Badge (like unread notification dot in mobile image) */}
                           <div className="absolute top-2 right-2">
-                            {isRunning ? (
+                            {project.projectType === "running" ? (
                               <span className="relative flex h-3 w-3">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                                 <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border border-white" />
+                              </span>
+                            ) : project.projectType === "upcoming" ? (
+                              <span className="relative flex h-3 w-3">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500 border border-white" />
                               </span>
                             ) : (
                               <span className="inline-flex h-3 w-3 rounded-full bg-blue-500 border border-white" />
@@ -434,8 +419,8 @@ export default function ProjectIconGrid() {
                 </span>
               </div>
 
-              {/* Utility App Grid */}
-              <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 lg:gap-6">
+              {/* Utility App Grid - Centered 5-Icon Dock Row */}
+              <div className="grid grid-cols-5 sm:grid-cols-5 lg:grid-cols-5 max-w-2xl mx-auto gap-2 sm:gap-4 lg:gap-6">
                 {utilityApps.map((app) => {
                   const IconComp = app.icon;
 
@@ -504,9 +489,14 @@ export default function ProjectIconGrid() {
                       <span className="rounded-full bg-black/70 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white border border-white/20">
                         {language === "ta" ? project.categoryLabelTa : project.categoryLabel}
                       </span>
-                      {isRunning ? (
+                      {project.projectType === "running" ? (
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600/90 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white">
                           <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+                          <span>{language === "ta" ? project.statusTextTa : project.statusText}</span>
+                        </span>
+                      ) : project.projectType === "upcoming" ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/95 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-black">
+                          <Sparkles className="h-3 w-3 text-black" />
                           <span>{language === "ta" ? project.statusTextTa : project.statusText}</span>
                         </span>
                       ) : (
@@ -641,10 +631,21 @@ export default function ProjectIconGrid() {
                 <span className="rounded-full bg-black/70 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white border border-white/20">
                   {language === "ta" ? selectedProject.categoryLabelTa : selectedProject.categoryLabel}
                 </span>
-                <span className={`rounded-full px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md ${
-                  selectedProject.projectType === "running" ? "bg-emerald-600/90" : "bg-blue-600/90"
+                <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${
+                  selectedProject.projectType === "running"
+                    ? "bg-emerald-600/90 text-white"
+                    : selectedProject.projectType === "upcoming"
+                    ? "bg-amber-500/95 text-black"
+                    : "bg-blue-600/90 text-white"
                 }`}>
-                  {language === "ta" ? selectedProject.statusTextTa : selectedProject.statusText}
+                  {selectedProject.projectType === "running" ? (
+                    <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+                  ) : selectedProject.projectType === "upcoming" ? (
+                    <Sparkles className="h-3 w-3 text-black" />
+                  ) : (
+                    <CheckCircle2 className="h-3 w-3 text-white" />
+                  )}
+                  <span>{language === "ta" ? selectedProject.statusTextTa : selectedProject.statusText}</span>
                 </span>
               </div>
             </div>
@@ -730,3 +731,4 @@ export default function ProjectIconGrid() {
     </div>
   );
 }
+

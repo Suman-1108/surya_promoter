@@ -273,8 +273,8 @@ export const projectsData: Project[] = [
       "/images/projects/orange-garden/orchard-aerial.jpg",
     ],
     layoutPlanImage: "/images/projects/orange-garden/demarcated-plots.jpg",
-    status: "completed",
-    projectType: "completed",
+    status: "upcoming",
+    projectType: "upcoming",
     description: {
       en: "Gated orchard community and private farm estate plots offering mature citrus plantations, numbered plot demarcations, and luxury farmhouse cottage ownership.",
       ta: "செழிப்பான பழத்தோட்டம், எண் குறிக்கப்பட்ட பண்ணை மனைகள் மற்றும் ஆடம்பர வார இறுதி பண்ணை வீடு அமைப்பதற்கான கேட்டட் கம்யூனிட்டி திட்டம்.",

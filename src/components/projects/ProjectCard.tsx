@@ -29,6 +29,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   const router = useRouter();
   const { language } = useLanguage();
+  const isUpcoming = project.status === "upcoming" || project.projectType === "upcoming";
   const isCompleted = project.status === "completed" || project.projectType === "completed";
   const whatsappMsg = `Hello Surya Promoters, please share price and details for ${project.title.en}.`;
 
@@ -72,8 +73,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {project.categoryLabel[language]}
           </span>
 
-          {/* Status Badge: Running vs Completed */}
-          {isCompleted ? (
+          {/* Status Badge: Running vs Upcoming vs Completed */}
+          {isUpcoming ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/95 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-sm border border-amber-300/40 shrink-0">
+              <Sparkles className="h-3 w-3 text-black" />
+              <span>{language === "ta" ? "வரவிருக்கும் திட்டம்" : "Upcoming"}</span>
+            </span>
+          ) : isCompleted ? (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-600/95 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white shadow-sm border border-blue-400/30 shrink-0">
               <CheckCircle2 className="h-3 w-3 text-white" />
               <span>{language === "ta" ? "நிறைவடைந்தது" : "Completed"}</span>

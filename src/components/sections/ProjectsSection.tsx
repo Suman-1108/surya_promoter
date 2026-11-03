@@ -8,15 +8,16 @@ import { useLanguage } from "@/hooks/useLanguage";
 import ProjectCard from "@/components/projects/ProjectCard";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import TextReveal from "@/components/animations/TextReveal";
-import { ArrowLeft, ArrowRight, CheckCircle2, Layers, ExternalLink, Map } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Layers, ExternalLink, Map, Sparkles } from "lucide-react";
 
 export default function ProjectsSection() {
   const router = useRouter();
   const { language, t } = useLanguage();
-  const [activeType, setActiveType] = useState<"all" | "running" | "completed">("all");
+  const [activeType, setActiveType] = useState<"all" | "running" | "upcoming" | "completed">("all");
   const [activeCategory, setActiveCategory] = useState<"all" | "commercial" | "farm" | "residential">("all");
 
   const runningCount = projectsData.filter((p) => p.projectType === "running" || p.status === "running" || p.status === "ongoing").length;
+  const upcomingCount = projectsData.filter((p) => p.projectType === "upcoming" || p.status === "upcoming").length;
   const completedCount = projectsData.filter((p) => p.projectType === "completed" || p.status === "completed").length;
 
   const filteredProjects = projectsData.filter((project) => {
@@ -24,6 +25,10 @@ export default function ProjectsSection() {
     if (activeType === "running") {
       const isRunning = project.projectType === "running" || project.status === "running" || project.status === "ongoing";
       if (!isRunning) return false;
+    }
+    if (activeType === "upcoming") {
+      const isUpcoming = project.projectType === "upcoming" || project.status === "upcoming";
+      if (!isUpcoming) return false;
     }
     if (activeType === "completed") {
       const isCompleted = project.projectType === "completed" || project.status === "completed";

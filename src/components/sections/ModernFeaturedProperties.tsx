@@ -34,7 +34,7 @@ interface ProjectItem {
   id: string;
   num: string;
   slug: string;
-  projectType: "running" | "completed";
+  projectType: "running" | "completed" | "upcoming";
   category: "commercial" | "farm" | "residential";
   categoryBadge: string;
   categoryBadgeTa: string;
@@ -54,7 +54,7 @@ interface ProjectItem {
 export default function ModernFeaturedProperties() {
   const router = useRouter();
   const { language } = useLanguage();
-  const [activeType, setActiveType] = useState<"all" | "running" | "completed">("all");
+  const [activeType, setActiveType] = useState<"all" | "running" | "upcoming" | "completed">("all");
   const [activeCategory, setActiveCategory] = useState<"all" | "commercial" | "farm" | "residential">("all");
 
   const projects: ProjectItem[] = [
@@ -112,7 +112,7 @@ export default function ModernFeaturedProperties() {
       id: "orange-garden",
       num: "03",
       slug: "orange-garden",
-      projectType: "completed",
+      projectType: "upcoming",
       category: "farm",
       categoryBadge: "Gated Orchard Estate",
       categoryBadgeTa: "பழத்தோட்ட எஸ்டேட்",
@@ -121,15 +121,15 @@ export default function ModernFeaturedProperties() {
       location: "Scenic Green Belt, Madurai",
       locationTa: "பசுமை மண்டலம், மதுரை",
       propertyType: "Orchard Community",
-      statusBadge: "COMPLETED",
-      statusBadgeTa: "நிறைவடைந்தது",
+      statusBadge: "UPCOMING",
+      statusBadgeTa: "வரவிருக்கும் திட்டம்",
       image: "/images/projects/orange-garden/hero-orchard.jpg",
       googleMapsUrl: "https://maps.google.com/?q=Madurai+Orchard+Land",
       iconSpecs: [
         { icon: Wheat, label: "Harvested Orchards", labelTa: "பழத்தோட்டங்கள்" },
         { icon: Home, label: "Farmhouse Plots", labelTa: "பண்ணை வீடு" },
         { icon: ShieldCheck, label: "Registered Patta", labelTa: "பதிவு செய்யப்பட்ட பட்டா" },
-        { icon: CheckCircle2, label: "100% Delivered", labelTa: "ஒப்படைக்கப்பட்டது" },
+        { icon: Sparkles, label: "Launching Soon", labelTa: "விரைவில் தொடக்கம்" },
       ],
     },
     {
@@ -159,6 +159,7 @@ export default function ModernFeaturedProperties() {
   ];
 
   const runningCount = projects.filter((p) => p.projectType === "running").length;
+  const upcomingCount = projects.filter((p) => p.projectType === "upcoming").length;
   const completedCount = projects.filter((p) => p.projectType === "completed").length;
 
   const filteredProjects = projects.filter((p) => {
@@ -238,6 +239,21 @@ export default function ModernFeaturedProperties() {
                 <span>{language === "ta" ? "நடைபெறுபவை" : "RUNNING"}</span>
                 <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeType === "running" ? "bg-[#0A0D12]/20 text-[#0A0D12]" : "bg-emerald-200/70 text-emerald-900"}`}>
                   {runningCount}
+                </span>
+              </button>
+
+                            <button
+                onClick={() => setActiveType("upcoming")}
+                className={`rounded-xl px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+                  activeType === "upcoming"
+                    ? "bg-[#EAB308] text-[#0A0D12] shadow-xs font-extrabold"
+                    : "bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100"
+                }`}
+              >
+                <Sparkles className="h-3.5 w-3.5 text-amber-600" />
+                <span>{language === "ta" ? "வரவிருக்கும் திட்டம்" : "UPCOMING"}</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeType === "upcoming" ? "bg-[#0A0D12]/20 text-[#0A0D12]" : "bg-amber-200/70 text-amber-900"}`}>
+                  {upcomingCount}
                 </span>
               </button>
 
@@ -355,9 +371,14 @@ export default function ModernFeaturedProperties() {
                           </span>
 
                           {/* Status Badge: Running vs Completed */}
-                          {isRunning ? (
+                          {project.projectType === "running" ? (
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600/95 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white shadow-sm border border-emerald-400/30 shrink-0">
                               <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+                              <span>{language === "ta" ? project.statusBadgeTa : project.statusBadge}</span>
+                            </span>
+                          ) : project.projectType === "upcoming" ? (
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/95 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-sm border border-amber-300/40 shrink-0">
+                              <Sparkles className="h-3 w-3 text-black" />
                               <span>{language === "ta" ? project.statusBadgeTa : project.statusBadge}</span>
                             </span>
                           ) : (

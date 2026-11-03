@@ -1,5 +1,5 @@
 export type ProjectCategory = 'commercial' | 'farm' | 'residential' | 'industrial';
-export type ProjectStatus = 'running' | 'completed' | 'ongoing' | 'available' | 'development' | 'prime';
+export type ProjectStatus = 'running' | 'completed' | 'upcoming' | 'ongoing' | 'available' | 'development' | 'prime';
 
 export interface LocalizedString {
   en: string;
@@ -42,7 +42,7 @@ export interface Project {
   layoutPlanImage?: string;
   nearbyFeatures?: NearbyFeatureItem[];
   status: ProjectStatus;
-  projectType?: 'running' | 'completed';
+  projectType?: 'running' | 'completed' | 'upcoming';
 }
 
 export interface ServiceItem {
