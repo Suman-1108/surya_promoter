@@ -209,7 +209,7 @@ export default function ProjectsSection() {
             </button>
           </div>
         ) : (
-          <div className="mt-8 md:mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+          <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-7">
             {filteredProjects.map((project, idx) => (
               <ScrollReveal key={project.id} delay={idx * 0.15}>
                 <ProjectCard project={project} />
