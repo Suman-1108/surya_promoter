@@ -34,28 +34,30 @@ html {
   scroll-behavior: auto;
 }
 
-body {
-  margin: 0;
-  background-color: #ffffff;
-  color: #292b27;
-  font-family:
-    var(--font-jakarta),
-    var(--font-inter),
-    system-ui,
-    -apple-system,
-    sans-serif;
-  overflow-x: hidden;
-}
+@layer base {
+  body {
+    margin: 0;
+    background-color: #ffffff;
+    color: #292b27;
+    font-family:
+      var(--font-jakarta),
+      var(--font-inter),
+      system-ui,
+      -apple-system,
+      sans-serif;
+    overflow-x: hidden;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif;
-  color: #292b27;
-  letter-spacing: -0.025em;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+    color: inherit;
+    letter-spacing: -0.025em;
+  }
 }
 
 /* Custom minimal scrollbar */

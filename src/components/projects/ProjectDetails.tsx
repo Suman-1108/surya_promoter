@@ -116,10 +116,12 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#242820]/80 via-[#242820]/30 to-transparent" />
+          {/* Dual High-Contrast Dark Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
 
           {/* Overlaid Details */}
-          <div className="absolute bottom-8 left-6 right-6 md:left-12 md:right-12">
+          <div className="absolute bottom-8 left-6 right-6 md:left-12 md:right-12 z-10">
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="rounded-full bg-white/95 px-3.5 py-1 font-mono text-xs uppercase tracking-wider text-[#242820] shadow-xs border border-[#E8E2D7]">
                 {project.categoryLabel[language]}
@@ -144,20 +146,26 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               </span>
             </div>
 
-            <h1 className="mt-4 font-display text-3xl font-normal text-white md:text-5xl lg:text-6xl drop-shadow-sm">
+            <h1
+              className="mt-4 font-display text-3xl font-extrabold text-white md:text-5xl lg:text-6xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] tracking-tight"
+              style={{ color: "#FFFFFF" }}
+            >
               {project.title[language]}
             </h1>
 
-            <div className="mt-3 flex flex-wrap items-center gap-4 text-xs md:text-sm text-white/90 drop-shadow">
+            <div
+              className="mt-3 flex flex-wrap items-center gap-4 text-xs md:text-sm font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]"
+              style={{ color: "#FFFFFF" }}
+            >
               <div className="flex items-center gap-1.5">
                 <MapPin className="h-4 w-4 text-[#C6A15B]" />
-                <span>{project.location[language]}</span>
+                <span className="text-white font-medium drop-shadow-sm">{project.location[language]}</span>
               </div>
               <a
                 href={project.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[#C6A15B] underline hover:text-white"
+                className="inline-flex items-center gap-1 text-[#E6B84D] underline hover:text-white font-semibold"
               >
                 <span>Google Maps</span>
                 <ExternalLink className="h-3 w-3" />
