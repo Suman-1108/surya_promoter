@@ -13,7 +13,17 @@ export default function GallerySection() {
 
   const galleryItems = [
     {
-      src: "/images/projects/vaigai-commercial.jpg",
+      src: "/images/projects/surya-green-enclave/road-corridor.jpg",
+      title: "Surya Green Enclave Plots",
+      subtitle: "Mudukangulam Road Residential Corridor",
+    },
+    {
+      src: "/images/projects/surya-green-enclave/layout-blueprint.jpg",
+      title: "Surya Green Enclave Blueprint",
+      subtitle: "15 Surveyed Villa Plots & Layout Masterplan",
+    },
+    {
+      src: "/images/projects/vaigai/corridor-aerial.jpg",
       title: "Commercial Land Frontage",
       subtitle: "Madurai Ring Road Corridor",
     },
@@ -26,16 +36,6 @@ export default function GallerySection() {
       src: "/images/projects/madurai-farms/panoramic-view.jpg",
       title: "Madurai Farms Countryside Panorama",
       subtitle: "Wide Motorable Approach & Vast Green Horizon",
-    },
-    {
-      src: "/images/projects/madurai-farms/aerial-grove.jpg",
-      title: "Agro Groves & Coconut Plantations",
-      subtitle: "Copious Sweet Groundwater & Fertile Soil",
-    },
-    {
-      src: "/images/projects/orange-garden.jpg",
-      title: "Orchard Development",
-      subtitle: "Fruit Cultivation & Farmhouse Terrain",
     },
     {
       src: "/images/projects/madurai-farms/concrete-pathway.jpg",

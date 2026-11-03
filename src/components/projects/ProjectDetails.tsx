@@ -24,6 +24,7 @@ import {
   Sparkles,
   Film,
   Play,
+  Navigation,
 } from "lucide-react";
 
 interface ProjectDetailsProps {
@@ -206,6 +207,41 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                 ))}
               </div>
             </div>
+
+            {/* Nearby Features & Strategic Connectivity */}
+            {project.nearbyFeatures && project.nearbyFeatures.length > 0 && (
+              <div className="mt-8 border-t border-[#E8E2D7] pt-6">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <h3 className="font-display text-lg font-medium text-[#242820]">
+                    {language === "ta" ? "அருகிலுள்ள முக்கிய வசதிகள் & இணைப்பு" : "Nearby Landmarks & Connectivity"}
+                  </h3>
+                  <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase font-bold tracking-wider text-[#C6A15B] bg-[#F8F5EF] px-2.5 py-1 rounded-md border border-[#E8E2D7]">
+                    <MapPin className="h-3 w-3" />
+                    Strategic Location
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {project.nearbyFeatures.map((feat, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between p-3.5 rounded-xl border border-[#E8E2D7] bg-[#F8F5EF]/60 hover:bg-[#F8F5EF] transition"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#C6A15B]/15 text-[#C6A15B]">
+                          <Navigation className="h-3.5 w-3.5" />
+                        </span>
+                        <span className="text-sm font-medium text-[#242820] truncate">
+                          {feat.name[language]}
+                        </span>
+                      </div>
+                      <span className="shrink-0 font-mono text-xs font-bold text-[#142C23] bg-white px-2.5 py-1 rounded-lg border border-[#E8E2D7] shadow-2xs">
+                        {feat.distance[language]}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Highlights */}
             <div className="mt-8 border-t border-[#E8E2D7] pt-6">
@@ -465,7 +501,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                 </span>
               </div>
 
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-[#E8E2D7] bg-white">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-[#E8E2D7] bg-[#0B1017]">
                 <Image
                   src={project.layoutPlanImage}
                   alt={`${project.title[language]} Layout Plan`}

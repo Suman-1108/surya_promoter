@@ -11,6 +11,12 @@ export interface LocalizedArray {
   ta: string[];
 }
 
+export interface NearbyFeatureItem {
+  name: LocalizedString;
+  distance: LocalizedString;
+  category?: 'road' | 'transport' | 'hospital' | 'school' | 'landmark' | 'water';
+}
+
 export interface Project {
   id: string;
   slug: string;
@@ -34,6 +40,7 @@ export interface Project {
   suitableFor: LocalizedArray;
   highlights: LocalizedArray;
   layoutPlanImage?: string;
+  nearbyFeatures?: NearbyFeatureItem[];
   status: ProjectStatus;
   projectType?: 'running' | 'completed';
 }

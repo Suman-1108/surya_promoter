@@ -47,7 +47,7 @@ export const servicesData: ServiceItem[] = [
       ta: "மருத்துவமனைகள், குடோன்கள், கிடங்குகள், தங்கும் விடுதிகள் மற்றும் தொழில் நிறுவனங்களுக்கு ஏற்ற முக்கிய இடங்கள். மதுரை ரிங் ரோடு மற்றும் முக்கிய நெடுஞ்சாலைகளில் கனரக வாகன அணுகலுடன் கூடிய இடங்கள்.",
     },
     iconName: "Building2",
-    image: "/images/gallery/gallery-1.jpg",
+    image: "/images/projects/vaigai/corridor-aerial.jpg",
     features: {
       en: [
         "High-visibility road frontage with heavy container truck turning radius",
@@ -109,7 +109,7 @@ export const servicesData: ServiceItem[] = [
       ta: "உண்மையான நில உரிமையாளர்களுக்கான தொழில்முறை சந்தைப்படுத்தல் சேவை. சட்ட ஆவணங்கள் ஆய்வு, சரியான சந்தை விலை நிர்ணயம் மற்றும் எந்தவித மறைமுக கட்டணமுமின்றி வெளிப்படையான விற்பனை ஒருங்கிணைப்பு.",
     },
     iconName: "TrendingUp",
-    image: "/images/gallery/gallery-2.jpg",
+    image: "/images/projects/surya-green-enclave/road-corridor.jpg",
     features: {
       en: [
         "Realistic market valuation based on verified recent Madurai registrar data",
@@ -140,7 +140,7 @@ export const servicesData: ServiceItem[] = [
       ta: "சரியான நிலத்தைத் தேர்வு செய்ய மண், நிலத்தடி நீர், அணுகு சாலை மற்றும் எதிர்கால வளர்ச்சித் திட்டங்களை நேரில் அறிய வேண்டும். எங்கள் வாகனத்தில் நேரில் அழைத்துச் சென்று ஆவணங்களை நேரில் காட்டும் இலவச சேவை.",
     },
     iconName: "Compass",
-    image: "/images/gallery/gallery-3.jpg",
+    image: "/images/projects/madurai-farms/entrance-gate.jpg",
     features: {
       en: [
         "Complimentary pick-and-drop facility across Madurai for serious buyers",

@@ -33,9 +33,7 @@ export const projectsData: Project[] = [
       "/images/projects/vaigai/corridor-aerial.jpg",
       "/images/projects/vaigai/water-pool-1.jpg",
       "/images/projects/vaigai/water-pool-2.jpg",
-      "/images/gallery/gallery-1.jpg",
-      "/images/gallery/gallery-2.jpg",
-      "/images/gallery/gallery-4.jpg",
+      "/images/projects/vaigai-commercial.jpg",
     ],
     videoUrl: "/videos/vaigai/vaigai-drone-1.mp4",
     videoUrls: [
@@ -43,7 +41,7 @@ export const projectsData: Project[] = [
       "/videos/vaigai/vaigai-drone-2.mp4",
       "/videos/vaigai/vaigai-drone-3.mp4",
     ],
-    layoutPlanImage: "/images/gallery/gallery-5.jpg",
+    layoutPlanImage: "/images/projects/vaigai/corridor-aerial.jpg",
     status: "running",
     projectType: "running",
     description: {
@@ -82,6 +80,52 @@ export const projectsData: Project[] = [
         "கட்டுமானப் பணிகளை எளிதாக்கும் சிறப்பான நிலப்பரப்பு அமைப்பு",
       ],
     },
+    nearbyFeatures: [
+      {
+        name: {
+          en: "Madurai Ring Road & Highway Bypass Corridor",
+          ta: "மதுரை ரிங் ரோடு & நெடுஞ்சாலை பைபாஸ் மண்டலம்",
+        },
+        distance: {
+          en: "Direct Frontage",
+          ta: "நேரடி முகப்பு",
+        },
+        category: "road",
+      },
+      {
+        name: {
+          en: "Pandi Kovil Junction & Freight Logistics Hubs",
+          ta: "பாண்டி கோவில் சந்திப்பு & சரக்கு போக்குவரத்து மையம்",
+        },
+        distance: {
+          en: "5 Mins",
+          ta: "5 நிமிடங்கள்",
+        },
+        category: "landmark",
+      },
+      {
+        name: {
+          en: "Madurai International Airport",
+          ta: "மதுரை சர்வதேச விமான நிலையம்",
+        },
+        distance: {
+          en: "12 Mins",
+          ta: "12 நிமிடங்கள்",
+        },
+        category: "transport",
+      },
+      {
+        name: {
+          en: "Proposed Multi-Speciality Healthcare Corridor",
+          ta: "பல்நோக்கு மருத்துவமனை வளாக மண்டலம்",
+        },
+        distance: {
+          en: "Immediate Vicinity",
+          ta: "அருகிலேயே",
+        },
+        category: "hospital",
+      },
+    ],
   },
   {
     id: "madurai-farms-and-fruits",
@@ -119,7 +163,7 @@ export const projectsData: Project[] = [
       "/images/projects/madurai-farms/entrance-gate.jpg",
     ],
     videoUrl: "/videos/projects/showcase.mp4",
-    layoutPlanImage: "/images/gallery/gallery-4.jpg",
+    layoutPlanImage: "/images/projects/madurai-farms/panoramic-view.jpg",
     status: "running",
     projectType: "running",
     description: {
@@ -158,6 +202,41 @@ export const projectsData: Project[] = [
         "வாகனங்கள் எளிதில் செல்லும் வகையில் இணைக்கப்பட்ட சாலை வசதி",
       ],
     },
+    nearbyFeatures: [
+      {
+        name: {
+          en: "Rajmahal Heritage Agricultural Estate Gate",
+          ta: "ராஜமஹால் பாரம்பரிய விவசாய நுழைவு வாயில்",
+        },
+        distance: {
+          en: "Layout Entrance",
+          ta: "நுழைவு வாயில்",
+        },
+        category: "landmark",
+      },
+      {
+        name: {
+          en: "Agrarian Green Belt & Perennial Aquifer Basin",
+          ta: "செழிப்பான விவசாய மண்டலம் & நிலத்தடி நீரூற்று",
+        },
+        distance: {
+          en: "On-Site Water Table",
+          ta: "வற்றாத நீர்வளம்",
+        },
+        category: "water",
+      },
+      {
+        name: {
+          en: "Madurai Ring Road Highway Link",
+          ta: "மதுரை ரிங் ரோடு இணைப்பு சாலை",
+        },
+        distance: {
+          en: "15 Mins",
+          ta: "15 நிமிடங்கள்",
+        },
+        category: "road",
+      },
+    ],
   },
   {
     id: "orange-garden",
@@ -183,12 +262,12 @@ export const projectsData: Project[] = [
     heroImage: "/images/projects/orange-garden.jpg",
     galleryImages: [
       "/images/projects/orange-garden.jpg",
-      "/images/gallery/gallery-3.jpg",
-      "/images/gallery/gallery-5.jpg",
-      "/images/gallery/gallery-6.jpg",
+      "/images/projects/madurai-farms/aerial-grove.jpg",
+      "/images/projects/madurai-farms/panoramic-view.jpg",
+      "/images/projects/madurai-farms/concrete-pathway.jpg",
     ],
     videoUrl: "/videos/projects/showcase.mp4",
-    layoutPlanImage: "/images/gallery/gallery-1.jpg",
+    layoutPlanImage: "/images/projects/orange-garden.jpg",
     status: "completed",
     projectType: "completed",
     description: {
@@ -245,18 +324,20 @@ export const projectsData: Project[] = [
       ta: "குடியிருப்பு மனைப்பிரிவு",
     },
     location: {
-      en: "Madurai Fast-Growth Residential Corridor",
-      ta: "வேகமாக வளரும் குடியிருப்பு பகுதி, மதுரை",
+      en: "Mudukangulam Road Corridor, Madurai District, Tamil Nadu",
+      ta: "முதுகுளத்தூர் சாலை பகுதி, மதுரை மாவட்டம், தமிழ்நாடு",
     },
     googleMapsUrl: "https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw",
-    heroImage: "/images/projects/surya-green-enclave.jpg",
+    heroImage: "/images/projects/surya-green-enclave/road-corridor.jpg",
     galleryImages: [
-      "/images/projects/surya-green-enclave.jpg",
-      "/images/gallery/gallery-1.jpg",
-      "/images/gallery/gallery-2.jpg",
+      "/images/projects/surya-green-enclave/road-corridor.jpg",
+      "/images/projects/surya-green-enclave/layout-blueprint.jpg",
+      "/images/stage0_empty_land.jpg",
+      "/images/hero/hero-gated-layout.jpg",
+      "/images/stage1_excavation.jpg",
     ],
     videoUrl: "/videos/projects/showcase.mp4",
-    layoutPlanImage: "/images/gallery/gallery-3.jpg",
+    layoutPlanImage: "/images/projects/surya-green-enclave/layout-blueprint.jpg",
     status: "completed",
     projectType: "completed",
     description: {
@@ -264,8 +345,8 @@ export const projectsData: Project[] = [
       ta: "அகலமான தார்ச் சாலைகள், நிழல் தரும் மரங்கள், தெளிவான பட்டா ஆவணங்களுடன் 100% வெற்றிகரமாக முடிக்கப்பட்டு வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்ட பிரீமியம் குடியிருப்பு திட்டம்.",
     },
     fullOverview: {
-      en: "Surya Green Enclave is one of Surya Promoters' flagship completed residential developments. Featuring DTCP & RERA layout approvals, compound wall security, reliable sweet groundwater supply, and ready-to-build villa plots. All plots have been registered and handed over to homeowners.",
-      ta: "சூர்யா கிரீன் என்கிளேவ் என்பது சூர்யா புரமோட்டர்ஸின் வெற்றிகரமாக முடிக்கப்பட்ட பிரதான குடியிருப்பு திட்டங்களில் ஒன்றாகும். DTCP & RERA அனுமதி, சுற்றுச்சுவர் பாதுகாப்பு, நல்ல குடிநீர் வசதியுடன் அனைத்து மனைகளும் வாடிக்கையாளர்களிடம் பத்திரப்பதிவு செய்து ஒப்படைக்கப்பட்டுள்ளது.",
+      en: "Surya Green Enclave is one of Surya Promoters' flagship completed residential developments located directly along the Mudukangulam Road corridor. Featuring 15 numbered and boundary-demarcated ready-to-build residential villa plots, DTCP & RERA masterplan approval, broad blacktop roads, compound security, and an on-site freshwater recharging pond preserving shallow sweet groundwater.",
+      ta: "சூர்யா கிரீன் என்கிளேவ் என்பது முதுகுளத்தூர் பிரதான சாலையில் அமைந்துள்ள சூர்யா புரமோட்டர்ஸின் வெற்றிகரமாக முடிக்கப்பட்ட பிரதான குடியிருப்பு திட்டமாகும். 15 பிரத்யேக எல்லைக் கற்கள் நடப்பட்ட மனைகள், DTCP & RERA மனைப்பிரிவு அனுமதி, அகலமான தார்ச் சாலைகள், சுற்றுச்சுவர் பாதுகாப்பு மற்றும் நிலத்தடி நீரூற்று நன்னீர் குளத்துடன் அனைத்து மனைகளும் வாடிக்கையாளர்களிடம் பத்திரப்பதிவு செய்து ஒப்படைக்கப்பட்டுள்ளது.",
     },
     suitableFor: {
       en: [
@@ -283,17 +364,89 @@ export const projectsData: Project[] = [
     },
     highlights: {
       en: [
-        "100% Completed, Registered & Successfully Delivered",
-        "DTCP & RERA Approved Residential Masterplan",
-        "Wide 30ft & 40ft Bitumen Roads with Solar Streetlights",
-        "Clear Individual Patta & Freehold Ownership",
+        "Direct Mudukangulam Main Road highway frontage with broad motorable access",
+        "15 Surveyed & numbered residential villa plots (Plots 1-7A & 9-15) with stone boundary markers",
+        "DTCP & RERA Approved Layout Masterplan with verified cadastral boundaries",
+        "On-site freshwater recharging pond preserving natural water table year-round",
+        "Wide 30ft & 40ft bitumen avenues with tree plantations and gated boundary wall",
+        "100% Completed, Clear Registered Patta & Successfully Handed Over to homeowners",
       ],
       ta: [
-        "100% முடிக்கப்பட்டு வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்டது",
-        "DTCP & RERA அனுமதி பெற்ற மனைப்பிரிவு",
-        "அகலமான 30 மற்றும் 40 அடி தார்ச் சாலைகள்",
-        "தனிநபர் பட்டா மற்றும் தெளிவான உரிமை ஆவணங்கள்",
+        "நேரடி முதுகுளத்தூர் மாநில நெடுஞ்சாலை முகப்பு மற்றும் அகலமான அணுகு சாலை",
+        "15 பிரத்யேகமாக எல்லைக் கற்கள் நடப்பட்ட குடியிருப்பு மனைகள் (மனைகள் 1-7A & 9-15)",
+        "DTCP மற்றும் RERA அனுமதி பெற்ற அதிகாரப்பூர்வ மனைப்பிரிவு வரைபடம்",
+        "நிலத்தடி நீர் மட்டத்தைப் பாதுகாக்கும் இயற்கை நன்னீர் குளம் & நீர்நிலை",
+        "அகலமான 30 & 40 அடி தார்ச் சாலைகள், நிழல் தரும் மரங்கள் மற்றும் சுற்றுச்சுவர்",
+        "100% தனிநபர் பட்டாவுடன் வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்ட பெருமைமிக்க திட்டம்",
       ],
     },
+    nearbyFeatures: [
+      {
+        name: {
+          en: "Mudukangulam Main Road (State Highway)",
+          ta: "முதுகுளத்தூர் பிரதான சாலை (மாநில நெடுஞ்சாலை)",
+        },
+        distance: {
+          en: "Direct Frontage (0 Mins)",
+          ta: "நேரடி முகப்பு (0 நிமிடம்)",
+        },
+        category: "road",
+      },
+      {
+        name: {
+          en: "On-Site Freshwater Fish Pond & Recharge Zone",
+          ta: "மனைப்பிரிவு நன்னீர் மீன் குளம் & நிலத்தடி நீர் நிலை",
+        },
+        distance: {
+          en: "Inside Layout",
+          ta: "மனைப்பிரிவுக்குள்",
+        },
+        category: "water",
+      },
+      {
+        name: {
+          en: "Madurai International Airport & Ring Road Junction",
+          ta: "மதுரை விமான நிலையம் & ரிங் ரோடு சந்திப்பு",
+        },
+        distance: {
+          en: "15 - 20 Mins",
+          ta: "15 - 20 நிமிடங்கள்",
+        },
+        category: "transport",
+      },
+      {
+        name: {
+          en: "Madurai Junction & Central Bus Stand",
+          ta: "மதுரை ரயில் சந்திப்பு & பெரியார் பேருந்து நிலையம்",
+        },
+        distance: {
+          en: "25 Mins",
+          ta: "25 நிமிடங்கள்",
+        },
+        category: "transport",
+      },
+      {
+        name: {
+          en: "Reputed Schools & Engineering Colleges",
+          ta: "முக்கிய கல்வி நிலையங்கள் & கல்லூரிகள்",
+        },
+        distance: {
+          en: "5 - 10 Mins",
+          ta: "5 - 10 நிமிடங்கள்",
+        },
+        category: "school",
+      },
+      {
+        name: {
+          en: "Taluk Hospital, Clinics & Pharmacy Facilities",
+          ta: "அரசு தாலுகா மருத்துவமனை & அவசர சிகிச்சை மையங்கள்",
+        },
+        distance: {
+          en: "8 Mins",
+          ta: "8 நிமிடங்கள்",
+        },
+        category: "hospital",
+      },
+    ],
   },
 ];
