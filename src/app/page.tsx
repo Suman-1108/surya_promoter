@@ -1,21 +1,13 @@
 import Navbar from "@/components/layout/Navbar";
-import ModernHero from "@/components/hero/ModernHero";
-import ModernExperienceSection from "@/components/sections/ModernExperienceSection";
-import ModernFeaturedProperties from "@/components/sections/ModernFeaturedProperties";
-import ServicesSection from "@/components/sections/ServicesSection";
-import ContactSection from "@/components/sections/ContactSection";
+import ProjectIconGrid from "@/components/sections/ProjectIconGrid";
 import Footer from "@/components/layout/Footer";
 import MobileActionBar from "@/components/layout/MobileActionBar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#0A0D12]">
       <Navbar />
-      <ModernHero />
-      <ModernExperienceSection />
-      <ModernFeaturedProperties />
-      <ServicesSection />
-      <ContactSection />
+      <ProjectIconGrid />
       <Footer />
       <MobileActionBar />
     </main>
