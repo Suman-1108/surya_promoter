@@ -3,27 +3,30 @@ import { Project } from "@/types/project";
 export const MAPBHOOMI_SURYA_URL = "https://mapbhoomi.com/l/surya-promoters";
 
 export const projectsData: Project[] = [
+  // ==========================================
+  // COMMERCIAL PROJECTS (5 Projects as required)
+  // ==========================================
   {
-    id: "vaigai-elite-commercial-land",
-    slug: "vaigai-elite-commercial-land",
+    id: "vaigai-elite-garden",
+    slug: "vaigai-elite-garden",
     title: {
-       en: "Vaigai Elite Commercial Land",
-      ta: "வைகை எலைட் வணிக நிலம்",
+      en: "Vaigai Elite Garden",
+      ta: "வைகை எலைட் கார்டன் வணிக நிலம்",
     },
     subtitle: {
-      en: "Prime Commercial Parcel for Hospitals, Warehousing & Enterprise",
-      ta: "மருத்துவமனை, கிடங்கு மற்றும் வணிக நிறுவனங்களுக்கான முதன்மை நிலம்",
+      en: "High-Visibility Commercial Highway Corridor on Outer Ring Road",
+      ta: "வெளிவட்ட ரிங் ரோட்டில் அதிவேக வளர்ச்சி பெறும் வணிக நிலம்",
     },
     category: "commercial",
     categoryLabel: {
-      en: "Commercial Development Land",
-      ta: "வணிக மேம்பாட்டு நிலம்",
+      en: "Commercial Land & Highway Corridor",
+      ta: "வணிக நிலம் & நெடுஞ்சாலை முகப்பு",
     },
     location: {
-      en: "Ring Road Corridor, Madurai, Tamil Nadu",
-      ta: "ரிங் ரோடு மண்டலம், மதுரை, தமிழ்நாடு",
+      en: "NH-44 Outer Ring Road Corridor, Madurai, Tamil Nadu",
+      ta: "தேசிய நெடுஞ்சாலை-44 வெளிவட்ட சாலை, மதுரை, தமிழ்நாடு",
     },
-    googleMapsUrl: "https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw",
+    googleMapsUrl: "https://maps.google.com/?q=Madurai+Outer+Ring+Road+Commercial",
     mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/madurai-rameshwaram-nh-road",
     brochureUrl: "https://mapbhoomi.com/l/surya-promoters/madurai-rameshwaram-nh-road/brochure?layout=01a16275-c6df-721b-adaa-45994b084ec7",
     mapBhoomiTotalUnits: 6,
@@ -45,201 +48,457 @@ export const projectsData: Project[] = [
     status: "running",
     projectType: "running",
     description: {
-      en: "Commercial land suitable for proposed hospitals, hospitality establishments, godowns, warehouses and other commercial developments.",
+      en: "Strategic commercial parcels tailored for proposed multi-speciality hospitals, logistics godowns, fleet transport terminals, and highway hospitality hubs.",
       ta: "மருத்துவமனைகள், தங்கும் விடுதிகள், குடோன்கள், சரக்குக் கிடங்குகள் மற்றும் பிற வணிக நிறுவனங்கள் அமைப்பதற்கு மிகவும் உகந்த வணிக நிலம்.",
     },
     fullOverview: {
-      en: "Vaigai Elite Commercial Land represents an extraordinary high-visibility commercial asset positioned strategically within the expanding infrastructure ring of Madurai. Featuring prime road frontage and excellent connectivity for commercial transport, this land is suited for visionary healthcare campuses, enterprise warehousing, logistics parks, or large-scale hospitality ventures.",
-      ta: "வைகை எலைட் வணிக நிலம் என்பது மதுரையின் அதிவேக விரிவடைந்து வரும் கட்டமைப்பு வலயத்தில் அமைந்துள்ள ஒரு முதன்மையான வணிகச் சொத்தாகும். கனரக வாகனங்கள் வந்து செல்லக்கூடிய அகலமான முகப்பு சாலை வசதியுடன், நவீன மருத்துவ வளாகங்கள், கிடங்குகள் மற்றும் தொழில் நிறுவனங்கள் தொடங்க உகந்தது.",
+      en: "Vaigai Elite Garden is a signature commercial land project developed by Surya Promoters along Madurai's bustling Outer Ring Road corridor. With wide vehicular frontage, smooth connectivity to NH-44, and rock-solid legal title backed by 16+ years of defense-standard due diligence, this location offers exponential commercial appreciation.",
+      ta: "வைகை எலைட் கார்டன் என்பது மதுரையின் முக்கிய வெளிவட்ட சாலையில் அமைந்துள்ள ஒரு முதன்மையான வணிக நிலத் திட்டமாகும். கனரக வாகனங்கள் வந்து செல்லக்கூடிய அகலமான முகப்பு சாலை, 100% தெளிவான பட்டா மற்றும் விமானப்படை ஒழுங்குமுறையுடன் கூடிய நம்பகமான நிலம்.",
     },
     suitableFor: {
       en: [
-        "Proposed Multi-Speciality Hospitals & Healthcare Facilities",
-        "Hospitality Establishments, Hotels & Convention Venues",
-        "Commercial Godowns, Logistics Hubs & Warehousing",
-        "Enterprise Offices & Commercial Business Parks",
+        "Proposed Multi-Speciality Hospitals & Healthcare Campuses",
+        "Hospitality Establishments, Motels & Convention Centers",
+        "Commercial Godowns, Logistics Hubs & Cold Storage",
+        "Automobile Showrooms, Service Centers & Enterprise Offices",
       ],
       ta: [
         "நவீன பல்நோக்கு மருத்துவமனைகள் மற்றும் சுகாதார மையங்கள்",
         "ஹோட்டல்கள், தங்கும் விடுதிகள் மற்றும் திருமண மண்டபங்கள்",
-        "சரக்குக் கிடங்குகள், குடோன்கள் மற்றும் விநியோக மையங்கள்",
-        "வணிக வளாகங்கள் மற்றும் பெருநிறுவன அலுவலகங்கள்",
+        "சரக்குக் கிடங்குகள், குடோன்கள் மற்றும் குளிர்பதன மையங்கள்",
+        "வாகன காட்சி அரங்குகள் மற்றும் பெருநிறுவன அலுவலகங்கள்",
       ],
     },
     highlights: {
       en: [
-        "Strategic proximity to major highway bypass and Pandi Kovil Ring Road",
-        "Wide road approach supporting container vehicles and logistics fleets",
-        "Clean legal documentation with verified parent deeds and boundary markers",
-        "Favorable terrain and ground elevation minimizing civil preparation costs",
+        "Direct Outer Ring Road vehicular access supporting container traffic",
+        "100% verified computer patta and clear parent documents since 1990",
+        "Proximity to Pandi Kovil junction and airport freight corridors",
+        "Elevated non-flood terrain with natural gradient for quick civil work",
       ],
       ta: [
-        "தேசிய நெடுஞ்சாலை மற்றும் பாண்டி கோவில் ரிங் ரோட்டின் மிக அருகில்",
-        "கனரக சரக்கு வாகனங்கள் எளிதில் வரக்கூடிய அகலமான அணுகு சாலை",
-        "சரிபார்க்கப்பட்ட மூலப்பத்திரங்கள் மற்றும் தெளிவான எல்லைக் கற்கள்",
-        "கட்டுமானப் பணிகளை எளிதாக்கும் சிறப்பான நிலப்பரப்பு அமைப்பு",
+        "கனரக சரக்கு வாகனங்கள் வந்து செல்லக்கூடிய நேரடி ரிங் ரோடு முகப்பு",
+        "100% சரிபார்க்கப்பட்ட கம்ப்யூட்டர் பட்டா மற்றும் வில்லங்கமற்ற மூலப்பத்திரம்",
+        "பாண்டி கோவில் சந்திப்பு மற்றும் மதுரை விமான நிலையத்திற்கு விரைவான இணைப்பு",
+        "வெள்ள நீர் தேங்காத உயர்ந்த சிறப்பான நிலப்பரப்பு அமைப்பு",
       ],
     },
     nearbyFeatures: [
       {
-        name: {
-          en: "Madurai Ring Road & Highway Bypass Corridor",
-          ta: "மதுரை ரிங் ரோடு & நெடுஞ்சாலை பைபாஸ் மண்டலம்",
-        },
-        distance: {
-          en: "Direct Frontage",
-          ta: "நேரடி முகப்பு",
-        },
+        name: { en: "Madurai Ring Road Highway Bypass", ta: "மதுரை ரிங் ரோடு நெடுஞ்சாலை" },
+        distance: { en: "Direct Frontage", ta: "நேரடி முகப்பு" },
         category: "road",
       },
       {
-        name: {
-          en: "Pandi Kovil Junction & Freight Logistics Hubs",
-          ta: "பாண்டி கோவில் சந்திப்பு & சரக்கு போக்குவரத்து மையம்",
-        },
-        distance: {
-          en: "5 Mins",
-          ta: "5 நிமிடங்கள்",
-        },
+        name: { en: "Pandi Kovil Ring Road Junction", ta: "பாண்டி கோவில் சந்திப்பு" },
+        distance: { en: "5 Mins", ta: "5 நிமிடங்கள்" },
         category: "landmark",
       },
       {
-        name: {
-          en: "Madurai International Airport",
-          ta: "மதுரை சர்வதேச விமான நிலையம்",
-        },
-        distance: {
-          en: "12 Mins",
-          ta: "12 நிமிடங்கள்",
-        },
+        name: { en: "Madurai International Airport", ta: "மதுரை சர்வதேச விமான நிலையம்" },
+        distance: { en: "12 Mins", ta: "12 நிமிடங்கள்" },
         category: "transport",
-      },
-      {
-        name: {
-          en: "Proposed Multi-Speciality Healthcare Corridor",
-          ta: "பல்நோக்கு மருத்துவமனை வளாக மண்டலம்",
-        },
-        distance: {
-          en: "Immediate Vicinity",
-          ta: "அருகிலேயே",
-        },
-        category: "hospital",
       },
     ],
   },
   {
-    id: "madurai-farms-and-fruits",
-    slug: "madurai-farms-and-fruits",
+    id: "vaigai-river-build",
+    slug: "vaigai-river-build",
     title: {
-      en: "Madurai Farms and Fruits",
-      ta: "மதுரை பார்ம்ஸ் அண்ட் ஃப்ரூட்ஸ்",
+      en: "Vaigai River Build",
+      ta: "வைகை ரிவர் பில்ட் வணிக வளாகம்",
     },
     subtitle: {
-      en: "Fertile Agro-Parcels for Orchards, Farmhouses & Pure Living",
-      ta: "பழத்தோட்டம், பண்ணை வீடு மற்றும் இயற்கை விவசாயத்திற்கான நிலங்கள்",
+      en: "Scenic Commercial & Enterprise Space along Vaigai Riverfront",
+      ta: "வைகை ஆற்றங்கரை அருகிலான பிரத்யேக வணிக & நிறுவன வளாகம்",
     },
-    category: "farm",
+    category: "commercial",
     categoryLabel: {
-      en: "Agricultural & Farm Plots",
-      ta: "விவசாய & பண்ணை நிலங்கள்",
+      en: "Riverfront Commercial Development",
+      ta: "ஆற்றங்கரை வணிக நிலம்",
     },
     location: {
-      en: "Agrarian Belt, Madurai District, Tamil Nadu",
-      ta: "விவசாய மண்டலம், மதுரை மாவட்டம், தமிழ்நாடு",
+      en: "Vaigai Riverfront Corridor, Madurai, Tamil Nadu",
+      ta: "வைகை ஆற்றங்கரை மண்டலம், மதுரை, தமிழ்நாடு",
     },
-    googleMapsUrl: "https://goo.gl/maps/J8aSHD1Rk38qMPKE6?g_st=aw",
-    photographyReferenceUrl: "https://goo.gl/maps/qvGsEjuSPPX18vBK6",
-    mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres",
-    brochureUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres/brochure?layout=01a18209-99f6-73b0-a2a4-6677a87c2098",
-    mapBhoomiTotalUnits: 15,
-    mapBhoomiAvailableUnits: 15,
-    heroImage: "/images/projects/madurai-farms/aerial-cottage.jpg",
+    googleMapsUrl: "https://maps.google.com/?q=Vaigai+River+Madurai",
+    heroImage: "/images/projects/vaigai-commercial.jpg",
     galleryImages: [
-      "/images/projects/madurai-farms/aerial-cottage.jpg",
-      "/images/projects/madurai-farms/panoramic-view.jpg",
-      "/images/projects/madurai-farms/aerial-grove.jpg",
-      "/images/projects/madurai-farms/water-reservoir.jpg",
-      "/images/projects/madurai-farms/concrete-pathway.jpg",
-      "/images/projects/madurai-farms/entrance-gate.jpg",
+      "/images/projects/vaigai-commercial.jpg",
+      "/images/projects/vaigai/corridor-aerial.jpg",
+      "/images/projects/vaigai/water-pool-1.jpg",
     ],
-    videoUrl: "/videos/madurai-farms-tour.mp4",
-    videoUrls: [
-      "/videos/madurai-farms-tour.mp4",
-      "/videos/0k.webm",
-      "/videos/projects/showcase.mp4",
-    ],
-    layoutPlanImage: "/images/projects/madurai-farms/panoramic-view.jpg",
+    videoUrl: "/videos/vaigai/vaigai-drone-2.mp4",
     status: "running",
     projectType: "running",
     description: {
-      en: "Farm plots for agricultural activities, fruit cultivation, farmhouse development and investment.",
-      ta: "விவசாய பணிகள், பழத்தோட்ட சாகுபடி, பண்ணை வீடு அமைத்தல் மற்றும் நீண்ட கால முதலீட்டிற்கான சிறந்த பண்ணை நிலங்கள்.",
+      en: "High-exposure commercial development plots situated near Vaigai River arterial road, ideal for commercial showrooms, riverside resorts, institutional campuses, and office complexes.",
+      ta: "வைகை ஆற்றங்கரை சாலையையொட்டி அமைந்துள்ள பிரதான வணிக நிலம். வணிக வளாகங்கள், ரிசார்ட் மற்றும் அலுவலகங்கள் அமைக்க உகந்தது.",
     },
     fullOverview: {
-      en: "Madurai Farms and Fruits offers carefully selected farm acreage in the fertile agricultural belts surrounding Madurai. Crafted for urban families, passionate agriculturists, and astute investors seeking productive land with sweet groundwater, rich topsoil, and scenic countryside surroundings.",
-      ta: "மதுரை பார்ம்ஸ் அண்ட் ஃப்ரூட்ஸ் திட்டம் இயற்கை எழில் கொஞ்சும் கிராமிய சூழலில் அமைதியான பண்ணை நிலங்களை வழங்குகிறது. சுத்தமான நிலத்தடி நீர், வளமான மேல்மண் மற்றும் இயற்கை விவசாயம், பழ சாகுபடி செய்ய விரும்புவோருக்கு இது மிகச் சிறந்த வாய்ப்பு.",
+      en: "Vaigai River Build combines natural riverfront prominence with central Madurai arterial connectivity. Engineered for multi-use commercial and hospitality ventures, this property benefits from high vehicular visibility and tranquil river breeze aesthetics.",
+      ta: "வைகை நதியின் எழில்மிகு சூழலில் அமையப்பெற்ற இந்த வணிக திட்டம், நகரின் முக்கிய இணைப்புகளுடன் கூடிய சிறப்பான எதிர்கால முதலீட்டு வாய்ப்பாகும்.",
     },
     suitableFor: {
       en: [
-        "Horticulture, Fruit Cultivation & Organic Agriculture",
-        "Private Weekend Farmhouses & Eco-Retreat Cottages",
-        "Agro-Tourism & Nature-Inspired Family Getaways",
-        "Long-term Capital Appreciation in High-Growth Madurai Belts",
+        "Eco Resorts & Riverside Leisure Venues",
+        "Corporate Training Institutes & Colleges",
+        "Commercial Office Complexes & Tech Campuses",
+        "Automotive Showrooms & Dealerships",
       ],
       ta: [
-        "தோட்டக்கலை, பழத்தோட்டம் மற்றும் இயற்கை விவசாயம்",
-        "சொந்த வார இறுதி பண்ணை வீடு மற்றும் இயற்கை குடில்கள்",
-        "குடும்பத்துடன் அமைதியாக இயற்கையோடு நேரத்தை செலவிட",
-        "பாதுகாப்பான நில முதலீடு மற்றும் நீண்ட கால மதிப்பு உயர்வு",
+        "சுற்றுச்சூழல் ரிசார்ட்டுகள் மற்றும் பொழுதுபோக்கு மையங்கள்",
+        "பெருநிறுவன பயிற்சி மையங்கள் மற்றும் கல்லூரிகள்",
+        "வணிக அலுவலக வளாகங்கள் மற்றும் தகவல் தொழில்நுட்ப மையங்கள்",
+        "வாகன காட்சி அரங்குகள் மற்றும் டீலர்ஷிப்புகள்",
       ],
     },
     highlights: {
       en: [
-        "Abundant groundwater potential in proven agricultural catchment zones",
-        "Demarcated perimeter boundary stones with surveyed revenue alignments",
-        "Peaceful natural atmosphere free from city pollution and noise",
-        "Easy access via maintained motorable approach roads",
+        "Unobstructed river-view exposure with wide arterial approach road",
+        "Perennial groundwater table and rich soil stability",
+        "100% Computer Patta and DTCP-aligned commercial zoning",
+        "Fast 10-minute connectivity to Madurai Central & Meenakshi Amman Temple zone",
       ],
       ta: [
-        "வற்றாத நிலத்தடி நீர்வளத்துடன் கூடிய பசுமையான விவசாய பூமி",
-        "அளவீடு செய்யப்பட்டு நடப்பட்ட துல்லியமான எல்லைக் கற்கள்",
-        "நகர இரைச்சல் இல்லாத தூய காற்று மற்றும் அமைதியான சூழல்",
-        "வாகனங்கள் எளிதில் செல்லும் வகையில் இணைக்கப்பட்ட சாலை வசதி",
+        "அகலமான அணுகு சாலையுடன் கூடிய இயற்கை எழில்மிக்க முகப்பு",
+        "வற்றாத நிலத்தடி நீர் வளம் மற்றும் உறுதியான மண் தரம்",
+        "100% கம்ப்யூட்டர் பட்டா மற்றும் தெளிவான சட்ட ஆவணங்கள்",
+        "மதுரை மத்திய பகுதிக்கு 10 நிமிடங்களில் செல்லும் வசதி",
       ],
     },
     nearbyFeatures: [
       {
-        name: {
-          en: "Rajmahal Heritage Agricultural Estate Gate",
-          ta: "ராஜமஹால் பாரம்பரிய விவசாய நுழைவு வாயில்",
-        },
-        distance: {
-          en: "Layout Entrance",
-          ta: "நுழைவு வாயில்",
-        },
+        name: { en: "Vaigai River North Bank Road", ta: "வைகை வடகரை சாலை" },
+        distance: { en: "Direct Frontage", ta: "நேரடி முகப்பு" },
+        category: "road",
+      },
+      {
+        name: { en: "Goripalayam Junction", ta: "கோரிப்பாளையம் சந்திப்பு" },
+        distance: { en: "8 Mins", ta: "8 நிமிடங்கள்" },
+        category: "landmark",
+      },
+    ],
+  },
+  {
+    id: "pandi-kovil-site",
+    slug: "pandi-kovil-site",
+    title: {
+      en: "Pandi Kovil Site",
+      ta: "பாண்டி கோவில் வணிக மனைப்பிரிவு",
+    },
+    subtitle: {
+      en: "Ultra High-Footfall Commercial Land Near Ring Road Junction",
+      ta: "பாண்டி கோவில் ரிங் ரோடு சந்திப்பு அருகிலான அதிவேக வணிக நிலம்",
+    },
+    category: "commercial",
+    categoryLabel: {
+      en: "High-Traffic Commercial Hub",
+      ta: "மக்கள் நடமாட்டம் மிகுந்த வணிக நிலம்",
+    },
+    location: {
+      en: "Pandi Kovil Ring Road Junction, Madurai, Tamil Nadu",
+      ta: "பாண்டி கோவில் ரிங் ரோடு சந்திப்பு, மதுரை, தமிழ்நாடு",
+    },
+    googleMapsUrl: "https://maps.google.com/?q=Pandi+Kovil+Madurai",
+    heroImage: "/images/projects/vaigai/water-pool-1.jpg",
+    galleryImages: [
+      "/images/projects/vaigai/water-pool-1.jpg",
+      "/images/projects/vaigai/corridor-aerial.jpg",
+      "/images/projects/vaigai-commercial.jpg",
+    ],
+    videoUrl: "/videos/vaigai/vaigai-drone-3.mp4",
+    status: "running",
+    projectType: "running",
+    description: {
+      en: "Premium commercial parcel strategically positioned at the renowned Pandi Kovil Ring Road junction, witnessing over 50,000+ daily commuter and pilgrim footfalls.",
+      ta: "தினசரி 50,000-க்கும் மேற்பட்ட பயணிகள் மற்றும் பக்தர்கள் வந்து செல்லும் பாண்டி கோவில் ரிங் ரோடு சந்திப்பில் அமைந்துள்ள முதன்மை வணிக நிலம்.",
+    },
+    fullOverview: {
+      en: "Pandi Kovil Site is an irreplaceable commercial asset ideal for retail super-marts, multi-cuisine food courts, budget hotels, highway fuel stations, and logistics transfer points. Backed by Surya Promoters' clean legal guarantee.",
+      ta: "சூப்பர் மார்க்கெட்டுகள், உணவகங்கள், தங்கும் விடுதிகள் மற்றும் பெட்ரோல் பங்க் அமைப்பதற்கு மதுரையின் மிகச்சிறந்த வணிக முதலீட்டு மையம்.",
+    },
+    suitableFor: {
+      en: [
+        "Retail Super-Marts & Commercial Complex",
+        "Highway Food Courts & Restaurants",
+        "Budget Pilgrim Hotels & Lodging Facilities",
+        "Fuel Filling Stations & EV Charging Plazas",
+      ],
+      ta: [
+        "ஷாப்பிங் காம்ப்ளக்ஸ் மற்றும் சூப்பர் மார்க்கெட்",
+        "நெடுஞ்சாலை உணவகங்கள் மற்றும் உணவு விடுதிகள்",
+        "தங்கும் விடுதிகள் மற்றும் யாத்ரீகர்கள் தங்குமிடங்கள்",
+        "பெட்ரோல் பங்க் மற்றும் மின்வாகன சார்ஜிங் மையங்கள்",
+      ],
+    },
+    highlights: {
+      en: [
+        "Massive pedestrian & vehicular footfall 24x7 throughout the year",
+        "Direct dual-frontage access on Outer Ring Road arterial",
+        "Immediate registration and clear legal revenue ownership",
+        "Proven 4.9-star appreciation record in the fastest growing eastern Madurai sector",
+      ],
+      ta: [
+        "ஆண்டு முழுவதும் 24 மணி நேரமும் மக்கள் மற்றும் வாகனப் போக்குவரத்து",
+        "இருபுறமும் அகலமான சாலை முகப்பு வசதி",
+        "உடனடி பத்திரப்பதிவு மற்றும் தெளிவான வருவாய்த்துறை ஆவணங்கள்",
+        "கிழக்கு மதுரையின் அதிவேக வளர்ச்சி பெறும் பகுதி",
+      ],
+    },
+    nearbyFeatures: [
+      {
+        name: { en: "Pandi Kovil Temple & Ring Road Circle", ta: "பாண்டி கோவில் மற்றும் ரிங் ரோடு சந்திப்பு" },
+        distance: { en: "2 Mins", ta: "2 நிமிடங்கள்" },
         category: "landmark",
       },
       {
-        name: {
-          en: "Agrarian Green Belt & Perennial Aquifer Basin",
-          ta: "செழிப்பான விவசாய மண்டலம் & நிலத்தடி நீரூற்று",
-        },
-        distance: {
-          en: "On-Site Water Table",
-          ta: "வற்றாத நீர்வளம்",
-        },
-        category: "water",
+        name: { en: "Madurai Sivagangai Highway", ta: "மதுரை சிவகங்கை நெடுஞ்சாலை" },
+        distance: { en: "4 Mins", ta: "4 நிமிடங்கள்" },
+        category: "road",
+      },
+    ],
+  },
+  {
+    id: "commercial-building-anna-nagar",
+    slug: "commercial-building-anna-nagar",
+    title: {
+      en: "Commercial Building – Anna Nagar",
+      ta: "அண்ணா நகர் வணிக கட்டிடம் & நிலம்",
+    },
+    subtitle: {
+      en: "Prime Upmarket Commercial Real Estate in Central Anna Nagar Corridor",
+      ta: "அண்ணா நகரின் பிரதான பகுதியில் அமைந்துள்ள மதிப்புமிக்க வணிக சொத்து",
+    },
+    category: "commercial",
+    categoryLabel: {
+      en: "Prime Urban Commercial Real Estate",
+      ta: "நகர மைய வணிக சொத்து",
+    },
+    location: {
+      en: "80 Feet Road, Anna Nagar, Madurai, Tamil Nadu",
+      ta: "80 அடி ரோடு, அண்ணா நகர், மதுரை, தமிழ்நாடு",
+    },
+    googleMapsUrl: "https://maps.google.com/?q=Anna+Nagar+Madurai",
+    heroImage: "/images/projects/vaigai/corridor-aerial.jpg",
+    galleryImages: [
+      "/images/projects/vaigai/corridor-aerial.jpg",
+      "/images/projects/vaigai-commercial.jpg",
+      "/images/projects/vaigai/water-pool-2.jpg",
+    ],
+    status: "running",
+    projectType: "running",
+    description: {
+      en: "High-yield commercial building and plot in the heart of Anna Nagar, Madurai's premier commercial and financial district with maximum rental demand.",
+      ta: "மதுரையின் முன்னணி வணிக மையமான அண்ணா நகரில் அமைந்துள்ள அதிக வாடகை வருவாய் தரும் முதன்மை வணிக சொத்து.",
+    },
+    fullOverview: {
+      en: "Located on Anna Nagar's prestigious high-street corridor, this property guarantees steady capital appreciation and top-tier rental yields from banks, retail brands, diagnostic centers, and corporate offices.",
+      ta: "வங்கிகள், கார்ப்பரேட் அலுவலகங்கள், கிளினிக்குகள் மற்றும் பிராண்டட் ஷோரூம்களுக்கு வாடகைக்கு விட உகந்த அண்ணா நகரின் முக்கிய வணிகப் பகுதி.",
+    },
+    suitableFor: {
+      en: [
+        "Banking & Financial Institutions",
+        "Diagnostic Centers & Specialty Polyclinics",
+        "Fashion Retail Showrooms & Boutiques",
+        "IT & Corporate Regional Headquarters",
+      ],
+      ta: [
+        "வங்கிகள் மற்றும் நிதி நிறுவனங்கள்",
+        "ஸ்கேன் மையங்கள் மற்றும் மருத்துவ கிளினிக்குகள்",
+        "ஆடை ஆபரண ஷோரூம்கள்",
+        "ஐடி மற்றும் கார்ப்பரேட் தலைமை அலுவலகங்கள்",
+      ],
+    },
+    highlights: {
+      en: [
+        "Unrivaled central city prestige in Anna Nagar 80 Feet Road sector",
+        "High rental yield with immediate tenancy potential",
+        "Dedicated multi-car parking and broad pedestrian pavement",
+        "100% verified urban municipal title with zero encumbrance",
+      ],
+      ta: [
+        "அண்ணா நகர் 80 அடி ரோட்டின் முக்கிய வணிக மையம்",
+        "உடனடி வாடகை வருமானம் தரும் சிறப்பான கட்டமைப்பு",
+        "பிரத்யேக கார் பார்க்கிங் மற்றும் நடைபாதை வசதி",
+        "100% வில்லங்கமற்ற தூய மூலப்பத்திரங்கள்",
+      ],
+    },
+    nearbyFeatures: [
+      {
+        name: { en: "Anna Nagar Main 80 Feet Road", ta: "அண்ணா நகர் மெயின் 80 அடி ரோடு" },
+        distance: { en: "Direct Frontage", ta: "நேரடி முகப்பு" },
+        category: "road",
       },
       {
-        name: {
-          en: "Madurai Ring Road Highway Link",
-          ta: "மதுரை ரிங் ரோடு இணைப்பு சாலை",
-        },
-        distance: {
-          en: "15 Mins",
-          ta: "15 நிமிடங்கள்",
-        },
+        name: { en: "Madurai Corporation Central Office", ta: "மதுரை மாநகராட்சி அலுவலகம்" },
+        distance: { en: "6 Mins", ta: "6 நிமிடங்கள்" },
+        category: "landmark",
+      },
+    ],
+  },
+  {
+    id: "mayilan-gundu-site-mpf-school",
+    slug: "mayilan-gundu-site-mpf-school",
+    title: {
+      en: "Mayilan Gundu Site – MPF International School",
+      ta: "மயிலன் குண்டு – MPF பள்ளி அருகிலான நிலம்",
+    },
+    subtitle: {
+      en: "Institutional & Commercial Acreage Adjacent to MPF International School",
+      ta: "MPF சர்வதேச பள்ளிக்கு அருகிலுள்ள கல்வி & வணிக நிலம்",
+    },
+    category: "commercial",
+    categoryLabel: {
+      en: "Institutional & Commercial Acreage",
+      ta: "கல்வி & வணிக பெருநிலப்பரப்பு",
+    },
+    location: {
+      en: "Mayilan Gundu, Near MPF School, Madurai, Tamil Nadu",
+      ta: "மயிலன் குண்டு, MPF பள்ளி அருகில், மதுரை, தமிழ்நாடு",
+    },
+    googleMapsUrl: "https://maps.google.com/?q=Mayilan+Gundu+Madurai",
+    heroImage: "/images/projects/vaigai/water-pool-2.jpg",
+    galleryImages: [
+      "/images/projects/vaigai/water-pool-2.jpg",
+      "/images/projects/vaigai/corridor-aerial.jpg",
+      "/images/projects/vaigai-commercial.jpg",
+    ],
+    status: "running",
+    projectType: "running",
+    description: {
+      en: "Expansive commercial and institutional land parcel bordering the prestigious MPF International School campus, suitable for academies, hostelling, student amenities, and commercial ventures.",
+      ta: "MPF சர்வதேச பள்ளிக்கு மிக அருகில் அமைந்துள்ள விரிவான நிலப்பரப்பு. கல்வி நிறுவனங்கள், விடுதிகள் மற்றும் வணிக திட்டங்களுக்கு மிகவும் சிறந்தது.",
+    },
+    fullOverview: {
+      en: "Mayilan Gundu Site offers large contiguous land parcels in a rapidly appreciating residential-institutional corridor. Perfect for educational foundations, student recreation centers, daycare campuses, and commercial utility markets.",
+      ta: "மயிலன் குண்டு பகுதியில் கல்வி நிறுவனங்களை சுற்றியுள்ள அதிவேக வளர்ச்சி பெறும் முதலீட்டு மண்டலம்.",
+    },
+    suitableFor: {
+      en: [
+        "Educational Academies & Skill Centers",
+        "Student Hostels & Residential Quarters",
+        "Sports Arenas & Swimming Complexes",
+        "Commercial Utility Shopping Centers",
+      ],
+      ta: [
+        "கல்விக்கூடங்கள் மற்றும் பயிற்சி மையங்கள்",
+        "மாணவர் விடுதிகள் மற்றும் குடியிருப்புகள்",
+        "விளையாட்டு மைதானங்கள் மற்றும் உடற்பயிற்சி கூடங்கள்",
+        "வணிக பல்பொருள் அங்காடிகள்",
+      ],
+    },
+    highlights: {
+      en: [
+        "Direct boundary touchpoint with MPF International School campus",
+        "Clean, peaceful suburban academic environment with broad approach roads",
+        "Abundant sweet groundwater and clear survey boundaries",
+        "Immediate documentation and patta ownership guarantee",
+      ],
+      ta: [
+        "MPF சர்வதேச பள்ளியின் எல்லையை ஒட்டிய பிரதான அமைவிடம்",
+        "அமைதியான கல்விச் சூழல் மற்றும் அகலமான சாலை வசதி",
+        "ஏராளமான நல்ல நிலத்தடி குடிநீர் வசதி",
+        "உடனடி பத்திரப்பதிவு மற்றும் கம்ப்யூட்டர் பட்டா உறுதி",
+      ],
+    },
+    nearbyFeatures: [
+      {
+        name: { en: "MPF International School Main Gate", ta: "MPF சர்வதேச பள்ளி பிரதான வாசல்" },
+        distance: { en: "Adjacent", ta: "அருகிலேயே" },
+        category: "school",
+      },
+    ],
+  },
+
+  // ==========================================
+  // FARM LAND PROJECTS (2 Projects as required)
+  // ==========================================
+  {
+    id: "madurai-farms-and-fruits",
+    slug: "madurai-farms-and-fruits",
+    title: {
+      en: "Madurai Farms & Fruits",
+      ta: "மதுரை பார்ம்ஸ் & ஃப்ரூட்ஸ்",
+    },
+    subtitle: {
+      en: "Managed Organic Agro-Acreage & Weekend Farmhouse Plots",
+      ta: "இயற்கை விவசாய பண்ணை மனைகள் & வார இறுதி பண்ணை வீடு",
+    },
+    category: "farm",
+    categoryLabel: {
+      en: "Managed Agro Farmland",
+      ta: "பராமரிக்கப்படும் பண்ணை நிலம்",
+    },
+    location: {
+      en: "Agricultural Green Belt, Madurai, Tamil Nadu",
+      ta: "விவசாய பசுமை மண்டலம், மதுரை, தமிழ்நாடு",
+    },
+    googleMapsUrl: "https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw",
+    mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/madurai-farms",
+    mapBhoomiTotalUnits: 12,
+    mapBhoomiAvailableUnits: 12,
+    heroImage: "/images/projects/madurai-farms.jpg",
+    galleryImages: [
+      "/images/projects/madurai-farms.jpg",
+      "/images/projects/madurai-farms/entrance-gate.jpg",
+      "/images/projects/madurai-farms/aerial-grove.jpg",
+      "/images/projects/madurai-farms/panoramic-view.jpg",
+      "/images/projects/madurai-farms/concrete-pathway.jpg",
+      "/images/projects/madurai-farms/aerial-cottage.jpg",
+      "/images/projects/madurai-farms/water-reservoir.jpg",
+    ],
+    videoUrl: "/videos/madurai-farms-tour.mp4",
+    videoUrls: ["/videos/madurai-farms-tour.mp4"],
+    layoutPlanImage: "/images/projects/madurai-farms/panoramic-view.jpg",
+    status: "running",
+    projectType: "running",
+    description: {
+      en: "Fertile managed organic farm acreage featuring perennial groundwater, pre-planted fruit canopies, wide concrete plantation pathways, and ready weekend cottage setups.",
+      ta: "மதுரையின் வளமான பகுதியில் அமைந்துள்ள இயற்கை பண்ணை மனைகள். சுத்தமான நிலத்தடி நீர், மரங்கள், வார இறுதி பண்ணை வீடு அமைக்கும் வசதி மற்றும் தெளிவான எல்லைக் கற்களுடன் கூடியது.",
+    },
+    fullOverview: {
+      en: "Madurai Farms & Fruits is Surya Promoters' signature agro-living development. Every parcel is demarcated with surveyed stone markers and connected via private motorable avenues with dedicated water reservoirs and drip irrigation networks.",
+      ta: "மதுரை பார்ம்ஸ் & ஃப்ரூட்ஸ் என்பது உங்கள் குடும்பத்திற்கான ஆரோக்கியமான பசுமை சொத்து. பழ மரங்கள், சொட்டு நீர்ப்பாசனம், மின்சாரம் மற்றும் பாதுகாப்புடன் கூடிய பண்ணை எஸ்டேட்.",
+    },
+    suitableFor: {
+      en: [
+        "Organic Horticulture & Citrus/Guava/Mango Groves",
+        "Weekend Farmhouse Cottages & Family Retreats",
+        "Generational Agro Land Banking & Pure Air Living",
+        "High-Return Natural Farmland Investment",
+      ],
+      ta: [
+        "பழ மரத் தோட்டங்கள் மற்றும் இயற்கை விவசாயம்",
+        "வார இறுதி பண்ணை வீடு மற்றும் ஓய்வு இல்லம்",
+        "தலைமுறைக்கான பாதுகாப்பான நில முதலீடு",
+        "அமைதியான பசுமையான இயற்கை சூழல்",
+      ],
+    },
+    highlights: {
+      en: [
+        "Flourishing multi-crop fruit plantations with mature trees",
+        "24x7 perennial groundwater aquifer with dedicated drip lines",
+        "Wide motorable internal concrete pathways and streetlights",
+        "100% Computer Patta, verified parent deeds and gated community security",
+      ],
+      ta: [
+        "செழித்து வளரும் பலவகை பழ மரங்கள் மற்றும் நிழல் தரும் மரங்கள்",
+        "வற்றாத நிலத்தடி நீர் வசதி மற்றும் சொட்டு நீர்ப்பாசன குழாய்கள்",
+        "அகலமான கான்கிரீட் சாலைகள் மற்றும் மின்விளக்குகள்",
+        "100% கம்ப்யூட்டர் பட்டா மற்றும் முழுமையான பாதுகாப்பு",
+      ],
+    },
+    nearbyFeatures: [
+      {
+        name: { en: "Madurai Ring Road Highway", ta: "மதுரை ரிங் ரோடு நெடுஞ்சாலை" },
+        distance: { en: "15 Mins", ta: "15 நிமிடங்கள்" },
         category: "road",
+      },
+      {
+        name: { en: "Perennial Water Canal", ta: "வற்றாத நீர் வாய்க்கால்" },
+        distance: { en: "Direct On-Site", ta: "நேரடி பாசனம்" },
+        category: "water",
       },
     ],
   },
@@ -251,7 +510,7 @@ export const projectsData: Project[] = [
       ta: "ஆரஞ்ச் கார்டன்",
     },
     subtitle: {
-      en: "Gated Orchard & Farm Estate Plots",
+      en: "Gated Orchard & Farm Estate Plots (Plots 1–10)",
       ta: "கேட்டட் பழத்தோட்டம் & பண்ணை எஸ்டேட் மனைகள்",
     },
     category: "farm",
@@ -260,8 +519,8 @@ export const projectsData: Project[] = [
       ta: "கேட்டட் பழத்தோட்டம் & பண்ணை எஸ்டேட்",
     },
     location: {
-      en: "Madurai Region, Tamil Nadu",
-      ta: "மதுரை மண்டலம், தமிழ்நாடு",
+      en: "Thiruppuvanam to Narikudi Road, Madurai Region, Tamil Nadu",
+      ta: "திருப்புவனம் - நரிக்குடி மெயின் ரோடு, மதுரை மண்டலம், தமிழ்நாடு",
     },
     googleMapsUrl: "https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw",
     heroImage: "/images/projects/orange-garden/entrance-gate.jpg",
@@ -274,234 +533,219 @@ export const projectsData: Project[] = [
       "/images/projects/orange-garden/orchard-aerial.jpg",
     ],
     layoutPlanImage: "/images/projects/orange-garden/layout-blueprint.jpg",
-    status: "upcoming",
-    projectType: "upcoming",
+    status: "running",
+    projectType: "running",
     description: {
-      en: "Gated orchard community and private farm estate plots offering mature citrus plantations, numbered plot demarcations, and luxury farmhouse cottage ownership.",
-      ta: "செழிப்பான பழத்தோட்டம், எண் குறிக்கப்பட்ட பண்ணை மனைகள் மற்றும் ஆடம்பர வார இறுதி பண்ணை வீடு அமைப்பதற்கான கேட்டட் கம்யூனிட்டி திட்டம்.",
+      en: "Exclusive gated orchard community offering mature citrus plantations, 10 surveyed numbered plot demarcations, and luxury farmhouse cottage ownership with direct frontage on Thiruppuvanam to Narikudi Road.",
+      ta: "செழிப்பான பழத்தோட்டம், 10 எண் குறிக்கப்பட்ட பண்ணை மனைகள் (Plots 1-10) மற்றும் திருப்புவனம் - நரிக்குடி சாலையில் நேரடி முகப்பு கொண்ட கேட்டட் பண்ணை மனை திட்டம்.",
     },
     fullOverview: {
-      en: "Orange Garden: Gated Orchard & Farm Estate Plots is an exclusive agricultural and agro-residential community situated near Madurai. Designed with a grand gated entrance portal, broad access roads, well-demarcated farm estate parcels with boundary stones (e.g. Plot No. 04), flourishing citrus orchards with drip irrigation, and dedicated zones for private weekend farmhouse cottages and gazebos.",
-      ta: "ஆரஞ்ச் கார்டன்: கேட்டட் பழத்தோட்டம் & பண்ணை எஸ்டேட் மனைகள் என்பது மதுரையின் பசுமை மண்டலத்தில் அமைந்துள்ள ஒரு பிரத்யேக பண்ணைத் திட்டமாகும். பிரம்மாண்ட நுழைவு வளைவு, எல்லைக் கற்கள் நடப்பட்ட பண்ணை மனைகள், சொட்டு நீர்ப்பாசன வசதியுடன் கூடிய ஆரஞ்சு பழத்தோட்டங்கள், மற்றும் வார இறுதி பண்ணை வீடு & கெஸீபோ அமைப்பதற்கான அனைத்து வசதிகளுடன் உருவாக்கப்பட்டுள்ளது.",
+      en: "Orange Garden: Gated Orchard & Farm Estate Plots is an exclusive 10-unit agricultural community situated along Thiruppuvanam to Narikudi Road. Designed with a grand gated entrance portal, broad central avenue road, well-demarcated farm estate parcels with boundary stones (Plots 1 through 10), and flourishing citrus orchards with drip irrigation.",
+      ta: "ஆரஞ்ச் கார்டன் என்பது திருப்புவனம் - நரிக்குடி மெயின் ரோட்டில் அமைந்துள்ள 10 பண்ணை மனைகள் கொண்ட கேட்டட் திட்டம். பிரம்மாண்ட நுழைவு வளைவு, எல்லைக் கற்கள் நடப்பட்ட மனைகள் (1 முதல் 10 வரை), சொட்டு நீர்ப்பாசனம் மற்றும் பண்ணை வீடு கட்டும் வசதியுடன் கூடியது.",
     },
     suitableFor: {
       en: [
-        "Orchard Development & High-Value Tree Plantations",
-        "Serene Weekend Farmhouse Ownership & Family Gatherings",
-        "Sustainable Agriculture & Organic Farming",
-        "Secure Land Banking in Madurai's Expanding Green Belts",
+        "10 Exclusive Private Farmhouse Cottages & Retreats",
+        "High-Yield Citrus & Sweet Lime Tree Farming",
+        "Family Weekend Barbecue & Leisure Gazebos",
+        "High-Appreciation Real Estate Land Banking",
       ],
       ta: [
-        "பழத்தோட்டம் மற்றும் பயனுள்ள மரங்கள் நடுதல்",
-        "வார இறுதி பண்ணை வீடு மற்றும் குடும்ப கொண்டாட்டங்கள்",
-        "இயற்கை விவசாயம் மற்றும் ஆரோக்கியமான வாழ்வியல்",
-        "பாதுகாப்பான நில வங்கி மற்றும் எதிர்கால தலைமுறைக்கான சொத்து",
+        "பிரத்யேக பண்ணை வீடு மற்றும் வார இறுதி இல்லம்",
+        "ஆரஞ்சு மற்றும் எலுமிச்சை பழ மர சாகுபடி",
+        "குடும்ப கொண்டாட்டங்களுக்கான கெஸீபோ & பூங்கா",
+        "பாதுகாப்பான நில வங்கி மற்றும் எதிர்கால சொத்து",
       ],
     },
     highlights: {
       en: [
         "10 surveyed farm plots (Plots 1–10) with direct road frontage on Thiruppuvanam to Narikudi Road",
         "Grand architectural gated entrance portal with 24/7 security & illuminated avenue",
-        "Clear boundary demarcations with surveyed stones and plot markings (e.g. Plot No. 04)",
-        "Flourishing orange & sweet lime orchards with integrated drip irrigation pipelines",
-        "Freehold ownership ideal for personalized weekend farmhouse cottages and dining gazebos",
+        "Clear boundary demarcations with surveyed stones and plot markings",
+        "Flourishing orange & citrus orchards with integrated drip irrigation pipelines",
         "Clear legal title documentation, revenue records, and smooth registration process",
       ],
       ta: [
         "திருப்புவனம் - நரிக்குடி மெயின் ரோட்டில் நேரடி முகப்புடன் 10 அளவீடு செய்யப்பட்ட பண்ணை மனைகள் (மனைகள் 1-10)",
         "24/7 பாதுகாப்பு மற்றும் மின்விளக்குகளுடன் கூடிய பிரம்மாண்ட நுழைவு வளைவு",
-        "அளவீடு செய்யப்பட்டு எண் குறிக்கப்பட்ட தனித்தனி எல்லைக் கற்கள் (எ.கா: மனை எண். 04)",
+        "அளவீடு செய்யப்பட்டு எண் குறிக்கப்பட்ட தனித்தனி எல்லைக் கற்கள்",
         "சொட்டு நீர்ப்பாசன குழாய்களுடன் செழித்து வளரும் ஆரஞ்சு & பழ மரத் தோட்டங்கள்",
-        "சொந்த வார இறுதி பண்ணை வீடு மற்றும் கெஸீபோ அமைப்பதற்கான முழுமையான உரிமை",
         "தெளிவான மூலப்பத்திரங்கள், அரசு ஆவணங்கள் மற்றும் உடனடி பத்திரப்பதிவு வசதி",
       ],
     },
     nearbyFeatures: [
       {
-        name: {
-          en: "Madurai Ring Road & Highway Connectivity",
-          ta: "மதுரை ரிங் ரோடு & நெடுஞ்சாலை இணைப்பு",
-        },
-        distance: {
-          en: "12 Mins",
-          ta: "12 நிமிடங்கள்",
-        },
+        name: { en: "Thiruppuvanam to Narikudi Main Road", ta: "திருப்புவனம் - நரிக்குடி மெயின் ரோடு" },
+        distance: { en: "Direct Frontage", ta: "நேரடி முகப்பு" },
         category: "road",
       },
       {
-        name: {
-          en: "Perennial Groundwater Aquifer & Canal System",
-          ta: "வற்றாத நிலத்தடி நீரூற்று & வாய்க்கால் பாசனம்",
-        },
-        distance: {
-          en: "Direct On-Site",
-          ta: "நேரடி பாசன வசதி",
-        },
-        category: "water",
-      },
-      {
-        name: {
-          en: "Madurai International Airport",
-          ta: "மதுரை சர்வதேச விமான நிலையம்",
-        },
-        distance: {
-          en: "20 Mins",
-          ta: "20 நிமிடங்கள்",
-        },
+        name: { en: "Thiruppuvanam Railway Station & Market", ta: "திருப்புவனம் ரயில் நிலையம் & சந்தை" },
+        distance: { en: "8 Mins", ta: "8 நிமிடங்கள்" },
         category: "transport",
       },
       {
-        name: {
-          en: "Madurai Central Agricultural & Fruit Mandi",
-          ta: "மதுரை மத்திய வேளாண்மை & பழ மொத்த சந்தை",
-        },
-        distance: {
-          en: "18 Mins",
-          ta: "18 நிமிடங்கள்",
-        },
-        category: "landmark",
+        name: { en: "Madurai Ring Road & Highway Connectivity", ta: "மதுரை ரிங் ரோடு & நெடுஞ்சாலை இணைப்பு" },
+        distance: { en: "15 Mins", ta: "15 நிமிடங்கள்" },
+        category: "road",
       },
     ],
   },
+
+  // ==========================================
+  // RESIDENTIAL PROJECTS (2 Subcategories as required)
+  // ==========================================
   {
-    id: "surya-green-enclave",
-    slug: "surya-green-enclave",
+    id: "plot-projects",
+    slug: "plot-projects",
     title: {
-      en: "Surya Green Enclave",
-      ta: "சூர்யா கிரீன் என்கிளேவ்",
+      en: "Plot Projects (Surya Green Enclave)",
+      ta: "மனைப்பிரிவு திட்டங்கள் (சூர்யா கிரீன் என்கிளேவ்)",
     },
     subtitle: {
-      en: "DTCP & RERA Approved Gated Residential Layout",
-      ta: "DTCP மற்றும் RERA அனுமதி பெற்ற பிரீமியம் மனைப்பிரிவு",
+      en: "DTCP & RERA Approved Residential Villa Plotted Township",
+      ta: "DTCP & RERA அனுமதி பெற்ற குடியிருப்பு வீட்டு மனைப்பிரிவு",
     },
     category: "residential",
     categoryLabel: {
-      en: "Residential Plots & Township",
-      ta: "குடியிருப்பு மனைப்பிரிவு",
+      en: "Approved Residential Plotted Development",
+      ta: "அங்கீகரிக்கப்பட்ட வீட்டு மனைப்பிரிவு",
     },
     location: {
-      en: "Mudukangulam Road Corridor, Madurai District, Tamil Nadu",
-      ta: "முதுகுளத்தூர் சாலை பகுதி, மதுரை மாவட்டம், தமிழ்நாடு",
+      en: "Mudukangulam Road, Madurai Region, Tamil Nadu",
+      ta: "முதுகங்குளம் சாலை, மதுரை மண்டலம், தமிழ்நாடு",
     },
-    googleMapsUrl: "https://goo.gl/maps/reSXDDNmSNzkve699?g_st=aw",
-    heroImage: "/images/projects/surya-green-enclave/road-corridor.jpg",
+    googleMapsUrl: "https://maps.google.com/?q=Mudukangulam+Madurai",
+    mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/green-enclave",
+    heroImage: "/images/projects/surya-green-enclave.jpg",
     galleryImages: [
-      "/images/projects/surya-green-enclave/road-corridor.jpg",
+      "/images/projects/surya-green-enclave.jpg",
       "/images/projects/surya-green-enclave/layout-blueprint.jpg",
-      "/images/stage0_empty_land.jpg",
+      "/images/projects/surya-green-enclave/road-corridor.jpg",
       "/images/hero/hero-gated-layout.jpg",
-      "/images/stage1_excavation.jpg",
     ],
-    videoUrl: "/videos/projects/showcase.mp4",
     layoutPlanImage: "/images/projects/surya-green-enclave/layout-blueprint.jpg",
     status: "completed",
     projectType: "completed",
     description: {
-      en: "A landmark residential gated community development featuring wide blacktop roads, avenues of trees, clear title patta documentation, and 100% delivered to proud homeowners.",
-      ta: "அகலமான தார்ச் சாலைகள், நிழல் தரும் மரங்கள், தெளிவான பட்டா ஆவணங்களுடன் 100% வெற்றிகரமாக முடிக்கப்பட்டு வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்ட பிரீமியம் குடியிருப்பு திட்டம்.",
+      en: "Premium residential plotted development featuring wide bitumen tar roads, street lights, sweet groundwater, clear boundary stones, and instant individual patta registration.",
+      ta: "அகலமான தார் சாலைகள், தெருவிளக்குகள், இனிமையான நிலத்தடி நீர் மற்றும் உடனடி தனிப்பட்டா வசதியுடன் கூடிய DTCP குடியிருப்பு மனைப்பிரிவு.",
     },
     fullOverview: {
-      en: "Surya Green Enclave is one of Surya Promoters' flagship completed residential developments located directly along the Mudukangulam Road corridor. Featuring 15 numbered and boundary-demarcated ready-to-build residential villa plots, DTCP & RERA masterplan approval, broad blacktop roads, compound security, and an on-site freshwater recharging pond preserving shallow sweet groundwater.",
-      ta: "சூர்யா கிரீன் என்கிளேவ் என்பது முதுகுளத்தூர் பிரதான சாலையில் அமைந்துள்ள சூர்யா புரமோட்டர்ஸின் வெற்றிகரமாக முடிக்கப்பட்ட பிரதான குடியிருப்பு திட்டமாகும். 15 பிரத்யேக எல்லைக் கற்கள் நடப்பட்ட மனைகள், DTCP & RERA மனைப்பிரிவு அனுமதி, அகலமான தார்ச் சாலைகள், சுற்றுச்சுவர் பாதுகாப்பு மற்றும் நிலத்தடி நீரூற்று நன்னீர் குளத்துடன் அனைத்து மனைகளும் வாடிக்கையாளர்களிடம் பத்திரப்பதிவு செய்து ஒப்படைக்கப்பட்டுள்ளது.",
+      en: "Our Plot Projects deliver planned residential communities in peaceful, fast-developing residential belts. Surya Green Enclave provides 15+ surveyed villa plots with immediate construction viability, excellent groundwater, and verified patta documentation.",
+      ta: "சூர்யா கிரீன் என்கிளேவ் என்பது மதுரையின் அமைதியான குடியிருப்பு பகுதியில் அமைந்துள்ள DTCP மனைப்பிரிவாகும். உடனடியாக வீடு கட்ட உகந்த இடம், நல்ல குடிநீர் வளம் மற்றும் உடனடி பட்டா.",
     },
     suitableFor: {
       en: [
-        "Immediate Independent Villa Construction",
-        "Gated Community Family Living",
-        "Secure Long-term Land Investment",
-        "Peaceful Suburban Residence",
+        "Independent Luxury Villa Construction",
+        "High-Appreciation Residential Plot Investment",
+        "Retirement Homes & Peaceful Family Living",
+        "Generational Wealth Creation in Madurai",
       ],
       ta: [
-        "உடனடி தனிநபர் வீடு கட்டுதல்",
-        "பாதுகாப்பான குடும்ப வாழ்க்கை",
-        "நீண்டகால நில முதலீடு",
-        "அமைதியான புறநகர் குடியிருப்பு",
+        "சொந்த தனி வில்லா வீடு கட்டுவதற்கு",
+        "மதிப்பு உயரும் குடியிருப்பு மனை முதலீடு",
+        "அமைதியான குடும்ப வாழ்வியல்",
+        "தலைமுறைக்கான பாதுகாப்பான நில சொத்து",
       ],
     },
     highlights: {
       en: [
-        "Direct Mudukangulam Main Road highway frontage with broad motorable access",
-        "15 Surveyed & numbered residential villa plots (Plots 1-7A & 9-15) with stone boundary markers",
-        "DTCP & RERA Approved Layout Masterplan with verified cadastral boundaries",
-        "On-site freshwater recharging pond preserving natural water table year-round",
-        "Wide 30ft & 40ft bitumen avenues with tree plantations and gated boundary wall",
-        "100% Completed, Clear Registered Patta & Successfully Handed Over to homeowners",
+        "DTCP and RERA approved plotted township layout",
+        "30-feet and 24-feet wide bitumen tar roads with avenue trees",
+        "Immediate individual computer patta and name transfer guarantee",
+        "100% Delivered and completed project with satisfied homeowners",
       ],
       ta: [
-        "நேரடி முதுகுளத்தூர் மாநில நெடுஞ்சாலை முகப்பு மற்றும் அகலமான அணுகு சாலை",
-        "15 பிரத்யேகமாக எல்லைக் கற்கள் நடப்பட்ட குடியிருப்பு மனைகள் (மனைகள் 1-7A & 9-15)",
-        "DTCP மற்றும் RERA அனுமதி பெற்ற அதிகாரப்பூர்வ மனைப்பிரிவு வரைபடம்",
-        "நிலத்தடி நீர் மட்டத்தைப் பாதுகாக்கும் இயற்கை நன்னீர் குளம் & நீர்நிலை",
-        "அகலமான 30 & 40 அடி தார்ச் சாலைகள், நிழல் தரும் மரங்கள் மற்றும் சுற்றுச்சுவர்",
-        "100% தனிநபர் பட்டாவுடன் வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்ட பெருமைமிக்க திட்டம்",
+        "DTCP மற்றும் RERA அரசு அனுமதி பெற்ற வரைபடம்",
+        "30 அடி மற்றும் 24 அடி அகலமான தார் சாலைகள் & மரங்கள்",
+        "உடனடி தனி கம்ப்யூட்டர் பட்டா மற்றும் பெயர் மாற்ற உத்தரவாதம்",
+        "100% வெற்றிகரமாக நிறைவேற்றப்பட்ட நம்பகமான மனைப்பிரிவு",
       ],
     },
     nearbyFeatures: [
       {
-        name: {
-          en: "Mudukangulam Main Road (State Highway)",
-          ta: "முதுகுளத்தூர் பிரதான சாலை (மாநில நெடுஞ்சாலை)",
-        },
-        distance: {
-          en: "Direct Frontage (0 Mins)",
-          ta: "நேரடி முகப்பு (0 நிமிடம்)",
-        },
+        name: { en: "Mudukangulam Main Road", ta: "முதுகங்குளம் பிரதான சாலை" },
+        distance: { en: "Direct Frontage", ta: "நேரடி முகப்பு" },
         category: "road",
       },
       {
-        name: {
-          en: "On-Site Freshwater Fish Pond & Recharge Zone",
-          ta: "மனைப்பிரிவு நன்னீர் மீன் குளம் & நிலத்தடி நீர் நிலை",
-        },
-        distance: {
-          en: "Inside Layout",
-          ta: "மனைப்பிரிவுக்குள்",
-        },
-        category: "water",
+        name: { en: "Madurai Ring Road Junction", ta: "மதுரை ரிங் ரோடு சந்திப்பு" },
+        distance: { en: "10 Mins", ta: "10 நிமிடங்கள்" },
+        category: "road",
       },
+    ],
+  },
+  {
+    id: "flat-projects",
+    slug: "flat-projects",
+    title: {
+      en: "Flat Projects (Upcoming Luxury Residences)",
+      ta: "அடுக்குமாடி குடியிருப்பு திட்டங்கள்",
+    },
+    subtitle: {
+      en: "Modern Gated Apartment Communities & Luxury Living Spaces",
+      ta: "நவீன கேட்டட் சொகுசு அடுக்குமாடி குடியிருப்புகள்",
+    },
+    category: "residential",
+    categoryLabel: {
+      en: "Premium Apartment Development",
+      ta: "சொகுசு அடுக்குமாடி குடியிருப்பு",
+    },
+    location: {
+      en: "Prime Urban Residential Corridors, Madurai, Tamil Nadu",
+      ta: "முக்கிய நகர்ப்புற குடியிருப்பு மண்டலம், மதுரை, தமிழ்நாடு",
+    },
+    googleMapsUrl: "https://maps.google.com/?q=Madurai+Residential",
+    heroImage: "/images/hero/hero-house.jpg",
+    galleryImages: [
+      "/images/hero/hero-house.jpg",
+      "/images/hero/hero-gated-layout.jpg",
+      "/images/projects/surya-green-enclave.jpg",
+    ],
+    status: "upcoming",
+    projectType: "upcoming",
+    description: {
+      en: "Conceptual modern luxury apartment developments in Madurai offering contemporary architectural elevation, dedicated parking, elevator access, and premium urban community amenities.",
+      ta: "நவீன கட்டிடக்கலை, கார் பார்க்கிங், லிப்ட் மற்றும் அனைத்து வசதிகளுடன் மதுரையில் வரவிருக்கும் சொகுசு அடுக்குமாடி குடியிருப்பு திட்டம்.",
+    },
+    fullOverview: {
+      en: "Surya Promoters' upcoming Flat Projects are conceptualized to bring world-class vertical living to Madurai. Incorporating seismic-resistant structures, energy-efficient designs, lush terrace gardens, and 24/7 security surveillance.",
+      ta: "மதுரையின் மையப்பகுதிகளில் உலகத்தரம் வாய்ந்த நவீன வசதிகளுடன் அமையவிருக்கும் அடுக்குமாடி குடியிருப்பு திட்டங்கள். உயர்தர பாதுகாப்பு மற்றும் அமைதியான சூழல்.",
+    },
+    suitableFor: {
+      en: [
+        "Modern Urban Nuclear Families & Working Professionals",
+        "High-Yield Rental Property Portfolios",
+        "NRI Real Estate Investment in Madurai",
+        "Low-Maintenance Luxury Living",
+      ],
+      ta: [
+        "நவீன நகர குடும்பங்கள் மற்றும் பணியாளர்கள்",
+        "அதிக வாடகை வருவாய் தரும் அடுக்குமாடி முதலீடு",
+        "வெளிநாட்டு வாழ் தமிழர்களின் நம்பகமான சொத்து",
+        "பராமரிப்பு எளிதான நவீன சொகுசு வாழ்க்கை",
+      ],
+    },
+    highlights: {
+      en: [
+        "Prime location with easy access to premier schools and hospitals",
+        "Vastu-compliant architectural floorplans with abundant natural sunlight",
+        "Covered reserved car parking and automatic passenger elevators",
+        "Dedicated rainwater harvesting and backup electrical systems",
+      ],
+      ta: [
+        "முன்னணி பள்ளிகள் மற்றும் மருத்துவமனைகளுக்கு மிக அருகில்",
+        "முழுமையான வாஸ்து முறைப்படி காற்றோட்டமான வடிவமைப்பு",
+        "பாதுகாப்பான கார் பார்க்கிங் மற்றும் அதிநவீன லிப்ட் வசதி",
+        "மழைநீர் சேகரிப்பு மற்றும் ஜெனரேட்டர் மின்வசதி",
+      ],
+    },
+    nearbyFeatures: [
       {
-        name: {
-          en: "Madurai International Airport & Ring Road Junction",
-          ta: "மதுரை விமான நிலையம் & ரிங் ரோடு சந்திப்பு",
-        },
-        distance: {
-          en: "15 - 20 Mins",
-          ta: "15 - 20 நிமிடங்கள்",
-        },
+        name: { en: "Madurai City Center & Bus Terminus", ta: "மதுரை நகர மையம் & பேருந்து நிலையம்" },
+        distance: { en: "10 Mins", ta: "10 நிமிடங்கள்" },
         category: "transport",
-      },
-      {
-        name: {
-          en: "Madurai Junction & Central Bus Stand",
-          ta: "மதுரை ரயில் சந்திப்பு & பெரியார் பேருந்து நிலையம்",
-        },
-        distance: {
-          en: "25 Mins",
-          ta: "25 நிமிடங்கள்",
-        },
-        category: "transport",
-      },
-      {
-        name: {
-          en: "Reputed Schools & Engineering Colleges",
-          ta: "முக்கிய கல்வி நிலையங்கள் & கல்லூரிகள்",
-        },
-        distance: {
-          en: "5 - 10 Mins",
-          ta: "5 - 10 நிமிடங்கள்",
-        },
-        category: "school",
-      },
-      {
-        name: {
-          en: "Taluk Hospital, Clinics & Pharmacy Facilities",
-          ta: "அரசு தாலுகா மருத்துவமனை & அவசர சிகிச்சை மையங்கள்",
-        },
-        distance: {
-          en: "8 Mins",
-          ta: "8 நிமிடங்கள்",
-        },
-        category: "hospital",
       },
     ],
   },
