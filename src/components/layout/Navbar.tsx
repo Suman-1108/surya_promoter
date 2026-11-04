@@ -61,21 +61,24 @@ export default function Navbar() {
           
           {/* Left: Window Icon + Store Title + Navigation Pills */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Store Brand Icon */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-tr from-[#EAB308] via-[#F59E0B] to-[#B45309] flex items-center justify-center shadow-xs text-white p-1">
-                <AppWindow className="h-4 w-4 sm:h-5 sm:w-5" />
+            {/* Store Brand Logo */}
+            <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
+              <div className="relative h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform group-hover:scale-105">
+                <Image
+                  src="/images/surya-logo.png"
+                  alt="Surya Promoters Logo"
+                  fill
+                  priority
+                  sizes="40px"
+                  className="object-contain"
+                />
               </div>
               <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-display text-xs sm:text-sm font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
-                    Surya Promoters
-                  </span>
-                  <span className="hidden sm:inline-block text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-md bg-[#EAB308]/20 text-[#854D0E]">
-                  </span>
-                </div>
-                <span className="hidden md:inline-block text-[9px] font-mono text-[#64748B] tracking-wider uppercase">
-                  {language === "ta" ? "மதுரை மனைப்பிரிவுகள் ஸ்டோர்" : "Madurai Land & Property OS"}
+                <span className="font-display text-xs sm:text-sm font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
+                  SURYA PROMOTERS
+                </span>
+                <span className="hidden sm:inline-block text-[9px] font-mono text-[#64748B] tracking-wider uppercase font-semibold">
+                  {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு · 2010" : "LAND & PROPERTY DEVELOPERS · ESTD. 2010"}
                 </span>
               </div>
             </Link>
