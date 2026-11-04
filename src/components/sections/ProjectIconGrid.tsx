@@ -805,8 +805,8 @@ export default function ProjectIconGrid() {
       {/* 2. MAIN STORE FRAME (SIDEBAR + MAIN CONTENT CANVAS) */}
       <div className="flex-1 max-w-[1760px] w-full mx-auto flex">
         
-        {/* LEFT SIDEBAR (CLEAN REAL ESTATE STORE SIDEBAR - REMOVED WHAT'S NEW, DOWNLOADS, LIBRARY AS REQUESTED!) */}
-        <aside className="hidden md:flex flex-col justify-between w-20 lg:w-60 shrink-0 bg-[#F3F3F3] border-r border-[#E2E8F0] py-6 px-2 lg:px-3">
+        {/* LEFT SIDEBAR (CLEAN REAL ESTATE STORE SIDEBAR) */}
+        <aside className="hidden md:flex flex-col w-20 lg:w-60 shrink-0 bg-[#F3F3F3] border-r border-[#E2E8F0] py-6 px-2 lg:px-3">
           
           {/* Top Section: Logo & Main Navigation Items */}
           <div className="space-y-4">
@@ -991,22 +991,6 @@ export default function ProjectIconGrid() {
               </Link>
 
             </div>
-          </div>
-
-          {/* Bottom Section: Direct Hotline Call Card (Replaced What's New/Downloads/Library as requested) */}
-          <div className="pt-4 border-t border-[#E2E8F0]">
-            <a
-              href="tel:+917708966452"
-              className="w-full flex items-center gap-2.5 p-2 rounded-xl bg-white border border-[#E2E8F0] shadow-2xs hover:border-[#EAB308] transition"
-            >
-              <div className="h-7 w-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
-                <Phone className="h-3.5 w-3.5" />
-              </div>
-              <div className="hidden lg:flex flex-col min-w-0">
-                <span className="text-[10px] font-mono text-[#64748B] uppercase font-bold">Hotline</span>
-                <span className="text-xs font-mono font-bold text-[#0F172A] truncate">+91 77089 66452</span>
-              </div>
-            </a>
           </div>
 
         </aside>
