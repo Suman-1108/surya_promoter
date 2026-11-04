@@ -195,10 +195,10 @@ export default function ProjectIconGrid() {
         posterImage: "/images/projects/madurai-farms/aerial-cottage.jpg",
         screenshots: [
           "/images/projects/madurai-farms/aerial-cottage.jpg",
-          "/images/projects/madurai-farms/aerial-groves.jpg",
-          "/images/projects/madurai-farms/entrance-gate.jpg",
-          "/images/projects/madurai-farms/panoramic-acres.jpg",
+          "/images/projects/madurai-farms/panoramic-view.jpg",
+          "/images/projects/madurai-farms/aerial-grove.jpg",
           "/images/projects/madurai-farms/water-reservoir.jpg",
+          "/images/projects/madurai-farms/entrance-gate.jpg",
         ],
         gradient: "from-emerald-500 via-green-600 to-teal-700",
         icon: Wheat,
@@ -366,9 +366,12 @@ export default function ProjectIconGrid() {
         priceTagTa: "விலை விபரம் கேட்க",
         location: "Scenic Green Belt, Madurai",
         locationTa: "பசுமை மண்டலம், மதுரை",
-        image: "/images/projects/madurai-farms/aerial-groves.jpg",
-        posterImage: "/images/projects/madurai-farms/aerial-groves.jpg",
-        screenshots: ["/images/projects/madurai-farms/aerial-groves.jpg"],
+        image: "/images/projects/madurai-farms/aerial-grove.jpg",
+        posterImage: "/images/projects/madurai-farms/aerial-grove.jpg",
+        screenshots: [
+          "/images/projects/madurai-farms/aerial-grove.jpg",
+          "/images/projects/madurai-farms/panoramic-view.jpg",
+        ],
         gradient: "from-green-600 to-emerald-800",
         icon: Droplets,
         mapBhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres",
@@ -1510,7 +1513,7 @@ export default function ProjectIconGrid() {
               <div className="space-y-3">
                 <div className="flex items-center gap-2.5">
                   <div className="relative h-7 w-7 rounded-full overflow-hidden border border-[#EAB308]">
-                    <Image src="/images/surya-logo.png" alt="Surya Promoters" fill className="object-contain" />
+                    <Image src="/images/surya-logo.png" alt="Surya Promoters" fill sizes="28px" className="object-contain" />
                   </div>
                   <span className="font-display text-sm font-extrabold text-[#0F172A]">
                     Surya Promoters

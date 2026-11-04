@@ -69,10 +69,9 @@ export default function Navbar() {
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
                   <span className="font-display text-xs sm:text-sm font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
-                    Surya Promoters Store
+                    Surya Promoters
                   </span>
                   <span className="hidden sm:inline-block text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-md bg-[#EAB308]/20 text-[#854D0E]">
-                    PRO
                   </span>
                 </div>
                 <span className="hidden md:inline-block text-[9px] font-mono text-[#64748B] tracking-wider uppercase">
