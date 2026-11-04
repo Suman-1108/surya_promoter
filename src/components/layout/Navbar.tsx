@@ -7,18 +7,10 @@ import { useRouter, usePathname } from "next/navigation";
 import { useLanguage } from "@/hooks/useLanguage";
 import {
   Search,
-  Minus,
-  Square,
   X,
   MessageCircle,
   Menu,
   ShieldCheck,
-  Building2,
-  Home,
-  Camera,
-  Info,
-  Phone,
-  AppWindow,
 } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 
@@ -28,7 +20,6 @@ export default function Navbar() {
   const { language, toggleLanguage } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isMaximized, setIsMaximized] = useState(true);
 
   // Broadcast search query to window so ProjectIconGrid and other components receive it live
   const handleSearchChange = (val: string) => {
@@ -150,7 +141,7 @@ export default function Navbar() {
                 placeholder={
                   language === "ta"
                     ? "திட்டங்கள், நிலங்கள், பண்ணை மனைகளைத் தேடுங்கள்..."
-                    : "Search apps, games, and more..."
+                    : "Search projects, farm land, commercial plots, locations..."
                 }
                 className="w-full h-8.5 sm:h-9.5 pl-9 sm:pl-10 pr-8 rounded-full bg-[#F1F5F9] hover:bg-[#E2E8F0]/70 focus:bg-[#FFFFFF] border border-[#CBD5E1] focus:border-[#EAB308] focus:ring-2 focus:ring-[#EAB308]/30 text-xs sm:text-sm text-[#0F172A] placeholder:text-[#64748B] transition-all outline-hidden shadow-2xs"
               />
@@ -203,29 +194,6 @@ export default function Navbar() {
             >
               <Menu className="h-5 w-5" />
             </button>
-
-            {/* Windows 11 Titlebar Window Controls (- □ ✕) */}
-            <div className="hidden sm:flex items-center ml-1 pl-1 border-l border-[#E2E8F0]">
-              <button
-                className="h-8 w-8 flex items-center justify-center text-[#64748B] hover:text-[#0F172A] hover:bg-[#E2E8F0] transition"
-                title="Minimize"
-              >
-                <Minus className="h-3.5 w-3.5" />
-              </button>
-              <button
-                onClick={() => setIsMaximized(!isMaximized)}
-                className="h-8 w-8 flex items-center justify-center text-[#64748B] hover:text-[#0F172A] hover:bg-[#E2E8F0] transition"
-                title="Maximize / Restore"
-              >
-                <Square className="h-3 w-3" />
-              </button>
-              <button
-                className="h-8 w-8 flex items-center justify-center text-[#64748B] hover:text-white hover:bg-red-500 transition"
-                title="Close"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
-            </div>
 
           </div>
 
