@@ -153,6 +153,17 @@ export default function ProjectIconGrid({
     if (initialNav) setActiveNav(initialNav);
   }, [initialNav]);
 
+  // Lock body scroll when modal or lightbox is active so background does not scroll
+  useEffect(() => {
+    if (selectedProject || previewImage) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [selectedProject, previewImage]);
+
   // Pagination for horizontal scroll shelves
   const [featuredShelfScroll, setFeaturedShelfScroll] = useState(0);
   const [trendingProjectsPage, setTrendingProjectsPage] = useState(0);
@@ -1036,7 +1047,7 @@ export default function ProjectIconGrid({
         </aside>
 
         {/* RIGHT: MAIN STORE CANVAS */}
-        <main ref={mainRef} className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 overflow-y-auto">
+        <main ref={mainRef} className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8">
           
           {/* SEARCH ACTIVE NOTICE */}
           {searchQuery && (
@@ -2129,6 +2140,8 @@ export default function ProjectIconGrid({
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
           onClick={() => setPreviewImage(null)}
+          onWheel={(e) => e.stopPropagation()}
+          data-lenis-prevent
         >
           <button
             onClick={() => setPreviewImage(null)}
@@ -2147,18 +2160,29 @@ export default function ProjectIconGrid({
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-200"
           onClick={() => setSelectedProject(null)}
+          onWheel={(e) => e.stopPropagation()}
+          data-lenis-prevent
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white border border-gray-200 shadow-2xl animate-in zoom-in-95 duration-200"
+            onWheel={(e) => e.stopPropagation()}
+            data-lenis-prevent
+            className="relative w-full max-w-2xl max-h-[90vh] rounded-3xl bg-white border border-gray-200 shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden flex flex-col"
           >
-            {/* Top Close Button */}
+            {/* Top Close Button (pinned on top right) */}
             <button
               onClick={() => setSelectedProject(null)}
-              className="absolute top-4 right-4 z-30 h-8 w-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition cursor-pointer"
+              className="absolute top-4 right-4 z-30 h-9 w-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition cursor-pointer shadow-lg"
+              title="Close"
             >
               <X className="h-4 w-4" />
             </button>
+
+            {/* Scrollable Modal Content (Inner container with clean inset scrollbar) */}
+            <div
+              data-lenis-prevent
+              className="flex-1 overflow-y-auto overscroll-contain [scrollbar-width:thin] [scrollbar-color:#CBD5E1_transparent] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
+            >
 
             {/* Modal Image Banner */}
             <div className="relative aspect-[16/9] w-full bg-gray-900 overflow-hidden">
@@ -2313,6 +2337,7 @@ export default function ProjectIconGrid({
                 </p>
               </div>
 
+            </div>
             </div>
           </div>
         </div>
