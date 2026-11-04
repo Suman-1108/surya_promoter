@@ -44,7 +44,6 @@ import {
   Flame,
   TrendingUp,
   FileText,
-  User,
   Wrench,
   Mail,
   Clock,
@@ -728,14 +727,9 @@ export default function ProjectIconGrid() {
               />
             </div>
             <div className="hidden sm:flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-display text-sm md:text-base font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
-                  SURYA PROMOTERS
-                </span>
-                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-md bg-[#EAB308]/20 text-[#854D0E] border border-[#EAB308]/40">
-                  STORE
-                </span>
-              </div>
+              <span className="font-display text-sm md:text-base font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
+                SURYA PROMOTERS
+              </span>
               <span className="text-[9px] font-mono text-[#64748B] tracking-wider uppercase font-semibold">
                 {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு · 2010" : "LAND & PROPERTY DEVELOPERS · ESTD. 2010"}
               </span>
@@ -795,11 +789,6 @@ export default function ProjectIconGrid() {
               <MessageCircle className="h-3.5 w-3.5 fill-[#0A0D12] text-[#0A0D12]" />
               <span className="hidden sm:inline">{language === "ta" ? "கலந்தாலோசிக்க" : "Discuss Project"}</span>
             </a>
-
-            {/* User Profile Avatar */}
-            <div className="relative h-9 w-9 rounded-full overflow-hidden bg-gradient-to-tr from-amber-600 to-yellow-500 border border-white shadow-xs flex items-center justify-center text-white shrink-0">
-              <User className="h-5 w-5" />
-            </div>
           </div>
 
         </div>
