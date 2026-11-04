@@ -4,337 +4,490 @@ import React, { useState, useMemo, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import { useLanguage } from "@/hooks/useLanguage";
-import SummitFooter from "@/components/layout/SummitFooter";
+import { projectsData } from "@/data/projects";
 import {
-  MapPin,
-  ShieldCheck,
+  Home,
   Building2,
-  Wheat,
-  Home as HomeIcon,
-  Sparkles,
-  CheckCircle2,
-  Layers,
+  TreePine,
+  MapPin,
   ArrowRight,
-  MessageCircle,
+  ExternalLink,
+  ShieldCheck,
+  CheckCircle2,
+  Sparkles,
+  Phone,
+  Eye,
 } from "lucide-react";
-
-interface ProjectItem {
-  id: string;
-  slug: string;
-  name: string;
-  nameTa: string;
-  tagline: string;
-  taglineTa: string;
-  category: "commercial" | "farm" | "residential";
-  categoryLabel: string;
-  categoryLabelTa: string;
-  projectType: "running" | "upcoming" | "completed";
-  statusText: string;
-  statusTextTa: string;
-  location: string;
-  locationTa: string;
-  image: string;
-  specs: { icon: any; label: string; labelTa: string }[];
-  overview: string;
-  overviewTa: string;
-}
-
-const projectsList: ProjectItem[] = [
-  {
-    id: "vaigai-elite",
-    slug: "vaigai-elite-commercial-land",
-    name: "Vaigai Elite Commercial Land",
-    nameTa: "வைகை எலைட் வணிக நிலம்",
-    tagline: "Commercial Highway Frontage Land",
-    taglineTa: "நெடுஞ்சாலை வணிக நிலம்",
-    category: "commercial",
-    categoryLabel: "Commercial Highway Hub",
-    categoryLabelTa: "வணிக நெடுஞ்சாலை மண்டலம்",
-    projectType: "running",
-    statusText: "RUNNING 2026",
-    statusTextTa: "2026 நடைமுறையில் உள்ள திட்டம்",
-    location: "Madurai Outer Ring Road (NH-44)",
-    locationTa: "மதுரை அவுட்டர் ரிங் ரோடு (NH-44)",
-    image: "/images/projects/vaigai/corridor-aerial.jpg",
-    specs: [
-      { icon: Building2, label: "Highway Frontage", labelTa: "நெடுஞ்சாலை முகப்பு" },
-      { icon: ShieldCheck, label: "Commercial Patta", labelTa: "வணிக பட்டா" },
-      { icon: MapPin, label: "NH-44 Corridor", labelTa: "NH-44 இணைப்பு" },
-      { icon: Sparkles, label: "Immediate Registration", labelTa: "உடனடி பத்திரப்பதிவு" },
-    ],
-    overview:
-      "Strategic high-exposure commercial land parcels situated along the four-lane Madurai Outer Ring Road corridor (NH-44). Engineered for institutional logistics, hospital campuses, multi-brand vehicle showrooms, and warehouses.",
-    overviewTa:
-      "மதுரை அவுட்டர் ரிங் ரோடு (NH-44) நான்கு வழிச்சாலையில் அமைந்துள்ள முதன்மையான வணிக நிலங்கள். கிடங்குகள், மருத்துவமனைகள், ஆட்டோமொபைல் ஷோரூம்கள் மற்றும் நிறுவன அமைப்புகளுக்கு மிகவும் உகந்தது.",
-  },
-  {
-    id: "madurai-farms",
-    slug: "madurai-farms-and-fruits",
-    name: "Madurai Farms & Fruits",
-    nameTa: "மதுரை பார்ம்ஸ் & புரூட்ஸ்",
-    tagline: "Managed Organic Agro-Acreage",
-    taglineTa: "இயற்கை பண்ணை எஸ்டேட் மனைகள்",
-    category: "farm",
-    categoryLabel: "Managed Agro Farmland",
-    categoryLabelTa: "பராமரிக்கப்படும் பண்ணை நிலம்",
-    projectType: "running",
-    statusText: "RUNNING 2026",
-    statusTextTa: "2026 நடைமுறையில் உள்ள திட்டம்",
-    location: "Agricultural Belt, Madurai",
-    locationTa: "விவசாய மண்டலம், மதுரை",
-    image: "/images/projects/madurai-farms/panoramic-view.jpg",
-    specs: [
-      { icon: Wheat, label: "Fertile Soil & Groves", labelTa: "வளமான வண்டல் மண்" },
-      { icon: ShieldCheck, label: "Clear Computer Patta", labelTa: "கணினி பட்டா" },
-      { icon: HomeIcon, label: "Farmhouse Cottage Ready", labelTa: "பண்ணை வீடு வசதி" },
-      { icon: Sparkles, label: "Perennial Water Source", labelTa: "வற்றாத நீர் வளம்" },
-    ],
-    overview:
-      "Managed agricultural farmland acreage situated in Madurai's fertile agro-corridor. Featuring sweet perennial groundwater aquifers, perimeter boundary stone fencing, harvested fruit trees, and serene weekend farmhouse cottages.",
-    overviewTa:
-      "மதுரையின் வளமான விவசாயப் பகுதியில் அமைந்துள்ள இயற்கை பண்ணை மனைகள். சுத்தமான நிலத்தடி நீர், பழ மரங்கள், வார இறுதி பண்ணை வீடு அமைக்கும் வசதி மற்றும் தெளிவான எல்லைக் கற்களுடன் கூடியது.",
-  },
-  {
-    id: "orange-garden",
-    slug: "orange-garden",
-    name: "Orange Garden",
-    nameTa: "ஆரஞ்ச் கார்டன்",
-    tagline: "Gated Orchard & Farm Estate",
-    taglineTa: "பழத்தோட்ட எஸ்டேட் மனைகள்",
-    category: "farm",
-    categoryLabel: "Gated Orchard Estate",
-    categoryLabelTa: "பழத்தோட்ட எஸ்டேட்",
-    projectType: "upcoming",
-    statusText: "UPCOMING 2026",
-    statusTextTa: "2026 வரவிருக்கும் திட்டம்",
-    location: "Thiruppuvanam to Narikudi Road, Madurai",
-    locationTa: "திருப்புவனம் - நரிக்குடி ரோடு, மதுரை",
-    image: "/images/projects/orange-garden/hero-orchard.jpg",
-    specs: [
-      { icon: Layers, label: "10 Surveyed Plots", labelTa: "10 அளவீடு மனைகள்" },
-      { icon: Wheat, label: "Harvested Orchards", labelTa: "பழத்தோட்டங்கள்" },
-      { icon: HomeIcon, label: "Farmhouse Plots", labelTa: "பண்ணை வீடு" },
-      { icon: ShieldCheck, label: "Road Frontage", labelTa: "மெயின் ரோடு முகப்பு" },
-    ],
-    overview:
-      "A signature gated orchard community offering 10 demarcated farm plots with direct road frontage on Thiruppuvanam to Narikudi Road. Includes sweet lime & citrus groves, boundary stones, drip irrigation, and luxury farmhouse ownership.",
-    overviewTa:
-      "திருப்புவனம் - நரிக்குடி மெயின் ரோட்டில் நேரடி முகப்புடன் 10 அளவீடு செய்யப்பட்ட பழத்தோட்ட மனைகள் கொண்ட கேட்டட் திட்டம். சொட்டு நீர்ப்பாசனம், பிரம்மாண்ட நுழைவு வளைவு மற்றும் சொகுசு பண்ணை வீடு அமைக்கும் வாய்ப்பு.",
-  },
-  {
-    id: "surya-green-enclave",
-    slug: "surya-green-enclave",
-    name: "Surya Green Enclave",
-    nameTa: "சூர்யா கிரீன் என்கிளேவ்",
-    tagline: "DTCP & RERA Approved Township",
-    taglineTa: "DTCP & RERA மனைப்பிரிவு",
-    category: "residential",
-    categoryLabel: "Residential Villa Township",
-    categoryLabelTa: "குடியிருப்பு மனைப்பிரிவு",
-    projectType: "completed",
-    statusText: "COMPLETED (DELIVERED)",
-    statusTextTa: "100% ஒப்படைக்கப்பட்ட திட்டம்",
-    location: "Mudukangulam Road, Madurai Region",
-    locationTa: "முதுகங்குளம் ரோடு, மதுரை மண்டலம்",
-    image: "/images/projects/surya-green-enclave.jpg",
-    specs: [
-      { icon: ShieldCheck, label: "DTCP & RERA Approved", labelTa: "DTCP & RERA அனுமதி" },
-      { icon: Layers, label: "15 Villa Plots", labelTa: "15 பிரத்யேக மனைகள்" },
-      { icon: Sparkles, label: "Bitumen Roads & Lights", labelTa: "தார் சாலை & விளக்குகள்" },
-      { icon: CheckCircle2, label: "100% Delivered", labelTa: "முழுமையாக விற்று முடிந்தது" },
-    ],
-    overview:
-      "A completely delivered 15-plot residential gated township with wide tar roads, comprehensive avenue plantations, individual drinking water taps, clear revenue layout blueprints, and 100% individual registered patta.",
-    overviewTa:
-      "அகலமான தார் சாலைகள், தெருவிளக்குகள், தனித்தனி குடிநீர் இணைப்பு மற்றும் 100% தனிப்பட்டாவுடன் முழுமையாக நிறைவடைந்து வாடிக்கையாளர்களிடம் ஒப்படைக்கப்பட்ட பிரத்யேக குடியிருப்பு மனைப்பிரிவு.",
-  },
-];
 
 function ProjectsContent() {
   const { language } = useLanguage();
   const searchParams = useSearchParams();
-  const q = searchParams.get("q")?.toLowerCase() || "";
-  const cat = searchParams.get("category") || searchParams.get("cat") || "all";
-  const [subFilter, setSubFilter] = useState<"all" | "running" | "upcoming" | "completed">("all");
+  const initialCategory = searchParams.get("cat") || "all";
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
 
-  const filteredProjects = useMemo(() => {
-    return projectsList.filter((p) => {
-      // Sub filter
-      if (subFilter !== "all" && p.projectType !== subFilter) {
-        return false;
-      }
-      // Category filter
-      if (cat !== "all" && p.category !== cat) {
-        return false;
-      }
-      // Search query
-      if (q) {
-        const matchesName = p.name.toLowerCase().includes(q) || p.nameTa.toLowerCase().includes(q);
-        const matchesLocation = p.location.toLowerCase().includes(q) || p.locationTa.toLowerCase().includes(q);
-        const matchesDesc = p.overview.toLowerCase().includes(q) || p.overviewTa.toLowerCase().includes(q);
-        return matchesName || matchesLocation || matchesDesc;
-      }
-      return true;
-    });
-  }, [subFilter, cat, q]);
+  const categories = [
+    { id: "all", name: language === "ta" ? "அனைத்து திட்டங்கள்" : "All Projects", count: projectsData.length },
+    { id: "residential", name: language === "ta" ? "குடியிருப்பு" : "Residential", count: 2 },
+    { id: "commercial", name: language === "ta" ? "வணிக நிலங்கள்" : "Commercial", count: 5 },
+    { id: "farm", name: language === "ta" ? "பண்ணை நிலம்" : "Farm Land", count: 2 },
+  ];
+
+  const commercialProjects = useMemo(
+    () => projectsData.filter((p) => p.category === "commercial"),
+    []
+  );
+
+  const farmProjects = useMemo(
+    () => projectsData.filter((p) => p.category === "farm"),
+    []
+  );
+
+  const residentialProjects = useMemo(
+    () => projectsData.filter((p) => p.category === "residential"),
+    []
+  );
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
-      
-      {/* Top Header Card & Filter Tabs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-[#E2E8F0] shadow-2xs">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#EAB308]/30 bg-[#EAB308]/10 px-3 py-1 mb-2">
-            <span className="h-2 w-2 rounded-full bg-[#EAB308]" />
-            <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#854D0E]">
-              {language === "ta" ? "100% தெளிவான கம்ப்யூட்டர் பட்டா" : "100% Computer Patta & Clear Titles"}
-            </span>
-          </div>
-          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F172A]">
-            {language === "ta" ? "எங்கள் மனைப்பிரிவு திட்டங்கள்" : "Property Developments & Projects"}
-          </h1>
-          <p className="text-xs sm:text-sm text-[#64748B] mt-1 max-w-2xl">
-            {language === "ta"
-              ? "மதுரையின் முதன்மையான குடியிருப்பு, வணிக மற்றும் இயற்கை பண்ணை மனைத் திட்டங்கள்."
-              : "Explore our verified collection of residential townships, commercial highway corridors, and managed agro-farmland across Madurai."}
-          </p>
-        </div>
+    <main className="min-h-screen bg-[#F5F4EE] text-[#171B18] font-sans selection:bg-[#C6A66B]/30">
+      <Navbar />
 
-        {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 p-1 bg-[#F1F5F9] rounded-2xl self-start sm:self-auto shrink-0">
-          {(["all", "running", "upcoming", "completed"] as const).map((filter) => {
-            const filterLabels = {
-              all: language === "ta" ? "அனைத்து (4)" : "All (4)",
-              running: language === "ta" ? "நடைபெறுபவை (2)" : "Running (2)",
-              upcoming: language === "ta" ? "வரவிருக்கும் (1)" : "Upcoming (1)",
-              completed: language === "ta" ? "நிறைவடைந்தவை (1)" : "Completed (1)",
-            };
-            return (
+      {/* Hero Banner */}
+      <section className="relative w-full bg-[#173D2B] py-14 sm:py-20 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-15">
+          <Image
+            src="/images/hero/hero-farmland-aerial.jpg"
+            alt="Surya Promoters Projects"
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div className="relative z-10 w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24">
+          <div className="max-w-3xl space-y-3">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A66B]">
+              {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு" : "Verified Real Estate Portfolio"}
+            </span>
+            <h1 className="font-display text-3xl sm:text-5xl font-extrabold tracking-tight">
+              {language === "ta" ? "எங்கள் நில & மனை திட்டங்கள்" : "Our Projects in Madurai"}
+            </h1>
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+              {language === "ta"
+                ? "குடியிருப்பு மனைப்பிரிவுகள், வணிகப் பெருநிலங்கள் மற்றும் இயற்கை பண்ணை எஸ்டேட்கள். 100% தூய கம்ப்யூட்டர் பட்டா மற்றும் பாதுகாப்புடன்."
+                : "Explore our verified collection of residential townships, high-exposure commercial highway corridors, and managed agro-farmland across Madurai."}
+            </p>
+          </div>
+
+          {/* Interactive Category Filter Pills */}
+          <div className="mt-8 flex flex-wrap items-center gap-2 pt-4 border-t border-white/10">
+            {categories.map((cat) => (
               <button
-                key={filter}
-                onClick={() => setSubFilter(filter)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  subFilter === filter
-                    ? "bg-white text-[#0F172A] shadow-xs"
-                    : "text-[#64748B] hover:text-[#0F172A]"
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  selectedCategory === cat.id
+                    ? "bg-[#C6A66B] text-[#171B18] shadow-md scale-105"
+                    : "bg-white/10 text-white hover:bg-white/20 border border-white/10"
                 }`}
               >
-                {filterLabels[filter]}
+                <span>{cat.name}</span>
+                <span className="ml-2 font-mono text-[11px] opacity-80">({cat.count})</span>
               </button>
-            );
-          })}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredProjects.map((project) => {
-          return (
-            <div
-              key={project.id}
-              className="group bg-white rounded-3xl overflow-hidden border border-[#E2E8F0] hover:border-[#EAB308] hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                {/* Image Banner */}
-                <div className="relative aspect-[16/10] w-full bg-gray-900 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 768px) 100vw, 600px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
 
-                  {/* Badges */}
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="rounded-full bg-black/75 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase text-white border border-white/20">
-                      {language === "ta" ? project.categoryLabelTa : project.categoryLabel}
-                    </span>
-                    <span
-                      className={`rounded-full px-3 py-1 font-mono text-[10px] font-bold uppercase text-white backdrop-blur-md ${
-                        project.projectType === "running"
-                          ? "bg-emerald-600"
-                          : project.projectType === "upcoming"
-                          ? "bg-amber-500 text-black font-extrabold"
-                          : "bg-blue-600"
-                      }`}
-                    >
-                      {language === "ta" ? project.statusTextTa : project.statusText}
-                    </span>
-                  </div>
+      {/* ========================================================================= */}
+      {/* 1. THREE MAJOR CATEGORY CARDS OVERVIEW (Section 6) */}
+      {/* ========================================================================= */}
+      {(selectedCategory === "all") && (
+        <section className="w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 py-12 sm:py-16">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A66B]">
+              {language === "ta" ? "முதன்மை பிரிவுகள்" : "Explore by Category"}
+            </span>
+            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#173D2B] mt-1">
+              {language === "ta" ? "மூன்று முக்கிய ரியல் எஸ்டேட் பிரிவுகள்" : "Three Major Development Categories"}
+            </h2>
+          </div>
 
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-[#EAB308] transition-colors">
-                      {language === "ta" ? project.nameTa : project.name}
-                    </h3>
-                    <p className="text-xs text-amber-200 font-mono mt-0.5">
-                      {language === "ta" ? project.locationTa : project.location}
-                    </p>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {/* Category 1: Residential */}
+            <div className="group rounded-3xl bg-white border border-[#E8E2D7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+                <Image
+                  src="/images/projects/surya-green-enclave.jpg"
+                  alt="Residential Projects"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                <div className="absolute top-4 left-4 h-10 w-10 rounded-xl bg-white/95 text-[#173D2B] flex items-center justify-center shadow-xs">
+                  <Home className="h-5 w-5" />
                 </div>
-
-                {/* Details */}
-                <div className="p-6 space-y-4">
-                  <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed line-clamp-2">
-                    {language === "ta" ? project.overviewTa : project.overview}
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    {project.specs.map((spec, i) => {
-                      const SpecIcon = spec.icon;
-                      return (
-                        <div
-                          key={i}
-                          className="flex items-center gap-2 p-2 rounded-xl bg-gray-50 text-[11px] font-mono text-[#334155]"
-                        >
-                          <SpecIcon className="h-3.5 w-3.5 text-[#EAB308] shrink-0" />
-                          <span className="truncate">
-                            {language === "ta" ? spec.labelTa : spec.label}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <span className="text-[11px] font-mono text-[#C6A66B] font-bold block">CATEGORY 01</span>
+                  <h3 className="font-display text-xl font-bold">Residential</h3>
                 </div>
               </div>
-
-              {/* Actions Footer */}
-              <div className="p-6 pt-0 flex items-center gap-3">
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="flex-1 py-2.5 rounded-xl bg-[#0F172A] hover:bg-black text-white text-xs font-bold transition text-center flex items-center justify-center gap-1.5"
+              <div className="p-6 space-y-4">
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Residential plots and flat developments with wide bitumen roads, water table, and individual patta.
+                </p>
+                <button
+                  onClick={() => setSelectedCategory("residential")}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#173D2B] py-3 text-xs font-bold text-white shadow-xs hover:bg-[#122e20] transition cursor-pointer"
                 >
-                  <span>{language === "ta" ? "விவரங்கள் பார்க்க" : "View Details"}</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-                <a
-                  href={`https://wa.me/917708966452?text=${encodeURIComponent(
-                    `Hello Surya Promoters, please share price and layout details for ${project.name}.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#ca9a07] text-[#0A0D12] text-xs font-extrabold uppercase transition text-center flex items-center justify-center gap-1.5"
-                >
-                  <MessageCircle className="h-3.5 w-3.5" />
-                  <span>{language === "ta" ? "விலை கேட்க" : "WhatsApp Price"}</span>
-                </a>
+                  <span>Explore Residential</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-[#C6A66B]" />
+                </button>
               </div>
             </div>
-          );
-        })}
-      </div>
 
-      {/* Page Footer */}
-      <SummitFooter />
-    </div>
+            {/* Category 2: Commercial */}
+            <div className="group rounded-3xl bg-white border border-[#E8E2D7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+                <Image
+                  src="/images/projects/vaigai/corridor-aerial.jpg"
+                  alt="Commercial Projects"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                <div className="absolute top-4 left-4 h-10 w-10 rounded-xl bg-white/95 text-[#173D2B] flex items-center justify-center shadow-xs">
+                  <Building2 className="h-5 w-5" />
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <span className="text-[11px] font-mono text-[#C6A66B] font-bold block">CATEGORY 02</span>
+                  <h3 className="font-display text-xl font-bold">Commercial</h3>
+                </div>
+              </div>
+              <div className="p-6 space-y-4">
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Commercial buildings and commercial land situated along prime Ring Road, Anna Nagar, and NH-44 corridors.
+                </p>
+                <button
+                  onClick={() => setSelectedCategory("commercial")}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#173D2B] py-3 text-xs font-bold text-white shadow-xs hover:bg-[#122e20] transition cursor-pointer"
+                >
+                  <span>Explore Commercial</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-[#C6A66B]" />
+                </button>
+              </div>
+            </div>
+
+            {/* Category 3: Farm Land */}
+            <div className="group rounded-3xl bg-white border border-[#E8E2D7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+                <Image
+                  src="/images/projects/orange-garden/hero-orchard.jpg"
+                  alt="Farm Land Projects"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                <div className="absolute top-4 left-4 h-10 w-10 rounded-xl bg-white/95 text-[#173D2B] flex items-center justify-center shadow-xs">
+                  <TreePine className="h-5 w-5" />
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <span className="text-[11px] font-mono text-[#C6A66B] font-bold block">CATEGORY 03</span>
+                  <h3 className="font-display text-xl font-bold">Farm Land</h3>
+                </div>
+              </div>
+              <div className="p-6 space-y-4">
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Agricultural land, orchards, and farm developments with perennial groundwater and weekend cottage setups.
+                </p>
+                <button
+                  onClick={() => setSelectedCategory("farm")}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#173D2B] py-3 text-xs font-bold text-white shadow-xs hover:bg-[#122e20] transition cursor-pointer"
+                >
+                  <span>Explore Farm Land</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-[#C6A66B]" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+
+      {/* ========================================================================= */}
+      {/* 2. COMMERCIAL PROJECTS SECTION (5 Projects - Section 8) */}
+      {/* ========================================================================= */}
+      {(selectedCategory === "all" || selectedCategory === "commercial") && (
+        <section id="commercial" className="w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 py-12 sm:py-16 border-t border-[#E8E2D7]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A66B]">
+                High-Exposure Investment
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#173D2B] mt-1 flex items-center gap-2.5">
+                <Building2 className="h-7 w-7 text-[#C6A66B]" />
+                <span>Commercial Projects (5 Verified Locations)</span>
+              </h2>
+            </div>
+            <span className="font-mono text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              Direct Highway Frontage
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {commercialProjects.map((project) => (
+              <div
+                key={project.id}
+                className="group flex flex-col rounded-3xl bg-white border border-[#E8E2D7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                {/* Project Image */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+                  <Image
+                    src={project.heroImage}
+                    alt={project.title[language]}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full bg-[#173D2B]/90 backdrop-blur-md text-white font-mono text-[10px] font-bold uppercase tracking-wider border border-white/20">
+                      {project.categoryLabel[language]}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <div className="flex items-center gap-1.5 text-xs text-[#C6A66B] mb-1">
+                      <MapPin className="h-3.5 w-3.5" />
+                      <span className="truncate">{project.location[language]}</span>
+                    </div>
+                    <h3 className="font-display text-lg sm:text-xl font-bold leading-snug">
+                      {project.title[language]}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Project Card Body */}
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <p className="text-xs sm:text-sm text-gray-600 line-clamp-3 leading-relaxed">
+                    {project.description[language]}
+                  </p>
+
+                  <div className="pt-4 border-t border-[#F5F4EE] flex items-center gap-3">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#173D2B] py-2.5 px-4 text-xs font-bold text-white shadow-xs hover:bg-[#122e20] transition"
+                    >
+                      <Eye className="h-3.5 w-3.5" />
+                      <span>View Details</span>
+                    </Link>
+
+                    <Link
+                      href={`/location#${project.slug}`}
+                      className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-[#E8E2D7] bg-[#F5F4EE] hover:bg-white py-2.5 px-3.5 text-xs font-bold text-[#171B18] transition"
+                      title="View Location on Map"
+                    >
+                      <MapPin className="h-3.5 w-3.5 text-[#C6A66B]" />
+                      <span className="hidden sm:inline">Location</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+
+      {/* ========================================================================= */}
+      {/* 3. FARM LAND PROJECTS SECTION (2 Projects - Section 9) */}
+      {/* ========================================================================= */}
+      {(selectedCategory === "all" || selectedCategory === "farm") && (
+        <section id="farmland" className="w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 py-12 sm:py-16 border-t border-[#E8E2D7]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A66B]">
+                Pure Nature Living &amp; Orchard Estates
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#173D2B] mt-1 flex items-center gap-2.5">
+                <TreePine className="h-7 w-7 text-[#C6A66B]" />
+                <span>Farm Land Projects (Client-Verified Photography)</span>
+              </h2>
+            </div>
+            <span className="font-mono text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              100% Genuine Agro Assets
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {farmProjects.map((project) => (
+              <div
+                key={project.id}
+                className="group flex flex-col rounded-3xl bg-white border border-[#E8E2D7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                {/* Image */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+                  <Image
+                    src={project.heroImage}
+                    alt={project.title[language]}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                  <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <span className="px-3 py-1 rounded-full bg-[#173D2B]/90 backdrop-blur-md text-white font-mono text-[10px] font-bold uppercase tracking-wider border border-white/20">
+                      {project.categoryLabel[language]}
+                    </span>
+                    {project.slug === "orange-garden" && (
+                      <span className="px-2.5 py-1 rounded-full bg-amber-400 text-black font-mono text-[10px] font-extrabold uppercase">
+                        Plots 1–10 Blueprint Live
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <div className="flex items-center gap-1.5 text-xs text-[#C6A66B] mb-1">
+                      <MapPin className="h-3.5 w-3.5" />
+                      <span>{project.location[language]}</span>
+                    </div>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold leading-tight">
+                      {project.title[language]}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Body */}
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                    {project.description[language]}
+                  </p>
+
+                  <div className="pt-4 border-t border-[#F5F4EE] flex items-center gap-3">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#173D2B] py-3 px-4 text-xs font-bold text-white shadow-xs hover:bg-[#122e20] transition"
+                    >
+                      <Eye className="h-4 w-4" />
+                      <span>View Project Details</span>
+                    </Link>
+
+                    <Link
+                      href={`/location#${project.slug}`}
+                      className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-[#E8E2D7] bg-[#F5F4EE] hover:bg-white py-3 px-4 text-xs font-bold text-[#171B18] transition"
+                    >
+                      <MapPin className="h-4 w-4 text-[#C6A66B]" />
+                      <span>Location</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+
+      {/* ========================================================================= */}
+      {/* 4. RESIDENTIAL PROJECTS SECTION (2 Subcategories - Section 7) */}
+      {/* ========================================================================= */}
+      {(selectedCategory === "all" || selectedCategory === "residential") && (
+        <section id="residential" className="w-full max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-16 2xl:px-24 py-12 sm:py-16 border-t border-[#E8E2D7]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A66B]">
+                Approved Residential Developments
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#173D2B] mt-1 flex items-center gap-2.5">
+                <Home className="h-7 w-7 text-[#C6A66B]" />
+                <span>Residential Projects (2 Subcategories)</span>
+              </h2>
+            </div>
+            <span className="font-mono text-xs font-bold text-blue-800 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+              DTCP / RERA Approved
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {residentialProjects.map((project) => (
+              <div
+                key={project.id}
+                className="group flex flex-col rounded-3xl bg-white border border-[#E8E2D7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                {/* Image */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+                  <Image
+                    src={project.heroImage}
+                    alt={project.title[language]}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full bg-[#173D2B]/90 backdrop-blur-md text-white font-mono text-[10px] font-bold uppercase tracking-wider border border-white/20">
+                      {project.id === "plot-projects" ? "Subcategory A: Plot Projects" : "Subcategory B: Flat Projects"}
+                    </span>
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <div className="flex items-center gap-1.5 text-xs text-[#C6A66B] mb-1">
+                      <MapPin className="h-3.5 w-3.5" />
+                      <span>{project.location[language]}</span>
+                    </div>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold leading-tight">
+                      {project.title[language]}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Body */}
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                    {project.description[language]}
+                  </p>
+
+                  <div className="pt-4 border-t border-[#F5F4EE] flex items-center gap-3">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#173D2B] py-3 px-4 text-xs font-bold text-white shadow-xs hover:bg-[#122e20] transition"
+                    >
+                      <Eye className="h-4 w-4" />
+                      <span>View Details</span>
+                    </Link>
+
+                    <Link
+                      href={`/location#${project.slug}`}
+                      className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-[#E8E2D7] bg-[#F5F4EE] hover:bg-white py-3 px-4 text-xs font-bold text-[#171B18] transition"
+                    >
+                      <MapPin className="h-4 w-4 text-[#C6A66B]" />
+                      <span>Location</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <Footer />
+    </main>
   );
 }
 
 export default function ProjectsPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-xs font-mono text-gray-500">Loading projects...</div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#F5F4EE] flex items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-3 border-[#173D2B] border-t-transparent" />
+        </div>
+      }
+    >
       <ProjectsContent />
     </Suspense>
   );
