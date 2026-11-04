@@ -1217,12 +1217,6 @@ export default function ProjectIconGrid() {
                           <IconComp className="h-3.5 w-3.5 text-[#EAB308]" />
                         </div>
                       </div>
-
-                      <div className="absolute top-1 right-1">
-                        <span className={`text-[7px] font-mono font-extrabold uppercase px-1 rounded-xs ${item.badgeBg}`}>
-                          {item.badge}
-                        </span>
-                      </div>
                     </div>
 
                     <span className="font-display text-xs font-bold text-[#0F172A] group-hover:text-[#B45309] truncate max-w-full mt-2">
@@ -1296,21 +1290,6 @@ export default function ProjectIconGrid() {
                             <div className="h-7 w-7 rounded-lg bg-black/50 backdrop-blur-xs flex items-center justify-center text-white border border-white/20">
                               <IconComp className="h-3.5 w-3.5 text-[#EAB308]" />
                             </div>
-                          </div>
-
-                          {/* Authentic Status Badge on Icon */}
-                          <div className="absolute top-0.5 left-0.5">
-                            <span
-                              className={`text-[7px] font-mono font-extrabold uppercase px-1 py-0.2 rounded-xs shadow-2xs ${
-                                isUpcoming
-                                  ? "bg-amber-400 text-black"
-                                  : isRunning
-                                  ? "bg-emerald-600 text-white"
-                                  : "bg-blue-600 text-white"
-                              }`}
-                            >
-                              {isUpcoming ? "Upcoming" : isRunning ? "Running" : "Completed"}
-                            </span>
                           </div>
                         </div>
 
@@ -1397,16 +1376,6 @@ export default function ProjectIconGrid() {
                           className={`relative aspect-square w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shrink-0 shadow-sm bg-gradient-to-br ${app.gradient} flex items-center justify-center border border-white/20 group-hover:scale-105 transition-transform`}
                         >
                           <IconComp className="h-7 w-7 sm:h-8 sm:w-8 text-white drop-shadow-md" />
-
-                          {app.badge && (
-                            <div className="absolute top-1 right-1">
-                              <span
-                                className={`text-[7px] font-mono font-extrabold uppercase px-1 py-0.2 rounded-full ${app.badgeColor || "bg-red-500"} text-white border border-white shadow-2xs`}
-                              >
-                                {app.badge}
-                              </span>
-                            </div>
-                          )}
                         </div>
 
                         {/* Title & Subtitle */}
