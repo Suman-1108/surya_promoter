@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import ServicesSection from "@/components/sections/ServicesSection";
-import ApproachSection from "@/components/sections/ApproachSection";
-import SiteVisitSection from "@/components/sections/SiteVisitSection";
-import MobileActionBar from "@/components/layout/MobileActionBar";
+import ProjectIconGrid from "@/components/sections/ProjectIconGrid";
 
 export const metadata: Metadata = {
   title: "Property & Land Development Services | Surya Promoters Madurai",
@@ -14,13 +9,8 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-[#FFFFFF] text-[#242820]">
-      <Navbar />
-      <ServicesSection />
-      <ApproachSection />
-      <SiteVisitSection />
-      <Footer />
-      <MobileActionBar />
+    <main className="min-h-screen bg-[#F3F3F3]">
+      <ProjectIconGrid initialNav="services" />
     </main>
   );
 }

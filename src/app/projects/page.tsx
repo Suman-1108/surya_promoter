@@ -1,24 +1,16 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import ProjectsSection from "@/components/sections/ProjectsSection";
-import SiteVisitSection from "@/components/sections/SiteVisitSection";
-import MobileActionBar from "@/components/layout/MobileActionBar";
+import ProjectIconGrid from "@/components/sections/ProjectIconGrid";
 
 export const metadata: Metadata = {
-  title: "Property Developments & Projects | Surya Promoters Madurai",
+  title: "Property & Land Projects | Surya Promoters Madurai",
   description:
-    "Explore our verified portfolio of commercial land, agricultural farms, and residential plots in Madurai, Tamil Nadu.",
+    "Explore residential, commercial, and agro farm plots in Madurai with 100% computer patta and prime highway connectivity.",
 };
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-[#FFFFFF] text-[#242820]">
-      <Navbar />
-      <ProjectsSection />
-      <SiteVisitSection />
-      <Footer />
-      <MobileActionBar />
+    <main className="min-h-screen bg-[#F3F3F3]">
+      <ProjectIconGrid initialNav="projects" />
     </main>
   );
 }

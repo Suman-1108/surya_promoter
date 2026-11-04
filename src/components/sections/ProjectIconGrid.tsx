@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -104,15 +104,54 @@ export interface StoreUtilityApp {
   targetUrl: string;
 }
 
-export default function ProjectIconGrid() {
+export default function ProjectIconGrid({
+  initialNav = "home",
+}: {
+  initialNav?: "home" | "projects" | "services" | "about" | "gallery" | "3d" | "contact";
+}) {
   const router = useRouter();
   const { language, toggleLanguage } = useLanguage();
 
   // Navigation State
-  const [activeNav, setActiveNav] = useState<"home" | "projects" | "services" | "about" | "gallery" | "3d" | "contact">("home");
+  const [activeNav, setActiveNav] = useState<"home" | "projects" | "services" | "about" | "gallery" | "3d" | "contact">(initialNav);
   const [projectSubFilter, setProjectSubFilter] = useState<"all" | "running" | "upcoming" | "completed">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState<StoreProject | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const mainRef = useRef<HTMLElement>(null);
+
+  const handleNavChange = (nav: "home" | "projects" | "services" | "about" | "gallery" | "3d" | "contact") => {
+    if (nav === "3d") {
+      window.open("https://mapbhoomi.com/l/surya-promoters", "_blank");
+      return;
+    }
+    setActiveNav(nav);
+    setSearchQuery("");
+    if (typeof window !== "undefined") {
+      const newPath = nav === "home" ? "/" : `/${nav}`;
+      window.history.pushState(null, "", newPath);
+    }
+    mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window !== "undefined") {
+        const path = window.location.pathname.replace(/^\//, "") as any;
+        if (["projects", "services", "about", "gallery", "contact"].includes(path)) {
+          setActiveNav(path);
+        } else {
+          setActiveNav("home");
+        }
+      }
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  useEffect(() => {
+    if (initialNav) setActiveNav(initialNav);
+  }, [initialNav]);
 
   // Pagination for horizontal scroll shelves
   const [featuredShelfScroll, setFeaturedShelfScroll] = useState(0);
@@ -736,6 +775,30 @@ export default function ProjectIconGrid() {
             </div>
           </Link>
 
+          {/* Top Bar Navigation Tabs (Home, Projects, Services, About, Gallery, Contact) */}
+          <nav className="hidden xl:flex items-center gap-1 shrink-0">
+            {[
+              { id: "home", label: language === "ta" ? "முகப்பு" : "Home" },
+              { id: "projects", label: language === "ta" ? "திட்டங்கள்" : "Projects" },
+              { id: "services", label: language === "ta" ? "சேவைகள்" : "Services" },
+              { id: "about", label: language === "ta" ? "எங்களைப் பற்றி" : "About" },
+              { id: "gallery", label: language === "ta" ? "புகைப்படங்கள்" : "Gallery" },
+              { id: "contact", label: language === "ta" ? "தொடர்புக்கு" : "Contact" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleNavChange(tab.id as any)}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                  activeNav === tab.id
+                    ? "bg-[#EAB308]/20 text-[#B45309]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+
           {/* Center: Search Bar (Exact Microsoft Store Pill Search Bar) */}
           <div className="flex-1 max-w-xl mx-auto">
             <div className="relative w-full">
@@ -805,10 +868,7 @@ export default function ProjectIconGrid() {
               
               {/* 1. HOME (Blue squircle icon with active blue indicator bar on left) */}
               <button
-                onClick={() => {
-                  setActiveNav("home");
-                  setSearchQuery("");
-                }}
+                onClick={() => handleNavChange("home")}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer relative ${
                   activeNav === "home"
                     ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
@@ -830,7 +890,7 @@ export default function ProjectIconGrid() {
               <div className="space-y-1">
                 <button
                   onClick={() => {
-                    setActiveNav("projects");
+                    handleNavChange("projects");
                     setProjectSubFilter("all");
                   }}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer relative ${
@@ -898,37 +958,64 @@ export default function ProjectIconGrid() {
               </div>
 
               {/* 3. SERVICES */}
-              <Link
-                href="/services"
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              <button
+                onClick={() => handleNavChange("services")}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "services"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
               >
-                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#64748B]">
+                {activeNav === "services" && (
+                  <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-6 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "services" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B]"
+                }`}>
                   <Wrench className="h-4 w-4" />
                 </div>
                 <span className="hidden lg:inline">{language === "ta" ? "சேவைகள்" : "Services"}</span>
-              </Link>
+              </button>
 
               {/* 4. ABOUT US (IAF Veteran Leadership) */}
-              <Link
-                href="/about"
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              <button
+                onClick={() => handleNavChange("about")}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "about"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
               >
-                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#64748B]">
+                {activeNav === "about" && (
+                  <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-6 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "about" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B]"
+                }`}>
                   <Award className="h-4 w-4" />
                 </div>
                 <span className="hidden lg:inline">{language === "ta" ? "எங்களைப் பற்றி" : "About Us"}</span>
-              </Link>
+              </button>
 
               {/* 5. GALLERY */}
-              <Link
-                href="/gallery"
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              <button
+                onClick={() => handleNavChange("gallery")}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "gallery"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
               >
-                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#64748B]">
+                {activeNav === "gallery" && (
+                  <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-6 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "gallery" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B]"
+                }`}>
                   <Camera className="h-4 w-4" />
                 </div>
                 <span className="hidden lg:inline">{language === "ta" ? "புகைப்படங்கள்" : "Gallery"}</span>
-              </Link>
+              </button>
 
               {/* 6. 3D MASTERPLANS */}
               <a
@@ -949,22 +1036,31 @@ export default function ProjectIconGrid() {
               </a>
 
               {/* 7. CONTACT */}
-              <Link
-                href="/contact"
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              <button
+                onClick={() => handleNavChange("contact")}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "contact"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
               >
-                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#64748B]">
+                {activeNav === "contact" && (
+                  <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-6 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "contact" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B]"
+                }`}>
                   <Phone className="h-4 w-4" />
                 </div>
                 <span className="hidden lg:inline">{language === "ta" ? "தொடர்புக்கு" : "Contact"}</span>
-              </Link>
+              </button>
 
             </div>
 
         </aside>
 
         {/* RIGHT: MAIN STORE CANVAS */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 overflow-y-auto">
+        <main ref={mainRef} className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 overflow-y-auto">
           
           {/* SEARCH ACTIVE NOTICE */}
           {searchQuery && (
@@ -985,6 +1081,9 @@ export default function ProjectIconGrid() {
             </div>
           )}
 
+          {/* HOME VIEW: HERO, SHELVES, PANELS, AND COMMUNICATION CHANNELS */}
+          {activeNav === "home" && !searchQuery && (
+            <>
           {/* 3. HERO SHOWCASE SECTION (UPCOMING PROJECT ON LEFT, ABOUT US & RUNNING/COMPLETED TILES ON RIGHT!) */}
           {!searchQuery && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
@@ -1441,7 +1540,7 @@ export default function ProjectIconGrid() {
                       if (item.url.startsWith("http") || item.url.startsWith("tel:") || item.url.startsWith("mailto:")) {
                         window.open(item.url, item.url.startsWith("http") ? "_blank" : "_self");
                       } else {
-                        router.push(item.url);
+                        handleNavChange(item.url.replace("/", "") as any);
                       }
                     }}
                     className="group flex flex-col items-center text-center p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition-all cursor-pointer"
@@ -1462,6 +1561,510 @@ export default function ProjectIconGrid() {
             </div>
 
           </div>
+          </>
+          )}
+
+          {/* ========================================================================= */}
+          {/* TAB 1: PROJECTS CANVAS VIEW (Active when "Projects" is clicked)          */}
+          {/* ========================================================================= */}
+          {activeNav === "projects" && !searchQuery && (
+            <div className="space-y-6 animate-in fade-in duration-300">
+              {/* Header & Sub-filter pills */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#E2E8F0] shadow-2xs">
+                <div>
+                  <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F172A]">
+                    {language === "ta" ? "எங்கள் மனைப்பிரிவு திட்டங்கள்" : "Property Developments & Projects"}
+                  </h1>
+                  <p className="text-xs sm:text-sm text-[#64748B] mt-1">
+                    {language === "ta"
+                      ? "100% தெளிவான கணினி பட்டா மற்றும் உடனடி பத்திரப்பதிவுடன் மதுரையின் முதன்மை திட்டங்கள்."
+                      : "Madurai's prime residential, commercial, and agricultural projects with 100% Computer Patta."}
+                  </p>
+                </div>
+
+                {/* Sub-filter tabs */}
+                <div className="flex items-center gap-1.5 p-1 bg-[#F1F5F9] rounded-2xl self-start sm:self-auto">
+                  {(["all", "running", "upcoming", "completed"] as const).map((filter) => {
+                    const filterLabels = {
+                      all: language === "ta" ? "அனைத்து (4)" : "All (4)",
+                      running: language === "ta" ? "நடைபெறுபவை (2)" : "Running (2)",
+                      upcoming: language === "ta" ? "வரவிருக்கும் (1)" : "Upcoming (1)",
+                      completed: language === "ta" ? "நிறைவடைந்தவை (1)" : "Completed (1)",
+                    };
+                    return (
+                      <button
+                        key={filter}
+                        onClick={() => setProjectSubFilter(filter)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          projectSubFilter === filter
+                            ? "bg-white text-[#0F172A] shadow-xs"
+                            : "text-[#64748B] hover:text-[#0F172A]"
+                        }`}
+                      >
+                        {filterLabels[filter]}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Projects Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {storeProjects
+                  .filter((p) => {
+                    if (projectSubFilter === "all") return true;
+                    return p.projectType === projectSubFilter;
+                  })
+                  .map((project) => {
+                    return (
+                      <div
+                        key={project.id}
+                        onClick={() => setSelectedProject(project)}
+                        className="group bg-white rounded-3xl overflow-hidden border border-[#E2E8F0] hover:border-[#EAB308] hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                      >
+                        <div>
+                          {/* Image Banner */}
+                          <div className="relative aspect-[16/10] w-full bg-gray-900 overflow-hidden">
+                            <Image
+                              src={project.image}
+                              alt={project.name}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-700"
+                              sizes="(max-width: 768px) 100vw, 600px"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                            
+                            {/* Badges */}
+                            <div className="absolute top-4 left-4 flex gap-2">
+                              <span className="rounded-full bg-black/70 backdrop-blur-md px-3 py-1 font-mono text-[10px] font-bold uppercase text-white border border-white/20">
+                                {language === "ta" ? project.categoryLabelTa : project.categoryLabel}
+                              </span>
+                              <span
+                                className={`rounded-full px-3 py-1 font-mono text-[10px] font-bold uppercase text-white backdrop-blur-md ${
+                                  project.projectType === "running"
+                                    ? "bg-emerald-600"
+                                    : project.projectType === "upcoming"
+                                    ? "bg-amber-500 text-black font-extrabold"
+                                    : "bg-blue-600"
+                                }`}
+                              >
+                                {language === "ta" ? project.statusTextTa : project.statusText}
+                              </span>
+                            </div>
+
+                            <div className="absolute bottom-4 left-4 right-4">
+                              <h3 className="font-display text-2xl font-extrabold text-white group-hover:text-[#EAB308] transition-colors">
+                                {language === "ta" ? project.nameTa : project.name}
+                              </h3>
+                              <p className="text-xs text-amber-200 font-mono mt-0.5">
+                                {language === "ta" ? project.locationTa : project.location}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Details */}
+                          <div className="p-6 space-y-4">
+                            <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed line-clamp-2">
+                              {language === "ta" ? project.overviewTa : project.overview}
+                            </p>
+
+                            <div className="grid grid-cols-2 gap-2">
+                              {project.specs.slice(0, 4).map((spec, i) => {
+                                const SpecIcon = spec.icon;
+                                return (
+                                  <div key={i} className="flex items-center gap-2 p-2 rounded-xl bg-gray-50 text-[11px] font-mono text-[#334155]">
+                                    <SpecIcon className="h-3.5 w-3.5 text-[#EAB308] shrink-0" />
+                                    <span className="truncate">{language === "ta" ? spec.labelTa : spec.label}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Actions Footer */}
+                        <div className="p-6 pt-0 flex items-center gap-3">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedProject(project);
+                            }}
+                            className="flex-1 py-2.5 rounded-xl bg-[#0F172A] hover:bg-black text-white text-xs font-bold transition text-center"
+                          >
+                            {language === "ta" ? "விவரங்கள் பார்க்க" : "View Details"}
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(
+                                `https://wa.me/917708966452?text=${encodeURIComponent(
+                                  `Hello Surya Promoters, please share price and details for ${project.name}.`
+                                )}`,
+                                "_blank"
+                              );
+                            }}
+                            className="flex-1 py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#ca9a07] text-black text-xs font-extrabold uppercase transition text-center"
+                          >
+                            {language === "ta" ? "விலை கேட்க" : "WhatsApp Price"}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* TAB 2: SERVICES CANVAS VIEW (Matches user screenshot exactly!)            */}
+          {/* ========================================================================= */}
+          {activeNav === "services" && !searchQuery && (
+            <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#E2E8F0] shadow-sm animate-in fade-in duration-300">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                {/* Left Column: Heading, Metrics, Social Proof */}
+                <div className="lg:col-span-5 space-y-6">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1">
+                    <span className="h-2 w-2 rounded-full bg-[#EAB308]" />
+                    <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest uppercase text-[#B45309]">
+                      {language === "ta" ? "எங்கள் சேவைகள்" : "OUR CORE EXPERTISE"}
+                    </span>
+                  </div>
+
+                  <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#0F172A] leading-[1.1]">
+                    <span>{language === "ta" ? "முழுமையான" : "Comprehensive"} </span>
+                    <span className="text-[#64748B] block mt-1">
+                      {language === "ta" ? "ரியல் எஸ்டேட் தீர்வுகள்" : "Real Estate Solutions"}
+                    </span>
+                  </h1>
+
+                  <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
+                    {language === "ta"
+                      ? "100% சரிபார்க்கப்பட்ட நிலங்கள், தெளிவான பட்டா ஆவணங்கள் மற்றும் மதுரையின் மிக வேகமாக வளரும் பகுதிகளில் வாழ்நாள் மதிப்பு உயர்வுடன் கூடிய சேவைகள்."
+                      : "Directly connecting you to 100% verified land parcels, clear legal documentation, and lifetime appreciation across Madurai's fastest-growing corridors."}
+                  </p>
+
+                  {/* Overlapping Avatars Cluster */}
+                  <div className="pt-2 flex items-center gap-3">
+                    <div className="flex -space-x-2">
+                      <div className="relative h-9 w-9 rounded-full overflow-hidden border-2 border-white shadow-xs bg-gray-200">
+                        <Image src="/images/founder/founder.png" alt="Founder Manickam" fill className="object-cover" sizes="36px" />
+                      </div>
+                      <div className="h-9 w-9 rounded-full bg-emerald-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                        IAF
+                      </div>
+                      <div className="h-9 w-9 rounded-full bg-[#0284C7] border-2 border-white text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                        RERA
+                      </div>
+                      <div className="h-9 w-9 rounded-full bg-amber-500 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                        4.9★
+                      </div>
+                    </div>
+                    <span className="text-xs font-semibold text-[#0F172A]">
+                      {language === "ta" ? "1000+ குடும்பங்கள் நம்பிய நிறுவனம்" : "1000+ Families Trusted across Tamil Nadu"}
+                    </span>
+                  </div>
+
+                  {/* 3 Metrics */}
+                  <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gray-100">
+                    <div>
+                      <div className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F172A]">100%</div>
+                      <div className="text-[10px] font-mono uppercase tracking-wider text-[#64748B]">
+                        {language === "ta" ? "தெளிவான பட்டா" : "CLEAR TITLES"}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F172A]">16+ Yrs</div>
+                      <div className="text-[10px] font-mono uppercase tracking-wider text-[#64748B]">
+                        {language === "ta" ? "அனுபவம்" : "EXPERIENCE"}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F172A]">4.9 ★</div>
+                      <div className="text-[10px] font-mono uppercase tracking-wider text-[#64748B]">
+                        {language === "ta" ? "நம்பிக்கை ரேட்டிங்" : "TRUST RATING"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: 4 Service Cards */}
+                <div className="lg:col-span-7 space-y-4">
+                  {[
+                    {
+                      icon: Home,
+                      highlight: language === "ta" ? "தேர்ந்தெடுங்கள்" : "Explore",
+                      title: language === "ta" ? "சிறந்த குடியிருப்பு மனைகள்" : "great residential layouts",
+                      desc: language === "ta"
+                        ? "DTCP மற்றும் RERA அனுமதி, அகலமான தார்ச்சாலைகள், நல்ல குடிநீர் மற்றும் உடனடி பட்டாவுடன் கூடிய வீட்டு மனைகள்."
+                        : "DTCP & RERA approved villa plots with wide bitumen roads, sweet groundwater, and immediate individual patta.",
+                      wa: "Hello Surya Promoters, I am interested in exploring your residential plots.",
+                    },
+                    {
+                      icon: Building2,
+                      highlight: language === "ta" ? "முதலீடு செய்யுங்கள்" : "Find highly",
+                      title: language === "ta" ? "மதிப்பிடப்பட்ட வணிகப் பாதைகள்" : "rated commercial corridors",
+                      desc: language === "ta"
+                        ? "NH-44 மற்றும் மதுரை ரிங் ரோட்டில் குடோன்கள், மருத்துவமனைகள் மற்றும் நிறுவனங்களுக்கான முக்கிய இடங்கள்."
+                        : "High-exposure parcels along NH-44 and Madurai Ring Road tailored for warehouses, godowns, and hospitals.",
+                      wa: "Hello Surya Promoters, I am interested in commercial land and highway corridors.",
+                    },
+                    {
+                      icon: Wheat,
+                      highlight: language === "ta" ? "கண்டறியுங்கள்" : "Discover",
+                      title: language === "ta" ? "செழிப்பான விவசாயப் பண்ணைகள்" : "fertile agricultural farms",
+                      desc: language === "ta"
+                        ? "செழிப்பான மண்வளம், வற்றாத நீர்வளம் மற்றும் பழ மரங்களுடன் அமைதியான வார இறுதி பண்ணை மனைகள்."
+                        : "Rich soils, perennial water tables, and pre-planted fruit groves for tranquil weekend farmhouse retreats.",
+                      wa: "Hello Surya Promoters, I would like information on agricultural farm plots.",
+                    },
+                    {
+                      icon: ShieldCheck,
+                      highlight: language === "ta" ? "பெறுங்கள்" : "Receive",
+                      title: language === "ta" ? "நிபுணத்துவ சட்ட ஆலோசனை" : "expert legal title advisory",
+                      desc: language === "ta"
+                        ? "30 ஆண்டு வில்லங்க சரிபார்ப்பு, பட்டா ஆவண ஆய்வு மற்றும் இந்திய விமானப்படை ஒழுக்கத்துடன் கூடிய வழிகாட்டுதல்."
+                        : "Rigorous 30-year encumbrance scrutiny, revenue survey vetting, and complete buyer protection by IAF veterans.",
+                      wa: "Hello Surya Promoters, I need legal title and documentation advisory for land.",
+                    },
+                  ].map((item, idx) => {
+                    const IconC = item.icon;
+                    return (
+                      <div
+                        key={idx}
+                        onClick={() => window.open(`https://wa.me/917708966452?text=${encodeURIComponent(item.wa)}`, "_blank")}
+                        className="group p-5 sm:p-6 rounded-2xl bg-[#F8FAFC] hover:bg-white border border-[#E2E8F0] hover:border-[#EAB308] hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-4"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 border border-amber-200/60 group-hover:scale-105 group-hover:bg-[#EAB308] group-hover:text-black transition-all">
+                            <IconC className="h-6 w-6" />
+                          </div>
+                          <div className="space-y-1">
+                            <h3 className="font-display text-base sm:text-lg font-bold text-[#0F172A] group-hover:text-[#B45309] transition-colors">
+                              <span className="font-extrabold">{item.highlight}</span> {item.title}
+                            </h3>
+                            <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed max-w-xl">
+                              {item.desc}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="h-10 w-10 rounded-full border border-gray-200 group-hover:border-[#EAB308] group-hover:bg-[#EAB308] flex items-center justify-center shrink-0 text-[#64748B] group-hover:text-black transition-all">
+                          <ArrowRight className="h-4 w-4" />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* TAB 3: ABOUT CANVAS VIEW (IAF Veteran Heritage & Pillars)                 */}
+          {/* ========================================================================= */}
+          {activeNav === "about" && !searchQuery && (
+            <div className="space-y-6 animate-in fade-in duration-300">
+              {/* Hero Founder Card */}
+              <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-10 lg:p-12 text-white border border-slate-800 shadow-xl relative overflow-hidden">
+                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  <div className="lg:col-span-8 space-y-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold border border-emerald-500/30">
+                      <ShieldCheck className="h-4 w-4" />
+                      <span>INDIAN AIR FORCE VETERAN LEADERSHIP</span>
+                    </div>
+                    <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                      {language === "ta" ? "விமானப்படை ஒழுக்கம் & 16+ ஆண்டுகள் அசைக்க முடியாத நம்பிக்கை" : "Built On Military Discipline, Honesty & Absolute Patta Integrity"}
+                    </h1>
+                    <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+                      {language === "ta"
+                        ? "சூர்யா புரமோட்டர்ஸ் 2010 ஆம் ஆண்டு இந்திய விமானப்படை ஓய்வுபெற்ற வீரர் திரு. மாணிக்கம் நடராஜன் அவர்களால் நிறுவப்பட்டது. மதுரை மற்றும் தென் தமிழகத்தில் 100% கணினி பட்டா, உடனடி பத்திரப்பதிவு மற்றும் வாடிக்கையாளர் திருப்தியுடன் நில மேம்பாடு செய்து வருகிறோம்."
+                        : "Founded in 2010 by Indian Air Force Veteran Mr. Manickam Natarajan. We bring military standard rigor, zero dispute land titles, transparent revenue documentation, and generational growth to land buyers in Madurai."}
+                    </p>
+                    <div className="pt-2 flex flex-wrap gap-4 text-xs font-mono text-amber-400">
+                      <span>✓ Estd. 2010</span>
+                      <span>✓ 100% Clear Computer Patta</span>
+                      <span>✓ 1000+ Happy Families</span>
+                      <span>✓ Zero Legal Disputes</span>
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-4 flex justify-center">
+                    <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden border-4 border-[#EAB308]/60 shadow-2xl bg-gray-800">
+                      <Image src="/images/founder/founder.png" alt="Founder Manickam Natarajan" fill className="object-cover object-top" sizes="224px" />
+                      <div className="absolute bottom-0 inset-x-0 p-2.5 bg-black/80 backdrop-blur-xs text-center">
+                        <span className="font-display text-xs font-bold text-white block">Mr. Manickam Natarajan</span>
+                        <span className="text-[10px] font-mono text-amber-300">IAF Veteran · Founder</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4 Pillars Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  {
+                    title: language === "ta" ? "விமானப்படை ஒழுக்கம்" : "Military Precision",
+                    desc: language === "ta" ? "ஒவ்வொரு எல்லையும் துல்லியமான ஜிபிஎஸ் அளவீடுடன் அமைக்கப்படுகிறது." : "Exact boundary markings, surveyor vetted perimeters, and honest square footage.",
+                    icon: ShieldCheck,
+                  },
+                  {
+                    title: language === "ta" ? "100% கணினி பட்டா" : "100% Clear Computer Patta",
+                    desc: language === "ta" ? "30 ஆண்டுகால வில்லங்க சான்று மற்றும் வருவாய்த்துறை சரிபார்ப்பு." : "Flawless 30-year encumbrance search and immediate individual patta transfer.",
+                    icon: Award,
+                  },
+                  {
+                    title: language === "ta" ? "முக்கிய வளர்ச்சி வழித்தடம்" : "Strategic Corridors",
+                    desc: language === "ta" ? "NH-44 மற்றும் மதுரை ரிங் ரோடு போன்ற அதிவேக வளர்ச்சி பகுதிகளில் நிலங்கள்." : "Prime connectivity along Madurai Ring Road and industrial growth belts.",
+                    icon: Compass,
+                  },
+                  {
+                    title: language === "ta" ? "வாழ்க்கை முழுமைக்கும் உறவு" : "Generational Trust",
+                    desc: language === "ta" ? "விற்பனைக்கு பிறகும் மனை பராமரிப்பு மற்றும் வழிகாட்டுதல் உதவி." : "Post-purchase layout management, security fencing, and resale guidance.",
+                    icon: CheckCircle2,
+                  },
+                ].map((pillar, i) => {
+                  const IconP = pillar.icon;
+                  return (
+                    <div key={i} className="bg-white rounded-2xl p-5 border border-[#E2E8F0] shadow-2xs space-y-2">
+                      <div className="h-10 w-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+                        <IconP className="h-5 w-5" />
+                      </div>
+                      <h3 className="font-display text-sm font-bold text-[#0F172A]">{pillar.title}</h3>
+                      <p className="text-xs text-[#64748B] leading-relaxed">{pillar.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* TAB 4: GALLERY CANVAS VIEW (Site Photos with Lightbox Modal)              */}
+          {/* ========================================================================= */}
+          {activeNav === "gallery" && !searchQuery && (
+            <div className="space-y-6 animate-in fade-in duration-300">
+              <div className="bg-white p-6 rounded-3xl border border-[#E2E8F0] shadow-2xs flex items-center justify-between">
+                <div>
+                  <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F172A]">
+                    {language === "ta" ? "களப் புகைப்படங்கள் & ட்ரோன் காட்சிகள்" : "On-Site Photography & Drone Media"}
+                  </h1>
+                  <p className="text-xs sm:text-sm text-[#64748B] mt-1">
+                    {language === "ta"
+                      ? "எங்கள் நேரடி மனைப்பிரிவு வளர்ச்சி, சாலைகள் மற்றும் எல்லைக் கற்களின் உண்மையான படங்கள்."
+                      : "Authentic on-ground photos of road corridors, boundary demarcation, and orchard developments."}
+                  </p>
+                </div>
+                <span className="hidden sm:inline-block font-mono text-xs px-3 py-1 rounded-full bg-amber-100 text-amber-900 font-bold">
+                  6 Verified Locations
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { src: "/images/projects/orange-garden/hero-orchard.jpg", title: "Orange Garden Orchard", location: "Madurai Green Belt" },
+                  { src: "/images/projects/vaigai/corridor-aerial.jpg", title: "Vaigai Elite Highway View", location: "NH-44 Outer Ring Road" },
+                  { src: "/images/projects/madurai-farms/aerial-groves.jpg", title: "Madurai Farms Agro Land", location: "Agricultural Belt" },
+                  { src: "/images/projects/surya-green-enclave/road-corridor.jpg", title: "Green Enclave Bitumen Road", location: "DTCP Township" },
+                  { src: "/images/projects/orange-garden/entrance-gate.jpg", title: "Orange Garden Grand Arch", location: "Upcoming Orchard" },
+                  { src: "/images/projects/madurai-farms/panoramic-view.jpg", title: "Madurai Farms Countryside Panorama", location: "Agro Farmland" },
+                ].map((photo, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setPreviewImage(photo.src)}
+                    className="group relative rounded-3xl overflow-hidden aspect-[4/3] bg-gray-900 border border-gray-200 shadow-xs cursor-pointer hover:shadow-xl transition-all"
+                  >
+                    <Image
+                      src={photo.src}
+                      alt={photo.title}
+                      fill
+                      className="object-cover group-hover:scale-108 transition-transform duration-700"
+                      sizes="(max-width: 768px) 100vw, 400px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <h3 className="font-display text-sm font-bold group-hover:text-amber-400 transition-colors">{photo.title}</h3>
+                      <span className="text-[11px] font-mono text-gray-300 block">{photo.location}</span>
+                    </div>
+                    <div className="absolute top-4 right-4 h-8 w-8 rounded-full bg-black/60 backdrop-blur-xs flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ArrowUpRight className="h-4 w-4" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* TAB 5: CONTACT CANVAS VIEW (Direct Calling, WhatsApp, Office Maps)        */}
+          {/* ========================================================================= */}
+          {activeNav === "contact" && !searchQuery && (
+            <div className="space-y-6 animate-in fade-in duration-300">
+              <div className="bg-white p-6 sm:p-10 rounded-3xl border border-[#E2E8F0] shadow-2xs">
+                <div className="max-w-2xl space-y-2">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 font-mono text-xs font-bold">
+                    <Phone className="h-3.5 w-3.5 text-emerald-600" />
+                    <span>DIRECT OFFICE ASSISTANCE</span>
+                  </div>
+                  <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#0F172A]">
+                    {language === "ta" ? "எங்களை நேரடியாக தொடர்பு கொள்ள" : "Connect With Our Madurai Office"}
+                  </h1>
+                  <p className="text-sm text-[#64748B]">
+                    {language === "ta"
+                      ? "மனைப்பிரிவு விலைகள், மனை வரைபடங்கள் மற்றும் தளப் பார்வைக்கு எப்போது வேண்டுமானாலும் அழைக்கவும்."
+                      : "Call our direct hotline or WhatsApp us for instant layout PDFs, pricing, and free guided site visits."}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8">
+                  <a
+                    href="tel:+917708966452"
+                    className="p-6 rounded-2xl bg-[#F8FAFC] hover:bg-white border border-[#E2E8F0] hover:border-blue-500 hover:shadow-md transition-all text-center space-y-3 group"
+                  >
+                    <div className="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                      <Phone className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-mono uppercase text-[#64748B] font-bold">Official Hotline</span>
+                      <div className="font-display text-lg font-bold text-[#0F172A] mt-0.5">+91 77089 66452</div>
+                    </div>
+                    <span className="inline-block text-xs font-bold text-blue-600">Click to Call Now →</span>
+                  </a>
+
+                  <a
+                    href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20know%20about%20your%20properties."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-6 rounded-2xl bg-[#F8FAFC] hover:bg-white border border-[#E2E8F0] hover:border-emerald-500 hover:shadow-md transition-all text-center space-y-3 group"
+                  >
+                    <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                      <MessageCircle className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-mono uppercase text-[#64748B] font-bold">WhatsApp Direct</span>
+                      <div className="font-display text-lg font-bold text-[#0F172A] mt-0.5">+91 77089 66452</div>
+                    </div>
+                    <span className="inline-block text-xs font-bold text-emerald-600">Start Instant Chat →</span>
+                  </a>
+
+                  <a
+                    href="https://maps.google.com/?q=Surya+Promoters+Madurai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-6 rounded-2xl bg-[#F8FAFC] hover:bg-white border border-[#E2E8F0] hover:border-amber-500 hover:shadow-md transition-all text-center space-y-3 group"
+                  >
+                    <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                      <MapPin className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-mono uppercase text-[#64748B] font-bold">Office Location</span>
+                      <div className="font-display text-sm font-bold text-[#0F172A] mt-0.5">Vandiyur / Ring Road, Madurai</div>
+                    </div>
+                    <span className="inline-block text-xs font-bold text-amber-600">Open in Google Maps →</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* 7. INTEGRATED MICROSOFT STORE STYLE FOOTER */}
           <footer className="pt-8 pb-4 border-t border-[#E2E8F0] text-xs text-[#64748B] space-y-6">
@@ -1544,6 +2147,24 @@ export default function ProjectIconGrid() {
         </main>
 
       </div>
+
+      {/* 9. LIGHTBOX IMAGE PREVIEW MODAL */}
+      {previewImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setPreviewImage(null)}
+        >
+          <button
+            onClick={() => setPreviewImage(null)}
+            className="absolute top-5 right-5 z-50 h-10 w-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition cursor-pointer"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div className="relative max-w-4xl max-h-[85vh] w-full h-[70vh] rounded-2xl overflow-hidden shadow-2xl">
+            <Image src={previewImage} alt="Preview" fill className="object-contain" sizes="1200px" />
+          </div>
+        </div>
+      )}
 
       {/* 8. STORE APP PRODUCT DETAIL MODAL */}
       {selectedProject && (
