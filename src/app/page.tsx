@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -599,6 +599,95 @@ const DOWNLOAD_ITEMS = [
   },
 ];
 
+// -----------------------------------------------------------------------------
+// HERO SHOWCASE CAROUSEL SLIDES (Microsoft Store Carousel Style)
+// -----------------------------------------------------------------------------
+interface HeroSlide {
+  id: string;
+  badge: { en: string; ta: string };
+  badgeColor: string;
+  title: { en: string; ta: string };
+  subtitle: { en: string; ta: string };
+  pills: string[];
+  trustBadges: string[];
+  image: string;
+  primaryLabel: { en: string; ta: string };
+  primaryAction: string;
+  secondaryLabel: { en: string; ta: string };
+  secondaryAction: string;
+}
+
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    id: "master",
+    badge: { en: "Featured Real Estate Store", ta: "மதுரை பிரீமியம் நிலங்கள்" },
+    badgeColor: "bg-[#EAB308]/20 border-[#EAB308]/40 text-[#EAB308]",
+    title: { en: "Your Land. Your Future in Madurai.", ta: "உங்கள் நிலம். உங்கள் எதிர்காலம்." },
+    subtitle: {
+      en: "100% computer patta verified residential villa plots, commercial highway corridors & organic farm land.",
+      ta: "100% தெளிவான கணினி பட்டாவுடன் கூடிய குடியிருப்பு, வணிக மற்றும் இயற்கை பண்ணை நிலங்கள்.",
+    },
+    pills: ["Residential", "Commercial", "Farm Land"],
+    trustBadges: ["✓ 100% Computer Patta", "✓ 16+ Years IAF Veteran Leadership", "✓ Zero Legal Disputes"],
+    image: "/images/hero/hero-gated-layout.jpg",
+    primaryLabel: { en: "Explore Projects", ta: "திட்டங்களை காண்க" },
+    primaryAction: "projects-residential",
+    secondaryLabel: { en: "Discuss Your Project", ta: "நேரடி ஆலோசனை" },
+    secondaryAction: "enquiry",
+  },
+  {
+    id: "vaigai-elite",
+    badge: { en: "High-Exposure Commercial Land", ta: "NH-44 வணிக பெருவழி வளாகம்" },
+    badgeColor: "bg-blue-500/20 border-blue-400/40 text-blue-400",
+    title: { en: "Vaigai Elite Garden – Commercial Hub", ta: "வைகை எலைட் கார்டன் – வணிக வளாகம்" },
+    subtitle: {
+      en: "Prime multi-axle vehicle frontage along NH-44 & Madurai Outer Ring Road for logistics, hospitals & showrooms.",
+      ta: "NH-44 மற்றும் மதுரை ரிங் ரோட்டில் மருத்துவமனைகள், வணிக நிறுவனங்கள் மற்றும் குடோன்களுக்கான பிரீமியம் நிலங்கள்.",
+    },
+    pills: ["Madurai Outer Ring Road", "Multi-Axle Frontage", "Immediate Registration"],
+    trustBadges: ["✓ Direct Highway Frontage", "✓ High Growth Zone", "✓ 100% Verified Records"],
+    image: "/images/generated/vaigai-elite-garden.jpg",
+    primaryLabel: { en: "View Commercial Land", ta: "வணிக நிலங்களை காண்க" },
+    primaryAction: "projects-commercial",
+    secondaryLabel: { en: "WhatsApp Enquiry", ta: "வாட்ஸ்அப்பில் விசாரிக்க" },
+    secondaryAction: "whatsapp-vaigai",
+  },
+  {
+    id: "orange-garden",
+    badge: { en: "Gated Orchard & Farm Estate", ta: "வேலி அமைக்கப்பட்ட பழத்தோட்ட பண்ணை" },
+    badgeColor: "bg-amber-500/20 border-amber-400/40 text-amber-400",
+    title: { en: "Orange Garden – Farm Land Estate", ta: "ஆரஞ்சு கார்டன் – பழத்தோட்ட பண்ணை நிலங்கள்" },
+    subtitle: {
+      en: "Ongoing project in Thiruppuvanam - Narikudi Road with 100% documented clear titles & full cadastral blueprints.",
+      ta: "திருப்புவனம் - நரிக்குடி சாலையில் 100% தெளிவான பட்டா ஆவணங்கள் மற்றும் முழு புளுபிரிண்ட் வரைபடத்துடன்.",
+    },
+    pills: ["Plots 1 to 10", "Cadastral Blueprint Ready", "Sweet Water Table"],
+    trustBadges: ["✓ Plots 1 to 10 Demarcated", "✓ 100% Documented Titles", "✓ Abundant Ground Water"],
+    image: "/images/generated/orange-garden.jpg",
+    primaryLabel: { en: "View Farm Estate", ta: "பண்ணை நிலத்தை காண்க" },
+    primaryAction: "projects-farm",
+    secondaryLabel: { en: "View Blueprint", ta: "வரைபடம் காண்க" },
+    secondaryAction: "blueprint-orange",
+  },
+  {
+    id: "residential-plots",
+    badge: { en: "Well-Planned Residential Layouts", ta: "நவீன குடியிருப்பு திட்டங்கள்" },
+    badgeColor: "bg-emerald-500/20 border-emerald-400/40 text-emerald-400",
+    title: { en: "Ready-to-Build Villa Plots & Flats", ta: "கட்டத் தயாரான வில்லா பிளாட்கள் & அடுக்குமாடிகள்" },
+    subtitle: {
+      en: "Wide blacktop bitumen roads, curbed walkways, sweet potable water table, and immediate individual registration.",
+      ta: "அகலமான தார்ச் சாலைகள், தெருவிளக்குகள் மற்றும் தெளிவான பட்டா ஆவணங்களுடன் கூடிய குடியிருப்பு மனைகள்.",
+    },
+    pills: ["DTCP & RERA Approved", "30ft & 40ft Bitumen Roads", "Clear Computer Patta"],
+    trustBadges: ["✓ Prime Living Belts", "✓ 15 Mins to Airport", "✓ Immediate Construction Ready"],
+    image: "/images/generated/residential-plot.jpg",
+    primaryLabel: { en: "Explore Residential", ta: "குடியிருப்பு திட்டங்கள்" },
+    primaryAction: "projects-residential",
+    secondaryLabel: { en: "Direct Advisory", ta: "நேரடி ஆலோசனை" },
+    secondaryAction: "enquiry",
+  },
+];
+
 export default function HomePage() {
   const { language, toggleLanguage } = useLanguage();
 
@@ -612,12 +701,49 @@ export default function HomePage() {
   // Search input query
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Hero Carousel State
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlayPaused, setIsAutoPlayPaused] = useState(false);
+
   // Modals & Popups
   const [selectedProject, setSelectedProject] = useState<AppProject | null>(null);
   const [selectedFolderImages, setSelectedFolderImages] = useState<{ title: string; images: string[] } | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<{ title: string; duration: string } | null>(null);
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Auto-play timer for hero carousel
+  useEffect(() => {
+    if (isAutoPlayPaused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [isAutoPlayPaused]);
+
+  // Dispatcher for Hero Carousel Actions
+  const handleHeroAction = (action: string) => {
+    if (action === "projects-residential") {
+      setActiveTab("projects");
+      setActiveCategory("residential");
+    } else if (action === "projects-commercial") {
+      setActiveTab("projects");
+      setActiveCategory("commercial");
+    } else if (action === "projects-farm") {
+      setActiveTab("projects");
+      setActiveCategory("farm");
+    } else if (action === "enquiry") {
+      setIsEnquiryModalOpen(true);
+    } else if (action === "whatsapp-vaigai") {
+      window.open(
+        "https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20Vaigai%20Elite%20Garden.",
+        "_blank"
+      );
+    } else if (action === "blueprint-orange") {
+      const og = ALL_PROJECTS.find((p) => p.id === "orange-garden");
+      if (og) setSelectedProject(og);
+    }
+  };
 
   // Filter projects inside active category
   const activeCategoryProjects = activeCategory
@@ -882,130 +1008,133 @@ export default function HomePage() {
           {/* ------------------------------------------------------------------- */}
           {/* FEATURE SPOTLIGHT HERO (Microsoft Store Top Banner Grid)            */}
           {/* ------------------------------------------------------------------- */}
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-4">
-            
-            {/* Large Featured Left Card */}
-            <div className="lg:col-span-2 relative min-h-[250px] sm:min-h-[300px] rounded-3xl overflow-hidden bg-[#0A0D12] text-white p-5 sm:p-8 flex flex-col justify-between shadow-sm border border-neutral-800">
-              <div className="absolute inset-0 z-0">
+          {/* ------------------------------------------------------------------- */}
+          {/* FULL-WIDTH APP STORE HERO SHOWCASE CARD (Microsoft Store Carousel Style) */}
+          {/* ------------------------------------------------------------------- */}
+          <section
+            onMouseEnter={() => setIsAutoPlayPaused(true)}
+            onMouseLeave={() => setIsAutoPlayPaused(false)}
+            className="relative w-full rounded-3xl overflow-hidden bg-[#0A0D12] text-white shadow-xl border border-neutral-800 min-h-[340px] sm:min-h-[390px] lg:min-h-[420px] flex flex-col justify-between group select-none"
+          >
+            {/* Background Image Carousel Slide */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, scale: 1.04 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="absolute inset-0 z-0"
+              >
                 <Image
-                  src="/images/hero/hero-gated-layout.jpg"
-                  alt="Surya Promoters Madurai Real Estate"
+                  src={HERO_SLIDES[currentSlide].image}
+                  alt={HERO_SLIDES[currentSlide].title.en}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                  className="object-cover opacity-40 brightness-95 contrast-105"
+                  sizes="(max-width: 1760px) 100vw, 1760px"
+                  className="object-cover opacity-45 brightness-95 contrast-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0A0D12] via-[#0A0D12]/70 to-transparent" />
-              </div>
+                {/* Cinematic Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0A0D12] via-[#0A0D12]/80 to-transparent sm:w-4/5" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D12] via-transparent to-black/30" />
+              </motion.div>
+            </AnimatePresence>
 
-              <div className="relative z-10 max-w-lg">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAB308]/20 border border-[#EAB308]/40 text-[#EAB308] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-2.5">
-                  <Sparkles className="h-3 w-3" />
-                  <span>{language === "ta" ? "மதுரை பிரீமியம் நிலங்கள்" : "Featured Real Estate Store"}</span>
-                </div>
-                <h1 className="text-xl sm:text-4xl font-black tracking-tight leading-tight mb-2">
-                  {language === "ta" ? "உங்கள் நிலம். உங்கள் எதிர்காலம்." : "Your Land. Your Future in Madurai."}
-                </h1>
-                <p className="text-[11px] sm:text-sm text-neutral-300 font-medium line-clamp-2 mb-3.5">
-                  {language === "ta"
-                    ? "100% தெளிவான கணினி பட்டாவுடன் கூடிய குடியிருப்பு, வணிக மற்றும் இயற்கை பண்ணை நிலங்கள்."
-                    : "100% computer patta verified residential villa plots, commercial highway corridors & organic farm land."}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                  <button
-                    onClick={() => {
-                      setActiveTab("projects");
-                      setActiveCategory("commercial");
-                    }}
-                    className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs transition-all shadow-md cursor-pointer flex items-center gap-1.5"
-                  >
-                    <span>{language === "ta" ? "திட்டங்களை காண்க" : "Explore Projects"}</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </button>
-
-                  <button
-                    onClick={() => setIsEnquiryModalOpen(true)}
-                    className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors border border-white/20 cursor-pointer"
-                  >
-                    {language === "ta" ? "நேரடி ஆலோசனை" : "Direct Advisory"}
-                  </button>
-                </div>
-              </div>
-
-              <div className="relative z-10 pt-3 sm:pt-4 flex flex-wrap items-center gap-3 sm:gap-4 text-[10px] sm:text-xs font-bold text-neutral-300">
-                <span>✓ 100% Computer Patta</span>
-                <span>✓ 16+ Years Experience</span>
-                <span>✓ Zero Legal Disputes</span>
-              </div>
-            </div>
-
-            {/* Right Spotlight Stack (2 Cards) - 2 Cols on Mobile, Stacked on Desktop */}
-            <div className="grid grid-cols-2 lg:flex lg:flex-col gap-3 sm:gap-4">
+            {/* Slide Content */}
+            <div className="relative z-10 p-5 sm:p-8 lg:p-10 max-w-2xl flex-1 flex flex-col justify-center">
               
-              {/* Spotlight 1: Orange Garden */}
-              <div
-                onClick={() => {
-                  setActiveTab("projects");
-                  setActiveCategory("farm");
-                  setSelectedProject(ALL_PROJECTS.find((p) => p.id === "orange-garden") || null);
-                }}
-                className="relative flex-1 min-h-[120px] sm:min-h-[140px] rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 text-white p-3.5 sm:p-5 flex flex-col justify-between cursor-pointer group shadow-sm border border-neutral-800"
-              >
-                <div className="absolute inset-0 z-0">
-                  <Image
-                    src="/images/generated/orange-garden.jpg"
-                    alt="Orange Garden Orchard"
-                    fill
-                    sizes="(max-width: 1024px) 50vw, 33vw"
-                    className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              {/* Badge & Category Pills */}
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                <div
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[10px] sm:text-xs font-black uppercase tracking-wider backdrop-blur-md ${HERO_SLIDES[currentSlide].badgeColor}`}
+                >
+                  <Sparkles className="h-3 w-3" />
+                  <span>{HERO_SLIDES[currentSlide].badge[language]}</span>
                 </div>
-                <div className="relative z-10 flex items-center justify-between">
-                  <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-black uppercase bg-[#EAB308] text-[#0A0D12]">
-                    Orchard Estate
+                {HERO_SLIDES[currentSlide].pills.map((pill, i) => (
+                  <span
+                    key={i}
+                    className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-neutral-300 backdrop-blur-xs border border-white/10"
+                  >
+                    {pill}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] font-bold text-amber-300 hidden xs:inline">Blueprint</span>
-                </div>
-                <div className="relative z-10">
-                  <h3 className="text-xs sm:text-base font-black truncate">Orange Garden</h3>
-                  <p className="text-[9px] sm:text-[11px] text-neutral-300 truncate">Thiruppuvanam · Plots 1-10</p>
-                </div>
+                ))}
               </div>
 
-              {/* Spotlight 2: Vaigai Elite Garden */}
-              <div
-                onClick={() => {
-                  setActiveTab("projects");
-                  setActiveCategory("commercial");
-                  setSelectedProject(ALL_PROJECTS.find((p) => p.id === "vaigai-elite") || null);
-                }}
-                className="relative flex-1 min-h-[120px] sm:min-h-[140px] rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 text-white p-3.5 sm:p-5 flex flex-col justify-between cursor-pointer group shadow-sm border border-neutral-800"
-              >
-                <div className="absolute inset-0 z-0">
-                  <Image
-                    src="/images/generated/vaigai-elite-garden.jpg"
-                    alt="Vaigai Elite Garden"
-                    fill
-                    sizes="(max-width: 1024px) 50vw, 33vw"
-                    className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                </div>
-                <div className="relative z-10 flex items-center justify-between">
-                  <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-black uppercase bg-blue-600 text-white">
-                    NH-44
-                  </span>
-                  <span className="text-[9px] sm:text-[10px] font-bold text-blue-200 hidden xs:inline">Commercial</span>
-                </div>
-                <div className="relative z-10">
-                  <h3 className="text-xs sm:text-base font-black truncate">Vaigai Elite Garden</h3>
-                  <p className="text-[9px] sm:text-[11px] text-neutral-300 truncate">Madurai Outer Ring Road</p>
-                </div>
-              </div>
+              {/* Headline */}
+              <h1 className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-[1.2] mb-2.5 drop-shadow-md">
+                {HERO_SLIDES[currentSlide].title[language]}
+              </h1>
 
+              {/* Subtitle */}
+              <p className="text-xs sm:text-sm lg:text-base text-neutral-300 font-medium leading-relaxed max-w-xl mb-5 line-clamp-2 sm:line-clamp-none">
+                {HERO_SLIDES[currentSlide].subtitle[language]}
+              </p>
+
+              {/* CTA Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <button
+                  onClick={() => handleHeroAction(HERO_SLIDES[currentSlide].primaryAction)}
+                  className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs sm:text-sm transition-all shadow-lg hover:shadow-[#EAB308]/20 cursor-pointer flex items-center gap-2"
+                >
+                  <span>{HERO_SLIDES[currentSlide].primaryLabel[language]}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+
+                <button
+                  onClick={() => handleHeroAction(HERO_SLIDES[currentSlide].secondaryAction)}
+                  className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm transition-all border border-white/25 backdrop-blur-md cursor-pointer"
+                >
+                  {HERO_SLIDES[currentSlide].secondaryLabel[language]}
+                </button>
+              </div>
             </div>
+
+            {/* Bottom Row: Trust Checkmarks & Navigation Dots */}
+            <div className="relative z-10 px-5 sm:px-8 lg:px-10 py-3.5 border-t border-white/10 bg-black/40 backdrop-blur-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+              
+              {/* Trust Badges */}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[10px] sm:text-xs font-bold text-neutral-300">
+                {HERO_SLIDES[currentSlide].trustBadges.map((badge, i) => (
+                  <span key={i} className="flex items-center gap-1">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+
+              {/* Carousel Pagination Dots */}
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                {HERO_SLIDES.map((slide, idx) => (
+                  <button
+                    key={slide.id}
+                    onClick={() => setCurrentSlide(idx)}
+                    className={`transition-all duration-300 rounded-full cursor-pointer ${
+                      currentSlide === idx
+                        ? "w-7 h-2 bg-[#EAB308]"
+                        : "w-2 h-2 bg-white/40 hover:bg-white/70"
+                    }`}
+                    aria-label={`Show slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Carousel Arrow Controls (Left & Right) */}
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev === 0 ? HERO_SLIDES.length - 1 : prev - 1))}
+              aria-label="Previous slide"
+              className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md flex items-center justify-center border border-white/15 opacity-80 sm:opacity-0 group-hover:opacity-100 transition-all hover:scale-110 cursor-pointer"
+            >
+              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+            </button>
+
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev === HERO_SLIDES.length - 1 ? 0 : prev + 1))}
+              aria-label="Next slide"
+              className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md flex items-center justify-center border border-white/15 opacity-80 sm:opacity-0 group-hover:opacity-100 transition-all hover:scale-110 cursor-pointer"
+            >
+              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+            </button>
           </section>
 
           {/* ------------------------------------------------------------------- */}
