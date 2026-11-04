@@ -775,30 +775,6 @@ export default function ProjectIconGrid({
             </div>
           </Link>
 
-          {/* Top Bar Navigation Tabs (Home, Projects, Services, About, Gallery, Contact) */}
-          <nav className="hidden xl:flex items-center gap-1 shrink-0">
-            {[
-              { id: "home", label: language === "ta" ? "முகப்பு" : "Home" },
-              { id: "projects", label: language === "ta" ? "திட்டங்கள்" : "Projects" },
-              { id: "services", label: language === "ta" ? "சேவைகள்" : "Services" },
-              { id: "about", label: language === "ta" ? "எங்களைப் பற்றி" : "About" },
-              { id: "gallery", label: language === "ta" ? "புகைப்படங்கள்" : "Gallery" },
-              { id: "contact", label: language === "ta" ? "தொடர்புக்கு" : "Contact" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => handleNavChange(tab.id as any)}
-                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                  activeNav === tab.id
-                    ? "bg-[#EAB308]/20 text-[#B45309]"
-                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </nav>
-
           {/* Center: Search Bar (Exact Microsoft Store Pill Search Bar) */}
           <div className="flex-1 max-w-xl mx-auto">
             <div className="relative w-full">
