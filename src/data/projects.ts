@@ -267,12 +267,13 @@ export const projectsData: Project[] = [
     heroImage: "/images/projects/orange-garden/entrance-gate.jpg",
     galleryImages: [
       "/images/projects/orange-garden/entrance-gate.jpg",
+      "/images/projects/orange-garden/layout-blueprint.jpg",
       "/images/projects/orange-garden/citrus-groves.jpg",
       "/images/projects/orange-garden/demarcated-plots.jpg",
       "/images/projects/orange-garden/farmhouse-cottage.jpg",
       "/images/projects/orange-garden/orchard-aerial.jpg",
     ],
-    layoutPlanImage: "/images/projects/orange-garden/demarcated-plots.jpg",
+    layoutPlanImage: "/images/projects/orange-garden/layout-blueprint.jpg",
     status: "upcoming",
     projectType: "upcoming",
     description: {
@@ -299,6 +300,7 @@ export const projectsData: Project[] = [
     },
     highlights: {
       en: [
+        "10 surveyed farm plots (Plots 1–10) with direct road frontage on Thiruppuvanam to Narikudi Road",
         "Grand architectural gated entrance portal with 24/7 security & illuminated avenue",
         "Clear boundary demarcations with surveyed stones and plot markings (e.g. Plot No. 04)",
         "Flourishing orange & sweet lime orchards with integrated drip irrigation pipelines",
@@ -306,6 +308,7 @@ export const projectsData: Project[] = [
         "Clear legal title documentation, revenue records, and smooth registration process",
       ],
       ta: [
+        "திருப்புவனம் - நரிக்குடி மெயின் ரோட்டில் நேரடி முகப்புடன் 10 அளவீடு செய்யப்பட்ட பண்ணை மனைகள் (மனைகள் 1-10)",
         "24/7 பாதுகாப்பு மற்றும் மின்விளக்குகளுடன் கூடிய பிரம்மாண்ட நுழைவு வளைவு",
         "அளவீடு செய்யப்பட்டு எண் குறிக்கப்பட்ட தனித்தனி எல்லைக் கற்கள் (எ.கா: மனை எண். 04)",
         "சொட்டு நீர்ப்பாசன குழாய்களுடன் செழித்து வளரும் ஆரஞ்சு & பழ மரத் தோட்டங்கள்",

@@ -290,6 +290,7 @@ export default function ProjectIconGrid({
         posterImage: "/images/projects/orange-garden/hero-orchard.jpg",
         screenshots: [
           "/images/projects/orange-garden/hero-orchard.jpg",
+          "/images/projects/orange-garden/layout-blueprint.jpg",
           "/images/projects/orange-garden/entrance-gate.jpg",
           "/images/projects/orange-garden/citrus-groves.jpg",
           "/images/projects/orange-garden/demarcated-plots.jpg",

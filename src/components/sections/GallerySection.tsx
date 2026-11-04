@@ -23,6 +23,11 @@ export default function GallerySection() {
       subtitle: "15 Surveyed Villa Plots & Layout Masterplan",
     },
     {
+      src: "/images/projects/orange-garden/layout-blueprint.jpg",
+      title: "Orange Garden Layout Blueprint",
+      subtitle: "10 Surveyed Orchard Plots on Thiruppuvanam - Narikudi Road",
+    },
+    {
       src: "/images/projects/vaigai/corridor-aerial.jpg",
       title: "Commercial Land Frontage",
       subtitle: "Madurai Ring Road Corridor",

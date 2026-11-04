@@ -25,6 +25,8 @@ import {
   Film,
   Play,
   Navigation,
+  ZoomIn,
+  X,
 } from "lucide-react";
 
 interface ProjectDetailsProps {
@@ -36,6 +38,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
   const { language } = useLanguage();
   const [copied, setCopied] = useState(false);
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [blueprintZoomed, setBlueprintZoomed] = useState(false);
 
   const videos = project.videoUrls && project.videoUrls.length > 0
     ? project.videoUrls
@@ -577,15 +580,39 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                 </span>
               </div>
 
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-[#E8E2D7] bg-[#0B1017]">
+              <div
+                onClick={() => setBlueprintZoomed(true)}
+                className="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] min-h-[380px] sm:min-h-[460px] w-full overflow-hidden rounded-xl border border-[#E8E2D7] bg-[#060A10] group cursor-pointer shadow-inner"
+              >
                 <Image
                   src={project.layoutPlanImage}
                   alt={`${project.title[language]} Layout Plan`}
                   fill
-                  className="object-contain p-2"
-                  sizes="(max-width: 1024px) 100vw, 800px"
+                  className="object-contain p-3 group-hover:scale-[1.02] transition-transform duration-300"
+                  sizes="(max-width: 1024px) 100vw, 1000px"
                 />
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-bold text-[#0F172A] shadow-lg backdrop-blur-sm">
+                    <ZoomIn className="h-4 w-4 text-[#C6A15B]" />
+                    <span>{language === "ta" ? "பெரிதாக்கி பார்க்க" : "Click to Enlarge Blueprint"}</span>
+                  </span>
+                </div>
               </div>
+
+              {project.slug === "orange-garden" && (
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 text-xs font-mono font-bold text-emerald-800">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                    10 Demarcated Orchard Plots (Plots 1–10)
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 text-xs font-mono font-bold text-amber-900">
+                    Thiruppuvanam to Narikudi Road Direct Access
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 text-xs font-mono font-bold text-blue-900">
+                    Central Plantation Avenue Corridor
+                  </span>
+                </div>
+              )}
 
               <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-[#E8E2D7] pt-4">
                 <p className="text-xs text-[#77766F] max-w-md">
