@@ -19,6 +19,7 @@ import {
   ExternalLink,
   CheckCircle2,
   ChevronRight,
+  ChevronLeft,
   X,
   Star,
   Play,
@@ -34,9 +35,13 @@ import {
   Briefcase,
   SlidersHorizontal,
   Compass,
+  Grid,
+  Info,
+  PhoneCall,
+  Share2,
 } from "lucide-react";
 
-// Project Data Model for the Complete Surya Promoters Workflow
+// Project Data Model for Surya Promoters App-Store Experience
 interface AppProject {
   id: string;
   name: { en: string; ta: string };
@@ -49,6 +54,7 @@ interface AppProject {
   image: string;
   blueprint?: string;
   statusBadge: { en: string; ta: string };
+  rating: string;
   description: { en: string; ta: string };
   highlights: { en: string[]; ta: string[] };
   mapsUrl: string;
@@ -61,7 +67,7 @@ const ALL_PROJECTS: AppProject[] = [
   // -------------------------------------------------------------------------
   {
     id: "flat-projects",
-    name: { en: "Flat Projects – Modern Apartments", ta: "பிளாட் திட்டங்கள் – நவீன அடுக்குமாடி குடியிருப்புகள்" },
+    name: { en: "Flat Projects – Modern Apartments", ta: "பிளாட் திட்டங்கள் – நவீன அடுக்குமாடிகள்" },
     category: "residential",
     categoryLabel: { en: "Residential", ta: "குடியிருப்பு" },
     subcategory: "flat",
@@ -70,6 +76,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "8 km from Meenakshi Amman Temple · 15 min to Airport", ta: "மீனாட்சி அம்மன் கோவிலில் இருந்து 8 கி.மீ · விமான நிலையத்திற்கு 15 நிமிடம்" },
     image: "/images/generated/residential-flat.jpg",
     statusBadge: { en: "Ongoing Project", ta: "விற்பனையில் உள்ளது" },
+    rating: "4.9",
     description: {
       en: "Contemporary luxury apartments featuring private balconies, covered car parking, passenger lift, 24/7 security surveillance, and 100% clear title patta documentation.",
       ta: "பாதுகாப்பான குடியிருப்பு வளாகத்தில் பால்கனி, லிப்ட், கார் பார்க்கிங், மற்றும் 100% தெளிவான பட்டாவுடன் கூடிய நவீன அடுக்குமாடி குடியிருப்புகள்.",
@@ -98,7 +105,7 @@ const ALL_PROJECTS: AppProject[] = [
   },
   {
     id: "plot-projects",
-    name: { en: "Plot Projects – Well-Planned Layouts", ta: "மனைப்பிரிவு திட்டங்கள் – திட்டமிடப்பட்ட வீட்டு மனைகள்" },
+    name: { en: "Plot Projects – Well-Planned Layouts", ta: "மனைப்பிரிவு திட்டங்கள் – வீட்டு மனைகள்" },
     category: "residential",
     categoryLabel: { en: "Residential", ta: "குடியிருப்பு" },
     subcategory: "plot",
@@ -107,6 +114,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "Adjacent to 4-Lane Highway · Quick ring road connectivity", ta: "4-வழி தேசிய நெடுஞ்சாலை அருகில் · நேரடி இணைப்பு" },
     image: "/images/generated/residential-plot.jpg",
     statusBadge: { en: "Ready to Register", ta: "உடனடி பதிவு" },
+    rating: "5.0",
     description: {
       en: "Ready-to-build residential villa plots with wide blacktop bitumen roads, solar street lighting, curbed walkways, sweet potable water table, and immediate individual registration.",
       ta: "அகன்ற தார்ச் சாலைகள், தெருவிளக்குகள், நடைபாதைகள் மற்றும் குடிநீர் வசதியுடன் உடனடியாக வீடு கட்டத் தகுந்த பிரீமியம் வீட்டுமனைகள்.",
@@ -148,6 +156,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "Direct National Highway Frontage · High multi-axle exposure", ta: "தேசிய நெடுஞ்சாலை முகப்பு · கனரக வாகன வசதி" },
     image: "/images/generated/vaigai-elite-garden.jpg",
     statusBadge: { en: "Prime Corridor", ta: "பிரைம் காரிடார்" },
+    rating: "4.9",
     description: {
       en: "High-exposure commercial land parcels along NH-44 and Madurai Outer Ring Road, tailored for hospitals, godowns, logistics terminals, and retail complexes.",
       ta: "NH-44 மற்றும் மதுரை ரிங் ரோட்டில் அமைந்துள்ள உயர் மதிப்பு வணிக நிலங்கள். மருத்துவமனைகள், குடோன்கள் மற்றும் வணிக நிறுவனங்களுக்கு மிகச் சிறந்தது.",
@@ -185,6 +194,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "5 min from Madurai City Center · Scenic riverbank frontage", ta: "நகரின் மையப்பகுதியில் இருந்து 5 நிமிடம்" },
     image: "/images/generated/vaigai-river-build.jpg",
     statusBadge: { en: "Riverfront Prime", ta: "நதிக்கரை பிரைம்" },
+    rating: "4.8",
     description: {
       en: "Exclusive riverfront commercial land plots with wide approach roads, ideal for hospitality ventures, wedding convention centers, and retail parks.",
       ta: "வைகை நதிக்கரை பகுதியில் அமைந்துள்ள பிரத்யேக வணிக நிலங்கள். திருமண மண்டபங்கள், ஹோட்டல்கள் மற்றும் வணிக வளாகங்களுக்கு உகந்தது.",
@@ -222,6 +232,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "Busiest ring road hub · High visibility for branded retail", ta: "அதிக போக்குவரத்து மிகுந்த ரிங் ரோடு மையம்" },
     image: "/images/generated/pandi-kovil-site.jpg",
     statusBadge: { en: "High Footfall", ta: "அதிக மக்கள் வரத்து" },
+    rating: "4.9",
     description: {
       en: "High-traffic commercial showroom and investment plots situated near the bustling Pandi Kovil Ring Road corridor with heavy daily vehicle footfall.",
       ta: "அதிக போக்குவரத்து நெரிசலும் விளம்பர மதிப்பும் கொண்ட பாண்டி கோவில் ரிங் ரோடு பகுதியில் அமைந்துள்ள வணிக முதலீட்டு நிலங்கள்.",
@@ -259,6 +270,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "Madurai's premier commercial high street · Full retail density", ta: "மதுரையின் முதன்மை வணிக பிரதான சாலை" },
     image: "/images/generated/commercial-anna-nagar.jpg",
     statusBadge: { en: "Luxury Office Space", ta: "ஆடம்பர அலுவலகம்" },
+    rating: "5.0",
     description: {
       en: "Prestigious multi-storey commercial building suited for corporate headquarters, IT branches, banks, diagnostic centers, and premium retail in prime Anna Nagar.",
       ta: "அண்ணா நகர் 80 அடி சாலையில் அமைந்துள்ள நவீன வணிக கட்டிடம். வங்கிகள், கார்ப்பரேட் அலுவலகங்கள் மற்றும் ஷோரூம்களுக்கு ஏற்றது.",
@@ -296,6 +308,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "Opposite MPF International School · Broad access road", ta: "MPF சர்வதேச பள்ளிக்கு மிக அருகில்" },
     image: "/images/generated/mayilan-gundu-site.jpg",
     statusBadge: { en: "Institutional Hub", ta: "கல்வி நிறுவனம் தகுந்தது" },
+    rating: "4.8",
     description: {
       en: "Expansive commercial and institutional land development with wide approach roads, ideal for schools, sports academies, colleges, and commercial depots.",
       ta: "MPF சர்வதேச பள்ளிக்கு அருகில் அமைந்துள்ள கல்வி மற்றும் வணிக நிறுவனங்களுக்கான பிரம்மாண்ட நிலப்பரப்பு.",
@@ -337,6 +350,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "Scenic Countryside · 25 min from Madurai city center", ta: "இயற்கை எழில் கொஞ்சும் கிராமப்புறம் · 25 நிமிடம்" },
     image: "/images/projects/madurai-farms.jpg",
     statusBadge: { en: "Managed Agro Estate", ta: "நிர்வகிக்கப்படும் பண்ணை" },
+    rating: "4.9",
     description: {
       en: "Managed organic agro-acreage with pre-planted fruit groves (mango, guava, coconut), drip irrigation systems, scenic mountain views, and weekend farmhouse living.",
       ta: "மா, கொய்யா, தென்னை மரங்கள் மற்றும் சொட்டு நீர் பாசன வசதியுடன் கூடிய நிர்வகிக்கப்படும் இயற்கை விவசாய பண்ணை மனைகள்.",
@@ -375,6 +389,7 @@ const ALL_PROJECTS: AppProject[] = [
     image: "/images/generated/orange-garden.jpg",
     blueprint: "/images/projects/orange-garden/layout-blueprint.jpg",
     statusBadge: { en: "Running Ongoing Project", ta: "நடைபெறும் திட்டம்" },
+    rating: "5.0",
     description: {
       en: "Gated Orchard & Farm Estate plots (Plots 1 to 10) featuring pre-planted citrus orange trees, mountain backdrop, 100% documented clear titles, and direct highway connectivity.",
       ta: "திருப்புவனம் - நரிக்குடி சாலையில் அமைந்துள்ள 10 மனைப் பிரிவுகள் கொண்ட வேலி அமைக்கப்பட்ட ஆரஞ்சு பழத்தோட்ட பண்ணை மனைகள். 100% தெளிவான பட்டா.",
@@ -587,23 +602,33 @@ const DOWNLOAD_ITEMS = [
 export default function HomePage() {
   const { language, toggleLanguage } = useLanguage();
 
-  // THE 5 MAIN APP-STYLE ICONS STATE:
+  // Navigation State: Which of the 5 Main Icons / Sections is Active
   // 'projects' | 'location' | 'gallery' | 'about' | 'download'
-  const [activeAppTab, setActiveAppTab] = useState<"projects" | "location" | "gallery" | "about" | "download">("projects");
+  const [activeTab, setActiveTab] = useState<"projects" | "location" | "gallery" | "about" | "download">("projects");
 
-  // In "Our Projects": 3 Categories
-  // 'residential' | 'commercial' | 'farm'
-  const [activeProjectCategory, setActiveProjectCategory] = useState<"residential" | "commercial" | "farm">("residential");
+  // In "Our Projects": Which Category is Active ('residential' | 'commercial' | 'farm')
+  const [activeCategory, setActiveCategory] = useState<"residential" | "commercial" | "farm">("residential");
+
+  // Search input query
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Modals & Popups
-  const [detailProject, setDetailProject] = useState<AppProject | null>(null);
-  const [folderImagesModal, setFolderImagesModal] = useState<{ title: string; images: string[] } | null>(null);
-  const [videoPlayerModal, setVideoPlayerModal] = useState<{ title: string; duration: string } | null>(null);
+  const [selectedProject, setSelectedProject] = useState<AppProject | null>(null);
+  const [selectedFolderImages, setSelectedFolderImages] = useState<{ title: string; images: string[] } | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<{ title: string; duration: string } | null>(null);
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Filter projects inside active category
-  const categoryProjects = ALL_PROJECTS.filter((p) => p.category === activeProjectCategory);
+  const activeCategoryProjects = ALL_PROJECTS.filter((p) => {
+    const matchesCategory = p.category === activeCategory;
+    const matchesSearch =
+      searchQuery.trim() === "" ||
+      p.name.en.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.name.ta.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.location.en.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   const triggerToast = (msg: string) => {
     setToastMessage(msg);
@@ -611,322 +636,512 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#0A0D12] font-sans antialiased selection:bg-[#EAB308] selection:text-[#0A0D12]">
+    <div className="min-h-screen bg-[#F3F4F6] text-[#0A0D12] font-sans antialiased flex flex-col selection:bg-[#EAB308] selection:text-[#0A0D12]">
       
-      {/* 1. TOP NAVBAR: "S" LOGO SURYA PROMOTERS */}
-      <header className="sticky top-0 z-50 w-full bg-[#0A0D12]/95 backdrop-blur-md border-b border-[#EAB308]/20 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+      {/* ------------------------------------------------------------------------- */}
+      {/* 1. TOP APP STORE WINDOW HEADER (Search & Quick Controls)                  */}
+      {/* ------------------------------------------------------------------------- */}
+      <header className="sticky top-0 z-50 w-full bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E5E7EB] shadow-xs select-none">
+        <div className="max-w-[1760px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           
-          {/* Brand Identity: "S" Logo + SURYA PROMOTERS */}
-          <Link href="/" className="flex items-center gap-3.5 group cursor-pointer">
-            <div className="relative h-11 w-11 sm:h-12 sm:w-12 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white p-0.5 shadow-md shadow-[#EAB308]/20 transition-transform duration-300 group-hover:scale-105">
+          {/* Left Brand Identity: "S" Logo + Surya Promoters */}
+          <Link href="/" className="flex items-center gap-3 shrink-0 group">
+            <div className="relative h-10 w-10 shrink-0 rounded-xl overflow-hidden border-2 border-[#EAB308] bg-[#0A0D12] p-0.5 shadow-sm transition-transform group-hover:scale-105">
               <Image
                 src="/images/surya-logo.png"
                 alt="Surya Promoters S Logo"
                 fill
                 priority
-                sizes="48px"
+                sizes="40px"
                 className="object-contain"
               />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white group-hover:text-[#EAB308] transition-colors">
+                <span className="font-extrabold text-base tracking-tight text-[#0A0D12] group-hover:text-[#B45309] transition-colors">
                   SURYA PROMOTERS
                 </span>
-                <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#EAB308]/15 text-[#EAB308] border border-[#EAB308]/30">
+                <span className="hidden sm:inline-flex px-1.5 py-0.2 rounded-md text-[9px] font-black bg-[#FEF08A] text-[#854D0E] border border-amber-300">
                   ESTD. 2010
                 </span>
               </div>
-              <span className="text-[11px] font-medium tracking-wide text-neutral-400">
-                {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு" : "Madurai Land & Property Developers"}
+              <span className="text-[10px] text-neutral-500 font-medium">
+                {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு" : "Madurai Real Estate & Land Developers"}
               </span>
             </div>
           </Link>
 
-          {/* Right Navigation & Quick Channels */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          {/* Center: Search Bar (Microsoft Store Window Search) */}
+          <div className="hidden md:flex flex-1 max-w-xl mx-4 relative">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={
+                language === "ta"
+                  ? "திட்டங்கள், இடங்கள், வணிக நிலங்களைத் தேடுங்கள்..."
+                  : "Search projects, locations, farm land, and more..."
+              }
+              className="w-full pl-10 pr-9 py-2 bg-neutral-100 hover:bg-neutral-100/80 focus:bg-white text-xs font-semibold text-neutral-800 placeholder-neutral-400 rounded-xl border border-neutral-200 focus:border-[#EAB308] focus:ring-2 focus:ring-[#EAB308]/20 outline-hidden transition-all"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded-full text-neutral-400 hover:text-black cursor-pointer"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+
+          {/* Right: Quick Controls, Language Switch & Action Buttons */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 text-xs">
             
             {/* IAF Veteran Trust Seal */}
-            <div className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-white text-xs font-semibold">
-              <ShieldCheck className="h-4 w-4 text-[#EAB308]" />
-              <span>{language === "ta" ? "16+ ஆண்டுகள் · விமானப்படை நெறிமுறை" : "16+ Yrs · IAF Veteran Leadership"}</span>
+            <div className="hidden xl:flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-[#854D0E] font-bold">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#B45309]" />
+              <span>16+ Yrs IAF Vet</span>
             </div>
 
-            {/* Language Switch */}
+            {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-[#EAB308]/20 border border-white/15 hover:border-[#EAB308]/40 text-white text-xs font-bold transition-all cursor-pointer"
-              title="Toggle Language"
+              className="px-3 py-1 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-[#0A0D12] font-bold border border-neutral-200 transition-colors cursor-pointer"
             >
               {language === "en" ? "தமிழ்" : "English"}
             </button>
 
-            {/* WhatsApp Quick Action */}
+            {/* WhatsApp Direct */}
             <a
               href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20your%20Madurai%20projects."
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold transition-all shadow-md shadow-[#25D366]/20 cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold transition-all shadow-xs cursor-pointer"
             >
-              <MessageCircle className="h-4 w-4 fill-white" />
+              <MessageCircle className="h-3.5 w-3.5 fill-white" />
               <span>WhatsApp</span>
             </a>
 
-            {/* Direct Phone Call */}
+            {/* Call Now */}
             <a
               href="tel:+917708966452"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] text-xs font-black transition-all shadow-md shadow-[#EAB308]/30 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-[#EAB308] font-bold transition-all shadow-xs cursor-pointer"
             >
-              <Phone className="h-3.5 w-3.5 fill-[#0A0D12]" />
-              <span>{language === "ta" ? "அழைக்க" : "Call Now"}</span>
+              <Phone className="h-3.5 w-3.5 text-[#EAB308]" />
+              <span className="hidden xs:inline">+91 77089 66452</span>
             </a>
           </div>
 
         </div>
       </header>
 
-      {/* 2. COMPACT CINEMATIC HERO SECTION */}
-      <section className="relative w-full bg-[#0A0D12] text-white overflow-hidden border-b border-neutral-800">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/hero/hero-gated-layout.jpg"
-            alt="Surya Promoters Real Estate in Madurai"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center opacity-30 brightness-90 contrast-105 scale-105"
-          />
-          {/* Deep Obsidian & Warm Gold Ambient Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D12] via-[#0A0D12]/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0D12] via-[#0A0D12]/70 to-[#0A0D12]/40" />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 flex flex-col items-center text-center">
-          
-          {/* Top Trust Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EAB308]/15 border border-[#EAB308]/40 text-[#EAB308] text-xs font-bold tracking-wide uppercase mb-3 shadow-sm">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>{language === "ta" ? "மதுரை பிரீமியம் நில மேம்பாட்டாளர்கள்" : "Madurai's Most Trusted Land Developers"}</span>
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight max-w-4xl leading-[1.15] mb-3 text-white">
-            {language === "ta" ? (
-              <>
-                உங்கள் நிலம். உங்கள் எதிர்காலம். <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FEF08A] via-[#EAB308] to-[#B45309]">
-                  மதுரையில் நிலைத்த வளர்ச்சி.
-                </span>
-              </>
-            ) : (
-              <>
-                Your Land. Your Future. <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FEF08A] via-[#EAB308] to-[#B45309]">
-                  In Madurai.
-                </span>
-              </>
-            )}
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-sm sm:text-base md:text-lg text-neutral-300 max-w-2xl font-medium mb-6">
-            {language === "ta"
-              ? "குடியிருப்பு மனைகள் & அடுக்குமாடிகள் · வணிக வழித்தடங்கள் · வேளாண் & பழத்தோட்ட பண்ணை நிலங்கள்"
-              : "Discover Premium Residential, Commercial & Farm Land Opportunities Across Madurai."}
-          </p>
-
-          {/* Key Trust Stats Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-6 w-full max-w-3xl pt-4 border-t border-white/10 text-xs">
-            <div className="flex flex-col items-center">
-              <span className="text-lg sm:text-xl font-black text-[#EAB308]">100%</span>
-              <span className="text-[10px] sm:text-xs text-neutral-400 font-semibold uppercase">
-                {language === "ta" ? "கணினி பட்டா" : "Clear Computer Patta"}
-              </span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-lg sm:text-xl font-black text-[#EAB308]">16+ Yrs</span>
-              <span className="text-[10px] sm:text-xs text-neutral-400 font-semibold uppercase">
-                {language === "ta" ? "நம்பகமான அனுபவம்" : "Legacy Since 2010"}
-              </span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-lg sm:text-xl font-black text-[#EAB308]">1000+</span>
-              <span className="text-[10px] sm:text-xs text-neutral-400 font-semibold uppercase">
-                {language === "ta" ? "மகிழ்ச்சியான குடும்பங்கள்" : "Happy Families"}
-              </span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-lg sm:text-xl font-black text-[#EAB308]">0 Disputes</span>
-              <span className="text-[10px] sm:text-xs text-neutral-400 font-semibold uppercase">
-                {language === "ta" ? "சட்ட சிக்கல்கள் இல்லாதவை" : "Zero Legal Disputes"}
-              </span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 3. PROMINENT HOMEPAGE APP DOCK: THE 5 PLAY STORE STYLE APPLICATION ICONS */}
-      <section className="relative z-30 -mt-6 sm:-mt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-4 sm:p-6 shadow-2xl border border-neutral-200">
-          
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-3 border-b border-neutral-100 gap-2">
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-[#EAB308] animate-ping" />
-              <h2 className="text-xs sm:text-sm font-extrabold tracking-wider text-neutral-600 uppercase">
-                {language === "ta" ? "சூர்யா புரமோட்டர்ஸ் பிரதான சேவைகள் (5 Icons)" : "Surya Promoters App Suite (5 Main Icons)"}
-              </h2>
-            </div>
-            <span className="text-[11px] text-neutral-400 font-medium">
-              {language === "ta" ? "ஐகான்களை கிளிக் செய்து உடனடியாக பார்க்கலாம்" : "Click any app icon to view workflow"}
-            </span>
-          </div>
-
-          {/* THE 5 PLAY STORE / APP STORE STYLE ICONS */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
+      {/* ------------------------------------------------------------------------- */}
+      {/* 2. MAIN APPLICATION STORE BODY (Left Vertical Nav + Content Window)       */}
+      {/* ------------------------------------------------------------------------- */}
+      <div className="flex-1 flex max-w-[1760px] w-full mx-auto overflow-hidden">
+        
+        {/* LEFT VERTICAL APP STORE NAVIGATION BAR (Like Microsoft Store Left Rail) */}
+        <aside className="w-16 sm:w-20 md:w-56 shrink-0 bg-[#FFFFFF] border-r border-[#E5E7EB] flex flex-col justify-between py-4 select-none">
+          <div className="space-y-1.5 px-2">
             
-            {/* 1. Our Projects */}
+            {/* Nav Item: Home / Our Projects */}
             <button
-              onClick={() => setActiveAppTab("projects")}
-              className={`flex flex-col items-center text-center p-3.5 sm:p-4 rounded-2xl transition-all duration-300 cursor-pointer group ${
-                activeAppTab === "projects"
-                  ? "bg-[#0A0D12] text-white shadow-xl ring-2 ring-[#EAB308] scale-[1.03]"
-                  : "bg-neutral-50 hover:bg-neutral-100 text-neutral-800 border border-neutral-200"
+              onClick={() => setActiveTab("projects")}
+              className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
+                activeTab === "projects"
+                  ? "bg-neutral-100 text-[#0A0D12] font-black"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 font-semibold"
               }`}
             >
-              <div className={`relative h-14 w-14 sm:h-16 sm:w-16 rounded-2xl flex items-center justify-center mb-2.5 shadow-md transition-transform duration-300 group-hover:scale-110 ${
-                activeAppTab === "projects"
-                  ? "bg-gradient-to-br from-[#FEF08A] to-[#EAB308] text-[#0A0D12]"
-                  : "bg-white text-[#B45309] border border-amber-200"
-              }`}>
-                <Building2 className="h-7 w-7" />
-                <span className="absolute -top-1.5 -right-1.5 px-1.5 py-0.2 rounded-full text-[9px] font-black bg-[#EAB308] text-[#0A0D12]">
-                  3
-                </span>
-              </div>
-              <span className={`text-xs sm:text-sm font-extrabold tracking-tight ${activeAppTab === "projects" ? "text-white" : "text-neutral-900"}`}>
+              {activeTab === "projects" && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-md bg-[#EAB308]" />
+              )}
+              <Building2 className={`h-5 w-5 shrink-0 ${activeTab === "projects" ? "text-[#B45309]" : "text-neutral-500"}`} />
+              <span className="hidden md:inline text-xs truncate">
                 {language === "ta" ? "திட்டங்கள்" : "Our Projects"}
               </span>
-              <span className={`text-[10px] mt-0.5 font-medium line-clamp-1 ${activeAppTab === "projects" ? "text-amber-300" : "text-neutral-500"}`}>
-                {language === "ta" ? "3 பிரிவுகள் · 9 தளங்கள்" : "3 Categories · 9 Sites"}
+            </button>
+
+            {/* Nav Item: Location */}
+            <button
+              onClick={() => setActiveTab("location")}
+              className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
+                activeTab === "location"
+                  ? "bg-neutral-100 text-[#0A0D12] font-black"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 font-semibold"
+              }`}
+            >
+              {activeTab === "location" && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-md bg-[#EAB308]" />
+              )}
+              <MapPin className={`h-5 w-5 shrink-0 ${activeTab === "location" ? "text-blue-600" : "text-neutral-500"}`} />
+              <span className="hidden md:inline text-xs truncate">
+                {language === "ta" ? "இருப்பிடம்" : "Location Maps"}
               </span>
             </button>
 
-            {/* 2. Location */}
+            {/* Nav Item: Gallery */}
             <button
-              onClick={() => setActiveAppTab("location")}
-              className={`flex flex-col items-center text-center p-3.5 sm:p-4 rounded-2xl transition-all duration-300 cursor-pointer group ${
-                activeAppTab === "location"
-                  ? "bg-[#0A0D12] text-white shadow-xl ring-2 ring-[#EAB308] scale-[1.03]"
-                  : "bg-neutral-50 hover:bg-neutral-100 text-neutral-800 border border-neutral-200"
+              onClick={() => setActiveTab("gallery")}
+              className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
+                activeTab === "gallery"
+                  ? "bg-neutral-100 text-[#0A0D12] font-black"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 font-semibold"
               }`}
             >
-              <div className={`relative h-14 w-14 sm:h-16 sm:w-16 rounded-2xl flex items-center justify-center mb-2.5 shadow-md transition-transform duration-300 group-hover:scale-110 ${
-                activeAppTab === "location"
-                  ? "bg-gradient-to-br from-[#FEF08A] to-[#EAB308] text-[#0A0D12]"
-                  : "bg-white text-blue-600 border border-blue-200"
-              }`}>
-                <Navigation className="h-7 w-7" />
-                <span className="absolute -top-1.5 -right-1.5 px-1.5 py-0.2 rounded-full text-[9px] font-black bg-blue-600 text-white">
-                  GPS
-                </span>
-              </div>
-              <span className={`text-xs sm:text-sm font-extrabold tracking-tight ${activeAppTab === "location" ? "text-white" : "text-neutral-900"}`}>
-                {language === "ta" ? "இருப்பிடம்" : "Location"}
-              </span>
-              <span className={`text-[10px] mt-0.5 font-medium line-clamp-1 ${activeAppTab === "location" ? "text-amber-300" : "text-neutral-500"}`}>
-                {language === "ta" ? "அனைத்து வரைபடங்கள்" : "All Project Google Maps"}
+              {activeTab === "gallery" && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-md bg-[#EAB308]" />
+              )}
+              <Camera className={`h-5 w-5 shrink-0 ${activeTab === "gallery" ? "text-purple-600" : "text-neutral-500"}`} />
+              <span className="hidden md:inline text-xs truncate">
+                {language === "ta" ? "புகைப்படங்கள் & வீடியோ" : "Gallery Folders"}
               </span>
             </button>
 
-            {/* 3. Gallery */}
+            {/* Nav Item: About */}
             <button
-              onClick={() => setActiveAppTab("gallery")}
-              className={`flex flex-col items-center text-center p-3.5 sm:p-4 rounded-2xl transition-all duration-300 cursor-pointer group ${
-                activeAppTab === "gallery"
-                  ? "bg-[#0A0D12] text-white shadow-xl ring-2 ring-[#EAB308] scale-[1.03]"
-                  : "bg-neutral-50 hover:bg-neutral-100 text-neutral-800 border border-neutral-200"
+              onClick={() => setActiveTab("about")}
+              className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
+                activeTab === "about"
+                  ? "bg-neutral-100 text-[#0A0D12] font-black"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 font-semibold"
               }`}
             >
-              <div className={`relative h-14 w-14 sm:h-16 sm:w-16 rounded-2xl flex items-center justify-center mb-2.5 shadow-md transition-transform duration-300 group-hover:scale-110 ${
-                activeAppTab === "gallery"
-                  ? "bg-gradient-to-br from-[#FEF08A] to-[#EAB308] text-[#0A0D12]"
-                  : "bg-white text-purple-600 border border-purple-200"
-              }`}>
-                <Camera className="h-7 w-7" />
-                <span className="absolute -top-1.5 -right-1.5 px-1.5 py-0.2 rounded-full text-[9px] font-black bg-purple-600 text-white">
-                  HD
-                </span>
-              </div>
-              <span className={`text-xs sm:text-sm font-extrabold tracking-tight ${activeAppTab === "gallery" ? "text-white" : "text-neutral-900"}`}>
-                {language === "ta" ? "புகைப்படங்கள் & வீடியோ" : "Gallery"}
-              </span>
-              <span className={`text-[10px] mt-0.5 font-medium line-clamp-1 ${activeAppTab === "gallery" ? "text-amber-300" : "text-neutral-500"}`}>
-                {language === "ta" ? "கோப்பு முறை மையம்" : "Videos & Photos Folders"}
-              </span>
-            </button>
-
-            {/* 4. About */}
-            <button
-              onClick={() => setActiveAppTab("about")}
-              className={`flex flex-col items-center text-center p-3.5 sm:p-4 rounded-2xl transition-all duration-300 cursor-pointer group ${
-                activeAppTab === "about"
-                  ? "bg-[#0A0D12] text-white shadow-xl ring-2 ring-[#EAB308] scale-[1.03]"
-                  : "bg-neutral-50 hover:bg-neutral-100 text-neutral-800 border border-neutral-200"
-              }`}
-            >
-              <div className={`relative h-14 w-14 sm:h-16 sm:w-16 rounded-2xl flex items-center justify-center mb-2.5 shadow-md transition-transform duration-300 group-hover:scale-110 ${
-                activeAppTab === "about"
-                  ? "bg-gradient-to-br from-[#FEF08A] to-[#EAB308] text-[#0A0D12]"
-                  : "bg-white text-emerald-700 border border-emerald-200"
-              }`}>
-                <ShieldCheck className="h-7 w-7" />
-                <span className="absolute -top-1.5 -right-1.5 px-1.5 py-0.2 rounded-full text-[9px] font-black bg-emerald-700 text-white">
-                  IAF
-                </span>
-              </div>
-              <span className={`text-xs sm:text-sm font-extrabold tracking-tight ${activeAppTab === "about" ? "text-white" : "text-neutral-900"}`}>
+              {activeTab === "about" && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-md bg-[#EAB308]" />
+              )}
+              <ShieldCheck className={`h-5 w-5 shrink-0 ${activeTab === "about" ? "text-emerald-700" : "text-neutral-500"}`} />
+              <span className="hidden md:inline text-xs truncate">
                 {language === "ta" ? "எங்களைப் பற்றி" : "About Surya"}
               </span>
-              <span className={`text-[10px] mt-0.5 font-medium line-clamp-1 ${activeAppTab === "about" ? "text-amber-300" : "text-neutral-500"}`}>
-                {language === "ta" ? "நிறுவனர் & 16+ வருட வரலாறு" : "Founder & 16+ Yrs Legacy"}
-              </span>
             </button>
 
-            {/* 5. Download Map */}
+            {/* Nav Item: Download Map */}
             <button
-              onClick={() => setActiveAppTab("download")}
-              className={`col-span-2 sm:col-span-1 flex flex-col items-center text-center p-3.5 sm:p-4 rounded-2xl transition-all duration-300 cursor-pointer group ${
-                activeAppTab === "download"
-                  ? "bg-[#0A0D12] text-white shadow-xl ring-2 ring-[#EAB308] scale-[1.03]"
-                  : "bg-neutral-50 hover:bg-neutral-100 text-neutral-800 border border-neutral-200"
+              onClick={() => setActiveTab("download")}
+              className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
+                activeTab === "download"
+                  ? "bg-neutral-100 text-[#0A0D12] font-black"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 font-semibold"
               }`}
             >
-              <div className={`relative h-14 w-14 sm:h-16 sm:w-16 rounded-2xl flex items-center justify-center mb-2.5 shadow-md transition-transform duration-300 group-hover:scale-110 ${
-                activeAppTab === "download"
-                  ? "bg-gradient-to-br from-[#FEF08A] to-[#EAB308] text-[#0A0D12]"
-                  : "bg-white text-amber-700 border border-amber-200"
-              }`}>
-                <Download className="h-7 w-7" />
-                <span className="absolute -top-1.5 -right-1.5 px-1.5 py-0.2 rounded-full text-[9px] font-black bg-amber-600 text-white">
-                  PDF
-                </span>
-              </div>
-              <span className={`text-xs sm:text-sm font-extrabold tracking-tight ${activeAppTab === "download" ? "text-white" : "text-neutral-900"}`}>
-                {language === "ta" ? "வரைபடம் பதிவிறக்கம்" : "Download Map"}
-              </span>
-              <span className={`text-[10px] mt-0.5 font-medium line-clamp-1 ${activeAppTab === "download" ? "text-amber-300" : "text-neutral-500"}`}>
-                {language === "ta" ? "புளூபிரிண்ட், கையேடு, வீடியோ" : "Blueprints, Videos & Maps"}
+              {activeTab === "download" && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-md bg-[#EAB308]" />
+              )}
+              <Download className={`h-5 w-5 shrink-0 ${activeTab === "download" ? "text-amber-700" : "text-neutral-500"}`} />
+              <span className="hidden md:inline text-xs truncate">
+                {language === "ta" ? "வரைபடங்கள் பதிவிறக்கம்" : "Download Map"}
               </span>
             </button>
 
           </div>
 
-          {/* DIRECT COMMUNICATION CHANNELS BAR */}
-          <div className="mt-4 pt-4 border-t border-neutral-100 flex flex-wrap items-center justify-between gap-2.5 text-xs">
-            <span className="font-extrabold text-neutral-700 flex items-center gap-1.5">
-              <Phone className="h-3.5 w-3.5 text-[#B45309]" />
+          {/* Bottom Rail: Direct Communication Link */}
+          <div className="px-2 pt-3 border-t border-neutral-100 space-y-1">
+            <button
+              onClick={() => setIsEnquiryModalOpen(true)}
+              className="w-full flex items-center gap-3 p-2.5 rounded-xl text-left text-neutral-700 hover:bg-amber-50 hover:text-[#B45309] transition-colors cursor-pointer font-bold"
+            >
+              <PhoneCall className="h-5 w-5 text-[#B45309] shrink-0" />
+              <span className="hidden md:inline text-xs truncate">
+                {language === "ta" ? "நேரடி தொடர்பு" : "Direct Contact"}
+              </span>
+            </button>
+          </div>
+        </aside>
+
+        {/* MAIN STORE CONTENT CANVAS */}
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-8">
+          
+          {/* ------------------------------------------------------------------- */}
+          {/* FEATURE SPOTLIGHT HERO (Microsoft Store Top Banner Grid)            */}
+          {/* ------------------------------------------------------------------- */}
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            
+            {/* Large Featured Left Card */}
+            <div className="lg:col-span-2 relative min-h-[260px] sm:min-h-[300px] rounded-3xl overflow-hidden bg-[#0A0D12] text-white p-6 sm:p-8 flex flex-col justify-between shadow-sm border border-neutral-800">
+              <div className="absolute inset-0 z-0">
+                <Image
+                  src="/images/hero/hero-gated-layout.jpg"
+                  alt="Surya Promoters Madurai Real Estate"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 66vw"
+                  className="object-cover opacity-40 brightness-95 contrast-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0A0D12] via-[#0A0D12]/70 to-transparent" />
+              </div>
+
+              <div className="relative z-10 max-w-lg">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAB308]/20 border border-[#EAB308]/40 text-[#EAB308] text-[11px] font-bold uppercase tracking-wider mb-3">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>{language === "ta" ? "மதுரை பிரீமியம் நிலங்கள்" : "Featured Real Estate Store"}</span>
+                </div>
+                <h1 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight mb-2">
+                  {language === "ta" ? "உங்கள் நிலம். உங்கள் எதிர்காலம்." : "Your Land. Your Future in Madurai."}
+                </h1>
+                <p className="text-xs sm:text-sm text-neutral-300 font-medium line-clamp-2 mb-4">
+                  {language === "ta"
+                    ? "100% தெளிவான கணினி பட்டாவுடன் கூடிய குடியிருப்பு, வணிக மற்றும் இயற்கை பண்ணை நிலங்கள்."
+                    : "100% computer patta verified residential villa plots, commercial highway corridors & organic farm land."}
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    onClick={() => {
+                      setActiveTab("projects");
+                      setActiveCategory("commercial");
+                    }}
+                    className="px-5 py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs transition-all shadow-md cursor-pointer flex items-center gap-1.5"
+                  >
+                    <span>{language === "ta" ? "திட்டங்களை காண்க" : "Explore Projects"}</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
+
+                  <button
+                    onClick={() => setIsEnquiryModalOpen(true)}
+                    className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors border border-white/20 cursor-pointer"
+                  >
+                    {language === "ta" ? "நேரடி ஆலோசனை" : "Direct Advisory"}
+                  </button>
+                </div>
+              </div>
+
+              <div className="relative z-10 pt-4 flex items-center gap-4 text-xs font-bold text-neutral-300">
+                <span>✓ 100% Computer Patta</span>
+                <span>✓ 16+ Years Experience</span>
+                <span>✓ Zero Legal Disputes</span>
+              </div>
+            </div>
+
+            {/* Right Spotlight Stack (2 Cards) */}
+            <div className="flex flex-col gap-4">
+              
+              {/* Spotlight 1: Orange Garden */}
+              <div
+                onClick={() => {
+                  setActiveTab("projects");
+                  setActiveCategory("farm");
+                  setSelectedProject(ALL_PROJECTS.find((p) => p.id === "orange-garden") || null);
+                }}
+                className="relative flex-1 min-h-[140px] rounded-3xl overflow-hidden bg-neutral-900 text-white p-5 flex flex-col justify-between cursor-pointer group shadow-sm border border-neutral-800"
+              >
+                <div className="absolute inset-0 z-0">
+                  <Image
+                    src="/images/generated/orange-garden.jpg"
+                    alt="Orange Garden Orchard"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                </div>
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase bg-[#EAB308] text-[#0A0D12]">
+                    Orchard Estate
+                  </span>
+                  <span className="text-[10px] font-bold text-amber-300">Blueprint Ready</span>
+                </div>
+                <div className="relative z-10">
+                  <h3 className="text-base font-black">Orange Garden</h3>
+                  <p className="text-[11px] text-neutral-300">Thiruppuvanam - Narikudi Road · Plots 1 to 10</p>
+                </div>
+              </div>
+
+              {/* Spotlight 2: Vaigai Elite Garden */}
+              <div
+                onClick={() => {
+                  setActiveTab("projects");
+                  setActiveCategory("commercial");
+                  setSelectedProject(ALL_PROJECTS.find((p) => p.id === "vaigai-elite") || null);
+                }}
+                className="relative flex-1 min-h-[140px] rounded-3xl overflow-hidden bg-neutral-900 text-white p-5 flex flex-col justify-between cursor-pointer group shadow-sm border border-neutral-800"
+              >
+                <div className="absolute inset-0 z-0">
+                  <Image
+                    src="/images/generated/vaigai-elite-garden.jpg"
+                    alt="Vaigai Elite Garden"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                </div>
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase bg-blue-600 text-white">
+                    NH-44 Highway
+                  </span>
+                  <span className="text-[10px] font-bold text-blue-200">Commercial</span>
+                </div>
+                <div className="relative z-10">
+                  <h3 className="text-base font-black">Vaigai Elite Garden</h3>
+                  <p className="text-[11px] text-neutral-300">Madurai Outer Ring Road & NH-44 Frontage</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          {/* ------------------------------------------------------------------- */}
+          {/* THE 5 MAIN APP-STORE ICONS (Apps we think you'll love row)           */}
+          {/* ------------------------------------------------------------------- */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="text-base sm:text-lg font-black text-neutral-900 flex items-center gap-1.5">
+                <span>{language === "ta" ? "பிரதான சேவைகள் & அம்சங்கள்" : "Explore Surya Promoters (5 Main Icons)"}</span>
+                <ChevronRight className="h-4 w-4 text-neutral-400" />
+              </h2>
+              <span className="text-xs text-neutral-500 font-medium">Play Store Application Style</span>
+            </div>
+
+            {/* The 5 Rounded Squircle App Tiles */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+              
+              {/* App Tile 1: Our Projects */}
+              <button
+                onClick={() => setActiveTab("projects")}
+                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
+                  activeTab === "projects"
+                    ? "bg-[#FFFFFF] border-[#EAB308] shadow-lg ring-2 ring-[#EAB308]/40"
+                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-13 w-13 rounded-2xl bg-amber-50 text-[#B45309] border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <Building2 className="h-6 w-6" />
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-[#FEF08A] text-[#854D0E]">
+                    3 Types
+                  </span>
+                </div>
+                <div>
+                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-[#B45309] transition-colors">
+                    {language === "ta" ? "எங்கள் திட்டங்கள்" : "Our Projects"}
+                  </h3>
+                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                    {language === "ta" ? "3 பிரிவுகள் · 9 தளங்கள்" : "Residential, Commercial & Farm"}
+                  </p>
+                </div>
+              </button>
+
+              {/* App Tile 2: Location */}
+              <button
+                onClick={() => setActiveTab("location")}
+                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
+                  activeTab === "location"
+                    ? "bg-[#FFFFFF] border-blue-500 shadow-lg ring-2 ring-blue-500/40"
+                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-13 w-13 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <Navigation className="h-6 w-6" />
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-blue-100 text-blue-700">
+                    GPS Live
+                  </span>
+                </div>
+                <div>
+                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-blue-600 transition-colors">
+                    {language === "ta" ? "இருப்பிட வரைபடம்" : "Location"}
+                  </h3>
+                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                    {language === "ta" ? "கூகிள் மேப்ஸ் வழித்தடங்கள்" : "All Project Google Maps"}
+                  </p>
+                </div>
+              </button>
+
+              {/* App Tile 3: Gallery */}
+              <button
+                onClick={() => setActiveTab("gallery")}
+                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
+                  activeTab === "gallery"
+                    ? "bg-[#FFFFFF] border-purple-500 shadow-lg ring-2 ring-purple-500/40"
+                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-13 w-13 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <Camera className="h-6 w-6" />
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-purple-100 text-purple-700">
+                    HD Media
+                  </span>
+                </div>
+                <div>
+                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-purple-600 transition-colors">
+                    {language === "ta" ? "புகைப்படங்கள் & வீடியோ" : "Gallery"}
+                  </h3>
+                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                    {language === "ta" ? "கோப்பு முறை மையம்" : "Videos & Photos Folders"}
+                  </p>
+                </div>
+              </button>
+
+              {/* App Tile 4: About */}
+              <button
+                onClick={() => setActiveTab("about")}
+                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
+                  activeTab === "about"
+                    ? "bg-[#FFFFFF] border-emerald-600 shadow-lg ring-2 ring-emerald-600/40"
+                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-13 w-13 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <ShieldCheck className="h-6 w-6" />
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-emerald-100 text-emerald-800">
+                    IAF Vet
+                  </span>
+                </div>
+                <div>
+                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-emerald-700 transition-colors">
+                    {language === "ta" ? "எங்களைப் பற்றி" : "About Surya"}
+                  </h3>
+                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                    {language === "ta" ? "நிறுவனர் & 16+ வரலாறு" : "Founder & 16+ Yrs Legacy"}
+                  </p>
+                </div>
+              </button>
+
+              {/* App Tile 5: Download Map */}
+              <button
+                onClick={() => setActiveTab("download")}
+                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between col-span-2 sm:col-span-1 ${
+                  activeTab === "download"
+                    ? "bg-[#FFFFFF] border-amber-600 shadow-lg ring-2 ring-amber-600/40"
+                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-13 w-13 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <Download className="h-6 w-6" />
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-100 text-amber-800">
+                    PDF Hub
+                  </span>
+                </div>
+                <div>
+                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-amber-700 transition-colors">
+                    {language === "ta" ? "வரைபடங்கள் பதிவிறக்கம்" : "Download Map"}
+                  </h3>
+                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                    {language === "ta" ? "புளூபிரிண்ட், கையேடு, வீடியோ" : "Blueprints, Videos & Maps"}
+                  </p>
+                </div>
+              </button>
+
+            </div>
+          </section>
+
+          {/* ------------------------------------------------------------------- */}
+          {/* DIRECT COMMUNICATION CHANNELS BAR                                   */}
+          {/* ------------------------------------------------------------------- */}
+          <section className="bg-white rounded-2xl p-4 border border-neutral-200/80 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
+            <span className="font-black text-neutral-800 flex items-center gap-1.5">
+              <PhoneCall className="h-4 w-4 text-[#B45309]" />
               {language === "ta" ? "நேரடி தொடர்பு வழிமுறைகள்:" : "Direct Communication Channels:"}
             </span>
 
@@ -965,672 +1180,592 @@ export default function HomePage() {
                 <span>{language === "ta" ? "விசாரணை படிவம்" : "Quick Enquiry"}</span>
               </button>
             </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 4. ACTIVE APP SECTION DISPLAY */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        
-        {/* ========================================================================= */}
-        {/* APP TAB 1: OUR PROJECTS (3 Categories Box/Icon Selector + Project Cards)  */}
-        {/* ========================================================================= */}
-        {activeAppTab === "projects" && (
-          <section className="space-y-8 animate-fadeIn">
-            
-            {/* 3 Categories Box/Icon Selector */}
-            <div className="bg-white rounded-3xl p-5 sm:p-7 border border-neutral-200 shadow-sm">
-              <div className="pb-4 mb-4 border-b border-neutral-100">
-                <span className="text-xs font-black uppercase text-[#B45309] tracking-wider block mb-1">
-                  {language === "ta" ? "படி 1: முதன்மை பிரிவை தேர்வு செய்" : "Step 1: Choose Property Category"}
-                </span>
-                <h3 className="text-2xl font-black text-neutral-900">
-                  {language === "ta" ? "3 முதன்மை பிரிவுகள் (3 Categories)" : "Our 3 Main Property Categories"}
-                </h3>
-              </div>
-
-              {/* The 3 Category Boxes */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                
-                {/* 1. Residential */}
-                <button
-                  onClick={() => setActiveProjectCategory("residential")}
-                  className={`p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-start gap-4 ${
-                    activeProjectCategory === "residential"
-                      ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-xl ring-2 ring-[#EAB308]"
-                      : "bg-[#F8FAFC] text-neutral-900 border-neutral-200 hover:bg-neutral-100"
-                  }`}
-                >
-                  <div className={`h-12 w-12 rounded-xl flex items-center justify-center shrink-0 ${
-                    activeProjectCategory === "residential" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-[#B45309] border border-amber-200"
-                  }`}>
-                    <Home className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-black uppercase tracking-wider block opacity-75">
-                      Category 01
-                    </span>
-                    <h4 className="text-base font-black">
-                      {language === "ta" ? "1. குடியிருப்பு திட்டங்கள்" : "1. Residential Projects"}
-                    </h4>
-                    <p className={`text-xs mt-1 ${activeProjectCategory === "residential" ? "text-neutral-300" : "text-neutral-500"}`}>
-                      {language === "ta" ? "பிளாட் மற்றும் மனைப்பிரிவுகள் (2 திட்டங்கள்)" : "Flats & Villa Plots (2 Projects)"}
-                    </p>
-                  </div>
-                </button>
-
-                {/* 2. Commercial */}
-                <button
-                  onClick={() => setActiveProjectCategory("commercial")}
-                  className={`p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-start gap-4 ${
-                    activeProjectCategory === "commercial"
-                      ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-xl ring-2 ring-[#EAB308]"
-                      : "bg-[#F8FAFC] text-neutral-900 border-neutral-200 hover:bg-neutral-100"
-                  }`}
-                >
-                  <div className={`h-12 w-12 rounded-xl flex items-center justify-center shrink-0 ${
-                    activeProjectCategory === "commercial" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-blue-600 border border-blue-200"
-                  }`}>
-                    <Briefcase className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-black uppercase tracking-wider block opacity-75">
-                      Category 02
-                    </span>
-                    <h4 className="text-base font-black">
-                      {language === "ta" ? "2. வணிக திட்டங்கள்" : "2. Commercial Projects"}
-                    </h4>
-                    <p className={`text-xs mt-1 ${activeProjectCategory === "commercial" ? "text-neutral-300" : "text-neutral-500"}`}>
-                      {language === "ta" ? "நெடுஞ்சாலை நிலம் & கட்டிடங்கள் (5 திட்டங்கள்)" : "Highway Land & Buildings (5 Projects)"}
-                    </p>
-                  </div>
-                </button>
-
-                {/* 3. Farm Land */}
-                <button
-                  onClick={() => setActiveProjectCategory("farm")}
-                  className={`p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-start gap-4 ${
-                    activeProjectCategory === "farm"
-                      ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-xl ring-2 ring-[#EAB308]"
-                      : "bg-[#F8FAFC] text-neutral-900 border-neutral-200 hover:bg-neutral-100"
-                  }`}
-                >
-                  <div className={`h-12 w-12 rounded-xl flex items-center justify-center shrink-0 ${
-                    activeProjectCategory === "farm" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-emerald-700 border border-emerald-200"
-                  }`}>
-                    <Trees className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-black uppercase tracking-wider block opacity-75">
-                      Category 03
-                    </span>
-                    <h4 className="text-base font-black">
-                      {language === "ta" ? "3. பண்ணை நிலங்கள்" : "3. Farm Land Projects"}
-                    </h4>
-                    <p className={`text-xs mt-1 ${activeProjectCategory === "farm" ? "text-neutral-300" : "text-neutral-500"}`}>
-                      {language === "ta" ? "வேளாண் பண்ணை & ஆரஞ்ச் கார்டன் (2 திட்டங்கள்)" : "Agro Farms & Orange Garden (2 Projects)"}
-                    </p>
-                  </div>
-                </button>
-
-              </div>
-            </div>
-
-            {/* Project Cards for Active Category */}
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-black text-neutral-900">
-                  {activeProjectCategory === "residential" && (language === "ta" ? "குடியிருப்பு திட்டங்கள் (2 Projects)" : "Residential Projects (2 Projects)")}
-                  {activeProjectCategory === "commercial" && (language === "ta" ? "வணிக திட்டங்கள் (5 Projects)" : "Commercial Projects (5 Projects)")}
-                  {activeProjectCategory === "farm" && (language === "ta" ? "பண்ணை நில திட்டங்கள் (2 Projects)" : "Farm Land Projects (2 Projects)")}
-                </h4>
-                <span className="text-xs font-bold text-neutral-500">
-                  {categoryProjects.length} {language === "ta" ? "திட்டங்கள் உள்ளன" : "Cards Available"}
-                </span>
-              </div>
-
-              {/* Cards Grid */}
-              <div className={`grid grid-cols-1 md:grid-cols-2 ${categoryProjects.length > 2 ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-6`}>
-                {categoryProjects.map((project) => (
-                  <div
-                    key={project.id}
-                    className="bg-white rounded-3xl overflow-hidden border border-neutral-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
-                  >
-                    {/* Visual Card Top */}
-                    <div className="relative h-60 w-full overflow-hidden bg-neutral-900">
-                      <Image
-                        src={project.image}
-                        alt={project.name.en}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D12]/90 via-transparent to-black/20" />
-                      
-                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#0A0D12]/85 text-[#EAB308] border border-[#EAB308]/40 backdrop-blur-md">
-                        {project.statusBadge[language]}
-                      </div>
-
-                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-white/90 text-[#0A0D12] shadow-xs">
-                        {project.subcategoryLabel[language]}
-                      </div>
-
-                      <div className="absolute bottom-3 left-3 right-3 text-white">
-                        <h3 className="text-lg font-black tracking-tight leading-tight drop-shadow-md">
-                          {project.name[language]}
-                        </h3>
-                        <div className="flex items-center gap-1.5 text-xs text-neutral-300 mt-1">
-                          <MapPin className="h-3.5 w-3.5 text-[#EAB308] shrink-0" />
-                          <span className="line-clamp-1">{project.location[language]}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Card Body */}
-                    <div className="p-5 flex-1 flex flex-col justify-between">
-                      <div>
-                        <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed mb-4">
-                          {project.description[language]}
-                        </p>
-
-                        <div className="space-y-1.5 mb-5 pb-4 border-b border-neutral-100">
-                          {project.highlights[language].slice(0, 2).map((h, i) => (
-                            <div key={i} className="flex items-center gap-1.5 text-[11px] text-neutral-700 font-medium">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                              <span className="line-clamp-1">{h}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Action Buttons */}
-                      <div className="grid grid-cols-2 gap-2">
-                        <button
-                          onClick={() => setDetailProject(project)}
-                          className="w-full py-2.5 px-3 rounded-xl bg-neutral-100 hover:bg-[#0A0D12] text-neutral-900 hover:text-white text-xs font-bold transition-all text-center cursor-pointer"
-                        >
-                          {language === "ta" ? "முழு விவரம்" : "Project Details"}
-                        </button>
-
-                        <a
-                          href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20want%20details%20for%20${encodeURIComponent(
-                            project.name.en
-                          )}.`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full py-2.5 px-3 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] text-xs font-black transition-all flex items-center justify-center gap-1 cursor-pointer"
-                        >
-                          <MessageCircle className="h-3.5 w-3.5" />
-                          <span>{language === "ta" ? "விசாரிக்க" : "Enquire Now"}</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
           </section>
-        )}
 
-        {/* ========================================================================= */}
-        {/* APP TAB 2: LOCATION (All Project Maps in Card Style)                      */}
-        {/* ========================================================================= */}
-        {activeAppTab === "location" && (
-          <section className="space-y-6 animate-fadeIn">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 shadow-sm">
-              <div className="max-w-2xl">
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
-                  <Navigation className="h-4 w-4" />
-                  <span>{language === "ta" ? "அனைத்து திட்டங்களின் வரைபடம்" : "Google Maps Geolocation Hub"}</span>
+          {/* ------------------------------------------------------------------- */}
+          {/* TAB 1: OUR PROJECTS (3 Categories Box/Icon + Project Cards)         */}
+          {/* ------------------------------------------------------------------- */}
+          {activeTab === "projects" && (
+            <section className="space-y-6 animate-fadeIn">
+              
+              {/* Category Selector Box/Icons */}
+              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs space-y-4">
+                <div>
+                  <span className="text-[10px] font-black uppercase text-[#B45309] tracking-wider block mb-1">
+                    Step 1: Choose Category
+                  </span>
+                  <h3 className="text-xl font-black text-neutral-900">
+                    {language === "ta" ? "3 பிரிவுகள் (3 Categories)" : "Our 3 Property Categories"}
+                  </h3>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight mb-2">
-                  {language === "ta" ? "திட்டங்களின் அமைவிடம் (Card Style)" : "All Project Map Locations (Card Style)"}
-                </h2>
-                <p className="text-sm text-neutral-600 font-medium">
-                  {language === "ta"
-                    ? "மதுரையின் முக்கிய போக்குவரத்து மையங்கள் மற்றும் தேசிய நெடுஞ்சாலைகளில் அமைந்துள்ள எங்களின் அனைத்து திட்டங்களையும் வரைபடத்தில் நேரடியாக பாருங்கள்."
-                    : "Directly navigate to each development along Madurai's NH-44, Ring Road, and transit hubs using verified Google Maps links."}
-                </p>
-              </div>
-            </div>
 
-            {/* Location Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {ALL_PROJECTS.map((project) => (
-                <div
-                  key={project.id}
-                  className="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center gap-3.5 mb-4">
-                      <div className="relative h-14 w-14 rounded-2xl overflow-hidden shrink-0 border border-neutral-200">
+                {/* 3 Categories Box / Icons */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                  
+                  {/* Category 1: Residential */}
+                  <button
+                    onClick={() => setActiveCategory("residential")}
+                    className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-center gap-3.5 ${
+                      activeCategory === "residential"
+                        ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-md ring-2 ring-[#EAB308]"
+                        : "bg-neutral-50 hover:bg-neutral-100 text-neutral-900 border-neutral-200"
+                    }`}
+                  >
+                    <div className={`h-12 w-12 rounded-xl flex items-center justify-center shrink-0 ${
+                      activeCategory === "residential" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-[#B45309] border border-amber-200"
+                    }`}>
+                      <Home className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <span className="text-[9px] font-black uppercase tracking-wider block opacity-75">
+                        Category 01
+                      </span>
+                      <h4 className="text-sm font-black">
+                        {language === "ta" ? "1. குடியிருப்பு (Residential)" : "1. Residential"}
+                      </h4>
+                      <p className={`text-[11px] ${activeCategory === "residential" ? "text-amber-200" : "text-neutral-500"}`}>
+                        {language === "ta" ? "பிளாட் & மனைப்பிரிவுகள் (2)" : "Flats & Plots (2 Cards)"}
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* Category 2: Commercial */}
+                  <button
+                    onClick={() => setActiveCategory("commercial")}
+                    className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-center gap-3.5 ${
+                      activeCategory === "commercial"
+                        ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-md ring-2 ring-[#EAB308]"
+                        : "bg-neutral-50 hover:bg-neutral-100 text-neutral-900 border-neutral-200"
+                    }`}
+                  >
+                    <div className={`h-12 w-12 rounded-xl flex items-center justify-center shrink-0 ${
+                      activeCategory === "commercial" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-blue-600 border border-blue-200"
+                    }`}>
+                      <Briefcase className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <span className="text-[9px] font-black uppercase tracking-wider block opacity-75">
+                        Category 02
+                      </span>
+                      <h4 className="text-sm font-black">
+                        {language === "ta" ? "2. வணிகம் (Commercial)" : "2. Commercial"}
+                      </h4>
+                      <p className={`text-[11px] ${activeCategory === "commercial" ? "text-amber-200" : "text-neutral-500"}`}>
+                        {language === "ta" ? "நெடுஞ்சாலை & கட்டிடம் (5)" : "Buildings & Land (5 Cards)"}
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* Category 3: Farm Land */}
+                  <button
+                    onClick={() => setActiveCategory("farm")}
+                    className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-center gap-3.5 ${
+                      activeCategory === "farm"
+                        ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-md ring-2 ring-[#EAB308]"
+                        : "bg-neutral-50 hover:bg-neutral-100 text-neutral-900 border-neutral-200"
+                    }`}
+                  >
+                    <div className={`h-12 w-12 rounded-xl flex items-center justify-center shrink-0 ${
+                      activeCategory === "farm" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-emerald-700 border border-emerald-200"
+                    }`}>
+                      <Trees className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <span className="text-[9px] font-black uppercase tracking-wider block opacity-75">
+                        Category 03
+                      </span>
+                      <h4 className="text-sm font-black">
+                        {language === "ta" ? "3. பண்ணை நிலம் (Farm Land)" : "3. Farm Land"}
+                      </h4>
+                      <p className={`text-[11px] ${activeCategory === "farm" ? "text-amber-200" : "text-neutral-500"}`}>
+                        {language === "ta" ? "வேளாண் & ஆரஞ்ச் கார்டன் (2)" : "Agro & Orange Garden (2 Cards)"}
+                      </p>
+                    </div>
+                  </button>
+
+                </div>
+              </div>
+
+              {/* Project Cards for Active Category */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-base font-black text-neutral-900">
+                    {activeCategory === "residential" && (language === "ta" ? "குடியிருப்பு திட்டங்கள் (2 Projects)" : "Residential Projects (2 Projects)")}
+                    {activeCategory === "commercial" && (language === "ta" ? "வணிக திட்டங்கள் (5 Projects)" : "Commercial Projects (5 Projects)")}
+                    {activeCategory === "farm" && (language === "ta" ? "பண்ணை நில திட்டங்கள் (2 Projects)" : "Farm Land Projects (2 Projects)")}
+                  </h4>
+                  <span className="text-xs text-neutral-500 font-semibold">
+                    {activeCategoryProjects.length} Cards
+                  </span>
+                </div>
+
+                {/* Cards Grid */}
+                <div className={`grid grid-cols-1 md:grid-cols-2 ${activeCategoryProjects.length > 2 ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-5`}>
+                  {activeCategoryProjects.map((project) => (
+                    <div
+                      key={project.id}
+                      className="bg-white rounded-3xl overflow-hidden border border-neutral-200 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
+                    >
+                      {/* Card Thumbnail */}
+                      <div className="relative h-56 w-full overflow-hidden bg-neutral-900">
                         <Image
                           src={project.image}
                           alt={project.name.en}
                           fill
-                          sizes="56px"
-                          className="object-cover"
-                        />
-                      </div>
-                      <div>
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase bg-blue-50 text-blue-700">
-                          {project.categoryLabel[language]}
-                        </span>
-                        <h3 className="font-extrabold text-neutral-900 text-sm mt-1 leading-snug">
-                          {project.name[language]}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <div className="bg-neutral-50 rounded-2xl p-3.5 mb-4 border border-neutral-100 space-y-2">
-                      <div className="flex items-start gap-2 text-xs text-neutral-700">
-                        <MapPin className="h-4 w-4 text-[#B45309] shrink-0 mt-0.5" />
-                        <span className="font-medium">{project.location[language]}</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-[11px] text-neutral-500 font-medium">
-                        <Navigation className="h-3.5 w-3.5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>{project.distanceInfo[language]}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <a
-                      href={project.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
-                    >
-                      <Navigation className="h-3.5 w-3.5" />
-                      <span>{language === "ta" ? "கூகிள் மேப்ஸில் திறக்க" : "Open in Google Maps"}</span>
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-
-                    <button
-                      onClick={() => setDetailProject(project)}
-                      className="w-full py-2 px-4 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-all text-center cursor-pointer"
-                    >
-                      {language === "ta" ? "திட்டத்தின் குறிப்புகள்" : "View Project Overview"}
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ========================================================================= */}
-        {/* APP TAB 3: GALLERY (Folder Style: Videos and Images)                      */}
-        {/* ========================================================================= */}
-        {activeAppTab === "gallery" && (
-          <section className="space-y-8 animate-fadeIn">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">
-                  <Camera className="h-4 w-4" />
-                  <span>{language === "ta" ? "வீடியோக்கள் & புகைப்பட கோப்புகள்" : "Folder-Style Media Gallery"}</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight">
-                  {language === "ta" ? "கோப்பு முறை புகைப்பட & வீடியோ மையம்" : "Folder-Style Media Gallery"}
-                </h2>
-                <p className="text-sm text-neutral-600 mt-1">
-                  {language === "ta"
-                    ? "அனைத்து திட்டங்களின் ட்ரோன் வீடியோக்கள் மற்றும் புகைப்படங்கள் தனித்தனி கோப்பு வடிவில் ஏற்பாடு செய்யப்பட்டுள்ளன."
-                    : "Videos and images organized in clean project folders for seamless browsing."}
-                </p>
-              </div>
-            </div>
-
-            {/* Video Folders */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Folder className="h-5 w-5 text-purple-600" />
-                <h3 className="text-lg font-extrabold text-neutral-900">
-                  {language === "ta" ? "1. வீடியோ கோப்புகள் (Folder Style)" : "1. Video Folders (Folder Style)"}
-                </h3>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {GALLERY_VIDEO_FOLDERS.map((folder) => (
-                  <div
-                    key={folder.id}
-                    className="bg-white rounded-3xl p-5 border border-neutral-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200">
-                          <Folder className="h-3.5 w-3.5 fill-purple-700" />
-                          <span>{folder.count}</span>
-                        </div>
-                        <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">
-                          4K Drone Reel
-                        </span>
-                      </div>
-
-                      <div className="relative h-44 w-full rounded-2xl overflow-hidden mb-4 bg-neutral-900 group">
-                        <Image
-                          src={folder.thumbnail}
-                          alt={folder.title.en}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105 opacity-85"
-                        />
-                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                          <div className="h-12 w-12 rounded-full bg-white/90 text-purple-700 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                            <Play className="h-5 w-5 fill-purple-700 ml-0.5" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <h4 className="font-extrabold text-neutral-900 text-base mb-2">
-                        {folder.title[language]}
-                      </h4>
-
-                      <div className="space-y-1.5 mb-4">
-                        {folder.videos.map((vid, i) => (
-                          <button
-                            key={i}
-                            onClick={() => setVideoPlayerModal({ title: vid.title[language], duration: vid.duration })}
-                            className="w-full text-left flex items-center justify-between p-2 rounded-xl hover:bg-neutral-50 transition-colors text-xs text-neutral-700 cursor-pointer group/vid"
-                          >
-                            <span className="font-semibold line-clamp-1 group-hover/vid:text-purple-700">
-                              ▶ {vid.title[language]}
-                            </span>
-                            <span className="text-[10px] text-neutral-400 font-mono ml-2 shrink-0">
-                              {vid.duration}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => setVideoPlayerModal({ title: folder.videos[0].title[language], duration: folder.videos[0].duration })}
-                      className="w-full py-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                    >
-                      <Play className="h-3.5 w-3.5 fill-purple-700" />
-                      <span>{language === "ta" ? "வீடியோ இயக்க" : "Play Folder Videos"}</span>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Image Folders */}
-            <div className="space-y-4 pt-4 border-t border-neutral-200">
-              <div className="flex items-center gap-2">
-                <Folder className="h-5 w-5 text-[#B45309]" />
-                <h3 className="text-lg font-extrabold text-neutral-900">
-                  {language === "ta" ? "2. புகைப்பட கோப்புகள் (Folder Style)" : "2. Image Folders (Folder Style)"}
-                </h3>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {GALLERY_IMAGE_FOLDERS.map((folder) => (
-                  <div
-                    key={folder.id}
-                    className="bg-white rounded-3xl p-5 border border-neutral-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-50 text-[#B45309] text-xs font-bold border border-amber-200">
-                          <Folder className="h-3.5 w-3.5 fill-[#B45309]" />
-                          <span>{folder.count}</span>
-                        </div>
-                        <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">
-                          HD Photos
-                        </span>
-                      </div>
-
-                      <div
-                        onClick={() => setFolderImagesModal({ title: folder.title[language], images: folder.images })}
-                        className="relative h-44 w-full rounded-2xl overflow-hidden mb-4 bg-neutral-900 cursor-pointer group"
-                      >
-                        <Image
-                          src={folder.thumbnail}
-                          alt={folder.title.en}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                          <div className="h-10 w-10 rounded-full bg-white/90 text-neutral-900 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                            <Maximize2 className="h-4 w-4" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                        
+                        <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#0A0D12]/90 text-[#EAB308] border border-[#EAB308]/40">
+                          {project.statusBadge[language]}
+                        </div>
+
+                        <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-white/90 text-[#0A0D12]">
+                          {project.subcategoryLabel[language]}
+                        </div>
+
+                        <div className="absolute bottom-3 left-3 right-3 text-white">
+                          <h3 className="text-base font-black leading-tight drop-shadow-md">
+                            {project.name[language]}
+                          </h3>
+                          <div className="flex items-center gap-1.5 text-xs text-neutral-300 mt-0.5">
+                            <MapPin className="h-3 w-3 text-[#EAB308] shrink-0" />
+                            <span className="line-clamp-1">{project.location[language]}</span>
                           </div>
                         </div>
                       </div>
 
-                      <h4 className="font-extrabold text-neutral-900 text-base mb-1">
-                        {folder.title[language]}
-                      </h4>
-                      <p className="text-xs text-neutral-500 mb-4">
-                        {language === "ta" ? "அதிவேக HD புகைப்படங்கள் பார்வை" : "High-resolution project gallery photos"}
-                      </p>
+                      {/* Card Body */}
+                      <div className="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                          <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed mb-3">
+                            {project.description[language]}
+                          </p>
+
+                          <div className="space-y-1 mb-4 pb-3 border-b border-neutral-100">
+                            {project.highlights[language].slice(0, 2).map((h, i) => (
+                              <div key={i} className="flex items-center gap-1.5 text-[11px] text-neutral-700 font-medium">
+                                <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
+                                <span className="line-clamp-1">{h}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            onClick={() => setSelectedProject(project)}
+                            className="w-full py-2 px-3 rounded-xl bg-neutral-100 hover:bg-[#0A0D12] text-neutral-900 hover:text-white text-xs font-bold transition-all text-center cursor-pointer"
+                          >
+                            {language === "ta" ? "முழு விவரம்" : "Project Details"}
+                          </button>
+
+                          <a
+                            href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20want%20details%20for%20${encodeURIComponent(
+                              project.name.en
+                            )}.`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-2 px-3 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] text-xs font-black transition-all flex items-center justify-center gap-1 cursor-pointer"
+                          >
+                            <MessageCircle className="h-3.5 w-3.5" />
+                            <span>{language === "ta" ? "விசாரிக்க" : "Enquire"}</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </section>
+          )}
+
+          {/* ------------------------------------------------------------------- */}
+          {/* TAB 2: LOCATION (All Project Maps in Card Style)                    */}
+          {/* ------------------------------------------------------------------- */}
+          {activeTab === "location" && (
+            <section className="space-y-5 animate-fadeIn">
+              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs">
+                <div className="max-w-xl">
+                  <span className="text-[10px] font-black uppercase text-blue-600 tracking-wider block mb-1">
+                    Geolocation Hub
+                  </span>
+                  <h3 className="text-xl font-black text-neutral-900 mb-1">
+                    {language === "ta" ? "அனைத்து திட்டங்களின் அமைவிடம் (Card Style)" : "All Project Map Locations (Card Style)"}
+                  </h3>
+                  <p className="text-xs text-neutral-600">
+                    {language === "ta"
+                      ? "மதுரையின் முக்கிய தேசிய நெடுஞ்சாலைகள் மற்றும் நகர்ப்புற மையங்களில் அமைந்துள்ள திட்டங்களின் கூகிள் வரைபடங்கள்."
+                      : "Directly navigate to each development along Madurai's NH-44, Ring Road, and transit hubs."}
+                  </p>
+                </div>
+              </div>
+
+              {/* Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {ALL_PROJECTS.map((project) => (
+                  <div
+                    key={project.id}
+                    className="bg-white rounded-3xl p-4 border border-neutral-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="relative h-13 w-13 rounded-xl overflow-hidden shrink-0 border border-neutral-200">
+                          <Image
+                            src={project.image}
+                            alt={project.name.en}
+                            fill
+                            sizes="52px"
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <span className="px-2 py-0.2 rounded-md text-[9px] font-black uppercase bg-blue-50 text-blue-700">
+                            {project.categoryLabel[language]}
+                          </span>
+                          <h4 className="font-black text-neutral-900 text-sm mt-0.5 leading-snug">
+                            {project.name[language]}
+                          </h4>
+                        </div>
+                      </div>
+
+                      <div className="bg-neutral-50 rounded-xl p-3 mb-3 border border-neutral-100 space-y-1.5 text-xs">
+                        <div className="flex items-start gap-1.5 text-neutral-700">
+                          <MapPin className="h-3.5 w-3.5 text-[#B45309] shrink-0 mt-0.5" />
+                          <span className="font-semibold">{project.location[language]}</span>
+                        </div>
+                        <div className="flex items-start gap-1.5 text-[11px] text-neutral-500">
+                          <Navigation className="h-3 w-3 text-blue-600 shrink-0 mt-0.5" />
+                          <span>{project.distanceInfo[language]}</span>
+                        </div>
+                      </div>
                     </div>
 
-                    <button
-                      onClick={() => setFolderImagesModal({ title: folder.title[language], images: folder.images })}
-                      className="w-full py-2.5 rounded-xl bg-neutral-100 hover:bg-[#0A0D12] text-neutral-900 hover:text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                    >
-                      <Camera className="h-3.5 w-3.5" />
-                      <span>{language === "ta" ? "புகைப்படங்களை பார்க்க" : "View Photo Gallery"}</span>
-                    </button>
+                    <div className="space-y-1.5">
+                      <a
+                        href={project.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <Navigation className="h-3 w-3" />
+                        <span>{language === "ta" ? "கூகிள் மேப்ஸில் திறக்க" : "Open in Google Maps"}</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+
+                      <button
+                        onClick={() => setSelectedProject(project)}
+                        className="w-full py-1.5 px-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-all text-center cursor-pointer"
+                      >
+                        {language === "ta" ? "திட்டத்தின் குறிப்புகள்" : "View Overview"}
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          )}
 
-        {/* ========================================================================= */}
-        {/* APP TAB 4: ABOUT (Surya Promoters Details & Founder Profile)               */}
-        {/* ========================================================================= */}
-        {activeAppTab === "about" && (
-          <section className="space-y-8 animate-fadeIn">
-            {/* Founder Highlight Banner */}
-            <div className="bg-gradient-to-br from-[#0A0D12] to-[#1E293B] text-white rounded-3xl p-6 sm:p-10 border border-[#EAB308]/20 shadow-xl overflow-hidden relative">
-              <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                
-                {/* Founder Photo */}
-                <div className="relative h-48 w-48 sm:h-56 sm:w-56 rounded-3xl overflow-hidden shrink-0 border-4 border-[#EAB308] shadow-2xl p-1 bg-white/10">
+          {/* ------------------------------------------------------------------- */}
+          {/* TAB 3: GALLERY (Videos and Images in Folder Style)                  */}
+          {/* ------------------------------------------------------------------- */}
+          {activeTab === "gallery" && (
+            <section className="space-y-6 animate-fadeIn">
+              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs">
+                <span className="text-[10px] font-black uppercase text-purple-600 tracking-wider block mb-1">
+                  Multimedia Center
+                </span>
+                <h3 className="text-xl font-black text-neutral-900 mb-1">
+                  {language === "ta" ? "கோப்பு முறை புகைப்பட & வீடியோ மையம்" : "Folder-Style Media Gallery"}
+                </h3>
+                <p className="text-xs text-neutral-600">
+                  {language === "ta"
+                    ? "ட்ரோன் வீடியோக்கள் மற்றும் தள புகைப்படங்கள் கோப்பு வடிவில் ஏற்பாடு செய்யப்பட்டுள்ளன."
+                    : "4K aerial drone videos and high-resolution site photos organized by project folders."}
+                </p>
+              </div>
+
+              {/* Videos Folders */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Folder className="h-4 w-4 text-purple-600" />
+                  <h4 className="text-sm font-black text-neutral-900">
+                    {language === "ta" ? "1. வீடியோ கோப்புகள் (Folder Style)" : "1. Video Folders (Folder Style)"}
+                  </h4>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {GALLERY_VIDEO_FOLDERS.map((folder) => (
+                    <div
+                      key={folder.id}
+                      className="bg-white rounded-3xl p-4 border border-neutral-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-2.5">
+                          <span className="px-2.5 py-0.5 rounded-lg bg-purple-50 text-purple-700 text-[10px] font-bold border border-purple-200 flex items-center gap-1">
+                            <Folder className="h-3 w-3 fill-purple-700" />
+                            {folder.count}
+                          </span>
+                          <span className="text-[10px] font-bold text-neutral-400">4K Reel</span>
+                        </div>
+
+                        <div className="relative h-40 w-full rounded-2xl overflow-hidden mb-3 bg-neutral-900 group">
+                          <Image
+                            src={folder.thumbnail}
+                            alt={folder.title.en}
+                            fill
+                            sizes="300px"
+                            className="object-cover opacity-85 group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <div className="h-10 w-10 rounded-full bg-white text-purple-700 flex items-center justify-center shadow-md">
+                              <Play className="h-4 w-4 fill-purple-700 ml-0.5" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <h5 className="font-extrabold text-neutral-900 text-sm mb-2">{folder.title[language]}</h5>
+
+                        <div className="space-y-1 mb-3">
+                          {folder.videos.map((vid, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setSelectedVideo({ title: vid.title[language], duration: vid.duration })}
+                              className="w-full text-left flex items-center justify-between p-1.5 rounded-lg hover:bg-neutral-50 text-[11px] text-neutral-700 cursor-pointer"
+                            >
+                              <span className="font-semibold truncate">▶ {vid.title[language]}</span>
+                              <span className="text-[9px] text-neutral-400 font-mono ml-2 shrink-0">{vid.duration}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => setSelectedVideo({ title: folder.videos[0].title[language], duration: folder.videos[0].duration })}
+                        className="w-full py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                      >
+                        <Play className="h-3.5 w-3.5 fill-purple-700" />
+                        <span>{language === "ta" ? "வீடியோ பார்க்க" : "Play Reel"}</span>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Image Folders */}
+              <div className="space-y-3 pt-4 border-t border-neutral-200">
+                <div className="flex items-center gap-2">
+                  <Folder className="h-4 w-4 text-[#B45309]" />
+                  <h4 className="text-sm font-black text-neutral-900">
+                    {language === "ta" ? "2. புகைப்பட கோப்புகள் (Folder Style)" : "2. Image Folders (Folder Style)"}
+                  </h4>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {GALLERY_IMAGE_FOLDERS.map((folder) => (
+                    <div
+                      key={folder.id}
+                      className="bg-white rounded-3xl p-4 border border-neutral-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-2.5">
+                          <span className="px-2.5 py-0.5 rounded-lg bg-amber-50 text-[#B45309] text-[10px] font-bold border border-amber-200 flex items-center gap-1">
+                            <Folder className="h-3 w-3 fill-[#B45309]" />
+                            {folder.count}
+                          </span>
+                          <span className="text-[10px] font-bold text-neutral-400">HD Photos</span>
+                        </div>
+
+                        <div
+                          onClick={() => setSelectedFolderImages({ title: folder.title[language], images: folder.images })}
+                          className="relative h-40 w-full rounded-2xl overflow-hidden mb-3 bg-neutral-900 cursor-pointer group"
+                        >
+                          <Image
+                            src={folder.thumbnail}
+                            alt={folder.title.en}
+                            fill
+                            sizes="300px"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <div className="h-9 w-9 rounded-full bg-white text-neutral-900 flex items-center justify-center shadow-md">
+                              <Maximize2 className="h-4 w-4" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <h5 className="font-extrabold text-neutral-900 text-sm mb-1">{folder.title[language]}</h5>
+                        <p className="text-[11px] text-neutral-500 mb-3">High-resolution site photography</p>
+                      </div>
+
+                      <button
+                        onClick={() => setSelectedFolderImages({ title: folder.title[language], images: folder.images })}
+                        className="w-full py-2 rounded-xl bg-neutral-100 hover:bg-[#0A0D12] text-neutral-900 hover:text-white font-bold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                      >
+                        <Camera className="h-3.5 w-3.5" />
+                        <span>{language === "ta" ? "புகைப்படங்கள் பார்க்க" : "View Photo Folder"}</span>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </section>
+          )}
+
+          {/* ------------------------------------------------------------------- */}
+          {/* TAB 4: ABOUT (Surya Promoters Details & Founder Profile)             */}
+          {/* ------------------------------------------------------------------- */}
+          {activeTab === "about" && (
+            <section className="space-y-6 animate-fadeIn">
+              
+              {/* Founder Profile Banner */}
+              <div className="bg-[#0A0D12] text-white rounded-3xl p-6 sm:p-8 border border-neutral-800 shadow-sm flex flex-col md:flex-row items-center gap-6">
+                <div className="relative h-44 w-44 rounded-2xl overflow-hidden shrink-0 border-2 border-[#EAB308] bg-white/10 shadow-lg">
                   <Image
                     src="/images/founder/founder.png"
                     alt="Mr. Manickam Natarajan - Founder & Director"
                     fill
-                    sizes="224px"
-                    className="object-cover rounded-2xl"
+                    sizes="176px"
+                    className="object-cover"
                   />
-                  <div className="absolute bottom-2 left-2 right-2 py-1 px-2 rounded-xl bg-[#0A0D12]/90 backdrop-blur-md text-[10px] font-black text-center text-[#EAB308] border border-[#EAB308]/30">
-                    IAF VETERAN DIRECTED
+                  <div className="absolute bottom-1 left-1 right-1 py-0.5 rounded-md bg-[#0A0D12]/90 text-[9px] font-black text-center text-[#EAB308]">
+                    IAF VETERAN
                   </div>
                 </div>
 
-                {/* Founder Story */}
                 <div className="flex-1 text-center md:text-left">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAB308]/20 text-[#EAB308] text-xs font-black uppercase tracking-wider mb-3">
-                    <ShieldCheck className="h-4 w-4" />
-                    <span>{language === "ta" ? "நிறுவனர் மற்றும் நிர்வாக இயக்குனர்" : "Founder & Managing Director"}</span>
-                  </div>
-
-                  <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white mb-2">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#EAB308]/20 text-[#EAB308] text-[10px] font-black uppercase tracking-wider mb-2 inline-block">
+                    Founder & Managing Director
+                  </span>
+                  <h3 className="text-2xl font-black text-white mb-1">
                     {language === "ta" ? "திரு. மாணிக்கம் நடராஜன்" : "Mr. Manickam Natarajan"}
-                  </h2>
-
-                  <p className="text-sm font-semibold text-amber-300 mb-4">
-                    {language === "ta"
-                      ? "இந்திய விமானப்படை முன்னாள் அதிகாரி (Indian Air Force Veteran)"
-                      : "Indian Air Force Veteran · Established Surya Promoters in 2010"}
+                  </h3>
+                  <p className="text-xs font-semibold text-amber-300 mb-3">
+                    Indian Air Force Veteran · Established Surya Promoters in 2010
                   </p>
-
-                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-2xl font-medium">
+                  <p className="text-xs text-neutral-300 leading-relaxed max-w-xl">
                     {language === "ta"
-                      ? "இந்திய விமானப்படையில் பணியாற்றிய ஒழுக்கம், நேர்மை மற்றும் கடமை உணர்வுடன் 2010 ஆம் ஆண்டு சூர்யா புரமோட்டர்ஸ் தொடங்கப்பட்டது. ஒவ்வொரு சதுர அடி நிலமும் 100% தெளிவான கணினி பட்டா மற்றும் 30 வருட மூலப்பத்திர ஆய்வுக்கு பின்னரே வாடிக்கையாளர்களுக்கு வழங்கப்படுகிறது."
-                      : "Founded in 2010 on principles of military precision, unyielding honesty, and zero-compromise on legal due diligence. Every plot and land parcel developed by Surya Promoters carries verified 30-year parent documentation, computerized patta, and complete peace of mind."}
+                      ? "விமானப்படை ஒழுங்குமுறை, நேர்மை மற்றும் வெளிப்படைத்தன்மையுடன் 2010 ஆம் ஆண்டு தொடங்கப்பட்டது. ஒவ்வொரு மனைக்கும் 100% தெளிவான கணினி பட்டா உறுதி செய்யப்படுகிறது."
+                      : "Founded in 2010 on principles of military precision, unyielding honesty, and zero-compromise on legal due diligence. Every land parcel carries verified 30-year parent documentation."}
                   </p>
-
-                  <div className="mt-6 flex flex-wrap items-center justify-center md:justify-start gap-4">
-                    <div className="flex items-center gap-2 text-xs font-bold text-neutral-200">
-                      <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
-                      <span>{language === "ta" ? "100% கணினி பட்டா உத்தரவாதம்" : "100% Computer Patta Guarantee"}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs font-bold text-neutral-200">
-                      <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
-                      <span>{language === "ta" ? "0 சட்ட சிக்கல்கள்" : "Zero Title Disputes"}</span>
-                    </div>
-                  </div>
                 </div>
-
-              </div>
-            </div>
-
-            {/* Success Metrics & Client Satisfaction */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              <div className="bg-white rounded-3xl p-6 border border-neutral-200/90 shadow-sm text-center">
-                <span className="text-4xl font-black text-[#B45309]">16+</span>
-                <h4 className="font-extrabold text-neutral-900 text-sm mt-1 mb-1">
-                  {language === "ta" ? "ஆண்டுகள் அனுபவம்" : "Years of Legacy"}
-                </h4>
-                <p className="text-xs text-neutral-500">
-                  {language === "ta" ? "2010 முதல் மதுரையில் முதன்மை சேவை" : "Serving Madurai since 2010"}
-                </p>
               </div>
 
-              <div className="bg-white rounded-3xl p-6 border border-neutral-200/90 shadow-sm text-center">
-                <span className="text-4xl font-black text-[#0A0D12]">1000+</span>
-                <h4 className="font-extrabold text-neutral-900 text-sm mt-1 mb-1">
-                  {language === "ta" ? "மகிழ்ச்சியான வாடிக்கையாளர்கள்" : "Satisfied Families"}
-                </h4>
-                <p className="text-xs text-neutral-500">
-                  {language === "ta" ? "தமிழ்நாடு முழுவதும் பதிவு செய்யப்பட்ட மனைகள்" : "Settled across Tamil Nadu"}
-                </p>
-              </div>
-
-              <div className="bg-white rounded-3xl p-6 border border-neutral-200/90 shadow-sm text-center">
-                <span className="text-4xl font-black text-emerald-700">100%</span>
-                <h4 className="font-extrabold text-neutral-900 text-sm mt-1 mb-1">
-                  {language === "ta" ? "தெளிவான கணினி பட்டா" : "Clear Computer Titles"}
-                </h4>
-                <p className="text-xs text-neutral-500">
-                  {language === "ta" ? "வருவாய்த்துறை ஒப்புதல் பெற்ற நிலங்கள்" : "Zero encumbrance record"}
-                </p>
-              </div>
-
-              <div className="bg-white rounded-3xl p-6 border border-neutral-200/90 shadow-sm text-center">
-                <div className="flex items-center justify-center gap-1 text-[#EAB308]">
-                  <Star className="h-7 w-7 fill-[#EAB308]" />
-                  <span className="text-4xl font-black text-neutral-900">4.9</span>
+              {/* Metrics */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="bg-white rounded-2xl p-4 border border-neutral-200 text-center">
+                  <span className="text-3xl font-black text-[#B45309]">16+</span>
+                  <p className="text-xs font-bold text-neutral-800 mt-0.5">Years Experience</p>
+                  <p className="text-[10px] text-neutral-400">Since 2010</p>
                 </div>
-                <h4 className="font-extrabold text-neutral-900 text-sm mt-1 mb-1">
-                  {language === "ta" ? "வாடிக்கையாளர் திருப்தி" : "Trust Rating"}
-                </h4>
-                <p className="text-xs text-neutral-500">
-                  {language === "ta" ? "வாடிக்கையாளர் மதிப்பீடு" : "Based on verified buyer reviews"}
-                </p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ========================================================================= */}
-        {/* APP TAB 5: DOWNLOAD MAP (Blueprints, Layout Maps, Brochures)              */}
-        {/* ========================================================================= */}
-        {activeAppTab === "download" && (
-          <section className="space-y-6 animate-fadeIn">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">
-                  <Download className="h-4 w-4" />
-                  <span>{language === "ta" ? "அதிகாரப்பூர்வ வரைபடங்கள் மற்றும் ஆவணங்கள்" : "Official Downloads Hub"}</span>
+                <div className="bg-white rounded-2xl p-4 border border-neutral-200 text-center">
+                  <span className="text-3xl font-black text-[#0A0D12]">1000+</span>
+                  <p className="text-xs font-bold text-neutral-800 mt-0.5">Happy Families</p>
+                  <p className="text-[10px] text-neutral-400">Settled in Tamil Nadu</p>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight">
+                <div className="bg-white rounded-2xl p-4 border border-neutral-200 text-center">
+                  <span className="text-3xl font-black text-emerald-700">100%</span>
+                  <p className="text-xs font-bold text-neutral-800 mt-0.5">Clear Patta</p>
+                  <p className="text-[10px] text-neutral-400">Zero disputes</p>
+                </div>
+                <div className="bg-white rounded-2xl p-4 border border-neutral-200 text-center">
+                  <span className="text-3xl font-black text-[#EAB308]">4.9 ★</span>
+                  <p className="text-xs font-bold text-neutral-800 mt-0.5">Client Rating</p>
+                  <p className="text-[10px] text-neutral-400">Verified Reviews</p>
+                </div>
+              </div>
+
+            </section>
+          )}
+
+          {/* ------------------------------------------------------------------- */}
+          {/* TAB 5: DOWNLOAD MAP (Blueprints, Layout Maps, Brochures)            */}
+          {/* ------------------------------------------------------------------- */}
+          {activeTab === "download" && (
+            <section className="space-y-5 animate-fadeIn">
+              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs">
+                <span className="text-[10px] font-black uppercase text-amber-700 tracking-wider block mb-1">
+                  Downloads Hub
+                </span>
+                <h3 className="text-xl font-black text-neutral-900 mb-1">
                   {language === "ta" ? "வரைபடம், புளூபிரிண்ட் & கையேடுகள் பதிவிறக்கம்" : "Download Project Maps & Resources"}
-                </h2>
-                <p className="text-sm text-neutral-600 mt-1">
+                </h3>
+                <p className="text-xs text-neutral-600">
                   {language === "ta"
                     ? "ஆரஞ்ச் கார்டன், வைகை எலைட் உள்ளிட்ட அனைத்து திட்டங்களின் கள வரைபடம், கையேடுகள் மற்றும் வீடியோக்களை பதிவிறக்குங்கள்."
-                    : "Download high-resolution cadastral layout maps, site blueprints, project brochures, and video reels directly."}
+                    : "Download high-resolution cadastral layout maps, blueprints, project brochures, and video reels directly."}
                 </p>
               </div>
-            </div>
 
-            {/* Toast Notification */}
-            {toastMessage && (
-              <div className="p-4 rounded-2xl bg-[#0A0D12] text-[#EAB308] border border-[#EAB308]/40 shadow-xl flex items-center justify-between animate-bounce">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-[#EAB308]" />
-                  <span className="text-xs sm:text-sm font-bold">{toastMessage}</span>
+              {toastMessage && (
+                <div className="p-3.5 rounded-2xl bg-[#0A0D12] text-[#EAB308] border border-[#EAB308]/40 shadow-lg flex items-center justify-between text-xs font-bold">
+                  <span>✓ {toastMessage}</span>
+                  <button onClick={() => setToastMessage(null)} className="text-white">✕</button>
                 </div>
-                <button onClick={() => setToastMessage(null)} className="text-white hover:text-[#EAB308] text-xs">
-                  ✕
-                </button>
+              )}
+
+              {/* Downloads Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {DOWNLOAD_ITEMS.map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-white rounded-3xl p-4 sm:p-5 border border-neutral-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase bg-amber-50 text-[#854D0E]">
+                          {item.category[language]}
+                        </span>
+                        <span className="text-xs font-mono text-neutral-400">{item.fileSize}</span>
+                      </div>
+                      <h4 className="font-extrabold text-neutral-900 text-sm mb-1">{item.title[language]}</h4>
+                      <div className="flex items-center gap-1.5 text-xs text-neutral-500 mb-4">
+                        <FileText className="h-3.5 w-3.5 text-[#B45309]" />
+                        <span>{item.fileType}</span>
+                        <span>·</span>
+                        <span className="text-emerald-700 font-semibold">{item.badge}</span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <a
+                        href={item.downloadUrl}
+                        download
+                        onClick={() => triggerToast(`Downloading ${item.title[language]}...`)}
+                        className="py-2 px-3 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                      >
+                        <Download className="h-3.5 w-3.5 text-[#EAB308]" />
+                        <span>{language === "ta" ? "பதிவிறக்க" : "Download"}</span>
+                      </a>
+
+                      <a
+                        href={item.downloadUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2 px-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        <span>{language === "ta" ? "முன்னோட்டம்" : "Preview"}</span>
+                      </a>
+                    </div>
+                  </div>
+                ))}
               </div>
-            )}
+            </section>
+          )}
 
-            {/* Downloads Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {DOWNLOAD_ITEMS.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="px-2.5 py-1 rounded-lg text-[10px] font-black uppercase bg-amber-100/70 text-amber-900">
-                        {item.category[language]}
-                      </span>
-                      <span className="text-xs font-bold text-neutral-400 font-mono">
-                        {item.fileSize}
-                      </span>
-                    </div>
+        </main>
+      </div>
 
-                    <h3 className="font-extrabold text-neutral-900 text-base mb-1">
-                      {item.title[language]}
-                    </h3>
-                    
-                    <div className="flex items-center gap-2 text-xs text-neutral-500 mb-5">
-                      <FileText className="h-3.5 w-3.5 text-[#B45309]" />
-                      <span>{item.fileType}</span>
-                      <span>·</span>
-                      <span className="text-emerald-700 font-semibold">{item.badge}</span>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <a
-                      href={item.downloadUrl}
-                      download
-                      onClick={() => triggerToast(language === "ta" ? `${item.title[language]} பதிவிறக்கம் தொடங்கப்பட்டது` : `Downloading ${item.title[language]}...`)}
-                      className="py-2.5 px-3 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
-                    >
-                      <Download className="h-3.5 w-3.5 text-[#EAB308]" />
-                      <span>{language === "ta" ? "பதிவிறக்க" : "Download File"}</span>
-                    </a>
-
-                    <a
-                      href={item.downloadUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="py-2.5 px-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer"
-                    >
-                      <ExternalLink className="h-3.5 w-3.5" />
-                      <span>{language === "ta" ? "முன்னோட்டம்" : "Preview"}</span>
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-      </main>
-
-      {/* ========================================================================= */}
-      {/* 5. INDIVIDUAL PROJECT DETAILS MODAL                                       */}
-      {/* ========================================================================= */}
+      {/* ------------------------------------------------------------------------- */}
+      {/* 3. INDIVIDUAL PROJECT DETAILS MODAL                                       */}
+      {/* ------------------------------------------------------------------------- */}
       <AnimatePresence>
-        {detailProject && (
+        {selectedProject && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -1639,66 +1774,66 @@ export default function HomePage() {
               className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 my-8 flex flex-col max-h-[90vh]"
             >
               <button
-                onClick={() => setDetailProject(null)}
-                className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-transform hover:scale-110 cursor-pointer"
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 z-20 h-9 w-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-transform hover:scale-110 cursor-pointer"
                 title="Close"
               >
                 <X className="h-5 w-5" />
               </button>
 
-              <div className="overflow-y-auto p-6 sm:p-8 space-y-6">
+              <div className="overflow-y-auto p-5 sm:p-7 space-y-5">
                 
                 {/* Visual Top Banner */}
-                <div className="relative h-64 sm:h-80 w-full rounded-2xl overflow-hidden bg-neutral-900">
+                <div className="relative h-60 sm:h-72 w-full rounded-2xl overflow-hidden bg-neutral-900">
                   <Image
-                    src={detailProject.image}
-                    alt={detailProject.name.en}
+                    src={selectedProject.image}
+                    alt={selectedProject.name.en}
                     fill
                     sizes="800px"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D12] via-[#0A0D12]/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="px-3 py-1 rounded-full text-xs font-black bg-[#EAB308] text-[#0A0D12]">
-                      {detailProject.categoryLabel[language]}
+                  <div className="absolute top-3 left-3 flex gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-[#EAB308] text-[#0A0D12]">
+                      {selectedProject.categoryLabel[language]}
                     </span>
-                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-black/70 text-white backdrop-blur-md">
-                      {detailProject.subcategoryLabel[language]}
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-black/70 text-white backdrop-blur-md">
+                      {selectedProject.subcategoryLabel[language]}
                     </span>
                   </div>
 
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <h2 className="text-2xl sm:text-4xl font-black drop-shadow-md">
-                      {detailProject.name[language]}
+                  <div className="absolute bottom-3 left-3 right-3 text-white">
+                    <h2 className="text-xl sm:text-3xl font-black drop-shadow-md">
+                      {selectedProject.name[language]}
                     </h2>
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300 mt-1">
-                      <MapPin className="h-4 w-4 text-[#EAB308]" />
-                      <span>{detailProject.location[language]}</span>
+                    <div className="flex items-center gap-1.5 text-xs text-neutral-300 mt-0.5">
+                      <MapPin className="h-3.5 w-3.5 text-[#EAB308]" />
+                      <span>{selectedProject.location[language]}</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Cadastral Blueprint if available */}
-                {detailProject.blueprint && (
-                  <div className="p-5 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-3">
+                {/* Cadastral Blueprint if available (e.g. Orange Garden) */}
+                {selectedProject.blueprint && (
+                  <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-black uppercase text-[#B45309] tracking-wider flex items-center gap-1.5">
                         <FileCheck className="h-4 w-4" />
-                        {language === "ta" ? "அங்கீகரிக்கப்பட்ட கள வரைபடம் (Cadastral Blueprint)" : "Cadastral Layout Blueprint"}
+                        Cadastral Layout Blueprint (Plots 1 to 10)
                       </span>
                       <a
-                        href={detailProject.blueprint}
+                        href={selectedProject.blueprint}
                         download
-                        className="text-xs font-bold text-[#B45309] hover:underline flex items-center gap-1 cursor-pointer"
+                        className="text-xs font-bold text-[#B45309] hover:underline flex items-center gap-1"
                       >
                         <Download className="h-3 w-3" />
-                        {language === "ta" ? "பதிவிறக்க" : "Download Blueprint"}
+                        Download
                       </a>
                     </div>
-                    <div className="relative h-64 sm:h-80 w-full rounded-xl overflow-hidden bg-neutral-900 border border-amber-200">
+                    <div className="relative h-60 sm:h-72 w-full rounded-xl overflow-hidden bg-neutral-900 border border-amber-200">
                       <Image
-                        src={detailProject.blueprint}
+                        src={selectedProject.blueprint}
                         alt="Project Cadastral Blueprint"
                         fill
                         sizes="700px"
@@ -1709,13 +1844,13 @@ export default function HomePage() {
                 )}
 
                 {/* Specs */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {detailProject.specs.map((spec, i) => (
-                    <div key={i} className="p-3.5 rounded-2xl bg-neutral-50 border border-neutral-100">
-                      <span className="text-[10px] uppercase font-bold text-neutral-400 block mb-0.5">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  {selectedProject.specs.map((spec, i) => (
+                    <div key={i} className="p-3 rounded-xl bg-neutral-50 border border-neutral-100">
+                      <span className="text-[10px] uppercase font-bold text-neutral-400 block">
                         {spec.label[language]}
                       </span>
-                      <span className="text-xs sm:text-sm font-extrabold text-neutral-900 block">
+                      <span className="text-xs font-black text-neutral-900 block mt-0.5">
                         {spec.value[language]}
                       </span>
                     </div>
@@ -1724,46 +1859,45 @@ export default function HomePage() {
 
                 {/* Overview */}
                 <div>
-                  <h3 className="text-base font-extrabold text-neutral-900 mb-2">
+                  <h3 className="text-sm font-black text-neutral-900 mb-1">
                     {language === "ta" ? "திட்டத்தின் முழு விவரம்" : "Project Overview"}
                   </h3>
-                  <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed font-medium">
-                    {detailProject.description[language]}
+                  <p className="text-xs text-neutral-700 leading-relaxed">
+                    {selectedProject.description[language]}
                   </p>
                 </div>
 
                 {/* Highlights */}
                 <div>
-                  <h3 className="text-base font-extrabold text-neutral-900 mb-2.5">
-                    {language === "ta" ? "முக்கிய சிறப்பம்சங்கள்" : "Key Highlights & Advantages"}
+                  <h3 className="text-sm font-black text-neutral-900 mb-2">
+                    {language === "ta" ? "முக்கிய சிறப்பம்சங்கள்" : "Key Highlights"}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {detailProject.highlights[language].map((hl, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs text-neutral-700 font-medium">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    {selectedProject.highlights[language].map((hl, idx) => (
+                      <div key={idx} className="flex items-start gap-1.5 text-xs text-neutral-700">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{hl}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Footer CTAs */}
-                <div className="pt-4 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                {/* Action Footer */}
+                <div className="pt-3 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-2.5">
                   <a
-                    href={detailProject.mapsUrl}
+                    href={selectedProject.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-5 py-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <Navigation className="h-4 w-4 text-blue-600" />
+                    <Navigation className="h-3.5 w-3.5 text-blue-600" />
                     <span>{language === "ta" ? "கூகிள் மேப்ஸில் பார்க்க" : "View on Google Maps"}</span>
-                    <ExternalLink className="h-3 w-3" />
                   </a>
 
                   <div className="flex items-center gap-2 w-full sm:w-auto">
                     <a
                       href="tel:+917708966452"
-                      className="flex-1 sm:flex-none px-5 py-3 rounded-xl bg-[#0A0D12] text-white hover:bg-neutral-800 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer"
+                      className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#0A0D12] text-white hover:bg-neutral-800 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <Phone className="h-3.5 w-3.5 text-[#EAB308]" />
                       <span>{language === "ta" ? "நேரடி அழைப்பு" : "Call Advisor"}</span>
@@ -1771,13 +1905,13 @@ export default function HomePage() {
 
                     <a
                       href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20${encodeURIComponent(
-                        detailProject.name.en
+                        selectedProject.name.en
                       )}.`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 sm:flex-none px-5 py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                      className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
                     >
-                      <MessageCircle className="h-4 w-4 fill-white" />
+                      <MessageCircle className="h-3.5 w-3.5 fill-white" />
                       <span>WhatsApp</span>
                     </a>
                   </div>
@@ -1789,49 +1923,35 @@ export default function HomePage() {
         )}
       </AnimatePresence>
 
-      {/* ========================================================================= */}
-      {/* 6. FOLDER PHOTO LIGHTBOX MODAL                                            */}
-      {/* ========================================================================= */}
+      {/* ------------------------------------------------------------------------- */}
+      {/* 4. LIGHTBOX & VIDEO MODALS                                                */}
+      {/* ------------------------------------------------------------------------- */}
       <AnimatePresence>
-        {folderImagesModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto">
+        {selectedFolderImages && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-5xl bg-white rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-5xl bg-white rounded-3xl p-5 sm:p-7 max-h-[90vh] overflow-y-auto"
             >
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-100">
-                <div className="flex items-center gap-2">
-                  <Camera className="h-5 w-5 text-[#B45309]" />
-                  <h3 className="text-lg font-black text-neutral-900">{folderImagesModal.title}</h3>
-                </div>
-                <button
-                  onClick={() => setFolderImagesModal(null)}
-                  className="p-1 rounded-full text-neutral-500 hover:text-black cursor-pointer"
-                >
-                  <X className="h-6 w-6" />
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
+                <h3 className="text-base font-black text-neutral-900">{selectedFolderImages.title}</h3>
+                <button onClick={() => setSelectedFolderImages(null)} className="p-1 text-neutral-500 cursor-pointer">
+                  <X className="h-5 w-5" />
                 </button>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {folderImagesModal.images.map((img, idx) => (
-                  <div key={idx} className="relative h-56 rounded-2xl overflow-hidden bg-neutral-900 group">
-                    <Image
-                      src={img}
-                      alt={`Gallery Photo ${idx + 1}`}
-                      fill
-                      sizes="350px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {selectedFolderImages.images.map((img, idx) => (
+                  <div key={idx} className="relative h-48 rounded-xl overflow-hidden bg-neutral-900 group">
+                    <Image src={img} alt="Photo" fill sizes="300px" className="object-cover" />
                     <a
                       href={img}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute bottom-2 right-2 p-2 rounded-xl bg-black/60 text-white hover:bg-black transition-colors"
-                      title="Open full image"
+                      className="absolute bottom-2 right-2 p-1.5 rounded-lg bg-black/60 text-white"
                     >
-                      <ExternalLink className="h-4 w-4" />
+                      <ExternalLink className="h-3.5 w-3.5" />
                     </a>
                   </div>
                 ))}
@@ -1841,49 +1961,35 @@ export default function HomePage() {
         )}
       </AnimatePresence>
 
-      {/* ========================================================================= */}
-      {/* 7. VIDEO PLAYER MODAL                                                     */}
-      {/* ========================================================================= */}
       <AnimatePresence>
-        {videoPlayerModal && (
+        {selectedVideo && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-3xl bg-[#0A0D12] text-white rounded-3xl p-6 sm:p-8 border border-neutral-800"
+              className="relative w-full max-w-2xl bg-[#0A0D12] text-white rounded-3xl p-6 border border-neutral-800"
             >
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-800">
-                <div>
-                  <h3 className="text-lg font-black text-white">{videoPlayerModal.title}</h3>
-                  <span className="text-xs text-amber-400 font-mono">Duration: {videoPlayerModal.duration}</span>
-                </div>
-                <button
-                  onClick={() => setVideoPlayerModal(null)}
-                  className="p-1 rounded-full text-neutral-400 hover:text-white cursor-pointer"
-                >
-                  <X className="h-6 w-6" />
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-800">
+                <h3 className="text-base font-black text-white">{selectedVideo.title}</h3>
+                <button onClick={() => setSelectedVideo(null)} className="p-1 text-neutral-400 cursor-pointer">
+                  <X className="h-5 w-5" />
                 </button>
               </div>
-
-              <div className="relative h-72 sm:h-96 w-full rounded-2xl overflow-hidden bg-neutral-950 flex flex-col items-center justify-center p-6 text-center border border-neutral-800">
-                <div className="h-16 w-16 rounded-full bg-[#EAB308] text-[#0A0D12] flex items-center justify-center mb-4 shadow-xl">
-                  <Play className="h-7 w-7 fill-[#0A0D12] ml-1" />
+              <div className="h-64 sm:h-80 w-full rounded-2xl bg-neutral-950 flex flex-col items-center justify-center p-6 text-center border border-neutral-800">
+                <div className="h-14 w-14 rounded-full bg-[#EAB308] text-[#0A0D12] flex items-center justify-center mb-3">
+                  <Play className="h-6 w-6 fill-[#0A0D12] ml-0.5" />
                 </div>
-                <h4 className="text-base font-bold text-white mb-1">{videoPlayerModal.title}</h4>
-                <p className="text-xs text-neutral-400 max-w-md mb-4">
-                  {language === "ta"
-                    ? "நேரடி தள ஆய்வு மற்றும் ட்ரோன் காட்சிகளைப் பார்க்க எங்கள் வாட்ஸ்அப் அல்லது தொலைபேசி எண்ணை தொடர்பு கொள்ளவும்."
-                    : "Full 4K drone footage available on request. Contact our representative to schedule an on-site visit."}
-                </p>
+                <h4 className="text-sm font-bold text-white mb-1">{selectedVideo.title}</h4>
+                <p className="text-xs text-neutral-400 mb-4">4K drone footage stream available on request</p>
                 <a
                   href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20please%20send%20full%20project%20video."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2.5 rounded-xl bg-[#25D366] text-white font-bold text-xs flex items-center gap-2 cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-[#25D366] text-white font-bold text-xs flex items-center gap-1.5"
                 >
                   <MessageCircle className="h-4 w-4 fill-white" />
-                  <span>{language === "ta" ? "முழு வீடியோவை வாட்ஸ்அப்பில் பெற" : "Request Video on WhatsApp"}</span>
+                  <span>Request Full Video on WhatsApp</span>
                 </a>
               </div>
             </motion.div>
@@ -1891,9 +1997,9 @@ export default function HomePage() {
         )}
       </AnimatePresence>
 
-      {/* ========================================================================= */}
-      {/* 8. QUICK ENQUIRY MODAL                                                    */}
-      {/* ========================================================================= */}
+      {/* ------------------------------------------------------------------------- */}
+      {/* 5. QUICK ENQUIRY MODAL                                                    */}
+      {/* ------------------------------------------------------------------------- */}
       <AnimatePresence>
         {isEnquiryModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md">
@@ -1901,21 +2007,11 @@ export default function HomePage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-200"
+              className="relative w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-neutral-200"
             >
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-neutral-100">
-                <div>
-                  <h3 className="text-lg font-black text-neutral-900">
-                    {language === "ta" ? "நேரடி விசாரணை படிவம்" : "Direct Enquiry Form"}
-                  </h3>
-                  <span className="text-xs text-neutral-500">
-                    {language === "ta" ? "எங்கள் அதிகாரி உங்களை விரைவில் தொடர்புகொள்வார்" : "Our advisor will respond within 15 minutes"}
-                  </span>
-                </div>
-                <button
-                  onClick={() => setIsEnquiryModalOpen(false)}
-                  className="p-1 rounded-full text-neutral-400 hover:text-black cursor-pointer"
-                >
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
+                <h3 className="text-base font-black text-neutral-900">Direct Enquiry</h3>
+                <button onClick={() => setIsEnquiryModalOpen(false)} className="p-1 text-neutral-400 cursor-pointer">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -1923,40 +2019,32 @@ export default function HomePage() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  alert(language === "ta" ? "நன்றி! உங்கள் தகவல் பெறப்பட்டது." : "Thank you! Your enquiry has been submitted.");
+                  alert(language === "ta" ? "நன்றி! உங்கள் தகவல் பெறப்பட்டது." : "Thank you! Your enquiry has been received.");
                   setIsEnquiryModalOpen(false);
                 }}
-                className="space-y-3.5"
+                className="space-y-3"
               >
                 <div>
-                  <label className="text-xs font-bold text-neutral-700 block mb-1">
-                    {language === "ta" ? "உங்கள் பெயர்" : "Your Name"}
-                  </label>
+                  <label className="text-xs font-bold text-neutral-700 block mb-1">Your Name</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Anand Kumar"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:border-[#EAB308] focus:ring-2 focus:ring-[#EAB308]/20 text-xs font-medium outline-hidden"
+                    className="w-full px-3 py-2 rounded-xl border border-neutral-300 text-xs font-medium outline-hidden"
                   />
                 </div>
-
                 <div>
-                  <label className="text-xs font-bold text-neutral-700 block mb-1">
-                    {language === "ta" ? "தொலைபேசி எண்" : "Mobile Number"}
-                  </label>
+                  <label className="text-xs font-bold text-neutral-700 block mb-1">Mobile Number</label>
                   <input
                     type="tel"
                     required
                     placeholder="+91 98765 43210"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:border-[#EAB308] focus:ring-2 focus:ring-[#EAB308]/20 text-xs font-medium outline-hidden"
+                    className="w-full px-3 py-2 rounded-xl border border-neutral-300 text-xs font-medium outline-hidden"
                   />
                 </div>
-
                 <div>
-                  <label className="text-xs font-bold text-neutral-700 block mb-1">
-                    {language === "ta" ? "விருப்பமான திட்டம்" : "Interested Project"}
-                  </label>
-                  <select className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:border-[#EAB308] text-xs font-medium outline-hidden bg-white">
+                  <label className="text-xs font-bold text-neutral-700 block mb-1">Select Project</label>
+                  <select className="w-full px-3 py-2 rounded-xl border border-neutral-300 text-xs font-medium outline-hidden bg-white">
                     {ALL_PROJECTS.map((p) => (
                       <option key={p.id} value={p.name.en}>
                         {p.name.en}
@@ -1964,24 +2052,12 @@ export default function HomePage() {
                     ))}
                   </select>
                 </div>
-
-                <div>
-                  <label className="text-xs font-bold text-neutral-700 block mb-1">
-                    {language === "ta" ? "செய்தி / குறிப்பு (விரும்பினால்)" : "Message (Optional)"}
-                  </label>
-                  <textarea
-                    rows={2}
-                    placeholder={language === "ta" ? "உங்கள் கேள்விகளை இங்கே பதிவு செய்யவும்..." : "Your questions or site visit request..."}
-                    className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:border-[#EAB308] text-xs font-medium outline-hidden"
-                  />
-                </div>
-
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-extrabold text-xs transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer mt-2"
+                  className="w-full py-2.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-black text-xs transition-colors flex items-center justify-center gap-1.5 shadow-md cursor-pointer mt-3"
                 >
                   <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
-                  <span>{language === "ta" ? "விசாரணையை சமர்ப்பிக்க" : "Submit Enquiry"}</span>
+                  <span>Submit Quick Enquiry</span>
                 </button>
               </form>
             </motion.div>
