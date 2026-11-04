@@ -603,11 +603,11 @@ export default function HomePage() {
   const { language, toggleLanguage } = useLanguage();
 
   // Navigation State: Which of the 5 Main Icons / Sections is Active
-  // 'projects' | 'location' | 'gallery' | 'about' | 'download'
-  const [activeTab, setActiveTab] = useState<"projects" | "location" | "gallery" | "about" | "download">("projects");
+  // 'home' | 'projects' | 'location' | 'gallery' | 'about' | 'download'
+  const [activeTab, setActiveTab] = useState<"home" | "projects" | "location" | "gallery" | "about" | "download">("home");
 
   // In "Our Projects": Which Category is Active ('residential' | 'commercial' | 'farm')
-  const [activeCategory, setActiveCategory] = useState<"residential" | "commercial" | "farm">("residential");
+  const [activeCategory, setActiveCategory] = useState<"residential" | "commercial" | "farm" | null>(null);
 
   // Search input query
   const [searchQuery, setSearchQuery] = useState("");
@@ -620,15 +620,17 @@ export default function HomePage() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Filter projects inside active category
-  const activeCategoryProjects = ALL_PROJECTS.filter((p) => {
-    const matchesCategory = p.category === activeCategory;
-    const matchesSearch =
-      searchQuery.trim() === "" ||
-      p.name.en.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.name.ta.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.location.en.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const activeCategoryProjects = activeCategory
+    ? ALL_PROJECTS.filter((p) => {
+        const matchesCategory = p.category === activeCategory;
+        const matchesSearch =
+          searchQuery.trim() === "" ||
+          p.name.en.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.name.ta.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.location.en.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+      })
+    : [];
 
   const triggerToast = (msg: string) => {
     setToastMessage(msg);
@@ -745,9 +747,32 @@ export default function HomePage() {
         <aside className="w-16 sm:w-20 md:w-56 shrink-0 bg-[#FFFFFF] border-r border-[#E5E7EB] flex flex-col justify-between py-4 select-none">
           <div className="space-y-1.5 px-2">
             
-            {/* Nav Item: Home / Our Projects */}
+            {/* Nav Item: Home */}
             <button
-              onClick={() => setActiveTab("projects")}
+              onClick={() => setActiveTab("home")}
+              className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
+                activeTab === "home"
+                  ? "bg-neutral-100 text-[#0A0D12] font-black"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 font-semibold"
+              }`}
+            >
+              {activeTab === "home" && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-md bg-[#EAB308]" />
+              )}
+              <Home className={`h-5 w-5 shrink-0 ${activeTab === "home" ? "text-[#EAB308]" : "text-neutral-500"}`} />
+              <span className="hidden md:inline text-xs truncate">
+                {language === "ta" ? "முகப்பு" : "Store Home"}
+              </span>
+            </button>
+
+            {/* Nav Item: Our Projects */}
+            <button
+              onClick={() => {
+                setActiveTab(activeTab === "projects" ? "home" : "projects");
+                if (activeTab !== "projects" && !activeCategory) {
+                  setActiveCategory("residential");
+                }
+              }}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
                 activeTab === "projects"
                   ? "bg-neutral-100 text-[#0A0D12] font-black"
@@ -765,7 +790,7 @@ export default function HomePage() {
 
             {/* Nav Item: Location */}
             <button
-              onClick={() => setActiveTab("location")}
+              onClick={() => setActiveTab(activeTab === "location" ? "home" : "location")}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
                 activeTab === "location"
                   ? "bg-neutral-100 text-[#0A0D12] font-black"
@@ -783,7 +808,7 @@ export default function HomePage() {
 
             {/* Nav Item: Gallery */}
             <button
-              onClick={() => setActiveTab("gallery")}
+              onClick={() => setActiveTab(activeTab === "gallery" ? "home" : "gallery")}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
                 activeTab === "gallery"
                   ? "bg-neutral-100 text-[#0A0D12] font-black"
@@ -801,7 +826,7 @@ export default function HomePage() {
 
             {/* Nav Item: About */}
             <button
-              onClick={() => setActiveTab("about")}
+              onClick={() => setActiveTab(activeTab === "about" ? "home" : "about")}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
                 activeTab === "about"
                   ? "bg-neutral-100 text-[#0A0D12] font-black"
@@ -819,7 +844,7 @@ export default function HomePage() {
 
             {/* Nav Item: Download Map */}
             <button
-              onClick={() => setActiveTab("download")}
+              onClick={() => setActiveTab(activeTab === "download" ? "home" : "download")}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
                 activeTab === "download"
                   ? "bg-neutral-100 text-[#0A0D12] font-black"
@@ -1000,7 +1025,12 @@ export default function HomePage() {
               
               {/* App Tile 1: Our Projects */}
               <button
-                onClick={() => setActiveTab("projects")}
+                onClick={() => {
+                  setActiveTab(activeTab === "projects" ? "home" : "projects");
+                  if (activeTab !== "projects" && !activeCategory) {
+                    setActiveCategory("residential");
+                  }
+                }}
                 className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
                   activeTab === "projects"
                     ? "bg-[#FFFFFF] border-[#EAB308] shadow-lg ring-2 ring-[#EAB308]/40"
@@ -1027,7 +1057,7 @@ export default function HomePage() {
 
               {/* App Tile 2: Location */}
               <button
-                onClick={() => setActiveTab("location")}
+                onClick={() => setActiveTab(activeTab === "location" ? "home" : "location")}
                 className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
                   activeTab === "location"
                     ? "bg-[#FFFFFF] border-blue-500 shadow-lg ring-2 ring-blue-500/40"
@@ -1054,7 +1084,7 @@ export default function HomePage() {
 
               {/* App Tile 3: Gallery */}
               <button
-                onClick={() => setActiveTab("gallery")}
+                onClick={() => setActiveTab(activeTab === "gallery" ? "home" : "gallery")}
                 className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
                   activeTab === "gallery"
                     ? "bg-[#FFFFFF] border-purple-500 shadow-lg ring-2 ring-purple-500/40"
@@ -1081,7 +1111,7 @@ export default function HomePage() {
 
               {/* App Tile 4: About */}
               <button
-                onClick={() => setActiveTab("about")}
+                onClick={() => setActiveTab(activeTab === "about" ? "home" : "about")}
                 className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
                   activeTab === "about"
                     ? "bg-[#FFFFFF] border-emerald-600 shadow-lg ring-2 ring-emerald-600/40"
@@ -1108,7 +1138,7 @@ export default function HomePage() {
 
               {/* App Tile 5: Download Map */}
               <button
-                onClick={() => setActiveTab("download")}
+                onClick={() => setActiveTab(activeTab === "download" ? "home" : "download")}
                 className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between col-span-2 sm:col-span-1 ${
                   activeTab === "download"
                     ? "bg-[#FFFFFF] border-amber-600 shadow-lg ring-2 ring-amber-600/40"
@@ -1186,8 +1216,37 @@ export default function HomePage() {
           {/* TAB 1: OUR PROJECTS (3 Categories Box/Icon + Project Cards)         */}
           {/* ------------------------------------------------------------------- */}
           {activeTab === "projects" && (
-            <section className="space-y-6 animate-fadeIn">
+            <section className="space-y-6 animate-fadeIn pt-1">
               
+              {/* Back to Home & Section Title Header */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 bg-white rounded-2xl border border-neutral-200/80 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setActiveTab("home")}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    <span>{language === "ta" ? "முகப்புக்கு திரும்புக" : "Back to Home"}</span>
+                  </button>
+                  <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
+                  <div>
+                    <h3 className="text-sm font-black text-neutral-900 leading-tight">
+                      {language === "ta" ? "எங்கள் திட்டங்கள் (3 பிரிவுகள் · 9 தளங்கள்)" : "Our Projects Portfolio (3 Categories · 9 Sites)"}
+                    </h3>
+                    <p className="text-[11px] text-neutral-500 hidden sm:block">
+                      {language === "ta" ? "பிரிவை தேர்வு செய்து திட்டங்களை காண்க" : "Select a category below to explore projects"}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setActiveTab("home")}
+                  className="p-1.5 rounded-xl hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
+                  title="Close section"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
               {/* Category Selector Box/Icons */}
               <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs space-y-4">
                 <div>
@@ -1293,6 +1352,7 @@ export default function HomePage() {
                     {activeCategory === "residential" && (language === "ta" ? "குடியிருப்பு திட்டங்கள் (2 Projects)" : "Residential Projects (2 Projects)")}
                     {activeCategory === "commercial" && (language === "ta" ? "வணிக திட்டங்கள் (5 Projects)" : "Commercial Projects (5 Projects)")}
                     {activeCategory === "farm" && (language === "ta" ? "பண்ணை நில திட்டங்கள் (2 Projects)" : "Farm Land Projects (2 Projects)")}
+                    {!activeCategory && (language === "ta" ? "பிரிவை தேர்ந்தெடுக்கவும்" : "Select a Category Above")}
                   </h4>
                   <span className="text-xs text-neutral-500 font-semibold">
                     {activeCategoryProjects.length} Cards
@@ -1387,7 +1447,31 @@ export default function HomePage() {
           {/* TAB 2: LOCATION (All Project Maps in Card Style)                    */}
           {/* ------------------------------------------------------------------- */}
           {activeTab === "location" && (
-            <section className="space-y-5 animate-fadeIn">
+            <section className="space-y-5 animate-fadeIn pt-1">
+              {/* Back to Home Header */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 bg-white rounded-2xl border border-neutral-200/80 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setActiveTab("home")}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    <span>{language === "ta" ? "முகப்புக்கு திரும்புக" : "Back to Home"}</span>
+                  </button>
+                  <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
+                  <h3 className="text-sm font-black text-neutral-900 leading-tight">
+                    {language === "ta" ? "திட்டங்களின் அமைவிடம் (Google Maps)" : "All Project Map Locations (Google Maps)"}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setActiveTab("home")}
+                  className="p-1.5 rounded-xl hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
+                  title="Close section"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
               <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs">
                 <div className="max-w-xl">
                   <span className="text-[10px] font-black uppercase text-blue-600 tracking-wider block mb-1">
@@ -1473,7 +1557,31 @@ export default function HomePage() {
           {/* TAB 3: GALLERY (Videos and Images in Folder Style)                  */}
           {/* ------------------------------------------------------------------- */}
           {activeTab === "gallery" && (
-            <section className="space-y-6 animate-fadeIn">
+            <section className="space-y-6 animate-fadeIn pt-1">
+              {/* Back to Home Header */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 bg-white rounded-2xl border border-neutral-200/80 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setActiveTab("home")}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    <span>{language === "ta" ? "முகப்புக்கு திரும்புக" : "Back to Home"}</span>
+                  </button>
+                  <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
+                  <h3 className="text-sm font-black text-neutral-900 leading-tight">
+                    {language === "ta" ? "புகைப்படங்கள் & வீடியோ (Folder Style Gallery)" : "Photo & Video Gallery (Folder Style)"}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setActiveTab("home")}
+                  className="p-1.5 rounded-xl hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
+                  title="Close section"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
               <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs">
                 <span className="text-[10px] font-black uppercase text-purple-600 tracking-wider block mb-1">
                   Multimedia Center
@@ -1620,8 +1728,31 @@ export default function HomePage() {
           {/* TAB 4: ABOUT (Surya Promoters Details & Founder Profile)             */}
           {/* ------------------------------------------------------------------- */}
           {activeTab === "about" && (
-            <section className="space-y-6 animate-fadeIn">
-              
+            <section className="space-y-6 animate-fadeIn pt-1">
+              {/* Back to Home Header */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 bg-white rounded-2xl border border-neutral-200/80 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setActiveTab("home")}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    <span>{language === "ta" ? "முகப்புக்கு திரும்புக" : "Back to Home"}</span>
+                  </button>
+                  <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
+                  <h3 className="text-sm font-black text-neutral-900 leading-tight">
+                    {language === "ta" ? "எங்களைப் பற்றி (About Surya Promoters)" : "About Surya Promoters (Founder & Legacy)"}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setActiveTab("home")}
+                  className="p-1.5 rounded-xl hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
+                  title="Close section"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
               {/* Founder Profile Banner */}
               <div className="bg-[#0A0D12] text-white rounded-3xl p-6 sm:p-8 border border-neutral-800 shadow-sm flex flex-col md:flex-row items-center gap-6">
                 <div className="relative h-44 w-44 rounded-2xl overflow-hidden shrink-0 border-2 border-[#EAB308] bg-white/10 shadow-lg">
@@ -1686,7 +1817,31 @@ export default function HomePage() {
           {/* TAB 5: DOWNLOAD MAP (Blueprints, Layout Maps, Brochures)            */}
           {/* ------------------------------------------------------------------- */}
           {activeTab === "download" && (
-            <section className="space-y-5 animate-fadeIn">
+            <section className="space-y-5 animate-fadeIn pt-1">
+              {/* Back to Home Header */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 bg-white rounded-2xl border border-neutral-200/80 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setActiveTab("home")}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    <span>{language === "ta" ? "முகப்புக்கு திரும்புக" : "Back to Home"}</span>
+                  </button>
+                  <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
+                  <h3 className="text-sm font-black text-neutral-900 leading-tight">
+                    {language === "ta" ? "பதிவிறக்க மையம் (Downloads Hub)" : "Download Map & Resources Hub"}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setActiveTab("home")}
+                  className="p-1.5 rounded-xl hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
+                  title="Close section"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
               <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs">
                 <span className="text-[10px] font-black uppercase text-amber-700 tracking-wider block mb-1">
                   Downloads Hub
