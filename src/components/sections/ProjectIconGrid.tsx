@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,9 @@ import { useLanguage } from "@/hooks/useLanguage";
 import {
   Search,
   Home,
-  Grid,
+  LayoutGrid,
+  Gamepad2,
+  Palette,
   Layers,
   MessageCircle,
   Phone,
@@ -33,14 +35,19 @@ import {
   Info,
   Calendar,
   ArrowUpRight,
+  ArrowRight,
   Download,
   AppWindow,
   Monitor,
   Check,
+  Gift,
   Flame,
   TrendingUp,
+  FileText,
+  User,
+  Wrench,
   Mail,
-  Navigation,
+  Clock,
 } from "lucide-react";
 
 // Project & App Interfaces
@@ -57,8 +64,9 @@ export interface StoreProject {
   projectType: "running" | "upcoming" | "completed";
   statusText: string;
   statusTextTa: string;
-  badgeLabel?: string;
-  badgeColor?: string;
+  badgeLabel: string;
+  badgeLabelTa: string;
+  badgeColor: string;
   actionLabel: string;
   actionLabelTa: string;
   priceTag: string;
@@ -87,8 +95,8 @@ export interface StoreUtilityApp {
   nameTa: string;
   subtitle: string;
   subtitleTa: string;
-  tag: string;
-  tagTa: string;
+  actionText: string;
+  actionTextTa: string;
   badge?: string;
   badgeColor?: string;
   icon: React.ComponentType<{ className?: string }>;
@@ -99,30 +107,21 @@ export interface StoreUtilityApp {
 
 export default function ProjectIconGrid() {
   const router = useRouter();
-  const { language } = useLanguage();
+  const { language, toggleLanguage } = useLanguage();
 
   // Navigation State
-  const [activeNav, setActiveNav] = useState<"home" | "running" | "upcoming" | "completed" | "3d" | "gallery">("home");
+  const [activeNav, setActiveNav] = useState<"home" | "projects" | "services" | "about" | "gallery" | "3d" | "contact">("home");
+  const [projectSubFilter, setProjectSubFilter] = useState<"all" | "running" | "upcoming" | "completed">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState<StoreProject | null>(null);
 
-  // Pagination for panels
+  // Pagination for horizontal scroll shelves
+  const [featuredShelfScroll, setFeaturedShelfScroll] = useState(0);
   const [trendingProjectsPage, setTrendingProjectsPage] = useState(0);
   const [trendingAppsPage, setTrendingAppsPage] = useState(0);
-  const [appsLovePage, setAppsLovePage] = useState(0);
+  const [quickChannelsPage, setQuickChannelsPage] = useState(0);
 
-  // Listen to search events from Navbar
-  useEffect(() => {
-    const handleSearch = (e: any) => {
-      setSearchQuery(e.detail || "");
-    };
-    if (typeof window !== "undefined") {
-      window.addEventListener("store-search", handleSearch);
-      return () => window.removeEventListener("store-search", handleSearch);
-    }
-  }, []);
-
-  // Store Projects
+  // Store Projects Data (The 4 verified real estate developments)
   const storeProjects: StoreProject[] = useMemo(
     () => [
       {
@@ -138,10 +137,11 @@ export default function ProjectIconGrid() {
         projectType: "running",
         statusText: "2026 RUNNING",
         statusTextTa: "2026 நடைபெறுகிறது",
-        badgeLabel: "Clear Patta",
-        badgeColor: "bg-emerald-600",
-        actionLabel: "Free Consult",
-        actionLabelTa: "இலவச ஆலோசனை",
+        badgeLabel: "Running 2026",
+        badgeLabelTa: "நடைபெறுகிறது",
+        badgeColor: "bg-emerald-600 text-white",
+        actionLabel: "Enquire Now",
+        actionLabelTa: "விபரம் கேட்க",
         priceTag: "Price on Enquiry",
         priceTagTa: "விலை விபரம் கேட்க",
         location: "Madurai Outer Ring Road (NH-44)",
@@ -182,10 +182,11 @@ export default function ProjectIconGrid() {
         projectType: "running",
         statusText: "2026 RUNNING",
         statusTextTa: "2026 நடைபெறுகிறது",
-        badgeLabel: "FMB Survey",
-        badgeColor: "bg-emerald-600",
-        actionLabel: "Free Consult",
-        actionLabelTa: "இலவச ஆலோசனை",
+        badgeLabel: "Running 2026",
+        badgeLabelTa: "நடைபெறுகிறது",
+        badgeColor: "bg-emerald-600 text-white",
+        actionLabel: "Enquire Now",
+        actionLabelTa: "விபரம் கேட்க",
         priceTag: "Price on Enquiry",
         priceTagTa: "விலை விபரம் கேட்க",
         location: "Agricultural Belt, Madurai",
@@ -227,8 +228,9 @@ export default function ProjectIconGrid() {
         projectType: "upcoming",
         statusText: "UPCOMING 2026",
         statusTextTa: "2026 வரவிருக்கும் திட்டம்",
-        badgeLabel: "Upcoming Launch",
-        badgeColor: "bg-amber-500 text-black",
+        badgeLabel: "Upcoming 2026",
+        badgeLabelTa: "வரவிருக்கும் திட்டம்",
+        badgeColor: "bg-amber-400 text-black font-extrabold",
         actionLabel: "Launching Soon",
         actionLabelTa: "விரைவில் தொடக்கம்",
         priceTag: "Early Bird Booking",
@@ -273,11 +275,12 @@ export default function ProjectIconGrid() {
         statusText: "100% COMPLETED",
         statusTextTa: "நிறைவடைந்தது",
         badgeLabel: "100% Delivered",
-        badgeColor: "bg-blue-600",
+        badgeLabelTa: "நிறைவடைந்தது",
+        badgeColor: "bg-blue-600 text-white",
         actionLabel: "Completed",
         actionLabelTa: "நிறைவடைந்தது",
-        priceTag: "Sold Out",
-        priceTagTa: "விற்கப்பட்டது",
+        priceTag: "Delivered & Sold",
+        priceTagTa: "ஒப்படைக்கப்பட்டது",
         location: "Mudukangulam Road, Madurai",
         locationTa: "முதுகுளத்தூர் சாலை, மதுரை",
         image: "/images/projects/surya-green-enclave/road-corridor.jpg",
@@ -314,10 +317,11 @@ export default function ProjectIconGrid() {
         projectType: "running",
         statusText: "2026 RUNNING",
         statusTextTa: "2026 நடைபெறுகிறது",
-        badgeLabel: "Heavy Vehicle Access",
-        badgeColor: "bg-emerald-600",
-        actionLabel: "Enquire",
-        actionLabelTa: "விபரம் பெற",
+        badgeLabel: "Heavy Access",
+        badgeLabelTa: "நேரடி முகப்பு",
+        badgeColor: "bg-emerald-600 text-white",
+        actionLabel: "Enquire Now",
+        actionLabelTa: "விபரம் கேட்க",
         priceTag: "Price on Request",
         priceTagTa: "விலை விபரம் கேட்க",
         location: "Madurai Outer Ring Road (NH-44)",
@@ -354,9 +358,10 @@ export default function ProjectIconGrid() {
         statusText: "2026 RUNNING",
         statusTextTa: "2026 நடைபெறுகிறது",
         badgeLabel: "Sweet Water",
-        badgeColor: "bg-emerald-600",
-        actionLabel: "Enquire",
-        actionLabelTa: "விபரம் பெற",
+        badgeLabelTa: "நல்ல நீர்வளம்",
+        badgeColor: "bg-emerald-600 text-white",
+        actionLabel: "Enquire Now",
+        actionLabelTa: "விபரம் கேட்க",
         priceTag: "Price on Request",
         priceTagTa: "விலை விபரம் கேட்க",
         location: "Scenic Green Belt, Madurai",
@@ -383,17 +388,17 @@ export default function ProjectIconGrid() {
     []
   );
 
-  // Store Utility Apps (Matches the "Trending apps >" panel in Microsoft Store)
+  // Store Direct Contact Methods & Services (Replacing "Trending apps")
   const storeUtilityApps: StoreUtilityApp[] = useMemo(
     () => [
       {
         id: "whatsapp",
-        name: "WhatsApp Chat",
-        nameTa: "வாட்ஸ்அப் அரட்டை",
+        name: "WhatsApp Direct",
+        nameTa: "வாட்ஸ்அப் நேரடி",
         subtitle: "Instant Price & Layout PDF",
         subtitleTa: "உடனடி விலை & வரைபடம்",
-        tag: "Chat",
-        tagTa: "தொடர்பு",
+        actionText: "Chat",
+        actionTextTa: "அரட்டை",
         badge: "Fast",
         badgeColor: "bg-emerald-500",
         icon: MessageCircle,
@@ -403,12 +408,12 @@ export default function ProjectIconGrid() {
       },
       {
         id: "call",
-        name: "Direct Call",
+        name: "Direct Hotline",
         nameTa: "நேரடி அழைப்பு",
         subtitle: "+91 77089 66452",
         subtitleTa: "+91 77089 66452",
-        tag: "Call",
-        tagTa: "அழைக்க",
+        actionText: "Call",
+        actionTextTa: "அழைக்க",
         badge: "Verified",
         badgeColor: "bg-blue-600",
         icon: Phone,
@@ -422,8 +427,8 @@ export default function ProjectIconGrid() {
         nameTa: "3D வரைபடம்",
         subtitle: "MapBhoomi Live 3D Views",
         subtitleTa: "நேரடி 3D மாதிரி வரைபடம்",
-        tag: "Open 3D",
-        tagTa: "3D பார்க்க",
+        actionText: "Open 3D",
+        actionTextTa: "3D திறக்க",
         badge: "Live 3D",
         badgeColor: "bg-amber-500 text-black",
         icon: Layers,
@@ -437,8 +442,8 @@ export default function ProjectIconGrid() {
         nameTa: "தள புகைப்படங்கள்",
         subtitle: "HD Aerial Drone Media",
         subtitleTa: "ட்ரோன் புகைப்படங்கள்",
-        tag: "Browse",
-        tagTa: "பார்க்க",
+        actionText: "Browse",
+        actionTextTa: "பார்க்க",
         badge: "HD Media",
         badgeColor: "bg-purple-600",
         icon: Camera,
@@ -452,8 +457,8 @@ export default function ProjectIconGrid() {
         nameTa: "கூகுள் வரைபடம்",
         subtitle: "Madurai Office Navigation",
         subtitleTa: "அலுவலக வழிகாட்டி",
-        tag: "Maps",
-        tagTa: "வரைபடம்",
+        actionText: "Navigate",
+        actionTextTa: "வழிகாட்டி",
         badge: "GPS",
         badgeColor: "bg-rose-500",
         icon: MapPin,
@@ -467,8 +472,8 @@ export default function ProjectIconGrid() {
         nameTa: "பட்டா & ஆவணங்கள்",
         subtitle: "IAF Veteran Due Diligence",
         subtitleTa: "100% தெளிவான பட்டா",
-        tag: "Inspect",
-        tagTa: "ஆராய்",
+        actionText: "Inspect",
+        actionTextTa: "ஆராய்",
         badge: "100% Clear",
         badgeColor: "bg-cyan-600",
         icon: ShieldCheck,
@@ -480,118 +485,195 @@ export default function ProjectIconGrid() {
     []
   );
 
-  // Horizontal "Apps we think you'll love >" shelf items (From Image 1)
-  const appsWeLove = useMemo(
+  // 8 Squircle items for "Verified Projects & Developments >"
+  const loveShelfApps = useMemo(
     () => [
       {
-        id: "vaigai-app",
-        name: "Vaigai Elite",
-        nameTa: "வைகை எலைட்",
-        category: "Highway Land",
-        categoryTa: "வணிக நிலம்",
-        image: "/images/projects/vaigai/corridor-aerial.jpg",
-        icon: Building2,
-        tag: "Free",
-        tagTa: "இலவசம்",
-        projectSlug: "vaigai-elite-commercial-land",
-      },
-      {
-        id: "farms-app",
-        name: "Madurai Farms",
-        nameTa: "மதுரை ஃபார்ம்ஸ்",
-        category: "Organic Agro",
-        categoryTa: "இயற்கை பண்ணை",
-        image: "/images/projects/madurai-farms/aerial-cottage.jpg",
-        icon: Wheat,
-        tag: "Free",
-        tagTa: "இலவசம்",
-        projectSlug: "madurai-farms-and-fruits",
-      },
-      {
-        id: "orange-app",
+        id: "love-orange",
         name: "Orange Garden",
         nameTa: "ஆரஞ்ச் கார்டன்",
-        category: "Orchard Estate",
-        categoryTa: "பழத்தோட்டம்",
+        type: "Upcoming Orchard",
         image: "/images/projects/orange-garden/hero-orchard.jpg",
         icon: Sparkles,
-        tag: "Upcoming",
-        tagTa: "வரவிருக்கும்",
-        projectSlug: "orange-garden",
+        badge: "Upcoming 2026",
+        badgeBg: "bg-amber-400 text-black",
+        gradient: "from-amber-500 to-yellow-600",
+        onClick: () => setSelectedProject(storeProjects[2]),
       },
       {
-        id: "green-app",
+        id: "love-vaigai",
+        name: "Vaigai Elite",
+        nameTa: "வைகை எலைட்",
+        type: "Commercial Highway",
+        image: "/images/projects/vaigai/corridor-aerial.jpg",
+        icon: Building2,
+        badge: "Running 2026",
+        badgeBg: "bg-emerald-600 text-white",
+        gradient: "from-amber-500 to-orange-600",
+        onClick: () => setSelectedProject(storeProjects[0]),
+      },
+      {
+        id: "love-farms",
+        name: "Madurai Farms",
+        nameTa: "மதுரை ஃபார்ம்ஸ்",
+        type: "Agro Farm Plots",
+        image: "/images/projects/madurai-farms/aerial-cottage.jpg",
+        icon: Wheat,
+        badge: "Running 2026",
+        badgeBg: "bg-emerald-600 text-white",
+        gradient: "from-emerald-500 to-green-600",
+        onClick: () => setSelectedProject(storeProjects[1]),
+      },
+      {
+        id: "love-green",
         name: "Green Enclave",
         nameTa: "கிரீன் என்கிளேவ்",
-        category: "DTCP Township",
-        categoryTa: "DTCP மனை",
+        type: "DTCP Township",
         image: "/images/projects/surya-green-enclave/road-corridor.jpg",
         icon: CheckCircle2,
-        tag: "Delivered",
-        tagTa: "ஒப்படைப்பு",
-        projectSlug: "surya-green-enclave",
+        badge: "Completed",
+        badgeBg: "bg-blue-600 text-white",
+        gradient: "from-blue-600 to-indigo-600",
+        onClick: () => setSelectedProject(storeProjects[3]),
       },
       {
-        id: "map-app",
+        id: "love-3d",
+        name: "3D Masterplan",
+        nameTa: "3D மாதிரி",
+        type: "MapBhoomi Live",
+        image: "/images/projects/vaigai/corridor-aerial.jpg",
+        icon: Layers,
+        badge: "Live 3D",
+        badgeBg: "bg-purple-600 text-white",
+        gradient: "from-purple-600 to-indigo-700",
+        onClick: () => window.open("https://mapbhoomi.com/l/surya-promoters", "_blank"),
+      },
+      {
+        id: "love-gallery",
+        name: "Site Gallery",
+        nameTa: "தள படங்கள்",
+        type: "HD Aerials",
+        image: "/images/gallery/gallery-1.jpg",
+        icon: Camera,
+        badge: "HD Media",
+        badgeBg: "bg-pink-600 text-white",
+        gradient: "from-pink-500 to-rose-600",
+        onClick: () => router.push("/gallery"),
+      },
+      {
+        id: "love-patta",
+        name: "Clear Patta",
+        nameTa: "தெளிவான பட்டா",
+        type: "IAF Veteran Trust",
+        image: "/images/founder/founder.png",
+        icon: ShieldCheck,
+        badge: "100% Clear",
+        badgeBg: "bg-cyan-600 text-white",
+        gradient: "from-cyan-600 to-blue-700",
+        onClick: () => router.push("/about"),
+      },
+      {
+        id: "love-call",
+        name: "Direct Hotline",
+        nameTa: "நேரடி அழைப்பு",
+        type: "+91 77089 66452",
+        image: "/images/surya-logo.png",
+        icon: Phone,
+        badge: "Verified",
+        badgeBg: "bg-green-600 text-white",
+        gradient: "from-green-500 to-emerald-600",
+        onClick: () => window.open("tel:+917708966452", "_self"),
+      },
+    ],
+    [storeProjects, router]
+  );
+
+  // Row of 8 Channels for "Direct Contact & Communication Channels >"
+  const quickChannels = useMemo(
+    () => [
+      {
+        id: "qc-whatsapp",
+        name: "WhatsApp Direct",
+        nameTa: "வாட்ஸ்அப்",
+        tag: "Instant Message",
+        icon: MessageCircle,
+        bg: "bg-[#25D366]",
+        url: "https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20discuss%20my%20property%20requirements.",
+      },
+      {
+        id: "qc-call",
+        name: "Direct Call",
+        nameTa: "அழைக்க",
+        tag: "+91 77089 66452",
+        icon: Phone,
+        bg: "bg-[#2563EB]",
+        url: "tel:+917708966452",
+      },
+      {
+        id: "qc-mapbhoomi",
         name: "MapBhoomi 3D",
         nameTa: "3D வரைபடம்",
-        category: "Live 3D Layout",
-        categoryTa: "3D வரைபடம்",
+        tag: "Interactive Layout",
         icon: Layers,
-        gradient: "from-amber-500 to-yellow-600",
-        tag: "Free",
-        tagTa: "இலவசம்",
-        externalUrl: "https://mapbhoomi.com/l/surya-promoters",
+        bg: "bg-[#D97706]",
+        url: "https://mapbhoomi.com/l/surya-promoters",
       },
       {
-        id: "chat-app",
-        name: "WhatsApp Desk",
-        nameTa: "வாட்ஸ்அப்",
-        category: "Instant Support",
-        categoryTa: "உடனடி சேவை",
-        icon: MessageCircle,
-        gradient: "from-[#25D366] to-[#128C7E]",
-        tag: "Free",
-        tagTa: "இலவசம்",
-        externalUrl: "https://wa.me/917708966452",
+        id: "qc-maps",
+        name: "Google Maps",
+        nameTa: "வழிகாட்டி",
+        tag: "Madurai Office",
+        icon: MapPin,
+        bg: "bg-[#EA4335]",
+        url: "https://maps.google.com/?q=Surya+Promoters+Madurai",
       },
       {
-        id: "gallery-app",
-        name: "Drone Gallery",
-        nameTa: "ட்ரோன் படங்கள்",
-        category: "HD Visuals",
-        categoryTa: "HD படங்கள்",
-        icon: Camera,
-        gradient: "from-purple-500 to-indigo-600",
-        tag: "Free",
-        tagTa: "இலவசம்",
-        internalUrl: "/gallery",
+        id: "qc-email",
+        name: "Direct Email",
+        nameTa: "மின்னஞ்சல்",
+        tag: "Instant Response",
+        icon: Mail,
+        bg: "bg-[#7C3AED]",
+        url: "mailto:suryapromotersmadurai@gmail.com",
       },
       {
-        id: "patta-app",
-        name: "Clear Patta Hub",
-        nameTa: "பட்டா வழிகாட்டி",
-        category: "100% Certified",
-        categoryTa: "100% தெளிவானது",
+        id: "qc-patta",
+        name: "Patta Records",
+        nameTa: "பட்டா ஆவணம்",
+        tag: "Verified Documents",
         icon: ShieldCheck,
-        gradient: "from-blue-600 to-cyan-600",
-        tag: "Free",
-        tagTa: "இலவசம்",
-        internalUrl: "/about",
+        bg: "bg-[#059669]",
+        url: "/about",
+      },
+      {
+        id: "qc-gallery",
+        name: "HD Media",
+        nameTa: "புகைப்படங்கள்",
+        tag: "Drone & Aerials",
+        icon: Camera,
+        bg: "bg-[#DB2777]",
+        url: "/gallery",
+      },
+      {
+        id: "qc-services",
+        name: "Advisory",
+        nameTa: "சேவைகள்",
+        tag: "Veteran Advisory",
+        icon: Award,
+        bg: "bg-[#0284C7]",
+        url: "/services",
       },
     ],
     []
   );
 
-  // Filter projects by search query & navigation tab
+  // Filtered projects
   const filteredProjects = useMemo(() => {
     let list = storeProjects;
-    if (activeNav === "running") {
-      list = list.filter((p) => p.projectType === "running");
-    } else if (activeNav === "upcoming") {
-      list = list.filter((p) => p.projectType === "upcoming");
-    } else if (activeNav === "completed") {
-      list = list.filter((p) => p.projectType === "completed");
+    if (activeNav === "projects") {
+      if (projectSubFilter === "running") list = list.filter((p) => p.projectType === "running");
+      else if (projectSubFilter === "upcoming") list = list.filter((p) => p.projectType === "upcoming");
+      else if (projectSubFilter === "completed") list = list.filter((p) => p.projectType === "completed");
     } else if (activeNav === "3d") {
       list = list.filter((p) => Boolean(p.mapBhoomiUrl));
     }
@@ -608,9 +690,9 @@ export default function ProjectIconGrid() {
         p.category.toLowerCase().includes(q) ||
         p.tagline.toLowerCase().includes(q)
     );
-  }, [storeProjects, activeNav, searchQuery]);
+  }, [storeProjects, activeNav, projectSubFilter, searchQuery]);
 
-  // Filter utility apps by search query
+  // Filtered utility apps
   const filteredUtilityApps = useMemo(() => {
     if (!searchQuery.trim()) return storeUtilityApps;
     const q = searchQuery.toLowerCase().trim();
@@ -619,144 +701,317 @@ export default function ProjectIconGrid() {
         app.name.toLowerCase().includes(q) ||
         app.nameTa.toLowerCase().includes(q) ||
         app.subtitle.toLowerCase().includes(q) ||
-        app.tag.toLowerCase().includes(q)
+        app.actionText.toLowerCase().includes(q)
     );
   }, [storeUtilityApps, searchQuery]);
 
-  // 4 Core Poster Cards for "Best Selling Land Portfolios"
-  const bestSellingProjects = useMemo(() => storeProjects.slice(0, 4), [storeProjects]);
-
   return (
-    <div className="w-full bg-[#F3F3F3] text-[#1E293B] flex flex-col font-sans selection:bg-[#EAB308]/30">
+    <div className="min-h-screen w-full bg-[#F3F3F3] text-[#1E293B] flex flex-col font-sans selection:bg-[#EAB308]/30">
       
-      {/* MAIN STORE CONTAINER (Left Rail + Content Body) */}
+      {/* 1. TOP STORE NAVBAR (THE ONE AND ONLY NAVBAR - CLEAN WINDOW TITLEBAR AS SHOWN IN SCREENSHOTS) */}
+      <header className="sticky top-0 z-40 w-full bg-[#FFFFFF]/95 backdrop-blur-xl border-b border-[#E2E8F0] shadow-2xs">
+        <div className="max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+          
+          {/* Left: Surya Promoters Brand Identity & Store Name */}
+          <Link href="/" className="flex items-center gap-3 shrink-0 group">
+            <div className="relative h-10 w-10 shrink-0 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform group-hover:scale-105">
+              <Image
+                src="/images/surya-logo.png"
+                alt="Surya Promoters Logo"
+                fill
+                priority
+                sizes="40px"
+                className="object-contain"
+              />
+            </div>
+            <div className="hidden sm:flex flex-col">
+              <div className="flex items-center gap-1.5">
+                <span className="font-display text-sm md:text-base font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
+                  SURYA PROMOTERS
+                </span>
+                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-md bg-[#EAB308]/20 text-[#854D0E] border border-[#EAB308]/40">
+                  STORE
+                </span>
+              </div>
+              <span className="text-[9px] font-mono text-[#64748B] tracking-wider uppercase font-semibold">
+                {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு · 2010" : "LAND & PROPERTY DEVELOPERS · ESTD. 2010"}
+              </span>
+            </div>
+          </Link>
+
+          {/* Center: Search Bar (Exact Microsoft Store Pill Search Bar) */}
+          <div className="flex-1 max-w-xl mx-auto">
+            <div className="relative w-full">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748B]" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={
+                  language === "ta"
+                    ? "திட்டங்கள், விவசாய நிலம், வணிக மனைகளைத் தேடுங்கள்..."
+                    : "Search projects, farm land, commercial plots, locations..."
+                }
+                className="w-full h-10 pl-10 pr-9 rounded-full bg-[#F1F5F9] hover:bg-[#E2E8F0]/70 focus:bg-[#FFFFFF] border border-[#CBD5E1] focus:border-[#EAB308] focus:ring-2 focus:ring-[#EAB308]/30 text-xs sm:text-sm text-[#0F172A] placeholder:text-[#64748B] transition-all outline-hidden shadow-2xs"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#64748B] hover:text-[#0F172A] rounded-full hover:bg-gray-200 transition cursor-pointer"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Right: Language switch + Veteran Badge + "DISCUSS YOUR PROJECT" / WhatsApp + User Avatar */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Language Toggle Pill (Tamil / English) */}
+            <button
+              onClick={toggleLanguage}
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#E2E8F0] bg-white hover:bg-gray-50 text-xs font-mono font-bold text-[#0F172A] shadow-2xs transition cursor-pointer"
+              title="Toggle Language"
+            >
+              <span>{language === "ta" ? "English" : "தமிழ்"}</span>
+            </button>
+
+            {/* IAF Veteran Trust Seal */}
+            <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono font-bold">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+              <span>16+ Yrs IAF Vet</span>
+            </div>
+
+            {/* Solid CTA: Discuss Your Project / WhatsApp */}
+            <a
+              href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20discuss%20my%20property%20requirements."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#EAB308] hover:bg-[#ca9a07] text-[#0A0D12] text-xs font-extrabold uppercase tracking-wider shadow-xs transition hover:scale-105"
+            >
+              <MessageCircle className="h-3.5 w-3.5 fill-[#0A0D12] text-[#0A0D12]" />
+              <span className="hidden sm:inline">{language === "ta" ? "கலந்தாலோசிக்க" : "Discuss Project"}</span>
+            </a>
+
+            {/* User Profile Avatar */}
+            <div className="relative h-9 w-9 rounded-full overflow-hidden bg-gradient-to-tr from-amber-600 to-yellow-500 border border-white shadow-xs flex items-center justify-center text-white shrink-0">
+              <User className="h-5 w-5" />
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      {/* 2. MAIN STORE FRAME (SIDEBAR + MAIN CONTENT CANVAS) */}
       <div className="flex-1 max-w-[1760px] w-full mx-auto flex">
         
-        {/* LEFT NAVIGATION RAIL (Like Microsoft Store Left Sidebar) */}
-        <aside className="hidden md:flex flex-col justify-between w-18 lg:w-56 shrink-0 bg-[#F3F3F3] border-r border-[#E2E8F0] py-6 px-2 lg:px-3">
-          <div className="space-y-1.5">
+        {/* LEFT SIDEBAR (CLEAN REAL ESTATE STORE SIDEBAR - REMOVED WHAT'S NEW, DOWNLOADS, LIBRARY AS REQUESTED!) */}
+        <aside className="hidden md:flex flex-col justify-between w-20 lg:w-60 shrink-0 bg-[#F3F3F3] border-r border-[#E2E8F0] py-6 px-2 lg:px-3">
+          
+          {/* Top Section: Logo & Main Navigation Items */}
+          <div className="space-y-4">
             
-            {/* Home Tab */}
-            <button
-              onClick={() => {
-                setActiveNav("home");
-                setSearchQuery("");
-                if (typeof window !== "undefined") {
-                  window.dispatchEvent(new CustomEvent("store-search-clear"));
-                }
-              }}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer ${
-                activeNav === "home"
-                  ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
-                  : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
-              }`}
-            >
-              <div className="relative">
-                <Home className={`h-4 w-4 ${activeNav === "home" ? "text-[#EAB308]" : "text-[#64748B]"}`} />
+            {/* Surya Promoters Logo Banner in Sidebar */}
+            <div className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs">
+              <div className="relative h-8 w-8 shrink-0 rounded-full overflow-hidden border border-[#EAB308]">
+                <Image
+                  src="/images/surya-logo.png"
+                  alt="Surya Promoters"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="font-display text-xs font-extrabold text-[#0F172A] truncate">
+                  Surya Promoters
+                </span>
+                <span className="text-[9px] font-mono text-[#64748B] truncate">
+                  Madurai, Tamil Nadu
+                </span>
+              </div>
+            </div>
+
+            {/* Navigation Rail */}
+            <div className="space-y-1">
+              
+              {/* 1. HOME (Blue squircle icon with active blue indicator bar on left) */}
+              <button
+                onClick={() => {
+                  setActiveNav("home");
+                  setSearchQuery("");
+                }}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "home"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
+              >
                 {activeNav === "home" && (
-                  <span className="absolute -left-3 top-1/2 -translate-y-1/2 h-5 w-1 bg-[#EAB308] rounded-r-full" />
+                  <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-6 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "home" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B]"
+                }`}>
+                  <Home className="h-4 w-4" />
+                </div>
+                <span className="hidden lg:inline">{language === "ta" ? "முகப்பு" : "Home"}</span>
+              </button>
+
+              {/* 2. PROJECTS (Apps icon - with Running, Upcoming, Completed sub-filters) */}
+              <div className="space-y-1">
+                <button
+                  onClick={() => {
+                    setActiveNav("projects");
+                    setProjectSubFilter("all");
+                  }}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer relative ${
+                    activeNav === "projects"
+                      ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                      : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                  }`}
+                >
+                  {activeNav === "projects" && (
+                    <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-6 w-1.5 bg-[#0284C7] rounded-r-full" />
+                  )}
+                  <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                    activeNav === "projects" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B]"
+                  }`}>
+                    <LayoutGrid className="h-4 w-4" />
+                  </div>
+                  <div className="hidden lg:flex items-center justify-between w-full">
+                    <span>{language === "ta" ? "திட்டங்கள்" : "Projects"}</span>
+                    <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-gray-100 text-[#0F172A]">
+                      4
+                    </span>
+                  </div>
+                </button>
+
+                {/* Subcategories (Running 2, Upcoming 1, Completed 1) */}
+                {activeNav === "projects" && (
+                  <div className="hidden lg:flex flex-col pl-11 pr-2 py-1 space-y-1 text-xs">
+                    <button
+                      onClick={() => setProjectSubFilter("all")}
+                      className={`text-left py-1 px-2 rounded-lg transition ${
+                        projectSubFilter === "all" ? "font-bold text-[#0F172A] bg-gray-100" : "text-[#64748B] hover:text-[#0F172A]"
+                      }`}
+                    >
+                      {language === "ta" ? "அனைத்து" : "All Projects"} (4)
+                    </button>
+                    <button
+                      onClick={() => setProjectSubFilter("running")}
+                      className={`text-left py-1 px-2 rounded-lg flex items-center justify-between transition ${
+                        projectSubFilter === "running" ? "font-bold text-emerald-700 bg-emerald-50" : "text-[#64748B] hover:text-[#0F172A]"
+                      }`}
+                    >
+                      <span>{language === "ta" ? "நடைபெறுபவை" : "Running"}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-emerald-100 text-emerald-800 font-mono">2</span>
+                    </button>
+                    <button
+                      onClick={() => setProjectSubFilter("upcoming")}
+                      className={`text-left py-1 px-2 rounded-lg flex items-center justify-between transition ${
+                        projectSubFilter === "upcoming" ? "font-bold text-amber-700 bg-amber-50" : "text-[#64748B] hover:text-[#0F172A]"
+                      }`}
+                    >
+                      <span>{language === "ta" ? "வரவிருக்கும்" : "Upcoming"}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-amber-100 text-amber-800 font-mono">1</span>
+                    </button>
+                    <button
+                      onClick={() => setProjectSubFilter("completed")}
+                      className={`text-left py-1 px-2 rounded-lg flex items-center justify-between transition ${
+                        projectSubFilter === "completed" ? "font-bold text-blue-700 bg-blue-50" : "text-[#64748B] hover:text-[#0F172A]"
+                      }`}
+                    >
+                      <span>{language === "ta" ? "நிறைவடைந்தவை" : "Completed"}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-blue-100 text-blue-800 font-mono">1</span>
+                    </button>
+                  </div>
                 )}
               </div>
-              <span className="hidden lg:inline">{language === "ta" ? "முகப்பு ஸ்டோர்" : "Store Home"}</span>
-            </button>
 
-            {/* Running Projects */}
-            <button
-              onClick={() => setActiveNav("running")}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer ${
-                activeNav === "running"
-                  ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
-                  : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
-              }`}
-            >
-              <Building2 className={`h-4 w-4 ${activeNav === "running" ? "text-emerald-600" : "text-[#64748B]"}`} />
-              <div className="hidden lg:flex items-center justify-between w-full">
-                <span>{language === "ta" ? "நடைபெறுபவை" : "Running"}</span>
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-100 text-emerald-800 font-mono">
-                  2
-                </span>
-              </div>
-            </button>
+              {/* 3. SERVICES */}
+              <Link
+                href="/services"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              >
+                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#64748B]">
+                  <Wrench className="h-4 w-4" />
+                </div>
+                <span className="hidden lg:inline">{language === "ta" ? "சேவைகள்" : "Services"}</span>
+              </Link>
 
-            {/* Upcoming Projects */}
-            <button
-              onClick={() => setActiveNav("upcoming")}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer ${
-                activeNav === "upcoming"
-                  ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
-                  : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
-              }`}
-            >
-              <Sparkles className={`h-4 w-4 ${activeNav === "upcoming" ? "text-amber-500" : "text-[#64748B]"}`} />
-              <div className="hidden lg:flex items-center justify-between w-full">
-                <span>{language === "ta" ? "வரவிருக்கும்" : "Upcoming"}</span>
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-100 text-amber-800 font-mono">
-                  1
-                </span>
-              </div>
-            </button>
+              {/* 4. ABOUT US (IAF Veteran Leadership) */}
+              <Link
+                href="/about"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              >
+                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#64748B]">
+                  <Award className="h-4 w-4" />
+                </div>
+                <span className="hidden lg:inline">{language === "ta" ? "எங்களைப் பற்றி" : "About Us"}</span>
+              </Link>
 
-            {/* Completed Projects */}
-            <button
-              onClick={() => setActiveNav("completed")}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer ${
-                activeNav === "completed"
-                  ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
-                  : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
-              }`}
-            >
-              <CheckCircle2 className={`h-4 w-4 ${activeNav === "completed" ? "text-blue-600" : "text-[#64748B]"}`} />
-              <div className="hidden lg:flex items-center justify-between w-full">
-                <span>{language === "ta" ? "நிறைவடைந்தவை" : "Completed"}</span>
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-100 text-blue-800 font-mono">
-                  1
-                </span>
-              </div>
-            </button>
+              {/* 5. GALLERY */}
+              <Link
+                href="/gallery"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              >
+                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#64748B]">
+                  <Camera className="h-4 w-4" />
+                </div>
+                <span className="hidden lg:inline">{language === "ta" ? "புகைப்படங்கள்" : "Gallery"}</span>
+              </Link>
 
-            {/* 3D Masterplans */}
-            <button
-              onClick={() => setActiveNav("3d")}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer ${
-                activeNav === "3d"
-                  ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
-                  : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
-              }`}
-            >
-              <Layers className={`h-4 w-4 ${activeNav === "3d" ? "text-[#EAB308]" : "text-[#64748B]"}`} />
-              <span className="hidden lg:inline">{language === "ta" ? "3D வரைபடங்கள்" : "3D Masterplans"}</span>
-            </button>
+              {/* 6. 3D MASTERPLANS */}
+              <a
+                href="https://mapbhoomi.com/l/surya-promoters"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              >
+                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#EAB308]">
+                  <Layers className="h-4 w-4" />
+                </div>
+                <div className="hidden lg:flex items-center justify-between w-full">
+                  <span>{language === "ta" ? "3D வரைபடம்" : "3D Masterplans"}</span>
+                  <span className="text-[9px] font-mono px-1 py-0.2 rounded-xs bg-[#EAB308]/20 text-[#854D0E] font-bold">
+                    LIVE
+                  </span>
+                </div>
+              </a>
 
-            {/* Site Photos / Gallery */}
-            <Link
-              href="/gallery"
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all"
-            >
-              <Camera className="h-4 w-4 text-[#64748B]" />
-              <span className="hidden lg:inline">{language === "ta" ? "தள படங்கள்" : "Site Gallery"}</span>
-            </Link>
+              {/* 7. CONTACT */}
+              <Link
+                href="/contact"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              >
+                <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#64748B]">
+                  <Phone className="h-4 w-4" />
+                </div>
+                <span className="hidden lg:inline">{language === "ta" ? "தொடர்புக்கு" : "Contact"}</span>
+              </Link>
+
+            </div>
           </div>
 
-          {/* Bottom Sidebar Hub: About & Call */}
-          <div className="pt-4 border-t border-[#E2E8F0] space-y-2">
-            <Link
-              href="/about"
-              className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-[#64748B] hover:text-[#0F172A] hover:bg-white/50 transition"
-            >
-              <Award className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span className="hidden lg:inline">{language === "ta" ? "16+ ஆண்டுகள் நம்பிக்கை" : "16+ Yrs Veteran"}</span>
-            </Link>
+          {/* Bottom Section: Direct Hotline Call Card (Replaced What's New/Downloads/Library as requested) */}
+          <div className="pt-4 border-t border-[#E2E8F0]">
             <a
               href="tel:+917708966452"
-              className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-[#64748B] hover:text-[#0F172A] hover:bg-white/50 transition"
+              className="w-full flex items-center gap-2.5 p-2 rounded-xl bg-white border border-[#E2E8F0] shadow-2xs hover:border-[#EAB308] transition"
             >
-              <Phone className="h-4 w-4 text-blue-600 shrink-0" />
-              <span className="hidden lg:inline">+91 77089 66452</span>
+              <div className="h-7 w-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
+                <Phone className="h-3.5 w-3.5" />
+              </div>
+              <div className="hidden lg:flex flex-col min-w-0">
+                <span className="text-[10px] font-mono text-[#64748B] uppercase font-bold">Hotline</span>
+                <span className="text-xs font-mono font-bold text-[#0F172A] truncate">+91 77089 66452</span>
+              </div>
             </a>
           </div>
+
         </aside>
 
-        {/* RIGHT / MAIN STORE BODY */}
+        {/* RIGHT: MAIN STORE CANVAS */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 overflow-y-auto">
           
           {/* SEARCH ACTIVE NOTICE */}
@@ -770,153 +1025,188 @@ export default function ProjectIconGrid() {
                 </span>
               </div>
               <button
-                onClick={() => {
-                  setSearchQuery("");
-                  if (typeof window !== "undefined") {
-                    window.dispatchEvent(new CustomEvent("store-search-clear"));
-                  }
-                }}
-                className="text-xs font-mono font-bold text-red-600 hover:text-red-700 underline"
+                onClick={() => setSearchQuery("")}
+                className="text-xs font-mono font-bold text-red-600 hover:text-red-700 underline cursor-pointer"
               >
                 {language === "ta" ? "தேடலை நீக்கு" : "Clear Search"}
               </button>
             </div>
           )}
 
-          {/* 1. TOP HERO SHOWCASE SECTION (EXACT LAYOUT FROM USER'S IMAGE 1) */}
+          {/* 3. HERO SHOWCASE SECTION (UPCOMING PROJECT ON LEFT, ABOUT US & RUNNING/COMPLETED TILES ON RIGHT!) */}
           {!searchQuery && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
               
-              {/* LEFT BIG GLOWING CARD: WhatsApp Showcase (Exact match to Image 1: Green with ambient glow, doodles, "Open" button, big logo) */}
-              <div className="lg:col-span-7 relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#128C7E] via-[#25D366] to-[#075E54] text-white p-6 sm:p-8 lg:p-10 shadow-[0_0_40px_rgba(37,211,102,0.35)] border border-[#25D366]/60 flex flex-col justify-between min-h-[300px] sm:min-h-[340px]">
-                {/* Subtle Doodle Pattern Background */}
-                <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
+              {/* Left Large Card: UPCOMING PROJECT: ORANGE GARDEN (As requested by user!) */}
+              <div
+                onClick={() => setSelectedProject(storeProjects[2])}
+                className="lg:col-span-7 xl:col-span-8 rounded-3xl overflow-hidden bg-gradient-to-br from-amber-600 via-orange-600 to-amber-700 p-6 sm:p-8 lg:p-10 text-white relative shadow-lg flex flex-col justify-between min-h-[300px] sm:min-h-[340px] cursor-pointer group"
+              >
+                {/* Background Hero Image */}
+                <Image
+                  src="/images/projects/orange-garden/hero-orchard.jpg"
+                  alt="Orange Garden Upcoming Project"
+                  fill
+                  priority
+                  className="object-cover opacity-35 mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 1024px) 100vw, 800px"
+                />
 
-                {/* Big WhatsApp Logo floating on right side */}
-                <div className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 opacity-30 sm:opacity-50 pointer-events-none scale-120 sm:scale-140">
-                  <MessageCircle className="h-40 w-40 sm:h-56 sm:w-56 text-white stroke-[1.2]" />
-                </div>
+                {/* Ambient Pattern */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent pointer-events-none" />
 
-                <div className="relative z-10 space-y-2 max-w-md">
-                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white drop-shadow-md">
-                    WhatsApp
-                  </h2>
-                  <p className="text-sm sm:text-base text-emerald-100 font-medium">
-                    {language === "ta"
-                      ? "நேரடி அரட்டை & உடனடி விலை விபரம், மனை வரைபடங்கள்"
-                      : "Private messaging, direct pricing & verified layout plans"}
-                  </p>
-                </div>
-
-                {/* Bottom Action Pill Button & Pagination Dots (Exact from Image 1) */}
-                <div className="relative z-10 pt-8 flex items-center justify-between">
-                  <a
-                    href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20your%20land%20and%20plots."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-8 py-2.5 rounded-full bg-[#005C4B] hover:bg-[#00473A] text-white text-sm font-bold shadow-md transition-all hover:scale-105 active:scale-95"
-                  >
-                    <span>{language === "ta" ? "தொடங்க" : "Open"}</span>
-                  </a>
-
-                  {/* Pagination Dots */}
-                  <div className="flex items-center gap-1.5 px-2">
-                    <span className="h-1.5 w-4 rounded-full bg-white" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
+                {/* Big Upcoming Sparkles / Project Emblem on Right */}
+                <div className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 opacity-90 pointer-events-none">
+                  <div className="h-28 w-28 sm:h-36 sm:w-36 rounded-3xl bg-black/40 backdrop-blur-md flex items-center justify-center p-4 shadow-xl border border-white/20 group-hover:scale-108 transition-transform">
+                    <Sparkles className="h-16 w-16 sm:h-20 sm:w-20 text-[#EAB308]" />
                   </div>
+                </div>
+
+                {/* Content Overlay */}
+                <div className="relative z-10 max-w-lg space-y-3">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400 text-black font-mono text-[10px] sm:text-xs font-extrabold uppercase tracking-wider shadow-sm">
+                    <Sparkles className="h-3 w-3 text-black" />
+                    <span>{language === "ta" ? "2026 வரவிருக்கும் பிரம்மாண்ட திட்டம்" : "2026 UPCOMING PROJECT LAUNCH"}</span>
+                  </div>
+
+                  <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white drop-shadow-sm">
+                    {language === "ta" ? "ஆரஞ்ச் கார்டன்" : "Orange Garden"}
+                  </h1>
+
+                  <p className="text-sm sm:text-base text-amber-100 font-medium leading-relaxed drop-shadow-xs">
+                    {language === "ta"
+                      ? "கேட்டட் பழத்தோட்டம் & பண்ணை எஸ்டேட் மனைகள். பிரம்மாண்ட நுழைவு வளைவு, சொட்டு நீர்ப்பாசனம் மற்றும் வார இறுதி பண்ணை வீடு அமைக்கும் வாய்ப்பு."
+                      : "Gated Orchard & Farm Estate Plots in Madurai's green belt with grand entrance gate, drip irrigation, and luxury farmhouse provisions."}
+                  </p>
+
+                  {/* Action Buttons */}
+                  <div className="pt-2 flex flex-wrap items-center gap-3">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(
+                          "https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20Orange%20Garden%20upcoming%20project.%20Please%20share%20details.",
+                          "_blank"
+                        );
+                      }}
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white text-[#B45309] hover:bg-amber-50 font-display text-sm font-extrabold shadow-md transition hover:scale-105"
+                    >
+                      <MessageCircle className="h-4 w-4 fill-[#B45309]" />
+                      <span>{language === "ta" ? "முன்பதிவு செய்ய" : "Early Bird Booking"}</span>
+                    </button>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedProject(storeProjects[2]);
+                      }}
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-black/40 hover:bg-black/60 text-white border border-white/30 text-xs font-bold backdrop-blur-md transition"
+                    >
+                      <span>{language === "ta" ? "விவரங்கள்" : "View Details"}</span>
+                      <ArrowUpRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Badge Details at Bottom */}
+                <div className="relative z-10 flex items-center gap-3 pt-4 text-xs font-mono text-amber-200">
+                  <span>Scenic Green Belt, Madurai</span>
+                  <span>·</span>
+                  <span>100% Clear Registered Patta</span>
                 </div>
               </div>
 
-              {/* RIGHT SIDE: 3 Cards (Top Reward/Trust Card + 2 Bottom Promo Cards from Image 1) */}
-              <div className="lg:col-span-5 flex flex-col justify-between gap-4">
+              {/* Right Side: ABOUT US CARD (TOP) + RUNNING PROJECT & COMPLETED PROJECT (BOTTOM TILES) */}
+              <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-between gap-4">
                 
-                {/* Top Card: "Get rewarded" / IAF Veteran Trust Card (Matches Image 1 top right) */}
-                <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white p-5 sm:p-6 shadow-md border border-blue-400/30 flex items-center justify-between">
-                  <div className="relative z-10 space-y-2 max-w-[65%]">
-                    <h3 className="font-display text-lg sm:text-xl font-bold text-white">
-                      {language === "ta" ? "16+ ஆண்டுகள் நம்பிக்கை" : "16+ Yrs Veteran Trust"}
+                {/* Top Tile: ABOUT US & IAF VETERAN LEADERSHIP (As requested by user!) */}
+                <Link
+                  href="/about"
+                  className="rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-700 to-sky-800 p-5 text-white flex items-center justify-between shadow-md relative overflow-hidden group hover:shadow-lg transition-all"
+                >
+                  <div className="relative z-10 space-y-1.5 max-w-[70%]">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-200 flex items-center gap-1">
+                      <ShieldCheck className="h-3.5 w-3.5 text-[#EAB308]" />
+                      <span>{language === "ta" ? "16+ ஆண்டுகள் நம்பிக்கை" : "16+ Yrs Veteran Leadership"}</span>
+                    </span>
+                    <h3 className="font-display text-lg sm:text-xl font-bold leading-tight">
+                      {language === "ta" ? "எங்களைப் பற்றி (About Us)" : "Built On Military Precision"}
                     </h3>
-                    <p className="text-xs text-blue-100">
-                      {language === "ta"
-                        ? "100% தெளிவான பட்டா & நேரடி ஆவண சரிபார்ப்பு"
-                        : "100% Clear Computer Patta & Transparent Deals"}
+                    <p className="text-[11px] text-blue-100 line-clamp-1">
+                      {language === "ta" ? "விமானப்படை ஒழுக்கம் & 100% தெளிவான பட்டா" : "Indian Air Force Veteran Integrity & Clear Patta"}
                     </p>
-                    <Link
-                      href="/about"
-                      className="inline-flex items-center justify-center px-5 py-1.5 rounded-full bg-white text-blue-900 text-xs font-bold shadow-xs hover:bg-gray-100 transition mt-1"
-                    >
-                      <span>{language === "ta" ? "விபரம்" : "Get"}</span>
-                    </Link>
-                  </div>
-
-                  {/* Gold Medal & Trust Badge Visual */}
-                  <div className="relative shrink-0 flex items-center justify-center">
-                    <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-300 to-amber-500 shadow-lg flex items-center justify-center text-white border-2 border-white/40">
-                      <Award className="h-8 w-8 sm:h-10 sm:w-10 text-white drop-shadow" />
+                    <div className="pt-1">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white text-blue-800 font-display text-xs font-bold shadow-xs group-hover:bg-blue-50 transition">
+                        <span>{language === "ta" ? "அறிய (About Us)" : "Explore About"}</span>
+                        <ArrowRight className="h-3 w-3" />
+                      </span>
                     </div>
                   </div>
-                </div>
 
-                {/* Bottom Two Promo Cards Side-by-Side (Matches Image 1 bottom right: Football Manager & GRAVHOuNDS) */}
+                  {/* Founder / IAF Shield Visual on Right */}
+                  <div className="relative h-18 w-18 shrink-0 flex items-center justify-center">
+                    <div className="h-16 w-16 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-lg group-hover:scale-108 transition-transform">
+                      <Award className="h-9 w-9 text-[#EAB308]" />
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Bottom 2 Mini-Tiles: RUNNING PROJECT (Vaigai Elite) & COMPLETED PROJECT (Green Enclave) */}
                 <div className="grid grid-cols-2 gap-4">
-                  {/* Card A: Orange Garden (Upcoming) */}
+                  
+                  {/* Tile 1: RUNNING PROJECT - Vaigai Elite */}
                   <div
-                    onClick={() => {
-                      const og = storeProjects.find((p) => p.id === "orange-garden");
-                      if (og) setSelectedProject(og);
-                    }}
-                    className="group relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-900 shadow-sm border border-gray-200 cursor-pointer"
-                  >
-                    <Image
-                      src="/images/projects/orange-garden/hero-orchard.jpg"
-                      alt="Orange Garden"
-                      fill
-                      className="object-cover group-hover:scale-108 transition-transform duration-500"
-                      sizes="250px"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                    <div className="absolute top-2 left-2">
-                      <span className="px-2 py-0.5 rounded-md bg-amber-400 text-black text-[9px] font-mono font-extrabold uppercase">
-                        Upcoming 2026
-                      </span>
-                    </div>
-                    <div className="absolute bottom-2.5 left-2.5 right-2.5">
-                      <span className="font-display text-xs sm:text-sm font-bold text-white group-hover:text-[#EAB308] transition-colors truncate block">
-                        Orange Garden
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card B: Vaigai Elite (Running) */}
-                  <div
-                    onClick={() => {
-                      const ve = storeProjects.find((p) => p.id === "vaigai-elite");
-                      if (ve) setSelectedProject(ve);
-                    }}
-                    className="group relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-900 shadow-sm border border-gray-200 cursor-pointer"
+                    onClick={() => setSelectedProject(storeProjects[0])}
+                    className="group relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-900 border border-gray-200 shadow-sm cursor-pointer hover:shadow-md transition-all"
                   >
                     <Image
                       src="/images/projects/vaigai/corridor-aerial.jpg"
-                      alt="Vaigai Elite"
+                      alt="Vaigai Elite Running Project"
                       fill
-                      className="object-cover group-hover:scale-108 transition-transform duration-500"
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
                       sizes="250px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                     <div className="absolute top-2 left-2">
-                      <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white text-[9px] font-mono font-extrabold uppercase">
-                        Running 2026
+                      <span className="text-[8px] font-mono font-extrabold uppercase px-1.5 py-0.5 rounded-md bg-emerald-600 text-white flex items-center gap-1">
+                        <span className="h-1 w-1 rounded-full bg-white animate-pulse" />
+                        <span>Running 2026</span>
                       </span>
                     </div>
-                    <div className="absolute bottom-2.5 left-2.5 right-2.5">
-                      <span className="font-display text-xs sm:text-sm font-bold text-white group-hover:text-[#EAB308] transition-colors truncate block">
-                        Vaigai Elite (NH-44)
-                      </span>
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <h4 className="font-display text-xs font-bold text-white group-hover:text-[#EAB308] truncate">
+                        Vaigai Elite
+                      </h4>
+                      <span className="text-[9px] text-gray-300 block truncate">NH-44 Commercial</span>
                     </div>
                   </div>
+
+                  {/* Tile 2: COMPLETED PROJECT - Surya Green Enclave */}
+                  <div
+                    onClick={() => setSelectedProject(storeProjects[3])}
+                    className="group relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-900 border border-gray-200 shadow-sm cursor-pointer hover:shadow-md transition-all"
+                  >
+                    <Image
+                      src="/images/projects/surya-green-enclave/road-corridor.jpg"
+                      alt="Surya Green Enclave Completed Project"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      sizes="250px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                    <div className="absolute top-2 left-2">
+                      <span className="text-[8px] font-mono font-extrabold uppercase px-1.5 py-0.5 rounded-md bg-blue-600 text-white">
+                        100% Completed
+                      </span>
+                    </div>
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <h4 className="font-display text-xs font-bold text-white group-hover:text-[#EAB308] truncate">
+                        Green Enclave
+                      </h4>
+                      <span className="text-[9px] text-gray-300 block truncate">DTCP Township</span>
+                    </div>
+                  </div>
+
                 </div>
 
               </div>
@@ -924,75 +1214,70 @@ export default function ProjectIconGrid() {
             </div>
           )}
 
-          {/* 2. "Apps we think you'll love >" SHELF (EXACT HORIZONTAL ROW FROM IMAGE 1) */}
-          <div className="bg-[#FFFFFF] rounded-2xl p-5 sm:p-6 border border-[#E2E8F0] shadow-xs">
-            <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#F1F5F9]">
-              <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] flex items-center gap-1.5">
-                <span>{language === "ta" ? "பரிந்துரைக்கப்படும் திட்டங்கள் & செயலிகள்" : "Apps we think you'll love"}</span>
+          {/* 4. SHELF: "Verified Projects & Developments >" */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
+                <span>{language === "ta" ? "சரிபார்க்கப்பட்ட திட்டங்கள்" : "Verified Projects & Developments"}</span>
                 <ChevronRight className="h-4 w-4 text-[#64748B]" />
               </h2>
 
               <div className="flex items-center gap-1 text-[#64748B]">
                 <button
-                  onClick={() => setAppsLovePage((p) => Math.max(0, p - 1))}
-                  disabled={appsLovePage === 0}
-                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-100 disabled:opacity-40 transition cursor-pointer"
+                  onClick={() => setFeaturedShelfScroll((p) => Math.max(0, p - 1))}
+                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-200 transition cursor-pointer"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </button>
                 <button
-                  onClick={() => setAppsLovePage((p) => p + 1)}
-                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
+                  onClick={() => setFeaturedShelfScroll((p) => p + 1)}
+                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-200 transition cursor-pointer"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </button>
               </div>
             </div>
 
-            {/* Horizontal Row of Rounded App Cards */}
+            {/* Row of 8 Squircle Apps */}
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
-              {appsWeLove.map((item) => {
+              {loveShelfApps.map((item) => {
                 const IconComp = item.icon;
-
-                const handleClick = () => {
-                  if (item.projectSlug) {
-                    const p = storeProjects.find((x) => x.slug === item.projectSlug);
-                    if (p) setSelectedProject(p);
-                  } else if (item.internalUrl) {
-                    router.push(item.internalUrl);
-                  } else if (item.externalUrl) {
-                    window.open(item.externalUrl, "_blank");
-                  }
-                };
 
                 return (
                   <div
                     key={item.id}
-                    onClick={handleClick}
-                    className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition-all cursor-pointer text-center"
+                    onClick={item.onClick}
+                    className="group flex flex-col items-center text-center p-3 rounded-2xl bg-white border border-[#E2E8F0] hover:border-[#EAB308] hover:shadow-md transition-all cursor-pointer"
                   >
-                    {/* Squircle Icon */}
-                    <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl overflow-hidden shadow-xs border border-gray-200 group-hover:scale-108 transition-transform flex items-center justify-center bg-gray-50">
-                      {item.image ? (
-                        <Image src={item.image} alt={item.name} fill className="object-cover" sizes="64px" />
-                      ) : (
-                        <div className={`w-full h-full bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white`}>
-                          <IconComp className="h-7 w-7" />
+                    <div className="relative aspect-square w-16 h-16 sm:w-18 sm:h-18 rounded-2xl overflow-hidden shadow-xs border border-gray-100 bg-gray-100 group-hover:scale-108 transition-transform">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                        sizes="72px"
+                      />
+                      <div className={`absolute inset-0 bg-gradient-to-tr ${item.gradient} opacity-30 mix-blend-multiply`} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="h-7 w-7 rounded-lg bg-black/50 backdrop-blur-xs flex items-center justify-center text-white border border-white/20">
+                          <IconComp className="h-3.5 w-3.5 text-[#EAB308]" />
                         </div>
-                      )}
+                      </div>
+
+                      <div className="absolute top-1 right-1">
+                        <span className={`text-[7px] font-mono font-extrabold uppercase px-1 rounded-xs ${item.badgeBg}`}>
+                          {item.badge}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="mt-2.5">
-                      <span className="font-display text-xs font-bold text-[#0F172A] group-hover:text-[#B45309] block truncate">
-                        {language === "ta" ? item.nameTa : item.name}
-                      </span>
-                      <span className="text-[10px] text-[#64748B] block truncate mt-0.5">
-                        {language === "ta" ? item.categoryTa : item.category}
-                      </span>
-                    </div>
-
-                    <span className="mt-2 text-[10px] font-semibold text-[#94A3B8]">
-                      {language === "ta" ? item.tagTa : item.tag}
+                    <span className="font-display text-xs font-bold text-[#0F172A] group-hover:text-[#B45309] truncate max-w-full mt-2">
+                      {language === "ta" ? item.nameTa : item.name}
+                    </span>
+                    <span className="text-[10px] text-[#64748B] truncate max-w-full">
+                      {item.type}
                     </span>
                   </div>
                 );
@@ -1000,15 +1285,15 @@ export default function ProjectIconGrid() {
             </div>
           </div>
 
-          {/* 3. THE TWO CORE SIDE-BY-SIDE PANELS (FROM USER'S IMAGE 2: Trending games & Trending apps) */}
+          {/* 5. THE TWO SIDE-BY-SIDE PANELS (REAL ESTATE PROJECTS ON LEFT, CONTACT METHODS ON RIGHT - REMOVED "FREE" WORD AS REQUESTED!) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            {/* PANEL 1: "Trending land projects >" (Matching "Trending games >") */}
+            {/* PANEL 1: "Our Land & Property Projects >" (NO "Trending games", NO "Free", NO "Game Pass"!) */}
             <div className="bg-[#FFFFFF] rounded-2xl p-5 sm:p-6 border border-[#E2E8F0] shadow-xs hover:shadow-md transition-shadow">
               
               <div className="flex items-center justify-between pb-4 border-b border-[#F1F5F9]">
                 <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
-                  <span>{language === "ta" ? "முன்னணி திட்டங்கள்" : "Trending land projects"}</span>
+                  <span>{language === "ta" ? "எங்கள் மனைப்பிரிவு திட்டங்கள்" : "Our Land & Property Projects"}</span>
                   <ChevronRight className="h-4 w-4 text-[#64748B]" />
                 </h2>
 
@@ -1029,11 +1314,12 @@ export default function ProjectIconGrid() {
                 </div>
               </div>
 
-              {/* 2-Column × 3-Row Grid (6 App items per panel) */}
+              {/* 2-Column × 3-Row Grid (Clean Real Estate Status, NO "Free"!) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 pt-4">
                 {filteredProjects.slice(0, 6).map((project) => {
                   const IconComp = project.icon;
                   const isUpcoming = project.projectType === "upcoming";
+                  const isRunning = project.projectType === "running";
 
                   return (
                     <div
@@ -1042,6 +1328,7 @@ export default function ProjectIconGrid() {
                       className="group flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition-all cursor-pointer"
                     >
                       <div className="flex items-center gap-3 min-w-0">
+                        {/* Squircle Project Icon */}
                         <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shrink-0 shadow-xs border border-gray-200 bg-gray-100 group-hover:scale-105 transition-transform">
                           <Image
                             src={project.image}
@@ -1051,6 +1338,7 @@ export default function ProjectIconGrid() {
                             sizes="64px"
                           />
                           <div className={`absolute inset-0 bg-gradient-to-tr ${project.gradient} opacity-30 mix-blend-multiply`} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="h-7 w-7 rounded-lg bg-black/50 backdrop-blur-xs flex items-center justify-center text-white border border-white/20">
@@ -1058,21 +1346,23 @@ export default function ProjectIconGrid() {
                             </div>
                           </div>
 
-                          {project.badgeLabel && (
-                            <div className="absolute top-0.5 left-0.5">
-                              <span
-                                className={`text-[7px] font-mono font-extrabold uppercase px-1 py-0.2 rounded-xs shadow-2xs ${
-                                  isUpcoming
-                                    ? "bg-amber-400 text-black"
-                                    : "bg-emerald-600 text-white"
-                                }`}
-                              >
-                                {isUpcoming ? "Upcoming" : "Verified"}
-                              </span>
-                            </div>
-                          )}
+                          {/* Authentic Status Badge on Icon */}
+                          <div className="absolute top-0.5 left-0.5">
+                            <span
+                              className={`text-[7px] font-mono font-extrabold uppercase px-1 py-0.2 rounded-xs shadow-2xs ${
+                                isUpcoming
+                                  ? "bg-amber-400 text-black"
+                                  : isRunning
+                                  ? "bg-emerald-600 text-white"
+                                  : "bg-blue-600 text-white"
+                              }`}
+                            >
+                              {isUpcoming ? "Upcoming" : isRunning ? "Running" : "Completed"}
+                            </span>
+                          </div>
                         </div>
 
+                        {/* Title & Category */}
                         <div className="min-w-0 flex flex-col">
                           <span className="font-display text-xs sm:text-sm font-bold text-[#0F172A] group-hover:text-[#B45309] truncate">
                             {language === "ta" ? project.nameTa : project.name}
@@ -1086,9 +1376,18 @@ export default function ProjectIconGrid() {
                         </div>
                       </div>
 
+                      {/* Right Tag: Clean Status Pill (REMOVED "FREE" AS REQUESTED!) */}
                       <div className="shrink-0 text-right">
-                        <span className="text-xs font-semibold text-[#64748B] group-hover:text-[#0F172A]">
-                          {language === "ta" ? "இலவசம்" : "Free"}
+                        <span
+                          className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full ${
+                            isUpcoming
+                              ? "bg-amber-100 text-amber-900"
+                              : isRunning
+                              ? "bg-emerald-100 text-emerald-900"
+                              : "bg-blue-100 text-blue-900"
+                          }`}
+                        >
+                          {isUpcoming ? "2026 Launch" : isRunning ? "Active" : "Delivered"}
                         </span>
                       </div>
                     </div>
@@ -1098,12 +1397,12 @@ export default function ProjectIconGrid() {
 
             </div>
 
-            {/* PANEL 2: "Trending apps" (Matching "Trending apps >") */}
+            {/* PANEL 2: "Direct Contact & Quick Services >" (NO "Trending apps", NO "Free"!) */}
             <div className="bg-[#FFFFFF] rounded-2xl p-5 sm:p-6 border border-[#E2E8F0] shadow-xs hover:shadow-md transition-shadow">
               
               <div className="flex items-center justify-between pb-4 border-b border-[#F1F5F9]">
                 <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
-                  <span>{language === "ta" ? "முக்கிய சேவைகள் & செயலிகள்" : "Trending apps"}</span>
+                  <span>{language === "ta" ? "நேரடி தொடர்பு & சேவைகள்" : "Direct Contact & Quick Services"}</span>
                   <ChevronRight className="h-4 w-4 text-[#64748B]" />
                 </h2>
 
@@ -1124,7 +1423,7 @@ export default function ProjectIconGrid() {
                 </div>
               </div>
 
-              {/* 2-Column × 3-Row Grid (6 Utility App items) */}
+              {/* 2-Column × 3-Row Grid (Clean Action Button, NO "Free"!) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 pt-4">
                 {filteredUtilityApps.slice(0, 6).map((app) => {
                   const IconComp = app.icon;
@@ -1141,6 +1440,7 @@ export default function ProjectIconGrid() {
                       className="group flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition-all cursor-pointer"
                     >
                       <div className="flex items-center gap-3 min-w-0">
+                        {/* Squircle App Icon */}
                         <div
                           className={`relative aspect-square w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shrink-0 shadow-sm bg-gradient-to-br ${app.gradient} flex items-center justify-center border border-white/20 group-hover:scale-105 transition-transform`}
                         >
@@ -1157,6 +1457,7 @@ export default function ProjectIconGrid() {
                           )}
                         </div>
 
+                        {/* Title & Subtitle */}
                         <div className="min-w-0 flex flex-col">
                           <span className="font-display text-xs sm:text-sm font-bold text-[#0F172A] group-hover:text-[#B45309] truncate">
                             {language === "ta" ? app.nameTa : app.name}
@@ -1164,15 +1465,13 @@ export default function ProjectIconGrid() {
                           <span className="text-[11px] text-[#64748B] truncate mt-0.5">
                             {language === "ta" ? app.subtitleTa : app.subtitle}
                           </span>
-                          <span className="text-[10px] font-mono text-emerald-600 font-semibold truncate">
-                            {language === "ta" ? app.tagTa : app.tag}
-                          </span>
                         </div>
                       </div>
 
+                      {/* Right Tag: Action Button (REMOVED "FREE" AS REQUESTED!) */}
                       <div className="shrink-0 text-right">
-                        <span className="text-xs font-semibold text-[#64748B] group-hover:text-[#0F172A]">
-                          {language === "ta" ? "இலவசம்" : "Free"}
+                        <span className="text-xs font-bold text-blue-600 group-hover:text-blue-700 bg-blue-50 px-2 py-1 rounded-lg">
+                          {language === "ta" ? app.actionTextTa : app.actionText}
                         </span>
                       </div>
                     </div>
@@ -1184,142 +1483,148 @@ export default function ProjectIconGrid() {
 
           </div>
 
-          {/* 4. BOTTOM SHELF: "Talk. share. smile. >" / DIRECT CONNECT CHANNELS (FROM USER'S IMAGE 2) */}
+          {/* 6. BOTTOM SHELF: "Direct Communication Channels >" */}
           <div className="bg-[#FFFFFF] rounded-2xl p-5 sm:p-6 border border-[#E2E8F0] shadow-xs">
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#F1F5F9]">
-              <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] flex items-center gap-1.5">
-                <span>{language === "ta" ? "நேரடி தொடர்புகள் & வரைபடங்கள்" : "Talk. share. smile."}</span>
+            
+            <div className="flex items-center justify-between pb-4 border-b border-[#F1F5F9] mb-4">
+              <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
+                <span>{language === "ta" ? "நேரடி தொடர்பு வழிகள்" : "Direct Communication Channels"}</span>
                 <ChevronRight className="h-4 w-4 text-[#64748B]" />
               </h2>
+
+              <div className="flex items-center gap-1 text-[#64748B]">
+                <button
+                  onClick={() => setQuickChannelsPage((p) => Math.max(0, p - 1))}
+                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setQuickChannelsPage((p) => p + 1)}
+                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
-            {/* Row of Communication & Project App Tiles (Matches Image 2 bottom shelf) */}
+            {/* Row of 8 Squircle Apps */}
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
-              {/* Tile 1: WhatsApp */}
-              <a
-                href="https://wa.me/917708966452"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
-              >
-                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-[#25D366] flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
-                  <MessageCircle className="h-8 w-8 fill-white" />
-                </div>
-                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
-                  WhatsApp Beta
-                </span>
-                <span className="text-[10px] text-[#94A3B8] block">Free</span>
-              </a>
+              {quickChannels.map((item) => {
+                const IconComp = item.icon;
 
-              {/* Tile 2: Direct Call */}
-              <a
-                href="tel:+917708966452"
-                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
-              >
-                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
-                  <Phone className="h-7 w-7" />
-                </div>
-                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
-                  Direct Line
-                </span>
-                <span className="text-[10px] text-[#94A3B8] block">Free</span>
-              </a>
+                return (
+                  <div
+                    key={item.id}
+                    onClick={() => {
+                      if (item.url.startsWith("http") || item.url.startsWith("tel:") || item.url.startsWith("mailto:")) {
+                        window.open(item.url, item.url.startsWith("http") ? "_blank" : "_self");
+                      } else {
+                        router.push(item.url);
+                      }
+                    }}
+                    className="group flex flex-col items-center text-center p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition-all cursor-pointer"
+                  >
+                    <div className={`relative aspect-square w-16 h-16 sm:w-18 sm:h-18 rounded-2xl ${item.bg} text-white flex items-center justify-center shadow-md group-hover:scale-108 transition-transform border border-white/20`}>
+                      <IconComp className="h-8 w-8 text-white drop-shadow-sm" />
+                    </div>
 
-              {/* Tile 3: 3D Map */}
-              <a
-                href="https://mapbhoomi.com/l/surya-promoters"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
-              >
-                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-amber-500 flex items-center justify-center text-black shadow-xs group-hover:scale-108 transition">
-                  <Layers className="h-7 w-7" />
-                </div>
-                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
-                  MapBhoomi 3D
-                </span>
-                <span className="text-[10px] text-[#94A3B8] block">Free</span>
-              </a>
-
-              {/* Tile 4: Google Maps */}
-              <a
-                href="https://maps.google.com/?q=Surya+Promoters+Madurai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
-              >
-                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-rose-500 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
-                  <MapPin className="h-7 w-7" />
-                </div>
-                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
-                  Google Maps
-                </span>
-                <span className="text-[10px] text-[#94A3B8] block">Free</span>
-              </a>
-
-              {/* Tile 5: Photo Gallery */}
-              <Link
-                href="/gallery"
-                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
-              >
-                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-purple-600 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
-                  <Camera className="h-7 w-7" />
-                </div>
-                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
-                  Site Gallery
-                </span>
-                <span className="text-[10px] text-[#94A3B8] block">Free</span>
-              </Link>
-
-              {/* Tile 6: All Projects */}
-              <Link
-                href="/projects"
-                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
-              >
-                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
-                  <Building2 className="h-7 w-7" />
-                </div>
-                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
-                  All Projects
-                </span>
-                <span className="text-[10px] text-[#94A3B8] block">Free</span>
-              </Link>
-
-              {/* Tile 7: Legal Patta */}
-              <Link
-                href="/about"
-                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
-              >
-                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-cyan-600 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
-                  <ShieldCheck className="h-7 w-7" />
-                </div>
-                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
-                  Patta Verified
-                </span>
-                <span className="text-[10px] text-[#94A3B8] block">Free</span>
-              </Link>
-
-              {/* Tile 8: Email Support */}
-              <a
-                href="mailto:suryconstruction@gmail.com"
-                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
-              >
-                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-gray-800 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
-                  <Mail className="h-7 w-7" />
-                </div>
-                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
-                  Email Desk
-                </span>
-                <span className="text-[10px] text-[#94A3B8] block">Free</span>
-              </a>
+                    <span className="font-display text-xs font-bold text-[#0F172A] group-hover:text-[#B45309] truncate max-w-full mt-2.5">
+                      {language === "ta" ? item.nameTa : item.name}
+                    </span>
+                    <span className="text-[10px] text-[#64748B] truncate max-w-full">
+                      {item.tag}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
+
           </div>
+
+          {/* 7. INTEGRATED MICROSOFT STORE STYLE FOOTER */}
+          <footer className="pt-8 pb-4 border-t border-[#E2E8F0] text-xs text-[#64748B] space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              
+              {/* Brand Col */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="relative h-7 w-7 rounded-full overflow-hidden border border-[#EAB308]">
+                    <Image src="/images/surya-logo.png" alt="Surya Promoters" fill className="object-contain" />
+                  </div>
+                  <span className="font-display text-sm font-extrabold text-[#0F172A]">
+                    Surya Promoters
+                  </span>
+                </div>
+                <p className="text-[11px] text-[#64748B] leading-relaxed">
+                  Established in 2010 by Mr. Manickam Natarajan (Indian Air Force Veteran). Providing 100% clear computer patta, transparent land banking, and managed developments in Madurai.
+                </p>
+              </div>
+
+              {/* Projects Col */}
+              <div className="space-y-2">
+                <span className="font-display text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                  {language === "ta" ? "திட்டங்கள்" : "Projects"}
+                </span>
+                <ul className="space-y-1 text-[11px]">
+                  <li><Link href="/projects/orange-garden" className="text-amber-700 font-bold hover:underline">Orange Garden (Upcoming 2026)</Link></li>
+                  <li><Link href="/projects/vaigai-elite-commercial-land" className="hover:text-[#0F172A]">Vaigai Elite (NH-44 Running)</Link></li>
+                  <li><Link href="/projects/madurai-farms-and-fruits" className="hover:text-[#0F172A]">Madurai Farms & Fruits (Running)</Link></li>
+                  <li><Link href="/projects/surya-green-enclave" className="hover:text-[#0F172A]">Surya Green Enclave (Delivered)</Link></li>
+                </ul>
+              </div>
+
+              {/* Services & Quick Links */}
+              <div className="space-y-2">
+                <span className="font-display text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                  {language === "ta" ? "சேவைகள் & இணைப்புகள்" : "Services & Links"}
+                </span>
+                <ul className="space-y-1 text-[11px]">
+                  <li><Link href="/services" className="hover:text-[#0F172A]">Commercial Land Advisory</Link></li>
+                  <li><Link href="/services" className="hover:text-[#0F172A]">Organic Agro Farmland</Link></li>
+                  <li><Link href="/about" className="hover:text-[#0F172A]">IAF Veteran Leadership</Link></li>
+                  <li><Link href="/gallery" className="hover:text-[#0F172A]">Site Photo Gallery</Link></li>
+                  <li><a href="https://mapbhoomi.com/l/surya-promoters" target="_blank" rel="noopener noreferrer" className="hover:text-[#0F172A]">MapBhoomi 3D Layout</a></li>
+                </ul>
+              </div>
+
+              {/* Contact Information */}
+              <div className="space-y-2">
+                <span className="font-display text-xs font-bold uppercase tracking-wider text-[#0F172A]">
+                  {language === "ta" ? "தொடர்பு விபரம்" : "Contact & Support"}
+                </span>
+                <p className="text-[11px] leading-relaxed">
+                  Madurai, Tamil Nadu, India<br />
+                  Hotline: +91 77089 66452<br />
+                  Email: suryapromotersmadurai@gmail.com
+                </p>
+                <div className="pt-1">
+                  <a
+                    href="https://wa.me/917708966452"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-600 text-white text-[10px] font-bold"
+                  >
+                    <MessageCircle className="h-3 w-3 fill-white" />
+                    <span>WhatsApp Help</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Copyright & Disclaimer */}
+            <div className="pt-4 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] text-[#94A3B8]">
+              <span>© 2026 Surya Promoters. All Rights Reserved.</span>
+              <span className="font-mono">100% Clear Title & Computer Patta Guarantee</span>
+            </div>
+          </footer>
 
         </main>
 
       </div>
 
-      {/* STORE APP PRODUCT DETAIL POPUP (WHEN ANY ITEM IS CLICKED) */}
+      {/* 8. STORE APP PRODUCT DETAIL MODAL */}
       {selectedProject && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-200"
@@ -1370,7 +1675,7 @@ export default function ProjectIconGrid() {
             {/* Modal Content Body */}
             <div className="p-6 sm:p-8 space-y-6">
               
-              {/* Product Header: Icon + Title + Rating */}
+              {/* Product Header */}
               <div className="flex items-start gap-4">
                 <div className="relative aspect-square w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shrink-0 shadow-md border border-gray-200 bg-gray-100">
                   <Image
@@ -1408,7 +1713,7 @@ export default function ProjectIconGrid() {
                 </div>
               </div>
 
-              {/* Action Buttons: "Enquire on WhatsApp" + "Direct Call" */}
+              {/* Action Buttons */}
               <div className="space-y-2.5 pt-2 border-t border-[#F1F5F9]">
                 <a
                   href={`https://wa.me/917708966452?text=${encodeURIComponent(
@@ -1449,7 +1754,7 @@ export default function ProjectIconGrid() {
 
                   <button
                     onClick={() => router.push(`/projects/${selectedProject.slug}`)}
-                    className="inline-flex items-center justify-center gap-1.5 px-4 rounded-xl bg-[#EAB308] hover:bg-[#ca9a07] text-[#0F172A] py-2.5 text-xs font-extrabold uppercase tracking-wider transition cursor-pointer"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 rounded-xl bg-[#EAB308] hover:bg-[#ca9a07] text-[#0A0D12] py-2.5 text-xs font-extrabold uppercase tracking-wider transition cursor-pointer"
                   >
                     <span>{language === "ta" ? "முழு பக்கம்" : "Full Page"}</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />
