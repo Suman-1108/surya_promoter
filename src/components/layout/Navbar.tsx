@@ -1,119 +1,236 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { useLanguage } from "@/hooks/useLanguage";
+import {
+  Search,
+  Minus,
+  Square,
+  X,
+  MessageCircle,
+  Menu,
+  ShieldCheck,
+  Building2,
+  Home,
+  Camera,
+  Info,
+  Phone,
+  AppWindow,
+} from "lucide-react";
 import MobileMenu from "./MobileMenu";
-import { Menu, ArrowRight } from "lucide-react";
 
 export default function Navbar() {
+  const router = useRouter();
+  const pathname = usePathname();
   const { language, toggleLanguage } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isMaximized, setIsMaximized] = useState(true);
+
+  // Broadcast search query to window so ProjectIconGrid and other components receive it live
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("store-search", { detail: val }));
+    }
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && pathname !== "/") {
+      router.push(`/?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+  // Listen for external search clear
+  useEffect(() => {
+    const handleExternalClear = () => setSearchQuery("");
+    if (typeof window !== "undefined") {
+      window.addEventListener("store-search-clear", handleExternalClear);
+      return () => window.removeEventListener("store-search-clear", handleExternalClear);
+    }
+  }, []);
 
   return (
     <>
-      <header className="sticky top-0 left-0 right-0 z-50 bg-[#0A0D12] border-b border-white/10 shadow-lg backdrop-blur-md transition-all">
-        <div className="mx-auto flex w-full max-w-[1760px] items-center justify-between px-6 sm:px-10 lg:px-16 2xl:px-24 py-4">
-          {/* Left: Brand Identity */}
-          <Link href="/" className="group flex items-center gap-3.5">
-            <div className="relative h-11 w-11 shrink-0 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-1 transition-all group-hover:scale-105">
-              <div className="relative h-full w-full rounded-full overflow-hidden">
-                <Image
-                  src="/images/surya-logo.png"
-                  alt="Surya Promoters Logo"
-                  fill
-                  priority
-                  sizes="44px"
-                  className="object-contain scale-105"
-                />
+      {/* WINDOWS 11 / MICROSOFT STORE AUTHENTIC TITLEBAR & HEADER */}
+      <header className="sticky top-0 z-50 w-full bg-[#FFFFFF]/95 backdrop-blur-xl border-b border-[#E2E8F0] shadow-2xs select-none">
+        <div className="mx-auto flex h-14 sm:h-15 w-full max-w-[1760px] items-center justify-between px-3 sm:px-6 gap-2 sm:gap-4">
+          
+          {/* Left: Window Icon + Store Title + Navigation Pills */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Store Brand Icon */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-tr from-[#EAB308] via-[#F59E0B] to-[#B45309] flex items-center justify-center shadow-xs text-white p-1">
+                <AppWindow className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display text-lg md:text-xl font-extrabold tracking-wider text-white uppercase transition-colors group-hover:text-[#EAB308]">
-                SURYA PROMOTERS
-              </span>
-              <span className="font-mono text-[9px] tracking-[0.25em] uppercase font-bold text-[#EAB308]">
-                LAND & PROPERTY DEVELOPERS · ESTD. 2010
-              </span>
-            </div>
-          </Link>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-display text-xs sm:text-sm font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
+                    Surya Promoters Store
+                  </span>
+                  <span className="hidden sm:inline-block text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-md bg-[#EAB308]/20 text-[#854D0E]">
+                    PRO
+                  </span>
+                </div>
+                <span className="hidden md:inline-block text-[9px] font-mono text-[#64748B] tracking-wider uppercase">
+                  {language === "ta" ? "மதுரை மனைப்பிரிவுகள் ஸ்டோர்" : "Madurai Land & Property OS"}
+                </span>
+              </div>
+            </Link>
 
-          {/* Center Navigation Links (Uppercase Bold Modern Sans Font - matches reference) */}
-          <nav className="hidden lg:flex items-center gap-9">
-            <Link
-              href="/projects"
-              className="font-display text-xs font-bold tracking-widest uppercase text-gray-200 hover:text-[#EAB308] transition-colors"
-            >
-              {language === "ta" ? "திட்டங்கள்" : "PROJECTS"}
-            </Link>
-            <Link
-              href="/services"
-              className="font-display text-xs font-bold tracking-widest uppercase text-gray-200 hover:text-[#EAB308] transition-colors"
-            >
-              {language === "ta" ? "சேவைகள்" : "SERVICES"}
-            </Link>
-            <Link
-              href="/about"
-              className="font-display text-xs font-bold tracking-widest uppercase text-gray-200 hover:text-[#EAB308] transition-colors"
-            >
-              {language === "ta" ? "எங்களைப் பற்றி" : "ABOUT US"}
-            </Link>
-            <Link
-              href="/gallery"
-              className="font-display text-xs font-bold tracking-widest uppercase text-gray-200 hover:text-[#EAB308] transition-colors"
-            >
-              {language === "ta" ? "புகைப்படங்கள்" : "GALLERY"}
-            </Link>
-            <Link
-              href="/contact"
-              className="font-display text-xs font-bold tracking-widest uppercase text-gray-200 hover:text-[#EAB308] transition-colors"
-            >
-              {language === "ta" ? "தொடர்புக்கு" : "CONTACT"}
-            </Link>
-          </nav>
+            {/* Desktop Quick Category Links (Pill Style) */}
+            <nav className="hidden xl:flex items-center gap-1 ml-3 pl-3 border-l border-[#E2E8F0]">
+              <Link
+                href="/projects"
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition ${
+                  pathname === "/projects"
+                    ? "bg-[#EAB308]/15 text-[#854D0E] font-bold"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100"
+                }`}
+              >
+                {language === "ta" ? "திட்டங்கள்" : "Projects"}
+              </Link>
+              <Link
+                href="/services"
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition ${
+                  pathname === "/services"
+                    ? "bg-[#EAB308]/15 text-[#854D0E] font-bold"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100"
+                }`}
+              >
+                {language === "ta" ? "சேவைகள்" : "Services"}
+              </Link>
+              <Link
+                href="/about"
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition ${
+                  pathname === "/about"
+                    ? "bg-[#EAB308]/15 text-[#854D0E] font-bold"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100"
+                }`}
+              >
+                {language === "ta" ? "எங்களைப் பற்றி" : "About"}
+              </Link>
+              <Link
+                href="/gallery"
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition ${
+                  pathname === "/gallery"
+                    ? "bg-[#EAB308]/15 text-[#854D0E] font-bold"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100"
+                }`}
+              >
+                {language === "ta" ? "புகைப்படங்கள்" : "Gallery"}
+              </Link>
+              <Link
+                href="/contact"
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition ${
+                  pathname === "/contact"
+                    ? "bg-[#EAB308]/15 text-[#854D0E] font-bold"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100"
+                }`}
+              >
+                {language === "ta" ? "தொடர்பு" : "Contact"}
+              </Link>
+            </nav>
+          </div>
 
-          {/* Right: Language switch + Solid Gold "DISCUSS YOUR PROJECT" CTA */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Center: The Exact Microsoft Store Pill Search Bar */}
+          <div className="flex-1 max-w-md lg:max-w-xl mx-auto px-2">
+            <div className="relative w-full">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#64748B]" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => handleSearchChange(e.target.value)}
+                onKeyDown={handleSearchKeyDown}
+                placeholder={
+                  language === "ta"
+                    ? "திட்டங்கள், நிலங்கள், பண்ணை மனைகளைத் தேடுங்கள்..."
+                    : "Search apps, games, and more..."
+                }
+                className="w-full h-8.5 sm:h-9.5 pl-9 sm:pl-10 pr-8 rounded-full bg-[#F1F5F9] hover:bg-[#E2E8F0]/70 focus:bg-[#FFFFFF] border border-[#CBD5E1] focus:border-[#EAB308] focus:ring-2 focus:ring-[#EAB308]/30 text-xs sm:text-sm text-[#0F172A] placeholder:text-[#64748B] transition-all outline-hidden shadow-2xs"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => handleSearchChange("")}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-[#64748B] hover:text-[#0F172A] rounded-full hover:bg-gray-200 transition"
+                  title="Clear search"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Right: Language switch + WhatsApp + Window Controls */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            
+            {/* Language Switch Pill */}
             <button
               onClick={toggleLanguage}
-              className="rounded-full border border-white/20 bg-white/5 px-3.5 py-1 text-xs font-bold text-white hover:border-[#EAB308] hover:text-[#EAB308] transition"
-              title="Switch language"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-[#E2E8F0] bg-white hover:bg-gray-50 text-[11px] font-mono font-bold text-[#0F172A] shadow-2xs transition cursor-pointer"
+              title="Toggle Language"
             >
-              {language === "en" ? "தமிழ்" : "EN"}
+              <span>{language === "ta" ? "English" : "தமிழ்"}</span>
             </button>
 
+            {/* IAF Veteran Trust Tag */}
+            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-mono font-bold">
+              <ShieldCheck className="h-3 w-3 text-emerald-600" />
+              <span>16+ Yrs IAF Vet</span>
+            </div>
+
+            {/* Fast WhatsApp Connect */}
             <a
-              href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20would%20like%20to%20discuss%20my%20property%20requirements."
+              href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20your%20land%20and%20plots."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#EAB308] px-6 py-3 font-display text-xs font-extrabold uppercase tracking-widest text-[#0A0D12] shadow-sm transition hover:bg-[#ca9a07] hover:shadow-md hover:scale-[1.02]"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-[11px] sm:text-xs font-bold shadow-2xs transition hover:scale-105"
             >
-              <span>{language === "ta" ? "கலந்தாலோசிக்க" : "DISCUSS YOUR PROJECT"}</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+              <MessageCircle className="h-3.5 w-3.5 fill-white text-white" />
+              <span className="hidden sm:inline">{language === "ta" ? "வாட்ஸ்அப்" : "WhatsApp"}</span>
             </a>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-3 lg:hidden">
-            <button
-              onClick={toggleLanguage}
-              className="rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs font-bold text-white"
-            >
-              {language === "en" ? "தமிழ்" : "EN"}
-            </button>
+            {/* Mobile Menu Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="p-2 text-white hover:text-[#EAB308]"
-              aria-label="Open navigation menu"
+              className="xl:hidden p-1.5 text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100 rounded-lg transition"
+              aria-label="Open menu"
             >
-              <Menu className="h-7 w-7" />
+              <Menu className="h-5 w-5" />
             </button>
+
+            {/* Windows 11 Titlebar Window Controls (- □ ✕) */}
+            <div className="hidden sm:flex items-center ml-1 pl-1 border-l border-[#E2E8F0]">
+              <button
+                className="h-8 w-8 flex items-center justify-center text-[#64748B] hover:text-[#0F172A] hover:bg-[#E2E8F0] transition"
+                title="Minimize"
+              >
+                <Minus className="h-3.5 w-3.5" />
+              </button>
+              <button
+                onClick={() => setIsMaximized(!isMaximized)}
+                className="h-8 w-8 flex items-center justify-center text-[#64748B] hover:text-[#0F172A] hover:bg-[#E2E8F0] transition"
+                title="Maximize / Restore"
+              >
+                <Square className="h-3 w-3" />
+              </button>
+              <button
+                className="h-8 w-8 flex items-center justify-center text-[#64748B] hover:text-white hover:bg-red-500 transition"
+                title="Close"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </div>
+
           </div>
+
         </div>
       </header>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Navigation */}
       <MobileMenu
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}

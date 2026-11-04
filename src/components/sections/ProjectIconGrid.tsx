@@ -39,6 +39,8 @@ import {
   Check,
   Flame,
   TrendingUp,
+  Mail,
+  Navigation,
 } from "lucide-react";
 
 // Project & App Interfaces
@@ -97,20 +99,28 @@ export interface StoreUtilityApp {
 
 export default function ProjectIconGrid() {
   const router = useRouter();
-  const { language, toggleLanguage } = useLanguage();
+  const { language } = useLanguage();
 
   // Navigation State
   const [activeNav, setActiveNav] = useState<"home" | "running" | "upcoming" | "completed" | "3d" | "gallery">("home");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState<StoreProject | null>(null);
 
-  // Spotlight Hero Banner Carousel
-  const [heroIndex, setHeroIndex] = useState(0);
-
   // Pagination for panels
   const [trendingProjectsPage, setTrendingProjectsPage] = useState(0);
   const [trendingAppsPage, setTrendingAppsPage] = useState(0);
-  const [bestSellingPage, setBestSellingPage] = useState(0);
+  const [appsLovePage, setAppsLovePage] = useState(0);
+
+  // Listen to search events from Navbar
+  useEffect(() => {
+    const handleSearch = (e: any) => {
+      setSearchQuery(e.detail || "");
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener("store-search", handleSearch);
+      return () => window.removeEventListener("store-search", handleSearch);
+    }
+  }, []);
 
   // Store Projects
   const storeProjects: StoreProject[] = useMemo(
@@ -291,7 +301,6 @@ export default function ProjectIconGrid() {
         overviewTa:
           "முதுகுளத்தூர் சாலையில் வெற்றிகரமாக முடிக்கப்பட்டு ஒப்படைக்கப்பட்ட குடியிருப்பு மனைப்பிரிவு. 30-40 அடி தார்ச்சாலை, தனிநபர் பட்டா மற்றும் உடனடி வீடு கட்டும் வசதி கொண்டது.",
       },
-      // Additional shortcut items to complete the 6-item shelf layout like Microsoft Store
       {
         id: "highway-logistics",
         slug: "vaigai-elite-commercial-land",
@@ -471,6 +480,109 @@ export default function ProjectIconGrid() {
     []
   );
 
+  // Horizontal "Apps we think you'll love >" shelf items (From Image 1)
+  const appsWeLove = useMemo(
+    () => [
+      {
+        id: "vaigai-app",
+        name: "Vaigai Elite",
+        nameTa: "வைகை எலைட்",
+        category: "Highway Land",
+        categoryTa: "வணிக நிலம்",
+        image: "/images/projects/vaigai/corridor-aerial.jpg",
+        icon: Building2,
+        tag: "Free",
+        tagTa: "இலவசம்",
+        projectSlug: "vaigai-elite-commercial-land",
+      },
+      {
+        id: "farms-app",
+        name: "Madurai Farms",
+        nameTa: "மதுரை ஃபார்ம்ஸ்",
+        category: "Organic Agro",
+        categoryTa: "இயற்கை பண்ணை",
+        image: "/images/projects/madurai-farms/aerial-cottage.jpg",
+        icon: Wheat,
+        tag: "Free",
+        tagTa: "இலவசம்",
+        projectSlug: "madurai-farms-and-fruits",
+      },
+      {
+        id: "orange-app",
+        name: "Orange Garden",
+        nameTa: "ஆரஞ்ச் கார்டன்",
+        category: "Orchard Estate",
+        categoryTa: "பழத்தோட்டம்",
+        image: "/images/projects/orange-garden/hero-orchard.jpg",
+        icon: Sparkles,
+        tag: "Upcoming",
+        tagTa: "வரவிருக்கும்",
+        projectSlug: "orange-garden",
+      },
+      {
+        id: "green-app",
+        name: "Green Enclave",
+        nameTa: "கிரீன் என்கிளேவ்",
+        category: "DTCP Township",
+        categoryTa: "DTCP மனை",
+        image: "/images/projects/surya-green-enclave/road-corridor.jpg",
+        icon: CheckCircle2,
+        tag: "Delivered",
+        tagTa: "ஒப்படைப்பு",
+        projectSlug: "surya-green-enclave",
+      },
+      {
+        id: "map-app",
+        name: "MapBhoomi 3D",
+        nameTa: "3D வரைபடம்",
+        category: "Live 3D Layout",
+        categoryTa: "3D வரைபடம்",
+        icon: Layers,
+        gradient: "from-amber-500 to-yellow-600",
+        tag: "Free",
+        tagTa: "இலவசம்",
+        externalUrl: "https://mapbhoomi.com/l/surya-promoters",
+      },
+      {
+        id: "chat-app",
+        name: "WhatsApp Desk",
+        nameTa: "வாட்ஸ்அப்",
+        category: "Instant Support",
+        categoryTa: "உடனடி சேவை",
+        icon: MessageCircle,
+        gradient: "from-[#25D366] to-[#128C7E]",
+        tag: "Free",
+        tagTa: "இலவசம்",
+        externalUrl: "https://wa.me/917708966452",
+      },
+      {
+        id: "gallery-app",
+        name: "Drone Gallery",
+        nameTa: "ட்ரோன் படங்கள்",
+        category: "HD Visuals",
+        categoryTa: "HD படங்கள்",
+        icon: Camera,
+        gradient: "from-purple-500 to-indigo-600",
+        tag: "Free",
+        tagTa: "இலவசம்",
+        internalUrl: "/gallery",
+      },
+      {
+        id: "patta-app",
+        name: "Clear Patta Hub",
+        nameTa: "பட்டா வழிகாட்டி",
+        category: "100% Certified",
+        categoryTa: "100% தெளிவானது",
+        icon: ShieldCheck,
+        gradient: "from-blue-600 to-cyan-600",
+        tag: "Free",
+        tagTa: "இலவசம்",
+        internalUrl: "/about",
+      },
+    ],
+    []
+  );
+
   // Filter projects by search query & navigation tab
   const filteredProjects = useMemo(() => {
     let list = storeProjects;
@@ -511,107 +623,13 @@ export default function ProjectIconGrid() {
     );
   }, [storeUtilityApps, searchQuery]);
 
-  // Spotlight Featured Projects for the Hero Carousel (top 3)
-  const spotlightProjects = useMemo(() => storeProjects.slice(0, 3), [storeProjects]);
-  const activeSpotlight = spotlightProjects[heroIndex] || spotlightProjects[0];
-
-  const handleNextSpotlight = () => {
-    setHeroIndex((prev) => (prev + 1) % spotlightProjects.length);
-  };
-
-  const handlePrevSpotlight = () => {
-    setHeroIndex((prev) => (prev - 1 + spotlightProjects.length) % spotlightProjects.length);
-  };
-
   // 4 Core Poster Cards for "Best Selling Land Portfolios"
   const bestSellingProjects = useMemo(() => storeProjects.slice(0, 4), [storeProjects]);
 
   return (
-    <div className="min-h-screen w-full bg-[#F3F3F3] text-[#1E293B] flex flex-col font-sans selection:bg-[#EAB308]/30">
+    <div className="w-full bg-[#F3F3F3] text-[#1E293B] flex flex-col font-sans selection:bg-[#EAB308]/30">
       
-      {/* 1. TOP WINDOW / STORE HEADER BAR (Exact Microsoft Store Titlebar + Search) */}
-      <header className="sticky top-0 z-40 w-full bg-[#FFFFFF]/90 backdrop-blur-xl border-b border-[#E2E8F0] shadow-2xs">
-        <div className="max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-          
-          {/* Left: Store Title & Window Branding */}
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-[#EAB308] to-[#CA8A04] flex items-center justify-center shadow-xs text-white">
-              <AppWindow className="h-5 w-5" />
-            </div>
-            <div className="hidden sm:flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="font-display text-sm font-extrabold tracking-tight text-[#0F172A]">
-                  Surya Promoters Store
-                </span>
-                <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md bg-[#EAB308]/20 text-[#854D0E]">
-                  PRO
-                </span>
-              </div>
-              <span className="text-[10px] font-mono text-[#64748B] tracking-wider uppercase">
-                {language === "ta" ? "மதுரை மனைப்பிரிவுகள் ஸ்டோர்" : "Madurai Real Estate Store"}
-              </span>
-            </div>
-          </div>
-
-          {/* Center: Search Bar (Exact Microsoft Store Pill Search Bar) */}
-          <div className="flex-1 max-w-xl mx-auto">
-            <div className="relative w-full">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748B]" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={
-                  language === "ta"
-                    ? "திட்டங்கள், விவசாய நிலம், வணிக மனைகளைத் தேடுங்கள்..."
-                    : "Search projects, farm land, commercial plots, locations..."
-                }
-                className="w-full h-10 pl-10 pr-9 rounded-full bg-[#F1F5F9] hover:bg-[#E2E8F0]/70 focus:bg-[#FFFFFF] border border-[#CBD5E1] focus:border-[#EAB308] focus:ring-2 focus:ring-[#EAB308]/30 text-xs sm:text-sm text-[#0F172A] placeholder:text-[#64748B] transition-all outline-hidden shadow-2xs"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#64748B] hover:text-[#0F172A] rounded-full hover:bg-gray-200 transition"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Right: Language switch + Veteran Badge + Instant WhatsApp */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Language Toggle Pill */}
-            <button
-              onClick={toggleLanguage}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#E2E8F0] bg-white hover:bg-gray-50 text-xs font-mono font-bold text-[#0F172A] shadow-2xs transition"
-              title="Toggle Language"
-            >
-              <span>{language === "ta" ? "English" : "தமிழ்"}</span>
-            </button>
-
-            {/* IAF Veteran Trust Seal */}
-            <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono font-bold">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-              <span>16+ Yrs IAF Vet</span>
-            </div>
-
-            {/* Fast WhatsApp Connect */}
-            <a
-              href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20your%20land%20and%20plots."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold shadow-xs transition hover:scale-105"
-            >
-              <MessageCircle className="h-3.5 w-3.5 fill-white text-white" />
-              <span className="hidden sm:inline">{language === "ta" ? "வாட்ஸ்அப்" : "WhatsApp"}</span>
-            </a>
-          </div>
-
-        </div>
-      </header>
-
-      {/* 2. MAIN STORE CONTAINER (Left Rail + Content Body) */}
+      {/* MAIN STORE CONTAINER (Left Rail + Content Body) */}
       <div className="flex-1 max-w-[1760px] w-full mx-auto flex">
         
         {/* LEFT NAVIGATION RAIL (Like Microsoft Store Left Sidebar) */}
@@ -623,6 +641,9 @@ export default function ProjectIconGrid() {
               onClick={() => {
                 setActiveNav("home");
                 setSearchQuery("");
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("store-search-clear"));
+                }
               }}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-display text-xs lg:text-sm font-bold transition-all cursor-pointer ${
                 activeNav === "home"
@@ -749,7 +770,12 @@ export default function ProjectIconGrid() {
                 </span>
               </div>
               <button
-                onClick={() => setSearchQuery("")}
+                onClick={() => {
+                  setSearchQuery("");
+                  if (typeof window !== "undefined") {
+                    window.dispatchEvent(new CustomEvent("store-search-clear"));
+                  }
+                }}
                 className="text-xs font-mono font-bold text-red-600 hover:text-red-700 underline"
               >
                 {language === "ta" ? "தேடலை நீக்கு" : "Clear Search"}
@@ -757,164 +783,235 @@ export default function ProjectIconGrid() {
             </div>
           )}
 
-          {/* 3. SPOTLIGHT HERO CAROUSEL BANNER (Like Windows Store featured carousel in user's Snipping Tool preview) */}
+          {/* 1. TOP HERO SHOWCASE SECTION (EXACT LAYOUT FROM USER'S IMAGE 1) */}
           {!searchQuery && (
-            <div className="relative w-full rounded-3xl overflow-hidden bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white shadow-xl border border-gray-200/40">
-              <div className="relative aspect-[21/9] min-h-[300px] sm:min-h-[340px] md:min-h-[380px] w-full overflow-hidden flex items-center">
-                
-                {/* Background Hero Image */}
-                <Image
-                  src={activeSpotlight.image}
-                  alt={activeSpotlight.name}
-                  fill
-                  priority
-                  className="object-cover transition-all duration-700 scale-102"
-                  sizes="(max-width: 1400px) 100vw, 1400px"
-                />
-                
-                {/* Visual Gradient Shading */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+              
+              {/* LEFT BIG GLOWING CARD: WhatsApp Showcase (Exact match to Image 1: Green with ambient glow, doodles, "Open" button, big logo) */}
+              <div className="lg:col-span-7 relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#128C7E] via-[#25D366] to-[#075E54] text-white p-6 sm:p-8 lg:p-10 shadow-[0_0_40px_rgba(37,211,102,0.35)] border border-[#25D366]/60 flex flex-col justify-between min-h-[300px] sm:min-h-[340px]">
+                {/* Subtle Doodle Pattern Background */}
+                <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
 
-                {/* Content Overlay */}
-                <div className="relative z-10 p-6 sm:p-8 lg:p-12 max-w-2xl space-y-4">
-                  {/* Category & Status Badges */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-white border border-white/30">
-                      {language === "ta" ? activeSpotlight.categoryLabelTa : activeSpotlight.categoryLabel}
-                    </span>
-                    <span
-                      className={`px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-xs ${
-                        activeSpotlight.projectType === "running"
-                          ? "bg-emerald-600 text-white"
-                          : activeSpotlight.projectType === "upcoming"
-                          ? "bg-amber-500 text-black font-extrabold"
-                          : "bg-blue-600 text-white"
-                      }`}
+                {/* Big WhatsApp Logo floating on right side */}
+                <div className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 opacity-30 sm:opacity-50 pointer-events-none scale-120 sm:scale-140">
+                  <MessageCircle className="h-40 w-40 sm:h-56 sm:w-56 text-white stroke-[1.2]" />
+                </div>
+
+                <div className="relative z-10 space-y-2 max-w-md">
+                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white drop-shadow-md">
+                    WhatsApp
+                  </h2>
+                  <p className="text-sm sm:text-base text-emerald-100 font-medium">
+                    {language === "ta"
+                      ? "நேரடி அரட்டை & உடனடி விலை விபரம், மனை வரைபடங்கள்"
+                      : "Private messaging, direct pricing & verified layout plans"}
+                  </p>
+                </div>
+
+                {/* Bottom Action Pill Button & Pagination Dots (Exact from Image 1) */}
+                <div className="relative z-10 pt-8 flex items-center justify-between">
+                  <a
+                    href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20your%20land%20and%20plots."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-8 py-2.5 rounded-full bg-[#005C4B] hover:bg-[#00473A] text-white text-sm font-bold shadow-md transition-all hover:scale-105 active:scale-95"
+                  >
+                    <span>{language === "ta" ? "தொடங்க" : "Open"}</span>
+                  </a>
+
+                  {/* Pagination Dots */}
+                  <div className="flex items-center gap-1.5 px-2">
+                    <span className="h-1.5 w-4 rounded-full bg-white" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT SIDE: 3 Cards (Top Reward/Trust Card + 2 Bottom Promo Cards from Image 1) */}
+              <div className="lg:col-span-5 flex flex-col justify-between gap-4">
+                
+                {/* Top Card: "Get rewarded" / IAF Veteran Trust Card (Matches Image 1 top right) */}
+                <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white p-5 sm:p-6 shadow-md border border-blue-400/30 flex items-center justify-between">
+                  <div className="relative z-10 space-y-2 max-w-[65%]">
+                    <h3 className="font-display text-lg sm:text-xl font-bold text-white">
+                      {language === "ta" ? "16+ ஆண்டுகள் நம்பிக்கை" : "16+ Yrs Veteran Trust"}
+                    </h3>
+                    <p className="text-xs text-blue-100">
+                      {language === "ta"
+                        ? "100% தெளிவான பட்டா & நேரடி ஆவண சரிபார்ப்பு"
+                        : "100% Clear Computer Patta & Transparent Deals"}
+                    </p>
+                    <Link
+                      href="/about"
+                      className="inline-flex items-center justify-center px-5 py-1.5 rounded-full bg-white text-blue-900 text-xs font-bold shadow-xs hover:bg-gray-100 transition mt-1"
                     >
-                      {activeSpotlight.projectType === "running" && (
-                        <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                      )}
-                      {activeSpotlight.projectType === "upcoming" && <Sparkles className="h-3 w-3 text-black" />}
-                      <span>{language === "ta" ? activeSpotlight.statusTextTa : activeSpotlight.statusText}</span>
-                    </span>
+                      <span>{language === "ta" ? "விபரம்" : "Get"}</span>
+                    </Link>
                   </div>
 
-                  {/* Title & Tagline */}
-                  <div>
-                    <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white drop-shadow-sm">
-                      {language === "ta" ? activeSpotlight.nameTa : activeSpotlight.name}
-                    </h1>
-                    <p className="text-xs sm:text-sm text-gray-200 font-medium mt-1 drop-shadow-xs line-clamp-2">
-                      {language === "ta" ? activeSpotlight.taglineTa : activeSpotlight.tagline}
-                    </p>
-                    <div className="flex items-center gap-1.5 text-xs text-[#EAB308] mt-2 font-medium">
-                      <MapPin className="h-3.5 w-3.5 shrink-0" />
-                      <span>{language === "ta" ? activeSpotlight.locationTa : activeSpotlight.location}</span>
+                  {/* Gold Medal & Trust Badge Visual */}
+                  <div className="relative shrink-0 flex items-center justify-center">
+                    <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-300 to-amber-500 shadow-lg flex items-center justify-center text-white border-2 border-white/40">
+                      <Award className="h-8 w-8 sm:h-10 sm:w-10 text-white drop-shadow" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Two Promo Cards Side-by-Side (Matches Image 1 bottom right: Football Manager & GRAVHOuNDS) */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Card A: Orange Garden (Upcoming) */}
+                  <div
+                    onClick={() => {
+                      const og = storeProjects.find((p) => p.id === "orange-garden");
+                      if (og) setSelectedProject(og);
+                    }}
+                    className="group relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-900 shadow-sm border border-gray-200 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/projects/orange-garden/hero-orchard.jpg"
+                      alt="Orange Garden"
+                      fill
+                      className="object-cover group-hover:scale-108 transition-transform duration-500"
+                      sizes="250px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                    <div className="absolute top-2 left-2">
+                      <span className="px-2 py-0.5 rounded-md bg-amber-400 text-black text-[9px] font-mono font-extrabold uppercase">
+                        Upcoming 2026
+                      </span>
+                    </div>
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                      <span className="font-display text-xs sm:text-sm font-bold text-white group-hover:text-[#EAB308] transition-colors truncate block">
+                        Orange Garden
+                      </span>
                     </div>
                   </div>
 
-                  {/* Quick Specs Matrix */}
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    {activeSpotlight.specs.slice(0, 3).map((spec, i) => {
-                      const SpecIcon = spec.icon;
-                      return (
-                        <div
-                          key={i}
-                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/50 backdrop-blur-md border border-white/10 text-[11px] font-mono text-gray-200"
-                        >
-                          <SpecIcon className="h-3 w-3 text-[#EAB308]" />
-                          <span>{language === "ta" ? spec.labelTa : spec.label}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
-                    <a
-                      href={`https://wa.me/917708966452?text=${encodeURIComponent(
-                        `Hello Surya Promoters, please share price and layout details for ${activeSpotlight.name}.`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold shadow-md transition hover:scale-105"
-                    >
-                      <MessageCircle className="h-4 w-4 fill-white" />
-                      <span>{language === "ta" ? "வாட்ஸ்அப் விலை விவரம்" : "Enquire on WhatsApp"}</span>
-                    </a>
-
-                    {activeSpotlight.mapBhoomiUrl && (
-                      <a
-                        href={activeSpotlight.mapBhoomiUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-black/60 hover:bg-black text-[#EAB308] border border-[#EAB308]/60 text-xs sm:text-sm font-bold shadow-md transition hover:scale-105"
-                      >
-                        <Layers className="h-4 w-4" />
-                        <span>{language === "ta" ? "3D வரைபடம்" : "View 3D Layout"}</span>
-                      </a>
-                    )}
-
-                    <button
-                      onClick={() => setSelectedProject(activeSpotlight)}
-                      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 text-white border border-white/30 text-xs sm:text-sm font-bold backdrop-blur-md transition cursor-pointer"
-                    >
-                      <span>{language === "ta" ? "முழு விபரம்" : "Product Details"}</span>
-                      <ArrowUpRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Carousel Navigation Arrows */}
-                <div className="absolute right-4 bottom-4 z-20 flex items-center gap-2">
-                  <button
-                    onClick={handlePrevSpotlight}
-                    className="h-9 w-9 rounded-full bg-black/60 hover:bg-black border border-white/20 text-white flex items-center justify-center transition cursor-pointer"
-                    title="Previous Slide"
+                  {/* Card B: Vaigai Elite (Running) */}
+                  <div
+                    onClick={() => {
+                      const ve = storeProjects.find((p) => p.id === "vaigai-elite");
+                      if (ve) setSelectedProject(ve);
+                    }}
+                    className="group relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-900 shadow-sm border border-gray-200 cursor-pointer"
                   >
-                    <ChevronLeft className="h-4 w-4" />
-                  </button>
-                  <div className="flex items-center gap-1.5 px-2">
-                    {spotlightProjects.map((_, i) => (
-                      <span
-                        key={i}
-                        onClick={() => setHeroIndex(i)}
-                        className={`h-2 rounded-full cursor-pointer transition-all ${
-                          i === heroIndex ? "w-6 bg-[#EAB308]" : "w-2 bg-white/40"
-                        }`}
-                      />
-                    ))}
+                    <Image
+                      src="/images/projects/vaigai/corridor-aerial.jpg"
+                      alt="Vaigai Elite"
+                      fill
+                      className="object-cover group-hover:scale-108 transition-transform duration-500"
+                      sizes="250px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                    <div className="absolute top-2 left-2">
+                      <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white text-[9px] font-mono font-extrabold uppercase">
+                        Running 2026
+                      </span>
+                    </div>
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                      <span className="font-display text-xs sm:text-sm font-bold text-white group-hover:text-[#EAB308] transition-colors truncate block">
+                        Vaigai Elite (NH-44)
+                      </span>
+                    </div>
                   </div>
-                  <button
-                    onClick={handleNextSpotlight}
-                    className="h-9 w-9 rounded-full bg-black/60 hover:bg-black border border-white/20 text-white flex items-center justify-center transition cursor-pointer"
-                    title="Next Slide"
-                  >
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
                 </div>
 
               </div>
+
             </div>
           )}
 
-          {/* 4. THE TWO CORE SIDE-BY-SIDE PANELS (EXACT REPLICA OF THE SCREENSHOT PROVIDED BY USER) */}
+          {/* 2. "Apps we think you'll love >" SHELF (EXACT HORIZONTAL ROW FROM IMAGE 1) */}
+          <div className="bg-[#FFFFFF] rounded-2xl p-5 sm:p-6 border border-[#E2E8F0] shadow-xs">
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#F1F5F9]">
+              <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] flex items-center gap-1.5">
+                <span>{language === "ta" ? "பரிந்துரைக்கப்படும் திட்டங்கள் & செயலிகள்" : "Apps we think you'll love"}</span>
+                <ChevronRight className="h-4 w-4 text-[#64748B]" />
+              </h2>
+
+              <div className="flex items-center gap-1 text-[#64748B]">
+                <button
+                  onClick={() => setAppsLovePage((p) => Math.max(0, p - 1))}
+                  disabled={appsLovePage === 0}
+                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-100 disabled:opacity-40 transition cursor-pointer"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setAppsLovePage((p) => p + 1)}
+                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Horizontal Row of Rounded App Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+              {appsWeLove.map((item) => {
+                const IconComp = item.icon;
+
+                const handleClick = () => {
+                  if (item.projectSlug) {
+                    const p = storeProjects.find((x) => x.slug === item.projectSlug);
+                    if (p) setSelectedProject(p);
+                  } else if (item.internalUrl) {
+                    router.push(item.internalUrl);
+                  } else if (item.externalUrl) {
+                    window.open(item.externalUrl, "_blank");
+                  }
+                };
+
+                return (
+                  <div
+                    key={item.id}
+                    onClick={handleClick}
+                    className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition-all cursor-pointer text-center"
+                  >
+                    {/* Squircle Icon */}
+                    <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl overflow-hidden shadow-xs border border-gray-200 group-hover:scale-108 transition-transform flex items-center justify-center bg-gray-50">
+                      {item.image ? (
+                        <Image src={item.image} alt={item.name} fill className="object-cover" sizes="64px" />
+                      ) : (
+                        <div className={`w-full h-full bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white`}>
+                          <IconComp className="h-7 w-7" />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="mt-2.5">
+                      <span className="font-display text-xs font-bold text-[#0F172A] group-hover:text-[#B45309] block truncate">
+                        {language === "ta" ? item.nameTa : item.name}
+                      </span>
+                      <span className="text-[10px] text-[#64748B] block truncate mt-0.5">
+                        {language === "ta" ? item.categoryTa : item.category}
+                      </span>
+                    </div>
+
+                    <span className="mt-2 text-[10px] font-semibold text-[#94A3B8]">
+                      {language === "ta" ? item.tagTa : item.tag}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 3. THE TWO CORE SIDE-BY-SIDE PANELS (FROM USER'S IMAGE 2: Trending games & Trending apps) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            {/* PANEL 1: "Trending Land Projects >" (Exact layout of "Trending games >" in screenshot) */}
+            {/* PANEL 1: "Trending land projects >" (Matching "Trending games >") */}
             <div className="bg-[#FFFFFF] rounded-2xl p-5 sm:p-6 border border-[#E2E8F0] shadow-xs hover:shadow-md transition-shadow">
               
-              {/* Shelf Header with "< >" arrows */}
               <div className="flex items-center justify-between pb-4 border-b border-[#F1F5F9]">
-                <div className="flex items-center gap-2">
-                  <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
-                    <span>{language === "ta" ? "முன்னணி திட்டங்கள்" : "Trending land projects"}</span>
-                    <ChevronRight className="h-4 w-4 text-[#64748B]" />
-                  </h2>
-                </div>
+                <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
+                  <span>{language === "ta" ? "முன்னணி திட்டங்கள்" : "Trending land projects"}</span>
+                  <ChevronRight className="h-4 w-4 text-[#64748B]" />
+                </h2>
 
-                {/* Top Right Arrows */}
                 <div className="flex items-center gap-1 text-[#64748B]">
                   <button
                     onClick={() => setTrendingProjectsPage((p) => Math.max(0, p - 1))}
@@ -932,7 +1029,7 @@ export default function ProjectIconGrid() {
                 </div>
               </div>
 
-              {/* 2-Column × 3-Row Grid (6 App items per panel, exact replica of screenshot) */}
+              {/* 2-Column × 3-Row Grid (6 App items per panel) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 pt-4">
                 {filteredProjects.slice(0, 6).map((project) => {
                   const IconComp = project.icon;
@@ -944,7 +1041,6 @@ export default function ProjectIconGrid() {
                       onClick={() => setSelectedProject(project)}
                       className="group flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition-all cursor-pointer"
                     >
-                      {/* Left: Squircle App Icon + Badges */}
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shrink-0 shadow-xs border border-gray-200 bg-gray-100 group-hover:scale-105 transition-transform">
                           <Image
@@ -955,16 +1051,13 @@ export default function ProjectIconGrid() {
                             sizes="64px"
                           />
                           <div className={`absolute inset-0 bg-gradient-to-tr ${project.gradient} opacity-30 mix-blend-multiply`} />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-                          {/* Center App Badge */}
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="h-7 w-7 rounded-lg bg-black/50 backdrop-blur-xs flex items-center justify-center text-white border border-white/20">
                               <IconComp className="h-3.5 w-3.5 text-[#EAB308]" />
                             </div>
                           </div>
 
-                          {/* "Game Pass" style top pill tag */}
                           {project.badgeLabel && (
                             <div className="absolute top-0.5 left-0.5">
                               <span
@@ -980,7 +1073,6 @@ export default function ProjectIconGrid() {
                           )}
                         </div>
 
-                        {/* Middle Text: Title + Category/Location */}
                         <div className="min-w-0 flex flex-col">
                           <span className="font-display text-xs sm:text-sm font-bold text-[#0F172A] group-hover:text-[#B45309] truncate">
                             {language === "ta" ? project.nameTa : project.name}
@@ -994,7 +1086,6 @@ export default function ProjectIconGrid() {
                         </div>
                       </div>
 
-                      {/* Right Tag: "Free" or Action tag (matching Microsoft Store screenshot) */}
                       <div className="shrink-0 text-right">
                         <span className="text-xs font-semibold text-[#64748B] group-hover:text-[#0F172A]">
                           {language === "ta" ? "இலவசம்" : "Free"}
@@ -1007,19 +1098,15 @@ export default function ProjectIconGrid() {
 
             </div>
 
-            {/* PANEL 2: "Trending Apps & Quick Services >" (Exact layout of "Trending apps >" in screenshot) */}
+            {/* PANEL 2: "Trending apps" (Matching "Trending apps >") */}
             <div className="bg-[#FFFFFF] rounded-2xl p-5 sm:p-6 border border-[#E2E8F0] shadow-xs hover:shadow-md transition-shadow">
               
-              {/* Shelf Header with "< >" arrows */}
               <div className="flex items-center justify-between pb-4 border-b border-[#F1F5F9]">
-                <div className="flex items-center gap-2">
-                  <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
-                    <span>{language === "ta" ? "முக்கிய சேவைகள் & செயலிகள்" : "Trending apps"}</span>
-                    <ChevronRight className="h-4 w-4 text-[#64748B]" />
-                  </h2>
-                </div>
+                <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
+                  <span>{language === "ta" ? "முக்கிய சேவைகள் & செயலிகள்" : "Trending apps"}</span>
+                  <ChevronRight className="h-4 w-4 text-[#64748B]" />
+                </h2>
 
-                {/* Top Right Arrows */}
                 <div className="flex items-center gap-1 text-[#64748B]">
                   <button
                     onClick={() => setTrendingAppsPage((p) => Math.max(0, p - 1))}
@@ -1037,7 +1124,7 @@ export default function ProjectIconGrid() {
                 </div>
               </div>
 
-              {/* 2-Column × 3-Row Grid (6 Utility App items, exact replica of screenshot) */}
+              {/* 2-Column × 3-Row Grid (6 Utility App items) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 pt-4">
                 {filteredUtilityApps.slice(0, 6).map((app) => {
                   const IconComp = app.icon;
@@ -1053,14 +1140,12 @@ export default function ProjectIconGrid() {
                       onClick={handleAppClick}
                       className="group flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition-all cursor-pointer"
                     >
-                      {/* Left: Vibrant Squircle App Icon */}
                       <div className="flex items-center gap-3 min-w-0">
                         <div
                           className={`relative aspect-square w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shrink-0 shadow-sm bg-gradient-to-br ${app.gradient} flex items-center justify-center border border-white/20 group-hover:scale-105 transition-transform`}
                         >
                           <IconComp className="h-7 w-7 sm:h-8 sm:w-8 text-white drop-shadow-md" />
 
-                          {/* App Badge */}
                           {app.badge && (
                             <div className="absolute top-1 right-1">
                               <span
@@ -1072,7 +1157,6 @@ export default function ProjectIconGrid() {
                           )}
                         </div>
 
-                        {/* Middle Text: App Title + Subtitle */}
                         <div className="min-w-0 flex flex-col">
                           <span className="font-display text-xs sm:text-sm font-bold text-[#0F172A] group-hover:text-[#B45309] truncate">
                             {language === "ta" ? app.nameTa : app.name}
@@ -1086,7 +1170,6 @@ export default function ProjectIconGrid() {
                         </div>
                       </div>
 
-                      {/* Right Tag: "Free" (matching Microsoft Store screenshot) */}
                       <div className="shrink-0 text-right">
                         <span className="text-xs font-semibold text-[#64748B] group-hover:text-[#0F172A]">
                           {language === "ta" ? "இலவசம்" : "Free"}
@@ -1101,141 +1184,142 @@ export default function ProjectIconGrid() {
 
           </div>
 
-          {/* 5. BOTTOM SHELF: "Best Selling Land Portfolios >" (Exact replica of "Best selling games >" in screenshot!) */}
+          {/* 4. BOTTOM SHELF: "Talk. share. smile. >" / DIRECT CONNECT CHANNELS (FROM USER'S IMAGE 2) */}
           <div className="bg-[#FFFFFF] rounded-2xl p-5 sm:p-6 border border-[#E2E8F0] shadow-xs">
-            
-            {/* Shelf Header with "< >" arrows */}
-            <div className="flex items-center justify-between pb-4 border-b border-[#F1F5F9] mb-4">
-              <div className="flex items-center gap-2">
-                <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#B45309] transition-colors cursor-pointer flex items-center gap-1.5">
-                  <span>{language === "ta" ? "முதன்மை திட்ட தொகுப்புகள்" : "Best selling land developments"}</span>
-                  <ChevronRight className="h-4 w-4 text-[#64748B]" />
-                </h2>
-              </div>
-
-              {/* Top Right Arrows */}
-              <div className="flex items-center gap-1 text-[#64748B]">
-                <button
-                  onClick={() => setBestSellingPage((p) => Math.max(0, p - 1))}
-                  disabled={bestSellingPage === 0}
-                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-100 disabled:opacity-40 transition cursor-pointer"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setBestSellingPage((p) => p + 1)}
-                  className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#F1F5F9]">
+              <h2 className="font-display text-base sm:text-lg font-bold text-[#0F172A] flex items-center gap-1.5">
+                <span>{language === "ta" ? "நேரடி தொடர்புகள் & வரைபடங்கள்" : "Talk. share. smile."}</span>
+                <ChevronRight className="h-4 w-4 text-[#64748B]" />
+              </h2>
             </div>
 
-            {/* Row of Vertical Poster Cards (Matching GTA V / Minecraft poster cards in user's screenshot) */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-              {bestSellingProjects.map((project) => {
-                const IconComp = project.icon;
-                const isUpcoming = project.projectType === "upcoming";
-                const isRunning = project.projectType === "running";
+            {/* Row of Communication & Project App Tiles (Matches Image 2 bottom shelf) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+              {/* Tile 1: WhatsApp */}
+              <a
+                href="https://wa.me/917708966452"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
+              >
+                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-[#25D366] flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
+                  <MessageCircle className="h-8 w-8 fill-white" />
+                </div>
+                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
+                  WhatsApp Beta
+                </span>
+                <span className="text-[10px] text-[#94A3B8] block">Free</span>
+              </a>
 
-                return (
-                  <div
-                    key={project.id}
-                    onClick={() => setSelectedProject(project)}
-                    className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xs hover:shadow-xl hover:border-[#EAB308] hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-                  >
-                    {/* Vertical Poster Cover (Aspect ~ 4/5, like game posters in screenshot) */}
-                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-900">
-                      <Image
-                        src={project.posterImage}
-                        alt={project.name}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-108"
-                        sizes="(max-width: 640px) 50vw, 25vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/20" />
+              {/* Tile 2: Direct Call */}
+              <a
+                href="tel:+917708966452"
+                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
+              >
+                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
+                  <Phone className="h-7 w-7" />
+                </div>
+                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
+                  Direct Line
+                </span>
+                <span className="text-[10px] text-[#94A3B8] block">Free</span>
+              </a>
 
-                      {/* Top Badges */}
-                      <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 z-10">
-                        <span className="text-[9px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-md bg-black/60 text-white backdrop-blur-md border border-white/20">
-                          {language === "ta" ? project.categoryLabelTa : project.categoryLabel}
-                        </span>
+              {/* Tile 3: 3D Map */}
+              <a
+                href="https://mapbhoomi.com/l/surya-promoters"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
+              >
+                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-amber-500 flex items-center justify-center text-black shadow-xs group-hover:scale-108 transition">
+                  <Layers className="h-7 w-7" />
+                </div>
+                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
+                  MapBhoomi 3D
+                </span>
+                <span className="text-[10px] text-[#94A3B8] block">Free</span>
+              </a>
 
-                        {/* Status Tag */}
-                        {isUpcoming ? (
-                          <span className="text-[9px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-md bg-amber-400 text-black shadow-xs flex items-center gap-1">
-                            <Sparkles className="h-2.5 w-2.5 text-black" />
-                            <span>Upcoming</span>
-                          </span>
-                        ) : isRunning ? (
-                          <span className="text-[9px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-md bg-emerald-600 text-white shadow-xs flex items-center gap-1">
-                            <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                            <span>Running</span>
-                          </span>
-                        ) : (
-                          <span className="text-[9px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-md bg-blue-600 text-white shadow-xs">
-                            Completed
-                          </span>
-                        )}
-                      </div>
+              {/* Tile 4: Google Maps */}
+              <a
+                href="https://maps.google.com/?q=Surya+Promoters+Madurai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
+              >
+                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-rose-500 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
+                  <MapPin className="h-7 w-7" />
+                </div>
+                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
+                  Google Maps
+                </span>
+                <span className="text-[10px] text-[#94A3B8] block">Free</span>
+              </a>
 
-                      {/* 3D Map Tag if available */}
-                      {project.mapBhoomiUrl && (
-                        <div className="absolute top-10 left-2.5 z-10">
-                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-black/70 border border-[#EAB308]/60 text-[8px] font-mono font-bold text-[#EAB308]">
-                            <Layers className="h-2.5 w-2.5 text-[#EAB308]" />
-                            <span>3D LIVE</span>
-                          </span>
-                        </div>
-                      )}
+              {/* Tile 5: Photo Gallery */}
+              <Link
+                href="/gallery"
+                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
+              >
+                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-purple-600 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
+                  <Camera className="h-7 w-7" />
+                </div>
+                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
+                  Site Gallery
+                </span>
+                <span className="text-[10px] text-[#94A3B8] block">Free</span>
+              </Link>
 
-                      {/* Bottom Info on Poster */}
-                      <div className="absolute bottom-3 left-3 right-3 z-10 space-y-1">
-                        <h3 className="font-display text-sm sm:text-base font-extrabold text-white group-hover:text-[#EAB308] transition-colors truncate">
-                          {language === "ta" ? project.nameTa : project.name}
-                        </h3>
-                        <p className="text-[11px] text-gray-300 truncate">
-                          {language === "ta" ? project.locationTa : project.location}
-                        </p>
-                      </div>
-                    </div>
+              {/* Tile 6: All Projects */}
+              <Link
+                href="/projects"
+                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
+              >
+                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
+                  <Building2 className="h-7 w-7" />
+                </div>
+                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
+                  All Projects
+                </span>
+                <span className="text-[10px] text-[#94A3B8] block">Free</span>
+              </Link>
 
-                    {/* Bottom Action Footer */}
-                    <div className="p-3 bg-white border-t border-gray-100 flex items-center justify-between gap-2">
-                      <div className="flex flex-col">
-                        <span className="text-[11px] font-bold text-[#0F172A]">
-                          {language === "ta" ? project.priceTagTa : project.priceTag}
-                        </span>
-                        <span className="text-[9px] font-mono text-emerald-600 font-semibold">
-                          100% Clear Patta
-                        </span>
-                      </div>
+              {/* Tile 7: Legal Patta */}
+              <Link
+                href="/about"
+                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
+              >
+                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-cyan-600 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
+                  <ShieldCheck className="h-7 w-7" />
+                </div>
+                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
+                  Patta Verified
+                </span>
+                <span className="text-[10px] text-[#94A3B8] block">Free</span>
+              </Link>
 
-                      <a
-                        href={`https://wa.me/917708966452?text=${encodeURIComponent(
-                          `Hello Surya Promoters, please share layout plan and pricing for ${project.name}.`
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="h-8 w-8 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center shadow-xs transition hover:scale-108 shrink-0"
-                        title="Chat on WhatsApp"
-                      >
-                        <MessageCircle className="h-4 w-4 fill-white text-white" />
-                      </a>
-                    </div>
-                  </div>
-                );
-              })}
+              {/* Tile 8: Email Support */}
+              <a
+                href="mailto:suryconstruction@gmail.com"
+                className="group flex flex-col justify-between p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#E2E8F0] transition text-center"
+              >
+                <div className="relative aspect-square w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-gray-800 flex items-center justify-center text-white shadow-xs group-hover:scale-108 transition">
+                  <Mail className="h-7 w-7" />
+                </div>
+                <span className="font-display text-xs font-bold text-[#0F172A] mt-2 truncate block">
+                  Email Desk
+                </span>
+                <span className="text-[10px] text-[#94A3B8] block">Free</span>
+              </a>
             </div>
-
           </div>
 
         </main>
 
       </div>
 
-      {/* 6. STORE APP PRODUCT DETAIL PAGE (POPUP MODAL WHEN ANY ITEM IS CLICKED) */}
+      {/* STORE APP PRODUCT DETAIL POPUP (WHEN ANY ITEM IS CLICKED) */}
       {selectedProject && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-200"
@@ -1283,7 +1367,7 @@ export default function ProjectIconGrid() {
               </div>
             </div>
 
-            {/* Modal Content Body (App Store Product Spec Style) */}
+            {/* Modal Content Body */}
             <div className="p-6 sm:p-8 space-y-6">
               
               {/* Product Header: Icon + Title + Rating */}
