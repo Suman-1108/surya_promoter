@@ -808,31 +808,8 @@ export default function ProjectIconGrid() {
         {/* LEFT SIDEBAR (CLEAN REAL ESTATE STORE SIDEBAR) */}
         <aside className="hidden md:flex flex-col w-20 lg:w-60 shrink-0 bg-[#F3F3F3] border-r border-[#E2E8F0] py-6 px-2 lg:px-3">
           
-          {/* Top Section: Logo & Main Navigation Items */}
-          <div className="space-y-4">
-            
-            {/* Surya Promoters Logo Banner in Sidebar */}
-            <div className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs">
-              <div className="relative h-8 w-8 shrink-0 rounded-full overflow-hidden border border-[#EAB308]">
-                <Image
-                  src="/images/surya-logo.png"
-                  alt="Surya Promoters"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex flex-col min-w-0">
-                <span className="font-display text-xs font-extrabold text-[#0F172A] truncate">
-                  Surya Promoters
-                </span>
-                <span className="text-[9px] font-mono text-[#64748B] truncate">
-                  Madurai, Tamil Nadu
-                </span>
-              </div>
-            </div>
-
-            {/* Navigation Rail */}
-            <div className="space-y-1">
+          {/* Top Section: Navigation Items */}
+          <div className="space-y-1">
               
               {/* 1. HOME (Blue squircle icon with active blue indicator bar on left) */}
               <button
@@ -991,7 +968,6 @@ export default function ProjectIconGrid() {
               </Link>
 
             </div>
-          </div>
 
         </aside>
 
