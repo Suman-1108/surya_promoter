@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+﻿import type { Metadata } from "next";
+import SummitFooter from "@/components/layout/SummitFooter";
 import DownloadCenterClient from "@/components/download/DownloadCenterClient";
 
 export const metadata: Metadata = {
@@ -17,10 +16,9 @@ export const metadata: Metadata = {
 
 export default function DownloadPage() {
   return (
-    <main className="min-h-screen bg-[#F5F4EE] text-[#171B18]">
-      <Navbar />
+    <div className="space-y-8 animate-in fade-in duration-300">
       <DownloadCenterClient />
-      <Footer />
-    </main>
+      <SummitFooter />
+    </div>
   );
 }

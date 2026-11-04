@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Space_Mono, Inter } from "next/font/google";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import SmoothScroll from "@/components/animations/SmoothScroll";
 import ScrollToTop from "@/components/layout/ScrollToTop";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -72,9 +73,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jakarta.variable} ${spaceMono.variable} ${inter.variable}`}>
-      <body className="min-h-screen bg-[#FFFFFF] text-[#242820] font-sans antialiased selection:bg-[#EAB308] selection:text-[#0A0D12]">
+      <body className="min-h-screen bg-[#F3F4F6] text-[#0F172A] font-sans antialiased selection:bg-[#EAB308] selection:text-[#0A0D12]">
         <LanguageProvider>
-          <SmoothScroll>{children}</SmoothScroll>
+          <SmoothScroll>
+            <DashboardLayout>{children}</DashboardLayout>
+          </SmoothScroll>
           <ScrollToTop />
         </LanguageProvider>
       </body>

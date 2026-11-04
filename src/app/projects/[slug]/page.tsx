@@ -1,8 +1,7 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import SummitFooter from "@/components/layout/SummitFooter";
 import ProjectDetails from "@/components/projects/ProjectDetails";
 import MobileActionBar from "@/components/layout/MobileActionBar";
 import { projectsData } from "@/data/projects";
@@ -51,8 +50,7 @@ async function ProjectContent({ params }: Props) {
 
 export default function ProjectPage({ params }: Props) {
   return (
-    <main className="min-h-screen bg-[#FFFFFF] text-[#242820]">
-      <Navbar />
+    <div className="space-y-8 animate-in fade-in duration-300">
       <Suspense
         fallback={
           <div className="mx-auto flex min-h-[60vh] max-w-[1760px] items-center justify-center px-6">
@@ -67,8 +65,8 @@ export default function ProjectPage({ params }: Props) {
       >
         <ProjectContent params={params} />
       </Suspense>
-      <Footer />
+      <SummitFooter />
       <MobileActionBar />
-    </main>
+    </div>
   );
 }
