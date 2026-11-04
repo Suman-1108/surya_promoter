@@ -743,8 +743,8 @@ export default function HomePage() {
       {/* ------------------------------------------------------------------------- */}
       <div className="flex-1 flex max-w-[1760px] w-full mx-auto overflow-hidden">
         
-        {/* LEFT VERTICAL APP STORE NAVIGATION BAR (Like Microsoft Store Left Rail) */}
-        <aside className="w-16 sm:w-20 md:w-56 shrink-0 bg-[#FFFFFF] border-r border-[#E5E7EB] flex flex-col justify-between py-4 select-none">
+        {/* LEFT VERTICAL APP STORE NAVIGATION BAR (Like Microsoft Store Left Rail - Desktop Only) */}
+        <aside className="hidden md:flex md:w-56 shrink-0 bg-[#FFFFFF] border-r border-[#E5E7EB] flex-col justify-between py-4 select-none">
           <div className="space-y-1.5 px-2">
             
             {/* Nav Item: Home */}
@@ -877,15 +877,15 @@ export default function HomePage() {
         </aside>
 
         {/* MAIN STORE CONTENT CANVAS */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-8">
+        <main className="flex-1 overflow-y-auto p-3.5 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 pb-28 md:pb-8">
           
           {/* ------------------------------------------------------------------- */}
           {/* FEATURE SPOTLIGHT HERO (Microsoft Store Top Banner Grid)            */}
           {/* ------------------------------------------------------------------- */}
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-4">
             
             {/* Large Featured Left Card */}
-            <div className="lg:col-span-2 relative min-h-[260px] sm:min-h-[300px] rounded-3xl overflow-hidden bg-[#0A0D12] text-white p-6 sm:p-8 flex flex-col justify-between shadow-sm border border-neutral-800">
+            <div className="lg:col-span-2 relative min-h-[250px] sm:min-h-[300px] rounded-3xl overflow-hidden bg-[#0A0D12] text-white p-5 sm:p-8 flex flex-col justify-between shadow-sm border border-neutral-800">
               <div className="absolute inset-0 z-0">
                 <Image
                   src="/images/hero/hero-gated-layout.jpg"
@@ -899,26 +899,26 @@ export default function HomePage() {
               </div>
 
               <div className="relative z-10 max-w-lg">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAB308]/20 border border-[#EAB308]/40 text-[#EAB308] text-[11px] font-bold uppercase tracking-wider mb-3">
-                  <Sparkles className="h-3.5 w-3.5" />
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAB308]/20 border border-[#EAB308]/40 text-[#EAB308] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-2.5">
+                  <Sparkles className="h-3 w-3" />
                   <span>{language === "ta" ? "மதுரை பிரீமியம் நிலங்கள்" : "Featured Real Estate Store"}</span>
                 </div>
-                <h1 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight mb-2">
+                <h1 className="text-xl sm:text-4xl font-black tracking-tight leading-tight mb-2">
                   {language === "ta" ? "உங்கள் நிலம். உங்கள் எதிர்காலம்." : "Your Land. Your Future in Madurai."}
                 </h1>
-                <p className="text-xs sm:text-sm text-neutral-300 font-medium line-clamp-2 mb-4">
+                <p className="text-[11px] sm:text-sm text-neutral-300 font-medium line-clamp-2 mb-3.5">
                   {language === "ta"
                     ? "100% தெளிவான கணினி பட்டாவுடன் கூடிய குடியிருப்பு, வணிக மற்றும் இயற்கை பண்ணை நிலங்கள்."
                     : "100% computer patta verified residential villa plots, commercial highway corridors & organic farm land."}
                 </p>
 
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                   <button
                     onClick={() => {
                       setActiveTab("projects");
                       setActiveCategory("commercial");
                     }}
-                    className="px-5 py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs transition-all shadow-md cursor-pointer flex items-center gap-1.5"
+                    className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs transition-all shadow-md cursor-pointer flex items-center gap-1.5"
                   >
                     <span>{language === "ta" ? "திட்டங்களை காண்க" : "Explore Projects"}</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -926,22 +926,22 @@ export default function HomePage() {
 
                   <button
                     onClick={() => setIsEnquiryModalOpen(true)}
-                    className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors border border-white/20 cursor-pointer"
+                    className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors border border-white/20 cursor-pointer"
                   >
                     {language === "ta" ? "நேரடி ஆலோசனை" : "Direct Advisory"}
                   </button>
                 </div>
               </div>
 
-              <div className="relative z-10 pt-4 flex items-center gap-4 text-xs font-bold text-neutral-300">
+              <div className="relative z-10 pt-3 sm:pt-4 flex flex-wrap items-center gap-3 sm:gap-4 text-[10px] sm:text-xs font-bold text-neutral-300">
                 <span>✓ 100% Computer Patta</span>
                 <span>✓ 16+ Years Experience</span>
                 <span>✓ Zero Legal Disputes</span>
               </div>
             </div>
 
-            {/* Right Spotlight Stack (2 Cards) */}
-            <div className="flex flex-col gap-4">
+            {/* Right Spotlight Stack (2 Cards) - 2 Cols on Mobile, Stacked on Desktop */}
+            <div className="grid grid-cols-2 lg:flex lg:flex-col gap-3 sm:gap-4">
               
               {/* Spotlight 1: Orange Garden */}
               <div
@@ -950,27 +950,27 @@ export default function HomePage() {
                   setActiveCategory("farm");
                   setSelectedProject(ALL_PROJECTS.find((p) => p.id === "orange-garden") || null);
                 }}
-                className="relative flex-1 min-h-[140px] rounded-3xl overflow-hidden bg-neutral-900 text-white p-5 flex flex-col justify-between cursor-pointer group shadow-sm border border-neutral-800"
+                className="relative flex-1 min-h-[120px] sm:min-h-[140px] rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 text-white p-3.5 sm:p-5 flex flex-col justify-between cursor-pointer group shadow-sm border border-neutral-800"
               >
                 <div className="absolute inset-0 z-0">
                   <Image
                     src="/images/generated/orange-garden.jpg"
                     alt="Orange Garden Orchard"
                     fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    sizes="(max-width: 1024px) 50vw, 33vw"
                     className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                 </div>
                 <div className="relative z-10 flex items-center justify-between">
-                  <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase bg-[#EAB308] text-[#0A0D12]">
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-black uppercase bg-[#EAB308] text-[#0A0D12]">
                     Orchard Estate
                   </span>
-                  <span className="text-[10px] font-bold text-amber-300">Blueprint Ready</span>
+                  <span className="text-[9px] sm:text-[10px] font-bold text-amber-300 hidden xs:inline">Blueprint</span>
                 </div>
                 <div className="relative z-10">
-                  <h3 className="text-base font-black">Orange Garden</h3>
-                  <p className="text-[11px] text-neutral-300">Thiruppuvanam - Narikudi Road · Plots 1 to 10</p>
+                  <h3 className="text-xs sm:text-base font-black truncate">Orange Garden</h3>
+                  <p className="text-[9px] sm:text-[11px] text-neutral-300 truncate">Thiruppuvanam · Plots 1-10</p>
                 </div>
               </div>
 
@@ -981,27 +981,27 @@ export default function HomePage() {
                   setActiveCategory("commercial");
                   setSelectedProject(ALL_PROJECTS.find((p) => p.id === "vaigai-elite") || null);
                 }}
-                className="relative flex-1 min-h-[140px] rounded-3xl overflow-hidden bg-neutral-900 text-white p-5 flex flex-col justify-between cursor-pointer group shadow-sm border border-neutral-800"
+                className="relative flex-1 min-h-[120px] sm:min-h-[140px] rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 text-white p-3.5 sm:p-5 flex flex-col justify-between cursor-pointer group shadow-sm border border-neutral-800"
               >
                 <div className="absolute inset-0 z-0">
                   <Image
                     src="/images/generated/vaigai-elite-garden.jpg"
                     alt="Vaigai Elite Garden"
                     fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    sizes="(max-width: 1024px) 50vw, 33vw"
                     className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                 </div>
                 <div className="relative z-10 flex items-center justify-between">
-                  <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase bg-blue-600 text-white">
-                    NH-44 Highway
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-black uppercase bg-blue-600 text-white">
+                    NH-44
                   </span>
-                  <span className="text-[10px] font-bold text-blue-200">Commercial</span>
+                  <span className="text-[9px] sm:text-[10px] font-bold text-blue-200 hidden xs:inline">Commercial</span>
                 </div>
                 <div className="relative z-10">
-                  <h3 className="text-base font-black">Vaigai Elite Garden</h3>
-                  <p className="text-[11px] text-neutral-300">Madurai Outer Ring Road & NH-44 Frontage</p>
+                  <h3 className="text-xs sm:text-base font-black truncate">Vaigai Elite Garden</h3>
+                  <p className="text-[9px] sm:text-[11px] text-neutral-300 truncate">Madurai Outer Ring Road</p>
                 </div>
               </div>
 
@@ -1013,15 +1013,15 @@ export default function HomePage() {
           {/* ------------------------------------------------------------------- */}
           <section className="space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-base sm:text-lg font-black text-neutral-900 flex items-center gap-1.5">
+              <h2 className="text-sm sm:text-lg font-black text-neutral-900 flex items-center gap-1.5">
                 <span>{language === "ta" ? "பிரதான சேவைகள் & அம்சங்கள்" : "Explore Surya Promoters (5 Main Icons)"}</span>
-                <ChevronRight className="h-4 w-4 text-neutral-400" />
+                <ChevronRight className="h-4 w-4 text-neutral-400 shrink-0" />
               </h2>
-              <span className="text-xs text-neutral-500 font-medium">Play Store Application Style</span>
+              <span className="text-[10px] sm:text-xs text-neutral-500 font-medium whitespace-nowrap">Play Store Style</span>
             </div>
 
             {/* The 5 Rounded Squircle App Tiles */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5">
               
               {/* App Tile 1: Our Projects */}
               <button
@@ -1031,25 +1031,25 @@ export default function HomePage() {
                     setActiveCategory("residential");
                   }
                 }}
-                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
+                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
                   activeTab === "projects"
                     ? "bg-[#FFFFFF] border-[#EAB308] shadow-lg ring-2 ring-[#EAB308]/40"
                     : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="h-13 w-13 rounded-2xl bg-amber-50 text-[#B45309] border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                    <Building2 className="h-6 w-6" />
+                <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+                  <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-amber-50 text-[#B45309] border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <Building2 className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-[#FEF08A] text-[#854D0E]">
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-[#FEF08A] text-[#854D0E]">
                     3 Types
                   </span>
                 </div>
                 <div>
-                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-[#B45309] transition-colors">
+                  <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-[#B45309] transition-colors">
                     {language === "ta" ? "எங்கள் திட்டங்கள்" : "Our Projects"}
                   </h3>
-                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                  <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
                     {language === "ta" ? "3 பிரிவுகள் · 9 தளங்கள்" : "Residential, Commercial & Farm"}
                   </p>
                 </div>
@@ -1058,25 +1058,25 @@ export default function HomePage() {
               {/* App Tile 2: Location */}
               <button
                 onClick={() => setActiveTab(activeTab === "location" ? "home" : "location")}
-                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
+                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
                   activeTab === "location"
                     ? "bg-[#FFFFFF] border-blue-500 shadow-lg ring-2 ring-blue-500/40"
                     : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="h-13 w-13 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                    <Navigation className="h-6 w-6" />
+                <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+                  <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <Navigation className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-blue-100 text-blue-700">
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-blue-100 text-blue-700">
                     GPS Live
                   </span>
                 </div>
                 <div>
-                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-blue-600 transition-colors">
+                  <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-blue-600 transition-colors">
                     {language === "ta" ? "இருப்பிட வரைபடம்" : "Location"}
                   </h3>
-                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                  <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
                     {language === "ta" ? "கூகிள் மேப்ஸ் வழித்தடங்கள்" : "All Project Google Maps"}
                   </p>
                 </div>
@@ -1085,25 +1085,25 @@ export default function HomePage() {
               {/* App Tile 3: Gallery */}
               <button
                 onClick={() => setActiveTab(activeTab === "gallery" ? "home" : "gallery")}
-                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
+                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
                   activeTab === "gallery"
                     ? "bg-[#FFFFFF] border-purple-500 shadow-lg ring-2 ring-purple-500/40"
                     : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="h-13 w-13 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                    <Camera className="h-6 w-6" />
+                <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+                  <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <Camera className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-purple-100 text-purple-700">
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-purple-100 text-purple-700">
                     HD Media
                   </span>
                 </div>
                 <div>
-                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-purple-600 transition-colors">
+                  <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-purple-600 transition-colors">
                     {language === "ta" ? "புகைப்படங்கள் & வீடியோ" : "Gallery"}
                   </h3>
-                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                  <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
                     {language === "ta" ? "கோப்பு முறை மையம்" : "Videos & Photos Folders"}
                   </p>
                 </div>
@@ -1112,25 +1112,25 @@ export default function HomePage() {
               {/* App Tile 4: About */}
               <button
                 onClick={() => setActiveTab(activeTab === "about" ? "home" : "about")}
-                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
+                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
                   activeTab === "about"
                     ? "bg-[#FFFFFF] border-emerald-600 shadow-lg ring-2 ring-emerald-600/40"
                     : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="h-13 w-13 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                    <ShieldCheck className="h-6 w-6" />
+                <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+                  <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-emerald-100 text-emerald-800">
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-emerald-100 text-emerald-800">
                     IAF Vet
                   </span>
                 </div>
                 <div>
-                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-emerald-700 transition-colors">
+                  <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-emerald-700 transition-colors">
                     {language === "ta" ? "எங்களைப் பற்றி" : "About Surya"}
                   </h3>
-                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                  <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
                     {language === "ta" ? "நிறுவனர் & 16+ வரலாறு" : "Founder & 16+ Yrs Legacy"}
                   </p>
                 </div>
@@ -1139,25 +1139,25 @@ export default function HomePage() {
               {/* App Tile 5: Download Map */}
               <button
                 onClick={() => setActiveTab(activeTab === "download" ? "home" : "download")}
-                className={`p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between col-span-2 sm:col-span-1 ${
+                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between col-span-2 sm:col-span-1 ${
                   activeTab === "download"
                     ? "bg-[#FFFFFF] border-amber-600 shadow-lg ring-2 ring-amber-600/40"
                     : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="h-13 w-13 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                    <Download className="h-6 w-6" />
+                <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+                  <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <Download className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-100 text-amber-800">
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-amber-100 text-amber-800">
                     PDF Hub
                   </span>
                 </div>
                 <div>
-                  <h3 className="font-black text-sm text-neutral-900 group-hover:text-amber-700 transition-colors">
+                  <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-amber-700 transition-colors">
                     {language === "ta" ? "வரைபடங்கள் பதிவிறக்கம்" : "Download Map"}
                   </h3>
-                  <p className="text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                  <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
                     {language === "ta" ? "புளூபிரிண்ட், கையேடு, வீடியோ" : "Blueprints, Videos & Maps"}
                   </p>
                 </div>
@@ -1169,18 +1169,18 @@ export default function HomePage() {
           {/* ------------------------------------------------------------------- */}
           {/* DIRECT COMMUNICATION CHANNELS BAR                                   */}
           {/* ------------------------------------------------------------------- */}
-          <section className="bg-white rounded-2xl p-4 border border-neutral-200/80 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
-            <span className="font-black text-neutral-800 flex items-center gap-1.5">
+          <section className="bg-white rounded-2xl p-3.5 sm:p-4 border border-neutral-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <span className="font-black text-neutral-800 flex items-center gap-1.5 text-xs sm:text-sm">
               <PhoneCall className="h-4 w-4 text-[#B45309]" />
               {language === "ta" ? "நேரடி தொடர்பு வழிமுறைகள்:" : "Direct Communication Channels:"}
             </span>
 
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
               <a
                 href="tel:+917708966452"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-amber-100/80 text-neutral-900 font-bold transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-neutral-100 hover:bg-amber-100/80 text-neutral-900 font-bold transition-colors cursor-pointer text-center text-xs"
               >
-                <Phone className="h-3 w-3 text-neutral-700" />
+                <Phone className="h-3.5 w-3.5 text-neutral-700 shrink-0" />
                 <span>+91 77089 66452</span>
               </a>
 
@@ -1188,25 +1188,25 @@ export default function HomePage() {
                 href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20please%20send%20project%20details."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#128C7E] font-bold transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#128C7E] font-bold transition-colors cursor-pointer text-center text-xs"
               >
-                <MessageCircle className="h-3.5 w-3.5 fill-[#128C7E]" />
+                <MessageCircle className="h-3.5 w-3.5 fill-[#128C7E] shrink-0" />
                 <span>WhatsApp</span>
               </a>
 
               <a
                 href="mailto:suryapromotersmdu@gmail.com"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold transition-colors cursor-pointer text-center text-xs"
               >
-                <Mail className="h-3 w-3 text-neutral-700" />
+                <Mail className="h-3.5 w-3.5 text-neutral-700 shrink-0" />
                 <span>Email</span>
               </a>
 
               <button
                 onClick={() => setIsEnquiryModalOpen(true)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-extrabold transition-colors shadow-xs cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-extrabold transition-colors shadow-xs cursor-pointer text-center text-xs"
               >
-                <FileCheck className="h-3.5 w-3.5 text-[#EAB308]" />
+                <FileCheck className="h-3.5 w-3.5 text-[#EAB308] shrink-0" />
                 <span>{language === "ta" ? "விசாரணை படிவம்" : "Quick Enquiry"}</span>
               </button>
             </div>
@@ -1915,6 +1915,89 @@ export default function HomePage() {
 
         </main>
       </div>
+
+      {/* ------------------------------------------------------------------------- */}
+      {/* MOBILE BOTTOM APP NAVIGATION DOCK (Play Store / Mobile App Style)         */}
+      {/* ------------------------------------------------------------------------- */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FFFFFF]/95 backdrop-blur-xl border-t border-neutral-200/90 shadow-2xl px-2 py-1.5 flex items-center justify-around">
+        {/* Home */}
+        <button
+          onClick={() => setActiveTab("home")}
+          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+            activeTab === "home" ? "text-[#0A0D12] font-black" : "text-neutral-500 font-medium"
+          }`}
+        >
+          <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "home" ? "bg-[#EAB308] text-[#0A0D12] shadow-xs" : "text-neutral-500"}`}>
+            <Home className="h-4.5 w-4.5" />
+          </div>
+          <span className="text-[10px] mt-0.5 leading-none">
+            {language === "ta" ? "முகப்பு" : "Home"}
+          </span>
+        </button>
+
+        {/* Our Projects */}
+        <button
+          onClick={() => {
+            setActiveTab("projects");
+            if (!activeCategory) setActiveCategory("residential");
+          }}
+          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+            activeTab === "projects" ? "text-[#0A0D12] font-black" : "text-neutral-500 font-medium"
+          }`}
+        >
+          <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "projects" ? "bg-[#EAB308] text-[#0A0D12] shadow-xs" : "text-neutral-500"}`}>
+            <Building2 className="h-4.5 w-4.5" />
+          </div>
+          <span className="text-[10px] mt-0.5 leading-none">
+            {language === "ta" ? "திட்டங்கள்" : "Projects"}
+          </span>
+        </button>
+
+        {/* Location */}
+        <button
+          onClick={() => setActiveTab("location")}
+          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+            activeTab === "location" ? "text-blue-600 font-black" : "text-neutral-500 font-medium"
+          }`}
+        >
+          <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "location" ? "bg-blue-600 text-white shadow-xs" : "text-neutral-500"}`}>
+            <MapPin className="h-4.5 w-4.5" />
+          </div>
+          <span className="text-[10px] mt-0.5 leading-none">
+            {language === "ta" ? "இடம்" : "Location"}
+          </span>
+        </button>
+
+        {/* Gallery */}
+        <button
+          onClick={() => setActiveTab("gallery")}
+          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+            activeTab === "gallery" ? "text-purple-600 font-black" : "text-neutral-500 font-medium"
+          }`}
+        >
+          <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "gallery" ? "bg-purple-600 text-white shadow-xs" : "text-neutral-500"}`}>
+            <Camera className="h-4.5 w-4.5" />
+          </div>
+          <span className="text-[10px] mt-0.5 leading-none">
+            {language === "ta" ? "மீடியா" : "Gallery"}
+          </span>
+        </button>
+
+        {/* Download */}
+        <button
+          onClick={() => setActiveTab("download")}
+          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+            activeTab === "download" ? "text-amber-700 font-black" : "text-neutral-500 font-medium"
+          }`}
+        >
+          <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "download" ? "bg-amber-600 text-white shadow-xs" : "text-neutral-500"}`}>
+            <Download className="h-4.5 w-4.5" />
+          </div>
+          <span className="text-[10px] mt-0.5 leading-none">
+            {language === "ta" ? "பதிவிறக்கம்" : "Downloads"}
+          </span>
+        </button>
+      </nav>
 
       {/* ------------------------------------------------------------------------- */}
       {/* 3. INDIVIDUAL PROJECT DETAILS MODAL                                       */}
