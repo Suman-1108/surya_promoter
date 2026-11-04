@@ -50,10 +50,17 @@ export default function Navbar() {
       <header className="sticky top-0 z-50 w-full bg-[#FFFFFF]/95 backdrop-blur-xl border-b border-[#E2E8F0] shadow-2xs select-none">
         <div className="mx-auto flex h-14 sm:h-15 w-full max-w-[1760px] items-center justify-between px-3 sm:px-6 gap-2 sm:gap-4">
           
-          {/* Left: Window Icon + Store Title + Navigation Pills */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Left: Mobile Menu + Store Title + Navigation Pills */}
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="xl:hidden p-1.5 -ml-1 text-[#0F172A] hover:bg-gray-100 rounded-lg transition cursor-pointer"
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
             {/* Store Brand Logo */}
-            <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
               <div className="relative h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform group-hover:scale-105">
                 <Image
                   src="/images/surya-logo.png"
@@ -186,14 +193,7 @@ export default function Navbar() {
               <span className="hidden sm:inline">{language === "ta" ? "வாட்ஸ்அப்" : "WhatsApp"}</span>
             </a>
 
-            {/* Mobile Menu Hamburger */}
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="xl:hidden p-1.5 text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100 rounded-lg transition"
-              aria-label="Open menu"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
+
 
           </div>
 

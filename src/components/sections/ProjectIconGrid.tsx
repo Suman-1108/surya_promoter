@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useLanguage } from "@/hooks/useLanguage";
 import {
   Search,
+  Menu,
   Home,
   LayoutGrid,
   Gamepad2,
@@ -113,6 +114,7 @@ export default function ProjectIconGrid({
   const { language, toggleLanguage } = useLanguage();
 
   // Navigation State
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [activeNav, setActiveNav] = useState<"home" | "projects" | "services" | "about" | "gallery" | "3d" | "contact">(initialNav);
   const [projectSubFilter, setProjectSubFilter] = useState<"all" | "running" | "upcoming" | "completed">("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -155,14 +157,14 @@ export default function ProjectIconGrid({
 
   // Lock body scroll when modal or lightbox is active so background does not scroll
   useEffect(() => {
-    if (selectedProject || previewImage) {
+    if (selectedProject || previewImage || mobileSidebarOpen) {
       const prev = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = prev;
       };
     }
-  }, [selectedProject, previewImage]);
+  }, [selectedProject, previewImage, mobileSidebarOpen]);
 
   // Pagination for horizontal scroll shelves
   const [featuredShelfScroll, setFeaturedShelfScroll] = useState(0);
@@ -765,27 +767,38 @@ export default function ProjectIconGrid({
       <header className="sticky top-0 z-40 w-full bg-[#FFFFFF]/95 backdrop-blur-xl border-b border-[#E2E8F0] shadow-2xs">
         <div className="max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           
-          {/* Left: Surya Promoters Brand Identity & Store Name */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative h-10 w-10 shrink-0 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform group-hover:scale-105">
-              <Image
-                src="/images/surya-logo.png"
-                alt="Surya Promoters Logo"
-                fill
-                priority
-                sizes="40px"
-                className="object-contain"
-              />
-            </div>
-            <div className="hidden sm:flex flex-col">
-              <span className="font-display text-sm md:text-base font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
-                SURYA PROMOTERS
-              </span>
-              <span className="text-[9px] font-mono text-[#64748B] tracking-wider uppercase font-semibold">
-                {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு · 2010" : "LAND & PROPERTY DEVELOPERS · ESTD. 2010"}
-              </span>
-            </div>
-          </Link>
+          {/* Left: Mobile Hamburger + Surya Promoters Brand Identity & Store Name */}
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            <button
+              onClick={() => setMobileSidebarOpen(true)}
+              className="md:hidden p-1.5 -ml-1 text-[#0F172A] hover:bg-gray-100 rounded-lg transition cursor-pointer"
+              aria-label="Open navigation sidebar"
+              title="Open Navigation"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
+              <div className="relative h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform group-hover:scale-105">
+                <Image
+                  src="/images/surya-logo.png"
+                  alt="Surya Promoters Logo"
+                  fill
+                  priority
+                  sizes="40px"
+                  className="object-contain"
+                />
+              </div>
+              <div className="hidden sm:flex flex-col">
+                <span className="font-display text-sm md:text-base font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#B45309] transition-colors">
+                  SURYA PROMOTERS
+                </span>
+                <span className="text-[9px] font-mono text-[#64748B] tracking-wider uppercase font-semibold">
+                  {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு · 2010" : "LAND & PROPERTY DEVELOPERS · ESTD. 2010"}
+                </span>
+              </div>
+            </Link>
+          </div>
 
           {/* Center: Search Bar (Exact Microsoft Store Pill Search Bar) */}
           <div className="flex-1 max-w-xl mx-auto">
@@ -844,6 +857,88 @@ export default function ProjectIconGrid({
 
         </div>
       </header>
+
+      {/* MOBILE HORIZONTAL QUICK CATEGORY STRIP */}
+      <div className="md:hidden sticky top-16 z-30 w-full bg-white/95 backdrop-blur-md border-b border-[#E2E8F0] px-3 py-2 flex items-center gap-2 overflow-x-auto scrollbar-none shadow-2xs">
+        <button
+          onClick={() => handleNavChange("home")}
+          className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+            activeNav === "home"
+              ? "bg-[#0284C7] text-white shadow-xs"
+              : "bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A]"
+          }`}
+        >
+          <Home className="h-3.5 w-3.5" />
+          <span>{language === "ta" ? "முகப்பு" : "Home"}</span>
+        </button>
+        <button
+          onClick={() => {
+            handleNavChange("projects");
+            setProjectSubFilter("all");
+          }}
+          className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+            activeNav === "projects"
+              ? "bg-[#0284C7] text-white shadow-xs"
+              : "bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A]"
+          }`}
+        >
+          <LayoutGrid className="h-3.5 w-3.5" />
+          <span>{language === "ta" ? "திட்டங்கள்" : "Projects"}</span>
+        </button>
+        <button
+          onClick={() => handleNavChange("services")}
+          className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+            activeNav === "services"
+              ? "bg-[#0284C7] text-white shadow-xs"
+              : "bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A]"
+          }`}
+        >
+          <Wrench className="h-3.5 w-3.5" />
+          <span>{language === "ta" ? "சேவைகள்" : "Services"}</span>
+        </button>
+        <button
+          onClick={() => handleNavChange("about")}
+          className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+            activeNav === "about"
+              ? "bg-[#0284C7] text-white shadow-xs"
+              : "bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A]"
+          }`}
+        >
+          <Info className="h-3.5 w-3.5" />
+          <span>{language === "ta" ? "எங்களைப் பற்றி" : "About"}</span>
+        </button>
+        <button
+          onClick={() => handleNavChange("gallery")}
+          className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+            activeNav === "gallery"
+              ? "bg-[#0284C7] text-white shadow-xs"
+              : "bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A]"
+          }`}
+        >
+          <Camera className="h-3.5 w-3.5" />
+          <span>{language === "ta" ? "புகைப்படங்கள்" : "Gallery"}</span>
+        </button>
+        <a
+          href="https://mapbhoomi.com/l/surya-promoters"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#EAB308]/15 text-[#854D0E] hover:bg-[#EAB308]/25 transition-all"
+        >
+          <Layers className="h-3.5 w-3.5 text-[#EAB308]" />
+          <span>{language === "ta" ? "3D வரைபடம்" : "3D Masterplans"}</span>
+        </a>
+        <button
+          onClick={() => handleNavChange("contact")}
+          className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+            activeNav === "contact"
+              ? "bg-[#0284C7] text-white shadow-xs"
+              : "bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A]"
+          }`}
+        >
+          <Phone className="h-3.5 w-3.5" />
+          <span>{language === "ta" ? "தொடர்பு" : "Contact"}</span>
+        </button>
+      </div>
 
       {/* 2. MAIN STORE FRAME (SIDEBAR + MAIN CONTENT CANVAS) */}
       <div className="flex-1 max-w-[1760px] w-full mx-auto flex">
@@ -2344,6 +2439,290 @@ export default function ProjectIconGrid({
         </div>
       )}
 
-    </div>
+    
+      {/* MOBILE SIDEBAR DRAWER (SLIDE-OVER FROM LEFT) */}
+      {mobileSidebarOpen && (
+        <div className="fixed inset-0 z-50 flex md:hidden">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+            onClick={() => setMobileSidebarOpen(false)}
+          />
+
+          {/* Drawer Panel */}
+          <div className="relative w-[300px] max-w-[85vw] bg-[#F8F9FA] h-full flex flex-col shadow-2xl z-10 border-r border-[#E2E8F0]">
+            {/* Drawer Header */}
+            <div className="p-4 border-b border-[#E2E8F0] flex items-center justify-between bg-white">
+              <Link
+                href="/"
+                onClick={() => setMobileSidebarOpen(false)}
+                className="flex items-center gap-3"
+              >
+                <div className="relative h-9 w-9 shrink-0 rounded-full overflow-hidden border-2 border-[#EAB308] bg-white p-0.5">
+                  <Image
+                    src="/images/surya-logo.png"
+                    alt="Surya Promoters Logo"
+                    fill
+                    sizes="36px"
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-display text-sm font-extrabold text-[#0F172A]">
+                    SURYA PROMOTERS
+                  </span>
+                  <span className="text-[9px] font-mono text-[#EAB308] font-bold">
+                    ESTD. 2010 · MADURAI
+                  </span>
+                </div>
+              </Link>
+              <button
+                onClick={() => setMobileSidebarOpen(false)}
+                className="p-1.5 rounded-lg text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100 transition cursor-pointer"
+                aria-label="Close sidebar"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Navigation Items (Exact Store Sidebar List) */}
+            <div className="flex-1 overflow-y-auto p-3 space-y-1">
+              {/* Home */}
+              <button
+                onClick={() => {
+                  handleNavChange("home");
+                  setMobileSidebarOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl font-display text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "home"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
+              >
+                {activeNav === "home" && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 h-7 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "home" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B] bg-white/70"
+                }`}>
+                  <Home className="h-4 w-4" />
+                </div>
+                <span>{language === "ta" ? "முகப்பு" : "Home"}</span>
+              </button>
+
+              {/* Projects */}
+              <div className="space-y-1">
+                <button
+                  onClick={() => {
+                    handleNavChange("projects");
+                    setProjectSubFilter("all");
+                    setMobileSidebarOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl font-display text-sm font-bold transition-all cursor-pointer relative ${
+                    activeNav === "projects"
+                      ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                      : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    {activeNav === "projects" && (
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 h-7 w-1.5 bg-[#0284C7] rounded-r-full" />
+                    )}
+                    <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      activeNav === "projects" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B] bg-white/70"
+                    }`}>
+                      <LayoutGrid className="h-4 w-4" />
+                    </div>
+                    <span>{language === "ta" ? "திட்டங்கள்" : "Projects"}</span>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-gray-100 text-[#0F172A] font-bold">
+                    4
+                  </span>
+                </button>
+
+                {/* Subcategories */}
+                {activeNav === "projects" && (
+                  <div className="flex flex-col pl-12 pr-2 py-1 space-y-1 text-xs">
+                    <button
+                      onClick={() => {
+                        setProjectSubFilter("all");
+                        setMobileSidebarOpen(false);
+                      }}
+                      className={`text-left py-1.5 px-2.5 rounded-lg transition ${
+                        projectSubFilter === "all" ? "font-bold text-[#0F172A] bg-white" : "text-[#64748B]"
+                      }`}
+                    >
+                      {language === "ta" ? "அனைத்து திட்டங்கள்" : "All Projects"} (4)
+                    </button>
+                    <button
+                      onClick={() => {
+                        setProjectSubFilter("running");
+                        setMobileSidebarOpen(false);
+                      }}
+                      className={`text-left py-1.5 px-2.5 rounded-lg flex items-center justify-between transition ${
+                        projectSubFilter === "running" ? "font-bold text-emerald-700 bg-emerald-50" : "text-[#64748B]"
+                      }`}
+                    >
+                      <span>{language === "ta" ? "நடைபெறுபவை" : "Running"}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-emerald-100 text-emerald-800 font-mono">2</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setProjectSubFilter("upcoming");
+                        setMobileSidebarOpen(false);
+                      }}
+                      className={`text-left py-1.5 px-2.5 rounded-lg flex items-center justify-between transition ${
+                        projectSubFilter === "upcoming" ? "font-bold text-amber-700 bg-amber-50" : "text-[#64748B]"
+                      }`}
+                    >
+                      <span>{language === "ta" ? "வரவிருக்கும்" : "Upcoming"}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-amber-100 text-amber-800 font-mono">1</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setProjectSubFilter("completed");
+                        setMobileSidebarOpen(false);
+                      }}
+                      className={`text-left py-1.5 px-2.5 rounded-lg flex items-center justify-between transition ${
+                        projectSubFilter === "completed" ? "font-bold text-blue-700 bg-blue-50" : "text-[#64748B]"
+                      }`}
+                    >
+                      <span>{language === "ta" ? "நிறைவடைந்தவை" : "Completed"}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-blue-100 text-blue-800 font-mono">1</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Services */}
+              <button
+                onClick={() => {
+                  handleNavChange("services");
+                  setMobileSidebarOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl font-display text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "services"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
+              >
+                {activeNav === "services" && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 h-7 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "services" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B] bg-white/70"
+                }`}>
+                  <Wrench className="h-4 w-4" />
+                </div>
+                <span>{language === "ta" ? "சேவைகள்" : "Services"}</span>
+              </button>
+
+              {/* About Us */}
+              <button
+                onClick={() => {
+                  handleNavChange("about");
+                  setMobileSidebarOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl font-display text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "about"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
+              >
+                {activeNav === "about" && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 h-7 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "about" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B] bg-white/70"
+                }`}>
+                  <Info className="h-4 w-4" />
+                </div>
+                <span>{language === "ta" ? "எங்களைப் பற்றி" : "About Us"}</span>
+              </button>
+
+              {/* Gallery */}
+              <button
+                onClick={() => {
+                  handleNavChange("gallery");
+                  setMobileSidebarOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl font-display text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "gallery"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
+              >
+                {activeNav === "gallery" && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 h-7 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "gallery" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B] bg-white/70"
+                }`}>
+                  <Camera className="h-4 w-4" />
+                </div>
+                <span>{language === "ta" ? "புகைப்படங்கள்" : "Gallery"}</span>
+              </button>
+
+              {/* 3D Masterplans */}
+              <a
+                href="https://mapbhoomi.com/l/surya-promoters"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileSidebarOpen(false)}
+                className="w-full flex items-center justify-between px-3.5 py-3 rounded-xl font-display text-sm font-bold text-[#64748B] hover:text-[#0F172A] hover:bg-white/60 transition-all cursor-pointer"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0 text-[#EAB308] bg-white/70">
+                    <Layers className="h-4 w-4" />
+                  </div>
+                  <span>{language === "ta" ? "3D வரைபடம்" : "3D Masterplans"}</span>
+                </div>
+                <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#EAB308]/20 text-[#854D0E] font-bold">
+                  LIVE
+                </span>
+              </a>
+
+              {/* Contact */}
+              <button
+                onClick={() => {
+                  handleNavChange("contact");
+                  setMobileSidebarOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl font-display text-sm font-bold transition-all cursor-pointer relative ${
+                  activeNav === "contact"
+                    ? "bg-white text-[#0F172A] shadow-xs border border-[#E2E8F0]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/60"
+                }`}
+              >
+                {activeNav === "contact" && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 h-7 w-1.5 bg-[#0284C7] rounded-r-full" />
+                )}
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  activeNav === "contact" ? "bg-[#0284C7] text-white shadow-xs" : "text-[#64748B] bg-white/70"
+                }`}>
+                  <Phone className="h-4 w-4" />
+                </div>
+                <span>{language === "ta" ? "தொடர்புக்கு" : "Contact"}</span>
+              </button>
+            </div>
+
+            {/* Bottom Card: Veteran Trust & Hotline */}
+            <div className="p-4 border-t border-[#E2E8F0] bg-white space-y-3">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono font-bold">
+                <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                <span>16+ Yrs IAF Veteran Leadership</span>
+              </div>
+              <a
+                href="tel:+917708966452"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#0F172A] text-white font-mono text-xs font-bold shadow-xs hover:bg-[#1E293B] transition"
+              >
+                <Phone className="h-3.5 w-3.5 text-[#EAB308]" />
+                <span>+91 77089 66452</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+</div>
   );
 }
