@@ -332,11 +332,11 @@ export default function ProjectIconGrid({
         priceTagTa: "ஒப்படைக்கப்பட்டது",
         location: "Mudukangulam Road, Madurai",
         locationTa: "முதுகுளத்தூர் சாலை, மதுரை",
-        image: "/images/projects/surya-green-enclave/road-corridor.jpg",
-        posterImage: "/images/projects/surya-green-enclave/road-corridor.jpg",
+        image: "/images/projects/surya-green-enclave.jpg",
+        posterImage: "/images/projects/surya-green-enclave.jpg",
         screenshots: [
           "/images/projects/surya-green-enclave/road-corridor.jpg",
-          "/images/projects/surya-green-enclave/layout-overview.jpg",
+          "/images/projects/surya-green-enclave/layout-blueprint.jpg",
           "/images/projects/surya-green-enclave.jpg",
         ],
         gradient: "from-blue-600 via-indigo-600 to-sky-700",
@@ -581,7 +581,7 @@ export default function ProjectIconGrid({
         name: "Green Enclave",
         nameTa: "கிரீன் என்கிளேவ்",
         type: "DTCP Township",
-        image: "/images/projects/surya-green-enclave/road-corridor.jpg",
+        image: "/images/projects/surya-green-enclave.jpg",
         icon: CheckCircle2,
         badge: "Completed",
         badgeBg: "bg-blue-600 text-white",
@@ -593,7 +593,7 @@ export default function ProjectIconGrid({
         name: "3D Masterplan",
         nameTa: "3D மாதிரி",
         type: "MapBhoomi Live",
-        image: "/images/projects/vaigai/corridor-aerial.jpg",
+        image: "/images/projects/surya-green-enclave/layout-blueprint.jpg",
         icon: Layers,
         badge: "Live 3D",
         badgeBg: "bg-purple-600 text-white",
@@ -1225,7 +1225,7 @@ export default function ProjectIconGrid({
                     className="group relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-900 border border-gray-200 shadow-sm cursor-pointer hover:shadow-md transition-all"
                   >
                     <Image
-                      src="/images/projects/surya-green-enclave/road-corridor.jpg"
+                      src="/images/projects/surya-green-enclave.jpg"
                       alt="Surya Green Enclave Completed Project"
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
@@ -1950,8 +1950,8 @@ export default function ProjectIconGrid({
                 {[
                   { src: "/images/projects/orange-garden/hero-orchard.jpg", title: "Orange Garden Orchard", location: "Madurai Green Belt" },
                   { src: "/images/projects/vaigai/corridor-aerial.jpg", title: "Vaigai Elite Highway View", location: "NH-44 Outer Ring Road" },
-                  { src: "/images/projects/madurai-farms/aerial-groves.jpg", title: "Madurai Farms Agro Land", location: "Agricultural Belt" },
-                  { src: "/images/projects/surya-green-enclave/road-corridor.jpg", title: "Green Enclave Bitumen Road", location: "DTCP Township" },
+                  { src: "/images/projects/madurai-farms/aerial-grove.jpg", title: "Madurai Farms Agro Land", location: "Agricultural Belt" },
+                  { src: "/images/projects/surya-green-enclave.jpg", title: "Green Enclave Township", location: "DTCP Residential" },
                   { src: "/images/projects/orange-garden/entrance-gate.jpg", title: "Orange Garden Grand Arch", location: "Upcoming Orchard" },
                   { src: "/images/projects/madurai-farms/panoramic-view.jpg", title: "Madurai Farms Countryside Panorama", location: "Agro Farmland" },
                 ].map((photo, i) => (
