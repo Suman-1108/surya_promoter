@@ -27,7 +27,16 @@ import {
   Navigation,
   ZoomIn,
   X,
+  Car,
+  HeartPulse,
+  GraduationCap,
+  Droplets,
+  TrendingUp,
+  DollarSign,
+  Star,
+  Home,
 } from "lucide-react";
+import { PROJECT_DETAILS_MAP } from "@/data/projectDetailsExtra";
 
 interface ProjectDetailsProps {
   project: Project;
@@ -638,6 +647,224 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               </div>
             </div>
           )}
+
+          {/* Extended Locality, Valuation & Customer Reviews from PROJECT_DETAILS_MAP */}
+          {(() => {
+            const extra = PROJECT_DETAILS_MAP[project.slug] || PROJECT_DETAILS_MAP[project.id];
+            if (!extra) return null;
+
+            return (
+              <div className="space-y-10">
+                {/* 1. Infrastructure & Locality Deep-Dive */}
+                <div className="rounded-3xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 sm:p-8 shadow-xs space-y-6">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#142C23] text-[#E6B84D] shadow-md">
+                      <Navigation className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A15B]">
+                        {language === "ta" ? "அமைவிடம் & நேரடி உள்கட்டமைப்பு" : "LOCALITY & INFRASTRUCTURE"}
+                      </span>
+                      <h3 className="font-display text-xl sm:text-2xl font-bold text-[#242820] mt-0.5">
+                        {language === "ta" ? "சுற்றுப்புற வசதிகள் & இணைப்பு" : "Surrounding Connectivity & Facilities"}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Transport */}
+                  <div className="space-y-2.5">
+                    <div className="flex items-center gap-2">
+                      <Car className="h-4 w-4 text-[#C6A15B]" />
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#242820]">
+                        {language === "ta" ? "போக்குவரத்து இணைப்பு" : "Transportation & Highways"}
+                      </h4>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {extra.transportation.map((item, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-white border border-[#E8E2D7]">
+                          <span className="text-sm font-medium text-[#242820]">{item.name[language]}</span>
+                          <span className="font-mono text-xs font-bold text-[#142C23] bg-[#F8F5EF] px-2.5 py-1 rounded-lg border border-[#E8E2D7]">
+                            {item.distance} {item.time && `(${item.time})`}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Hospitals & Schools */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-4 rounded-2xl bg-white border border-[#E8E2D7] space-y-2">
+                      <div className="flex items-center gap-2 text-rose-600">
+                        <HeartPulse className="h-4 w-4" />
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-[#242820]">
+                          {language === "ta" ? "மருத்துவமனைகள்" : "Hospitals"}
+                        </h4>
+                      </div>
+                      <div className="space-y-1.5">
+                        {extra.hospitals.map((h, i) => (
+                          <div key={i} className="flex items-center justify-between text-xs text-[#77766F]">
+                            <span>{h.name[language]}</span>
+                            <span className="font-mono font-bold text-[#242820]">{h.distance}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-white border border-[#E8E2D7] space-y-2">
+                      <div className="flex items-center gap-2 text-blue-600">
+                        <GraduationCap className="h-4 w-4" />
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-[#242820]">
+                          {language === "ta" ? "பள்ளிகள் & கல்லூரிகள்" : "Schools & Colleges"}
+                        </h4>
+                      </div>
+                      <div className="space-y-1.5">
+                        {extra.schoolsAndColleges.map((s, i) => (
+                          <div key={i} className="flex items-center justify-between text-xs text-[#77766F]">
+                            <span>{s.name[language]}</span>
+                            <span className="font-mono font-bold text-[#242820]">{s.distance}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Groundwater & Neighborhood */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-4 rounded-2xl bg-cyan-50/50 border border-cyan-200/60 space-y-1.5">
+                      <div className="flex items-center gap-2 text-cyan-700">
+                        <Droplets className="h-4 w-4" />
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-950">
+                          {language === "ta" ? "நிலத்தடி நீர் வசதி" : "Groundwater Facility"}
+                        </h4>
+                      </div>
+                      <p className="text-xs text-[#242820] font-semibold">{extra.groundwater.depth[language]}</p>
+                      <p className="text-xs text-emerald-700">{extra.groundwater.quality[language]}</p>
+                      <p className="text-[11px] text-[#77766F]">{extra.groundwater.source[language]}</p>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-white border border-[#E8E2D7] space-y-1.5">
+                      <div className="flex items-center gap-2 text-[#242820]">
+                        <Home className="h-4 w-4 text-[#C6A15B]" />
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-[#242820]">
+                          {language === "ta" ? "அண்டை வீடுகள் & சூழல்" : "Neighbour Houses & Community"}
+                        </h4>
+                      </div>
+                      <p className="text-xs text-[#242820] font-semibold">{extra.neighborhood.density[language]}</p>
+                      <p className="text-xs text-[#77766F]">{extra.neighborhood.surrounding[language]}</p>
+                      <p className="text-[11px] text-[#77766F]">{extra.neighborhood.atmosphere[language]}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. Ground Value & Future Predicted Appreciation */}
+                <div className="rounded-3xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 sm:p-8 shadow-xs space-y-5">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#142C23] text-[#E6B84D] shadow-md">
+                      <TrendingUp className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A15B]">
+                        {language === "ta" ? "விலை & எதிர்கால மதிப்பு" : "VALUATION & FUTURE ROI"}
+                      </span>
+                      <h3 className="font-display text-xl sm:text-2xl font-bold text-[#242820] mt-0.5">
+                        {language === "ta" ? "தற்போதைய மதிப்பு & வளர்ச்சி முன்கணிப்பு" : "Ground Value & Future ROI Forecast"}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-4 rounded-2xl bg-white border border-[#E8E2D7] space-y-2">
+                      <span className="text-[11px] font-mono font-bold uppercase text-[#77766F] block">
+                        {language === "ta" ? "தற்போதைய சந்தை விலை" : "Current Market Rate"}
+                      </span>
+                      <span className="text-lg font-black text-[#242820] block">
+                        {extra.groundValue.currentRate[language]}
+                      </span>
+                      <span className="text-xs text-[#77766F] block">
+                        {extra.groundValue.guidelineValue[language]}
+                      </span>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-2">
+                      <span className="text-[11px] font-mono font-bold uppercase text-emerald-800 block">
+                        {language === "ta" ? "எதிர்கால மதிப்பு (3 & 5 ஆண்டுகள்)" : "Projected ROI (3 & 5 Years)"}
+                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-base font-black text-emerald-700">{extra.futurePrediction.threeYearROI}</span>
+                        <span className="text-xs text-neutral-400">|</span>
+                        <span className="text-base font-black text-emerald-800">{extra.futurePrediction.fiveYearROI}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-white border border-[#E8E2D7] space-y-1">
+                    <span className="text-xs font-bold text-[#242820]">
+                      {language === "ta" ? "மதிப்பு உயர்வதற்கான காரணங்கள்:" : "Future Growth Drivers:"}
+                    </span>
+                    <ul className="space-y-1 text-xs text-[#77766F]">
+                      {extra.futurePrediction.drivers[language].map((driver, d) => (
+                        <li key={d} className="flex items-start gap-1.5">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{driver}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* 3. Verified Customer Reviews */}
+                <div className="rounded-3xl border border-[#E8E2D7] bg-[#F8F5EF] p-6 sm:p-8 shadow-xs space-y-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#142C23] text-[#E6B84D] shadow-md">
+                        <Star className="h-5 w-5 fill-[#E6B84D]" />
+                      </div>
+                      <div>
+                        <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#C6A15B]">
+                          {language === "ta" ? "வாடிக்கையாளர் திருப்தி" : "CLIENT SATISFACTION"}
+                        </span>
+                        <h3 className="font-display text-xl sm:text-2xl font-bold text-[#242820] mt-0.5">
+                          {language === "ta" ? "வாடிக்கையாளர் அனுபவம் & மதிப்புரை" : "Verified Customer Reviews"}
+                        </h3>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center gap-1 font-mono text-xs font-bold text-[#142C23] bg-white px-3 py-1.5 rounded-xl border border-[#E8E2D7]">
+                      98.6% Client Approval
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {extra.customerReviews.map((rev, r) => (
+                      <div key={r} className="p-5 rounded-2xl bg-white border border-[#E8E2D7] space-y-3 flex flex-col justify-between shadow-2xs">
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <div className="flex text-[#C6A15B]">
+                              {Array.from({ length: rev.rating }).map((_, s) => (
+                                <Star key={s} className="h-3.5 w-3.5 fill-[#C6A15B]" />
+                              ))}
+                            </div>
+                            <span className="text-[10px] text-[#77766F] font-mono">{rev.date}</span>
+                          </div>
+                          <p className="text-xs text-[#77766F] leading-relaxed italic">
+                            &ldquo;{rev.comment[language]}&rdquo;
+                          </p>
+                        </div>
+                        <div className="pt-2 border-t border-[#E8E2D7] flex items-center justify-between">
+                          <div>
+                            <span className="text-xs font-bold text-[#242820] block">{rev.name}</span>
+                            <span className="text-[10px] text-[#77766F] block">{rev.role[language]}</span>
+                          </div>
+                          <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-800">
+                            Verified Buyer ✓
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Right Sticky Column: Actions, Site Visit Booking & Contact */}

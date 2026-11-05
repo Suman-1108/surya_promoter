@@ -40,7 +40,16 @@ import {
   Info,
   PhoneCall,
   Share2,
+  Car,
+  HeartPulse,
+  GraduationCap,
+  Droplets,
+  TrendingUp,
+  DollarSign,
+  ThumbsUp,
+  Building,
 } from "lucide-react";
+import { PROJECT_DETAILS_MAP } from "@/data/projectDetailsExtra";
 
 // Project Data Model for Surya Promoters App-Store Experience
 interface AppProject {
@@ -652,6 +661,19 @@ export default function HomePage() {
       };
     }
   }, [selectedProject, selectedFolderImages, selectedVideo, isEnquiryModalOpen]);
+
+  // Project Details Modal interactive media & tab states
+  const [modalActiveImage, setModalActiveImage] = useState<string | null>(null);
+  const [modalMediaMode, setModalMediaMode] = useState<"photos" | "video">("photos");
+  const [modalSectionTab, setModalSectionTab] = useState<"overview" | "locality" | "valuation" | "reviews">("overview");
+
+  useEffect(() => {
+    if (selectedProject) {
+      setModalActiveImage(selectedProject.image);
+      setModalMediaMode("photos");
+      setModalSectionTab("overview");
+    }
+  }, [selectedProject]);
 
   // Filter projects inside active category
   const activeCategoryProjects = activeCategory
@@ -1487,7 +1509,8 @@ export default function HomePage() {
                 {activeCategoryProjects.map((project) => (
                   <div
                     key={project.id}
-                    className="bg-white rounded-3xl overflow-hidden border border-neutral-200 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
+                    onClick={() => setSelectedProject(project)}
+                    className="bg-white rounded-3xl overflow-hidden border border-neutral-200 shadow-xs hover:shadow-xl hover:border-[#EAB308]/60 transition-all duration-300 flex flex-col group cursor-pointer"
                   >
                     {/* Card Thumbnail */}
                     <div className="relative h-56 w-full overflow-hidden bg-neutral-900">
@@ -1496,11 +1519,11 @@ export default function HomePage() {
                         alt={project.name.en}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
                       
-                      <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#0A0D12]/90 text-[#EAB308] border border-[#EAB308]/40">
+                      <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#0A0D12]/90 text-[#EAB308] border border-[#EAB308]/40 pointer-events-none">
                         {project.statusBadge[language]}
                       </div>
 
@@ -1511,20 +1534,20 @@ export default function HomePage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="px-2.5 py-0.5 rounded-full text-[9px] font-black bg-[#0A0D12]/95 hover:bg-[#EAB308] text-[#EAB308] hover:text-[#0A0D12] border border-[#EAB308]/60 flex items-center gap-1 shadow-md transition-all hover:scale-105"
+                            className="px-2.5 py-0.5 rounded-full text-[9px] font-black bg-[#0A0D12]/95 hover:bg-[#EAB308] text-[#EAB308] hover:text-[#0A0D12] border border-[#EAB308]/60 flex items-center gap-1 shadow-md transition-all hover:scale-105 cursor-pointer pointer-events-auto"
                             title="Open map on Mapbhoomi"
                           >
                             <Compass className="h-3 w-3" />
                             <span>Mapbhoomi ↗</span>
                           </a>
                         )}
-                        <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-white/90 text-[#0A0D12]">
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-white/90 text-[#0A0D12] pointer-events-none">
                           {project.subcategoryLabel[language]}
                         </span>
                       </div>
 
-                      <div className="absolute bottom-3 left-3 right-3 text-white">
-                        <h3 className="text-base font-black leading-tight drop-shadow-md">
+                      <div className="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
+                        <h3 className="text-base font-black leading-tight drop-shadow-md group-hover:text-[#EAB308] transition-colors">
                           {project.name[language]}
                         </h3>
                         <div className="flex items-center gap-1.5 text-xs text-neutral-300 mt-0.5">
@@ -1555,8 +1578,11 @@ export default function HomePage() {
                       <div className="space-y-2">
                         <div className="grid grid-cols-2 gap-2">
                           <button
-                            onClick={() => setSelectedProject(project)}
-                            className="w-full py-2 px-3 rounded-xl bg-neutral-100 hover:bg-[#0A0D12] text-neutral-900 hover:text-white text-xs font-bold transition-all text-center cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedProject(project);
+                            }}
+                            className="w-full py-2 px-3 rounded-xl bg-neutral-100 group-hover:bg-[#0A0D12] text-neutral-900 group-hover:text-white text-xs font-bold transition-all text-center cursor-pointer"
                           >
                             {language === "ta" ? "முழு விவரம்" : "Project Details"}
                           </button>
@@ -1567,6 +1593,7 @@ export default function HomePage() {
                             )}.`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
                             className="w-full py-2 px-3 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] text-xs font-black transition-all flex items-center justify-center gap-1 cursor-pointer"
                           >
                             <MessageCircle className="h-3.5 w-3.5" />
@@ -1580,6 +1607,7 @@ export default function HomePage() {
                             href={project.mapbhoomiUrl}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
                             className="w-full py-2 px-3 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-[#EAB308] hover:text-white border border-[#EAB308]/50 text-xs font-black transition-all flex items-center justify-center gap-1.5 shadow-sm group/mb cursor-pointer"
                           >
                             <Compass className="h-3.5 w-3.5 text-[#EAB308] group-hover/mb:rotate-45 transition-transform shrink-0" />
@@ -1669,7 +1697,8 @@ export default function HomePage() {
                 {ALL_PROJECTS.map((project) => (
                   <div
                     key={project.id}
-                    className="bg-white rounded-3xl p-4 border border-neutral-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                    onClick={() => setSelectedProject(project)}
+                    className="bg-white rounded-3xl p-4 border border-neutral-200 shadow-xs hover:shadow-md hover:border-[#EAB308]/60 transition-all flex flex-col justify-between cursor-pointer group"
                   >
                     <div>
                       <div className="flex items-center gap-3 mb-3">
@@ -1679,14 +1708,14 @@ export default function HomePage() {
                             alt={project.name.en}
                             fill
                             sizes="52px"
-                            className="object-cover"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
                         <div>
                           <span className="px-2 py-0.2 rounded-md text-[9px] font-black uppercase bg-blue-50 text-blue-700">
                             {project.categoryLabel[language]}
                           </span>
-                          <h4 className="font-black text-neutral-900 text-sm mt-0.5 leading-snug">
+                          <h4 className="font-black text-neutral-900 group-hover:text-[#B45309] text-sm mt-0.5 leading-snug transition-colors">
                             {project.name[language]}
                           </h4>
                         </div>
@@ -1710,6 +1739,7 @@ export default function HomePage() {
                           href={project.mapbhoomiUrl}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
                           className="w-full py-2 px-3 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-[#EAB308] border border-[#EAB308]/40 text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                         >
                           <Compass className="h-3.5 w-3.5 text-[#EAB308]" />
@@ -1721,6 +1751,7 @@ export default function HomePage() {
                         href={project.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                       >
                         <Navigation className="h-3 w-3" />
@@ -1729,8 +1760,11 @@ export default function HomePage() {
                       </a>
 
                       <button
-                        onClick={() => setSelectedProject(project)}
-                        className="w-full py-1.5 px-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-all text-center cursor-pointer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedProject(project);
+                        }}
+                        className="w-full py-1.5 px-3 rounded-xl bg-neutral-100 group-hover:bg-neutral-900 group-hover:text-white text-neutral-800 text-xs font-bold transition-all text-center cursor-pointer"
                       >
                         {language === "ta" ? "திட்டத்தின் குறிப்புகள்" : "View Overview"}
                       </button>
@@ -2191,221 +2225,637 @@ export default function HomePage() {
       {/* 3. INDIVIDUAL PROJECT DETAILS MODAL                                       */}
       {/* ------------------------------------------------------------------------- */}
       <AnimatePresence>
-        {selectedProject && (
-          <div
-            data-lenis-prevent
-            onClick={() => setSelectedProject(null)}
-            onWheel={(e) => e.stopPropagation()}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-hidden"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()}
-              onWheel={(e) => e.stopPropagation()}
+        {selectedProject && (() => {
+          const projectExtra = PROJECT_DETAILS_MAP[selectedProject.id];
+          const gallery = projectExtra?.galleryImages && projectExtra.galleryImages.length > 0
+            ? projectExtra.galleryImages
+            : [selectedProject.image];
+          const activeImage = modalActiveImage || selectedProject.image;
+          const videoUrl = projectExtra?.videoUrl;
+
+          return (
+            <div
               data-lenis-prevent
-              className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 flex flex-col max-h-[88vh] my-auto"
+              onClick={() => setSelectedProject(null)}
+              onWheel={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-black/80 backdrop-blur-md overflow-hidden"
             >
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-20 h-9 w-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-transform hover:scale-110 cursor-pointer shadow-md"
-                title="Close"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
-              <div
-                data-lenis-prevent
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
                 onWheel={(e) => e.stopPropagation()}
-                className="flex-1 min-h-0 overflow-y-auto p-5 sm:p-7 space-y-5 overscroll-contain"
+                data-lenis-prevent
+                className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 flex flex-col max-h-[90vh] sm:max-h-[88vh] my-auto"
               >
-                
-                {/* Visual Top Banner */}
-                <div className="relative h-60 sm:h-72 w-full rounded-2xl overflow-hidden bg-neutral-900">
-                  <Image
-                    src={selectedProject.image}
-                    alt={selectedProject.name.en}
-                    fill
-                    sizes="800px"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-[#EAB308] text-[#0A0D12]">
-                      {selectedProject.categoryLabel[language]}
-                    </span>
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-black/70 text-white backdrop-blur-md">
-                      {selectedProject.subcategoryLabel[language]}
-                    </span>
-                  </div>
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 z-30 h-9 w-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-transform hover:scale-110 cursor-pointer shadow-lg"
+                  title="Close"
+                >
+                  <X className="h-5 w-5" />
+                </button>
 
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <h2 className="text-xl sm:text-3xl font-black drop-shadow-md">
-                      {selectedProject.name[language]}
-                    </h2>
-                    <div className="flex items-center gap-1.5 text-xs text-neutral-300 mt-0.5">
-                      <MapPin className="h-3.5 w-3.5 text-[#EAB308]" />
-                      <span>{selectedProject.location[language]}</span>
-                    </div>
-                  </div>
-                </div>
+                {/* Scrollable Container */}
+                <div
+                  data-lenis-prevent
+                  onWheel={(e) => e.stopPropagation()}
+                  className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-7 space-y-6 overscroll-contain"
+                >
+                  {/* 1. MEDIA BANNER & VIDEO TOUR */}
+                  <div className="space-y-3">
+                    <div className="relative h-60 sm:h-80 w-full rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-200 shadow-inner">
+                      {modalMediaMode === "video" && videoUrl ? (
+                        <video
+                          src={videoUrl}
+                          controls
+                          autoPlay
+                          playsInline
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <>
+                          <Image
+                            src={activeImage}
+                            alt={selectedProject.name.en}
+                            fill
+                            sizes="900px"
+                            className="object-cover transition-all duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                        </>
+                      )}
 
-                {/* Mapbhoomi Live Cadastral Layout Feature */}
-                {selectedProject.mapbhoomiUrl && (
-                  <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0A0D12] via-[#111827] to-[#1F2937] text-white border border-[#EAB308]/40 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
-                    <div className="flex items-start sm:items-center gap-3">
-                      <div className="h-11 w-11 rounded-2xl bg-[#EAB308] text-[#0A0D12] flex items-center justify-center font-black text-sm shrink-0 shadow-md">
-                        <Compass className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-sm font-black text-white">Mapbhoomi Interactive 3D Cadastral Layout</h4>
-                          <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                            Live Map
+                      {/* Top Badges & Media Switcher */}
+                      <div className="absolute top-3 left-3 right-14 flex items-center justify-between gap-2 z-10 pointer-events-auto">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-black bg-[#EAB308] text-[#0A0D12]">
+                            {selectedProject.categoryLabel[language]}
+                          </span>
+                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-black/70 text-white backdrop-blur-md">
+                            {selectedProject.subcategoryLabel[language]}
                           </span>
                         </div>
-                        <p className="text-[11px] text-neutral-300 mt-0.5 max-w-xl leading-relaxed">
-                          {language === "ta"
-                            ? "ஒவ்வொரு மனையின் எல்லைகள், அளவு மற்றும் விபரங்களை Mapbhoomi நேரடி தளத்தில் பார்க்கவும்."
-                            : "Explore verified cadastral plot boundaries, numbering, and dimensions on the official Mapbhoomi interactive layout."}
-                        </p>
+
+                        {videoUrl && (
+                          <div className="flex items-center gap-1 bg-black/70 backdrop-blur-md p-1 rounded-xl border border-white/20">
+                            <button
+                              onClick={() => setModalMediaMode("photos")}
+                              className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer ${
+                                modalMediaMode === "photos"
+                                  ? "bg-[#EAB308] text-[#0A0D12]"
+                                  : "text-white/80 hover:text-white"
+                              }`}
+                            >
+                              Photos ({gallery.length})
+                            </button>
+                            <button
+                              onClick={() => setModalMediaMode("video")}
+                              className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider flex items-center gap-1 transition-all cursor-pointer ${
+                                modalMediaMode === "video"
+                                  ? "bg-[#EAB308] text-[#0A0D12]"
+                                  : "text-white/80 hover:text-white"
+                              }`}
+                            >
+                              <Play className="h-3 w-3 fill-current" />
+                              Video
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Banner Bottom Title Info */}
+                      <div className="absolute bottom-3 left-3 right-3 text-white z-10">
+                        <div className="flex items-center gap-1 text-[#EAB308] text-xs font-black mb-1">
+                          <Star className="h-3.5 w-3.5 fill-[#EAB308]" />
+                          <span>{selectedProject.rating}</span>
+                          <span className="text-white/70 font-normal">
+                            ({projectExtra?.customerReviews.length || 2} verified client reviews)
+                          </span>
+                        </div>
+                        <h2 className="text-xl sm:text-3xl font-black drop-shadow-md">
+                          {selectedProject.name[language]}
+                        </h2>
+                        <div className="flex items-center gap-1.5 text-xs text-neutral-300 mt-0.5">
+                          <MapPin className="h-3.5 w-3.5 text-[#EAB308] shrink-0" />
+                          <span>{selectedProject.location[language]}</span>
+                        </div>
                       </div>
                     </div>
-                    <a
-                      href={selectedProject.mapbhoomiUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-5 py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs transition-all flex items-center justify-center gap-1.5 shrink-0 shadow-md hover:scale-105 cursor-pointer"
-                    >
-                      <Navigation className="h-3.5 w-3.5" />
-                      <span>Open map ↗</span>
-                    </a>
-                  </div>
-                )}
 
-                {/* Cadastral Blueprint if available (e.g. Orange Garden) */}
-                {selectedProject.blueprint && (
-                  <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-black uppercase text-[#B45309] tracking-wider flex items-center gap-1.5">
-                        <FileCheck className="h-4 w-4" />
-                        Cadastral Layout Blueprint (Plots 1 to 10)
-                      </span>
-                      <a
-                        href={selectedProject.blueprint}
-                        download
-                        className="text-xs font-bold text-[#B45309] hover:underline flex items-center gap-1"
-                      >
-                        <Download className="h-3 w-3" />
-                        Download
-                      </a>
-                    </div>
-                    <div className="relative h-60 sm:h-72 w-full rounded-xl overflow-hidden bg-neutral-900 border border-amber-200">
-                      <Image
-                        src={selectedProject.blueprint}
-                        alt="Project Cadastral Blueprint"
-                        fill
-                        sizes="700px"
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* Specs */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                  {selectedProject.specs.map((spec, i) => (
-                    <div key={i} className="p-3 rounded-xl bg-neutral-50 border border-neutral-100">
-                      <span className="text-[10px] uppercase font-bold text-neutral-400 block">
-                        {spec.label[language]}
-                      </span>
-                      <span className="text-xs font-black text-neutral-900 block mt-0.5">
-                        {spec.value[language]}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Overview */}
-                <div>
-                  <h3 className="text-sm font-black text-neutral-900 mb-1">
-                    {language === "ta" ? "திட்டத்தின் முழு விவரம்" : "Project Overview"}
-                  </h3>
-                  <p className="text-xs text-neutral-700 leading-relaxed">
-                    {selectedProject.description[language]}
-                  </p>
-                </div>
-
-                {/* Highlights */}
-                <div>
-                  <h3 className="text-sm font-black text-neutral-900 mb-2">
-                    {language === "ta" ? "முக்கிய சிறப்பம்சங்கள்" : "Key Highlights"}
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {selectedProject.highlights[language].map((hl, idx) => (
-                      <div key={idx} className="flex items-start gap-1.5 text-xs text-neutral-700">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{hl}</span>
+                    {/* Image Thumbnails Strip */}
+                    {gallery.length > 1 && (
+                      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
+                        {gallery.map((thumb, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setModalActiveImage(thumb);
+                              setModalMediaMode("photos");
+                            }}
+                            className={`relative h-14 w-20 sm:h-16 sm:w-24 rounded-xl overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
+                              modalMediaMode === "photos" && activeImage === thumb
+                                ? "border-[#EAB308] scale-105 shadow-md ring-2 ring-[#EAB308]/40"
+                                : "border-neutral-200 opacity-70 hover:opacity-100 hover:border-neutral-400"
+                            }`}
+                          >
+                            <Image src={thumb} alt={`Photo ${idx + 1}`} fill sizes="100px" className="object-cover" />
+                          </button>
+                        ))}
                       </div>
-                    ))}
+                    )}
                   </div>
-                </div>
 
-                {/* Action Footer */}
-                <div className="pt-3 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-2.5">
-                  <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-                    <a
-                      href={selectedProject.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 sm:flex-none px-3.5 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
-                    >
-                      <Navigation className="h-3.5 w-3.5 text-blue-600" />
-                      <span>{language === "ta" ? "கூகிள் மேப்ஸ்" : "Google Maps"}</span>
-                    </a>
-
-                    {selectedProject.mapbhoomiUrl && (
+                  {/* 2. MAPBHOOMI LIVE CADASTRAL LINK */}
+                  {selectedProject.mapbhoomiUrl && (
+                    <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0A0D12] via-[#111827] to-[#1F2937] text-white border border-[#EAB308]/40 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
+                      <div className="flex items-start sm:items-center gap-3">
+                        <div className="h-11 w-11 rounded-2xl bg-[#EAB308] text-[#0A0D12] flex items-center justify-center font-black text-sm shrink-0 shadow-md">
+                          <Compass className="h-6 w-6" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h4 className="text-sm font-black text-white">Mapbhoomi Interactive 3D Cadastral Layout</h4>
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                              Live Map
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-neutral-300 mt-0.5 max-w-xl leading-relaxed">
+                            {language === "ta"
+                              ? "ஒவ்வொரு மனையின் எல்லைகள், அளவு மற்றும் விபரங்களை Mapbhoomi நேரடி தளத்தில் பார்க்கவும்."
+                              : "Explore verified cadastral plot boundaries, numbering, and dimensions on the official Mapbhoomi interactive layout."}
+                          </p>
+                        </div>
+                      </div>
                       <a
                         href={selectedProject.mapbhoomiUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 sm:flex-none px-3.5 py-2.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-[#EAB308] border border-[#EAB308]/50 font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                        className="px-5 py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs transition-all flex items-center justify-center gap-1.5 shrink-0 shadow-md hover:scale-105 cursor-pointer"
                       >
-                        <Compass className="h-3.5 w-3.5 text-[#EAB308]" />
-                        <span>Mapbhoomi (Open map ↗)</span>
+                        <Navigation className="h-3.5 w-3.5" />
+                        <span>Open map ↗</span>
                       </a>
-                    )}
+                    </div>
+                  )}
+
+                  {/* 3. CADASTRAL BLUEPRINT (if available) */}
+                  {selectedProject.blueprint && (
+                    <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase text-[#B45309] tracking-wider flex items-center gap-1.5">
+                          <FileCheck className="h-4 w-4" />
+                          Cadastral Layout Blueprint (Plots 1 to 10)
+                        </span>
+                        <a
+                          href={selectedProject.blueprint}
+                          download
+                          className="text-xs font-bold text-[#B45309] hover:underline flex items-center gap-1"
+                        >
+                          <Download className="h-3 w-3" />
+                          Download
+                        </a>
+                      </div>
+                      <div className="relative h-60 sm:h-72 w-full rounded-xl overflow-hidden bg-neutral-900 border border-amber-200">
+                        <Image
+                          src={selectedProject.blueprint}
+                          alt="Project Cadastral Blueprint"
+                          fill
+                          sizes="700px"
+                          className="object-contain"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 4. MODAL SECTION TABS */}
+                  <div className="flex items-center gap-1.5 p-1 bg-neutral-100 rounded-2xl overflow-x-auto border border-neutral-200/80">
+                    <button
+                      onClick={() => setModalSectionTab("overview")}
+                      className={`flex-1 min-w-[130px] py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer text-center ${
+                        modalSectionTab === "overview"
+                          ? "bg-[#0A0D12] text-[#EAB308] shadow-xs"
+                          : "text-neutral-600 hover:text-black"
+                      }`}
+                    >
+                      {language === "ta" ? "கண்ணோட்டம்" : "Overview & Specs"}
+                    </button>
+                    <button
+                      onClick={() => setModalSectionTab("locality")}
+                      className={`flex-1 min-w-[150px] py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer text-center ${
+                        modalSectionTab === "locality"
+                          ? "bg-[#0A0D12] text-[#EAB308] shadow-xs"
+                          : "text-neutral-600 hover:text-black"
+                      }`}
+                    >
+                      {language === "ta" ? "அமைவிடம் & வசதிகள்" : "Locality & Infra"}
+                    </button>
+                    <button
+                      onClick={() => setModalSectionTab("valuation")}
+                      className={`flex-1 min-w-[150px] py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer text-center ${
+                        modalSectionTab === "valuation"
+                          ? "bg-[#0A0D12] text-[#EAB308] shadow-xs"
+                          : "text-neutral-600 hover:text-black"
+                      }`}
+                    >
+                      {language === "ta" ? "விலை & எதிர்கால மதிப்பு" : "Ground Value & ROI"}
+                    </button>
+                    <button
+                      onClick={() => setModalSectionTab("reviews")}
+                      className={`flex-1 min-w-[130px] py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer text-center ${
+                        modalSectionTab === "reviews"
+                          ? "bg-[#0A0D12] text-[#EAB308] shadow-xs"
+                          : "text-neutral-600 hover:text-black"
+                      }`}
+                    >
+                      {language === "ta" ? "வாடிக்கையாளர் கருத்து" : "Customer Reviews"}
+                    </button>
                   </div>
 
-                  <div className="flex items-center gap-2 w-full sm:w-auto">
-                    <a
-                      href="tel:+917708966452"
-                      className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#0A0D12] text-white hover:bg-neutral-800 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
-                    >
-                      <Phone className="h-3.5 w-3.5 text-[#EAB308]" />
-                      <span>{language === "ta" ? "நேரடி அழைப்பு" : "Call Advisor"}</span>
-                    </a>
+                  {/* TAB 1: OVERVIEW & SPECS */}
+                  {modalSectionTab === "overview" && (
+                    <div className="space-y-4 animate-in fade-in duration-200">
+                      {/* Specs Grid */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        {selectedProject.specs.map((spec, i) => (
+                          <div key={i} className="p-3 rounded-xl bg-neutral-50 border border-neutral-100">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {spec.label[language]}
+                            </span>
+                            <span className="text-xs font-black text-neutral-900 block mt-0.5">
+                              {spec.value[language]}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
 
-                    <a
-                      href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20${encodeURIComponent(
-                        selectedProject.name.en
-                      )}.`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
-                    >
-                      <MessageCircle className="h-3.5 w-3.5 fill-white" />
-                      <span>WhatsApp</span>
-                    </a>
+                      {/* Overview */}
+                      <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-100 space-y-1">
+                        <h3 className="text-sm font-black text-neutral-900">
+                          {language === "ta" ? "திட்டத்தின் முழு விவரம்" : "Project Overview"}
+                        </h3>
+                        <p className="text-xs text-neutral-700 leading-relaxed">
+                          {selectedProject.description[language]}
+                        </p>
+                      </div>
+
+                      {/* Highlights */}
+                      <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-100 space-y-2">
+                        <h3 className="text-sm font-black text-neutral-900">
+                          {language === "ta" ? "முக்கிய சிறப்பம்சங்கள்" : "Key Highlights"}
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {selectedProject.highlights[language].map((hl, idx) => (
+                            <div key={idx} className="flex items-start gap-1.5 text-xs text-neutral-700">
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                              <span>{hl}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 2: LOCALITY & INFRASTRUCTURE */}
+                  {modalSectionTab === "locality" && projectExtra && (
+                    <div className="space-y-4 animate-in fade-in duration-200">
+                      {/* Transportation */}
+                      <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-100 space-y-2.5">
+                        <div className="flex items-center gap-2">
+                          <Car className="h-4 w-4 text-[#CA8A04]" />
+                          <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900">
+                            {language === "ta" ? "அருகிலுள்ள போக்குவரத்து வசதிகள்" : "Nearby Transportation & Connectivity"}
+                          </h4>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {projectExtra.transportation.map((item, idx) => (
+                            <div key={idx} className="p-2.5 rounded-xl bg-white border border-neutral-200/70 flex items-center justify-between">
+                              <span className="text-xs font-bold text-neutral-800">{item.name[language]}</span>
+                              <div className="flex items-center gap-1.5 shrink-0 text-right">
+                                <span className="text-[11px] font-mono font-bold text-neutral-900 bg-neutral-100 px-2 py-0.5 rounded-md">
+                                  {item.distance}
+                                </span>
+                                {item.time && (
+                                  <span className="text-[10px] text-neutral-500 font-medium">({item.time})</span>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Hospitals & Healthcare */}
+                      <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-100 space-y-2.5">
+                        <div className="flex items-center gap-2">
+                          <HeartPulse className="h-4 w-4 text-rose-600" />
+                          <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900">
+                            {language === "ta" ? "அருகிலுள்ள மருத்துவமனைகள்" : "Nearby Hospitals & Healthcare"}
+                          </h4>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {projectExtra.hospitals.map((item, idx) => (
+                            <div key={idx} className="p-2.5 rounded-xl bg-white border border-neutral-200/70 flex items-center justify-between">
+                              <span className="text-xs font-bold text-neutral-800">{item.name[language]}</span>
+                              <span className="text-[11px] font-mono font-bold text-neutral-900 bg-neutral-100 px-2 py-0.5 rounded-md">
+                                {item.distance} {item.time && `· ${item.time}`}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Schools & Colleges */}
+                      <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-100 space-y-2.5">
+                        <div className="flex items-center gap-2">
+                          <GraduationCap className="h-4 w-4 text-blue-600" />
+                          <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900">
+                            {language === "ta" ? "பள்ளிகள் & கல்லூரிகள்" : "Nearby Schools & Colleges"}
+                          </h4>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {projectExtra.schoolsAndColleges.map((item, idx) => (
+                            <div key={idx} className="p-2.5 rounded-xl bg-white border border-neutral-200/70 flex items-center justify-between">
+                              <span className="text-xs font-bold text-neutral-800">{item.name[language]}</span>
+                              <span className="text-[11px] font-mono font-bold text-neutral-900 bg-neutral-100 px-2 py-0.5 rounded-md">
+                                {item.distance} {item.time && `· ${item.time}`}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Groundwater Facility */}
+                      <div className="p-4 rounded-2xl bg-cyan-50/60 border border-cyan-100 space-y-2.5">
+                        <div className="flex items-center gap-2">
+                          <Droplets className="h-4 w-4 text-cyan-600" />
+                          <h4 className="text-xs font-black uppercase tracking-wider text-cyan-950">
+                            {language === "ta" ? "நிலத்தடி நீர் வசதி & தரம்" : "Groundwater Facility & Potable Table"}
+                          </h4>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                          <div className="p-2.5 rounded-xl bg-white border border-cyan-200/60">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "நீர் மட்டம் ஆழம்" : "Water Table Depth"}
+                            </span>
+                            <span className="text-xs font-black text-neutral-900 block mt-0.5">
+                              {projectExtra.groundwater.depth[language]}
+                            </span>
+                          </div>
+                          <div className="p-2.5 rounded-xl bg-white border border-cyan-200/60">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "குடிநீர் தரம்" : "Tested Quality"}
+                            </span>
+                            <span className="text-xs font-black text-emerald-700 block mt-0.5">
+                              {projectExtra.groundwater.quality[language]}
+                            </span>
+                          </div>
+                          <div className="p-2.5 rounded-xl bg-white border border-cyan-200/60">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "நீர் ஆதாரம்" : "Water Source"}
+                            </span>
+                            <span className="text-xs font-black text-neutral-900 block mt-0.5">
+                              {projectExtra.groundwater.source[language]}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Neighbour Houses & Community */}
+                      <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-100 space-y-2.5">
+                        <div className="flex items-center gap-2">
+                          <Home className="h-4 w-4 text-neutral-800" />
+                          <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900">
+                            {language === "ta" ? "அண்டை வீடுகள் & குடியிருப்பு சூழல்" : "Neighbour Houses & Community Environment"}
+                          </h4>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                          <div className="p-2.5 rounded-xl bg-white border border-neutral-200">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "குடியிருப்பு அடர்த்தி" : "Community Density"}
+                            </span>
+                            <span className="text-xs font-bold text-neutral-800 block mt-0.5">
+                              {projectExtra.neighborhood.density[language]}
+                            </span>
+                          </div>
+                          <div className="p-2.5 rounded-xl bg-white border border-neutral-200">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "சூழ்ந்துள்ள வீடுகள்" : "Surrounding Dwellings"}
+                            </span>
+                            <span className="text-xs font-bold text-neutral-800 block mt-0.5">
+                              {projectExtra.neighborhood.surrounding[language]}
+                            </span>
+                          </div>
+                          <div className="p-2.5 rounded-xl bg-white border border-neutral-200">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "சூழல் & பாதுகாப்பு" : "Atmosphere & Security"}
+                            </span>
+                            <span className="text-xs font-bold text-neutral-800 block mt-0.5">
+                              {projectExtra.neighborhood.atmosphere[language]}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 3: GROUND VALUE & FUTURE ROI PREDICTION */}
+                  {modalSectionTab === "valuation" && projectExtra && (
+                    <div className="space-y-4 animate-in fade-in duration-200">
+                      {/* Current Ground Value Card */}
+                      <div className="p-5 rounded-2xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border border-amber-300/60 space-y-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <DollarSign className="h-5 w-5 text-amber-700" />
+                            <h4 className="text-sm font-black text-neutral-900">
+                              {language === "ta" ? "தற்போதைய மனை / நில மதிப்பு" : "Current Ground Value & Prevailing Rate"}
+                            </h4>
+                          </div>
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-[#0A0D12] text-[#EAB308]">
+                            Verified Market Price
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="p-3.5 rounded-xl bg-white border border-amber-200 shadow-xs">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "தற்போதைய சந்தை விலை" : "Current Market Rate"}
+                            </span>
+                            <span className="text-base sm:text-lg font-black text-[#0A0D12] block mt-1">
+                              {projectExtra.groundValue.currentRate[language]}
+                            </span>
+                          </div>
+                          <div className="p-3.5 rounded-xl bg-white border border-neutral-200 shadow-xs">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "அரசு வழிகாட்டி மதிப்பு" : "Government Guideline Value"}
+                            </span>
+                            <span className="text-base sm:text-lg font-black text-neutral-700 block mt-1">
+                              {projectExtra.groundValue.guidelineValue[language]}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Future Ground Value Predicted Card */}
+                      <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-300/60 space-y-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <TrendingUp className="h-5 w-5 text-emerald-600" />
+                            <h4 className="text-sm font-black text-neutral-900">
+                              {language === "ta" ? "எதிர்கால மதிப்பு முன்கணிப்பு (ROI)" : "Future Ground Value Predicted (ROI)"}
+                            </h4>
+                          </div>
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-600 text-white">
+                            High Growth Potential
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="p-3.5 rounded-xl bg-white border border-emerald-200 shadow-xs">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "3 வருட உத்தேச வளர்ச்சி" : "3-Year Projected Growth"}
+                            </span>
+                            <span className="text-base sm:text-lg font-black text-emerald-600 block mt-1">
+                              {projectExtra.futurePrediction.threeYearROI}
+                            </span>
+                          </div>
+                          <div className="p-3.5 rounded-xl bg-white border border-emerald-200 shadow-xs">
+                            <span className="text-[10px] uppercase font-bold text-neutral-400 block">
+                              {language === "ta" ? "5 வருட மூலதன மதிப்பு" : "5-Year Projected Growth"}
+                            </span>
+                            <span className="text-base sm:text-lg font-black text-emerald-700 block mt-1">
+                              {projectExtra.futurePrediction.fiveYearROI}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Growth Drivers */}
+                        <div className="p-3 rounded-xl bg-white/80 border border-emerald-200/60 space-y-1.5 mt-2">
+                          <span className="text-[11px] font-black uppercase tracking-wider text-emerald-950 block">
+                            {language === "ta" ? "மதிப்பு உயர்வதற்கான முக்கிய காரணங்கள்:" : "Key Drivers of Future Appreciation:"}
+                          </span>
+                          <ul className="space-y-1 text-xs text-neutral-700">
+                            {projectExtra.futurePrediction.drivers[language].map((driver, dIdx) => (
+                              <li key={dIdx} className="flex items-start gap-1.5">
+                                <TrendingUp className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                                <span>{driver}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 4: CUSTOMER REVIEWS */}
+                  {modalSectionTab === "reviews" && projectExtra && (
+                    <div className="space-y-4 animate-in fade-in duration-200">
+                      {/* Overall Rating Banner */}
+                      <div className="p-4 sm:p-5 rounded-2xl bg-[#0A0D12] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+                        <div className="flex items-center gap-3">
+                          <div className="h-12 w-12 rounded-2xl bg-[#EAB308] text-[#0A0D12] flex flex-col items-center justify-center font-black shrink-0">
+                            <span className="text-base leading-none">5.0</span>
+                            <div className="flex text-[8px] mt-0.5">★★★★★</div>
+                          </div>
+                          <div>
+                            <h4 className="text-sm font-black text-white">
+                              {language === "ta" ? "உறுதிப்படுத்தப்பட்ட வாடிக்கையாளர் மதிப்புரை" : "Verified Customer Satisfaction"}
+                            </h4>
+                            <p className="text-xs text-neutral-300 mt-0.5">
+                              98.6% Client Approval Rating · 500+ Happy Families · 16+ Years IAF Veteran Trust
+                            </p>
+                          </div>
+                        </div>
+                        <span className="px-3 py-1 rounded-full text-xs font-black bg-white/10 text-[#EAB308] border border-[#EAB308]/40 self-start sm:self-auto">
+                          100% Clear Computer Patta
+                        </span>
+                      </div>
+
+                      {/* Reviews Grid */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {projectExtra.customerReviews.map((rev, rIdx) => (
+                          <div key={rIdx} className="p-4 rounded-2xl bg-neutral-50 border border-neutral-100 space-y-2 flex flex-col justify-between">
+                            <div className="space-y-1.5">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-1 text-[#EAB308]">
+                                  {Array.from({ length: rev.rating }).map((_, s) => (
+                                    <Star key={s} className="h-3.5 w-3.5 fill-[#EAB308]" />
+                                  ))}
+                                </div>
+                                <span className="text-[10px] text-neutral-400 font-medium">{rev.date}</span>
+                              </div>
+                              <p className="text-xs text-neutral-700 leading-relaxed italic">
+                                &ldquo;{rev.comment[language]}&rdquo;
+                              </p>
+                            </div>
+                            <div className="pt-2 border-t border-neutral-200/60 flex items-center justify-between mt-2">
+                              <div>
+                                <span className="text-xs font-black text-neutral-900 block">{rev.name}</span>
+                                <span className="text-[10px] text-neutral-500 block">{rev.role[language]}</span>
+                              </div>
+                              <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-800">
+                                Verified Buyer ✓
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 5. ACTION FOOTER */}
+                  <div className="pt-3 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+                    <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                      <a
+                        href={selectedProject.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none px-3.5 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <Navigation className="h-3.5 w-3.5 text-blue-600" />
+                        <span>{language === "ta" ? "கூகிள் மேப்ஸ்" : "Google Maps"}</span>
+                      </a>
+
+                      {selectedProject.mapbhoomiUrl && (
+                        <a
+                          href={selectedProject.mapbhoomiUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 sm:flex-none px-3.5 py-2.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-[#EAB308] border border-[#EAB308]/50 font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                        >
+                          <Compass className="h-3.5 w-3.5 text-[#EAB308]" />
+                          <span>Mapbhoomi (Open map ↗)</span>
+                        </a>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <a
+                        href="tel:+917708966452"
+                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#0A0D12] text-white hover:bg-neutral-800 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <Phone className="h-3.5 w-3.5 text-[#EAB308]" />
+                        <span>{language === "ta" ? "நேரடி அழைப்பு" : "Call Advisor"}</span>
+                      </a>
+
+                      <a
+                        href={`https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20${encodeURIComponent(
+                          selectedProject.name.en
+                        )}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                      >
+                        <MessageCircle className="h-3.5 w-3.5 fill-white" />
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
                   </div>
+
                 </div>
-
-              </div>
-            </motion.div>
-          </div>
-        )}
+              </motion.div>
+            </div>
+          );
+        })()}
       </AnimatePresence>
 
       {/* ------------------------------------------------------------------------- */}
