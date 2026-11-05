@@ -42,10 +42,7 @@ export default function Footer() {
                 : "Madurai's premier real estate & land development firm. 16+ years of disciplined, transparent property acquisition and development guided by Indian Air Force veteran leadership."}
             </p>
 
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/10 border border-white/15 text-emerald-300 text-xs font-mono font-bold w-fit">
-              <ShieldCheck className="h-4 w-4 text-[#C6A66B]" />
-              <span>100% Clear Computer Patta Guarantee</span>
-            </div>
+          
           </div>
 
           {/* Quick Navigation Links */}

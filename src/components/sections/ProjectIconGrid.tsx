@@ -1964,7 +1964,6 @@ export default function ProjectIconGrid({
                     </p>
                     <div className="pt-2 flex flex-wrap gap-4 text-xs font-mono text-amber-400">
                       <span>✓ Estd. 2010</span>
-                      <span>✓ 100% Clear Computer Patta</span>
                       <span>✓ 1000+ Happy Families</span>
                       <span>✓ Zero Legal Disputes</span>
                     </div>
@@ -1989,11 +1988,6 @@ export default function ProjectIconGrid({
                     title: language === "ta" ? "விமானப்படை ஒழுக்கம்" : "Military Precision",
                     desc: language === "ta" ? "ஒவ்வொரு எல்லையும் துல்லியமான ஜிபிஎஸ் அளவீடுடன் அமைக்கப்படுகிறது." : "Exact boundary markings, surveyor vetted perimeters, and honest square footage.",
                     icon: ShieldCheck,
-                  },
-                  {
-                    title: language === "ta" ? "100% கணினி பட்டா" : "100% Clear Computer Patta",
-                    desc: language === "ta" ? "30 ஆண்டுகால வில்லங்க சான்று மற்றும் வருவாய்த்துறை சரிபார்ப்பு." : "Flawless 30-year encumbrance search and immediate individual patta transfer.",
-                    icon: Award,
                   },
                   {
                     title: language === "ta" ? "முக்கிய வளர்ச்சி வழித்தடம்" : "Strategic Corridors",
@@ -2164,7 +2158,7 @@ export default function ProjectIconGrid({
                   </span>
                 </div>
                 <p className="text-[11px] text-[#64748B] leading-relaxed">
-                  Established in 2010 by Mr. Manickam Natarajan (Indian Air Force Veteran). Providing 100% clear computer patta, transparent land banking, and managed developments in Madurai.
+                  Established in 2010 by Mr. Manickam Natarajan (Indian Air Force Veteran). Providing transparent land banking, and managed developments in Madurai.
                 </p>
               </div>
 

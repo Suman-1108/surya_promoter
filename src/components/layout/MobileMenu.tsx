@@ -124,9 +124,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 <span>WhatsApp</span>
               </a>
             </div>
-            <p className="text-center text-[10px] text-gray-400 font-mono">
-              IAF Veteran Trust · 100% Clear Computer Patta Guarantee
-            </p>
+           
           </div>
         </motion.div>
       )}

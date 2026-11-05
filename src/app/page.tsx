@@ -48,6 +48,7 @@ import {
   DollarSign,
   ThumbsUp,
   Building,
+  Clock,
 } from "lucide-react";
 import { PROJECT_DETAILS_MAP } from "@/data/projectDetailsExtra";
 
@@ -109,7 +110,6 @@ const ALL_PROJECTS: AppProject[] = [
     mapsUrl: "https://maps.google.com/?q=Madurai+Residential",
     specs: [
       { label: { en: "Type", ta: "வகை" }, value: { en: "2 & 3 BHK Apartments", ta: "2 & 3 BHK அடுக்குமாடிகள்" } },
-      { label: { en: "Title", ta: "பட்டா" }, value: { en: "100% Clear Computer Patta", ta: "100% கணினி பட்டா" } },
       { label: { en: "Approval", ta: "அனுமதி" }, value: { en: "DTCP & RERA Compliant", ta: "DTCP & RERA அனுமதி" } },
       { label: { en: "Water", ta: "குடிநீர்" }, value: { en: "Sweet Potable Groundwater", ta: "இனிமையான நிலத்தடி நீர்" } },
     ],
@@ -632,7 +632,7 @@ export default function HomePage() {
 
   // Navigation State: Which of the 5 Main Icons / Sections is Active
   // 'home' | 'projects' | 'location' | 'gallery' | 'about' | 'download'
-  const [activeTab, setActiveTab] = useState<"home" | "projects" | "location" | "gallery" | "about" | "download">("home");
+  const [activeTab, setActiveTab] = useState<"home" | "projects" | "location" | "gallery" | "about" | "download" | "contact">("home");
 
   // In "Our Projects": Which Category is Active ('residential' | 'commercial' | 'farm')
   const [activeCategory, setActiveCategory] = useState<"residential" | "commercial" | "farm" | null>(null);
@@ -703,28 +703,24 @@ export default function HomePage() {
         <div className="max-w-[1760px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           
           {/* Left Brand Identity: "S" Logo + Surya Promoters */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
-            <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 transition-transform duration-300 group-hover:scale-105">
+          <Link href="/" className="flex items-center  gap-1.5 sm:gap-2  shrink-0 group">
+            <div className="relative h-9 w-9 sm:h-10 sm:w-10 shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/images/surya-gold-logo.png"
                 alt="Surya Promoters Logo"
                 fill
                 priority
-                sizes="48px"
+                sizes="44px"
                 className="object-contain"
               />
             </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base tracking-tight text-[#0A0D12] group-hover:text-[#B45309] transition-colors">
-                  <span className="sr-only">S</span>URYA PROMOTERS
-                </span>
-                <span className="hidden sm:inline-flex px-1.5 py-0.2 rounded-md text-[9px] font-black bg-[#FEF08A] text-[#854D0E] border border-amber-300">
-                  ESTD. 2010
-                </span>
-              </div>
-              <span className="text-[10px] text-neutral-500 font-medium">
-                {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு" : "Madurai Real Estate & Land Developers"}
+            <div className="flex items-center -ml-2 sm:-ml-2.5">
+              <span className="font-black text-lg sm:text-xl text-[#0A0D12] group-hover:text-[#B45309] transition-colors leading-none flex items-center">
+                <span className="tracking-tighter">URYA</span>
+                <span className="ml-1.5 font-extrabold text-[#0A0D12] tracking-tight">PROMOTERS</span>
+              </span>
+              <span className="hidden sm:inline-flex ml-2 px-1.5 py-0.5 rounded-md text-[9px] font-black bg-[#FEF08A] text-[#854D0E] border border-amber-300 whitespace-nowrap">
+                ESTD. 2010
               </span>
             </div>
           </Link>
@@ -842,7 +838,7 @@ export default function HomePage() {
               </span>
             </button>
 
-            {/* Nav Item: Location */}
+            {/* Nav Item: Site Location */}
             <button
               onClick={() => setActiveTab(activeTab === "location" ? "home" : "location")}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
@@ -856,7 +852,7 @@ export default function HomePage() {
               )}
               <MapPin className={`h-5 w-5 shrink-0 ${activeTab === "location" ? "text-blue-600" : "text-neutral-500"}`} />
               <span className="hidden md:inline text-xs truncate">
-                {language === "ta" ? "இருப்பிடம்" : "Location Maps"}
+                {language === "ta" ? "தள அமைவிடம்" : "Site Location"}
               </span>
             </button>
 
@@ -878,7 +874,7 @@ export default function HomePage() {
               </span>
             </button>
 
-            {/* Nav Item: About */}
+            {/* Nav Item: About Company */}
             <button
               onClick={() => setActiveTab(activeTab === "about" ? "home" : "about")}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
@@ -892,11 +888,11 @@ export default function HomePage() {
               )}
               <ShieldCheck className={`h-5 w-5 shrink-0 ${activeTab === "about" ? "text-emerald-700" : "text-neutral-500"}`} />
               <span className="hidden md:inline text-xs truncate">
-                {language === "ta" ? "எங்களைப் பற்றி" : "About Surya"}
+                {language === "ta" ? "நிறுவனம் பற்றி" : "About Company"}
               </span>
             </button>
 
-            {/* Nav Item: Download Map */}
+            {/* Nav Item: Download Layout */}
             <button
               onClick={() => setActiveTab(activeTab === "download" ? "home" : "download")}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
@@ -908,9 +904,29 @@ export default function HomePage() {
               {activeTab === "download" && (
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-md bg-[#EAB308]" />
               )}
+
+
               <Download className={`h-5 w-5 shrink-0 ${activeTab === "download" ? "text-amber-700" : "text-neutral-500"}`} />
               <span className="hidden md:inline text-xs truncate">
-                {language === "ta" ? "வரைபடங்கள் பதிவிறக்கம்" : "Download Map"}
+                {language === "ta" ? "வரைபடம் பதிவிறக்கம்" : "Download Layout"}
+              </span>
+            </button>
+
+            {/* Nav Item: Contact */}
+            <button
+              onClick={() => setActiveTab(activeTab === "contact" ? "home" : "contact")}
+              className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
+                activeTab === "contact"
+                  ? "bg-neutral-100 text-[#0A0D12] font-black"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 font-semibold"
+              }`}
+            >
+              {activeTab === "contact" && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-md bg-[#EAB308]" />
+              )}
+              <PhoneCall className={`h-5 w-5 shrink-0 ${activeTab === "contact" ? "text-[#B45309]" : "text-neutral-500"}`} />
+              <span className="hidden md:inline text-xs truncate">
+                {language === "ta" ? "நேரடி தொடர்பு" : "Contact Us"}
               </span>
             </button>
 
@@ -938,122 +954,22 @@ export default function HomePage() {
           {/* =================================================================== */}
           {activeTab === "home" && (
             <div className="space-y-6 sm:space-y-8 animate-fadeIn">
-              {/* SURYA PROMOTERS HERO SHOWCASE: BUILD YOUR FUTURE PLOTS */}
-              <section className="relative w-full rounded-3xl overflow-hidden bg-[#0A0D12] text-white shadow-xl border border-neutral-800 min-h-[340px] sm:min-h-[390px] lg:min-h-[420px] flex flex-col justify-between select-none">
-            
-            {/* Cinematic Aerial Plotted Real Estate Development Background */}
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/hero/hero-gated-layout.jpg"
-                alt="Surya Promoters Madurai Master Plotted Development"
-                fill
-                priority
-                sizes="(max-width: 1760px) 100vw, 1760px"
-                className="object-cover opacity-45 brightness-95 contrast-105"
-              />
-              {/* Dual Directional Dark Overlays for maximum text contrast */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0A0D12] via-[#0A0D12]/85 to-transparent sm:w-4/5" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D12] via-transparent to-black/30" />
-            </div>
-
-            {/* Hero Main Content */}
-            <div className="relative z-10 p-5 sm:p-8 lg:p-10 max-w-2xl flex-1 flex flex-col justify-center">
-              
-              {/* Brand & Category Pills */}
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[10px] sm:text-xs font-black uppercase tracking-wider backdrop-blur-md bg-[#EAB308]/20 border-[#EAB308]/40 text-[#EAB308]">
-                  <Sparkles className="h-3 w-3" />
-                  <span>{language === "ta" ? "சூர்யா புரமோட்டர்ஸ் · உங்கள் எதிர்காலம்" : "Surya Promoters · Build Your Future"}</span>
-                </div>
-                <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-neutral-300 backdrop-blur-xs border border-white/10">
-                  {language === "ta" ? "குடியிருப்பு மனைகள்" : "Residential Villa Plots"}
-                </span>
-                <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-neutral-300 backdrop-blur-xs border border-white/10">
-                  {language === "ta" ? "வணிக நிலங்கள்" : "Commercial Highway Land"}
-                </span>
-                <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-neutral-300 backdrop-blur-xs border border-white/10">
-                  {language === "ta" ? "பண்ணை நிலங்கள்" : "Farm Land Estates"}
-                </span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.15] mb-2.5 drop-shadow-md">
-                {language === "ta"
-                  ? "உங்கள் எதிர்காலத்தை உருவாக்குங்கள். உங்கள் நிலம் மதுரையில்."
-                  : "Build Your Future. Your Land in Madurai."}
-              </h1>
-
-              {/* Subtitle */}
-              <p className="text-xs sm:text-sm lg:text-base text-neutral-300 font-medium leading-relaxed max-w-xl mb-5">
-                {language === "ta"
-                  ? "100% கணினி பட்டாவுடன் கூடிய பிரீமியம் குடியிருப்பு மனைப் பிரிவுகள், வணிக பெருவழி நிலங்கள் மற்றும் இயற்கை பண்ணை நிலங்கள்."
-                  : "Discover 100% computer patta verified residential villa plots, commercial highway corridors & managed agro farmland across Madurai."}
-              </p>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                <button
-                  onClick={() => {
-                    setActiveTab("projects");
-                    setActiveCategory(null);
-                  }}
-                  className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs sm:text-sm transition-all shadow-lg hover:shadow-[#EAB308]/20 cursor-pointer flex items-center gap-2"
-                >
-                  <span>{language === "ta" ? "திட்டங்களை காண்க" : "Explore Projects"}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-
-                <button
-                  onClick={() => setIsEnquiryModalOpen(true)}
-                  className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm transition-all border border-white/25 backdrop-blur-md cursor-pointer"
-                >
-                  {language === "ta" ? "நேரடி ஆலோசனை" : "Discuss Your Project"}
-                </button>
-              </div>
-            </div>
-
-            {/* Bottom Row: Trust Checkmarks */}
-            <div className="relative z-10 px-5 sm:px-8 lg:px-10 py-3.5 border-t border-white/10 bg-black/40 backdrop-blur-xs flex flex-wrap items-center justify-between gap-3 text-[10px] sm:text-xs font-bold text-neutral-300">
-              <div className="flex flex-wrap items-center gap-3 sm:gap-6">
-                <span className="flex items-center gap-1.5 text-[#EAB308]">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-[#EAB308]" />
-                  <span>100% Computer Patta</span>
-                </span>
-                <span className="flex items-center gap-1.5 text-neutral-200">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-[#EAB308]" />
-                  <span>16+ Years IAF Veteran Leadership</span>
-                </span>
-                <span className="flex items-center gap-1.5 text-neutral-200">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-[#EAB308]" />
-                  <span>Zero Legal Disputes</span>
-                </span>
-                <span className="flex items-center gap-1.5 text-neutral-200">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-[#EAB308]" />
-                  <span>Immediate Registration Ready</span>
-                </span>
-              </div>
-              <div className="hidden lg:flex items-center gap-2 text-neutral-400 text-[11px]">
-                <ShieldCheck className="h-4 w-4 text-[#EAB308]" />
-                <span>Verified Legal Title Deeds</span>
-              </div>
-            </div>
-
-          </section>
+          =
 
           {/* ------------------------------------------------------------------- */}
-          {/* THE 5 MAIN APP-STORE ICONS (Apps we think you'll love row)           */}
+          {/* THE 6 MAIN APP-STORE ICONS (Apps we think you'll love row)           */}
           {/* ------------------------------------------------------------------- */}
           <section className="space-y-3">
             <div className="flex items-center justify-between">
               <h2 className="text-sm sm:text-lg font-black text-neutral-900 flex items-center gap-1.5">
-                <span>{language === "ta" ? "பிரதான சேவைகள் & அம்சங்கள்" : "Explore Surya Promoters (5 Main Icons)"}</span>
+                <span>{language === "ta" ? "பிரதான சேவைகள் & அம்சங்கள்" : "Explore Surya Promoters (6 Main Icons)"}</span>
                 <ChevronRight className="h-4 w-4 text-neutral-400 shrink-0" />
               </h2>
               <span className="text-[10px] sm:text-xs text-neutral-500 font-medium whitespace-nowrap">Play Store Style</span>
             </div>
 
-            {/* The 5 Rounded Squircle App Tiles */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5">
+            {/* The 6 Rounded Squircle App Tiles */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3.5">
               
               {/* App Tile 1: Our Projects */}
               <button
@@ -1081,14 +997,14 @@ export default function HomePage() {
                 </div>
               </button>
 
-              {/* App Tile 2: Location */}
+              {/* App Tile 2: Site Location */}
               <button
                 onClick={() => setActiveTab("location")}
                 className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-blue-400/60 hover:shadow-md"
               >
                 <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                   <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                    <Navigation className="h-5 w-5 sm:h-6 sm:w-6" />
+                    <MapPin className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
                   <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-blue-100 text-blue-700">
                     GPS Live
@@ -1096,10 +1012,10 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-blue-600 transition-colors">
-                    {language === "ta" ? "இருப்பிட வரைபடம்" : "Location"}
+                    {language === "ta" ? "தள அமைவிடம்" : "Site Location"}
                   </h3>
                   <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
-                    {language === "ta" ? "கூகிள் மேப்ஸ் வழித்தடங்கள்" : "All Project Google Maps"}
+                    {language === "ta" ? "கூகிள் மேப்ஸ் & 3D வரைபடங்கள்" : "3D Cadastral & GPS Maps"}
                   </p>
                 </div>
               </button>
@@ -1127,7 +1043,7 @@ export default function HomePage() {
                 </div>
               </button>
 
-              {/* App Tile 4: About */}
+              {/* App Tile 4: About Company */}
               <button
                 onClick={() => setActiveTab("about")}
                 className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-emerald-500/60 hover:shadow-md"
@@ -1142,7 +1058,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-emerald-700 transition-colors">
-                    {language === "ta" ? "எங்களைப் பற்றி" : "About Surya"}
+                    {language === "ta" ? "நிறுவனம் பற்றி" : "About Company"}
                   </h3>
                   <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
                     {language === "ta" ? "நிறுவனர் & 16+ வரலாறு" : "Founder & 16+ Yrs Legacy"}
@@ -1150,10 +1066,10 @@ export default function HomePage() {
                 </div>
               </button>
 
-              {/* App Tile 5: Download Map */}
+              {/* App Tile 5: Download Layout */}
               <button
                 onClick={() => setActiveTab("download")}
-                className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between col-span-2 sm:col-span-1 bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-amber-500/60 hover:shadow-md"
+                className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-amber-500/60 hover:shadow-md"
               >
                 <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                   <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
@@ -1165,60 +1081,37 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-amber-700 transition-colors">
-                    {language === "ta" ? "வரைபடங்கள் பதிவிறக்கம்" : "Download Map"}
+                    {language === "ta" ? "வரைபடம் பதிவிறக்கம்" : "Download Layout"}
                   </h3>
                   <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
-                    {language === "ta" ? "புளூபிரிண்ட், கையேடு, வீடியோ" : "Blueprints, Videos & Maps"}
+                    {language === "ta" ? "புளூபிரிண்ட், வரைபடம், கையேடுகள்" : "Blueprints, Layouts & PDFs"}
                   </p>
                 </div>
               </button>
 
-            </div>
-          </section>
-
-          {/* ------------------------------------------------------------------- */}
-          {/* DIRECT COMMUNICATION CHANNELS BAR                                   */}
-          {/* ------------------------------------------------------------------- */}
-          <section className="bg-white rounded-2xl p-3.5 sm:p-4 border border-neutral-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-            <span className="font-black text-neutral-800 flex items-center gap-1.5 text-xs sm:text-sm">
-              <PhoneCall className="h-4 w-4 text-[#B45309]" />
-              {language === "ta" ? "நேரடி தொடர்பு வழிமுறைகள்:" : "Direct Communication Channels:"}
-            </span>
-
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
-              <a
-                href="tel:+917708966452"
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-neutral-100 hover:bg-amber-100/80 text-neutral-900 font-bold transition-colors cursor-pointer text-center text-xs"
-              >
-                <Phone className="h-3.5 w-3.5 text-neutral-700 shrink-0" />
-                <span>+91 77089 66452</span>
-              </a>
-
-              <a
-                href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20please%20send%20project%20details."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#128C7E] font-bold transition-colors cursor-pointer text-center text-xs"
-              >
-                <MessageCircle className="h-3.5 w-3.5 fill-[#128C7E] shrink-0" />
-                <span>WhatsApp</span>
-              </a>
-
-              <a
-                href="mailto:suryapromotersmdu@gmail.com"
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold transition-colors cursor-pointer text-center text-xs"
-              >
-                <Mail className="h-3.5 w-3.5 text-neutral-700 shrink-0" />
-                <span>Email</span>
-              </a>
-
+              {/* App Tile 6: Contact Us */}
               <button
-                onClick={() => setIsEnquiryModalOpen(true)}
-                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-extrabold transition-colors shadow-xs cursor-pointer text-center text-xs"
+                onClick={() => setActiveTab("contact")}
+                className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-[#EAB308]/60 hover:shadow-md"
               >
-                <FileCheck className="h-3.5 w-3.5 text-[#EAB308] shrink-0" />
-                <span>{language === "ta" ? "விசாரணை படிவம்" : "Quick Enquiry"}</span>
+                <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+                  <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-amber-50 text-[#B45309] border border-[#EAB308] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <PhoneCall className="h-5 w-5 sm:h-6 sm:w-6" />
+                  </div>
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-[#FEF08A] text-[#854D0E]">
+                    24/7 Live
+                  </span>
+                </div>
+                <div>
+                  <h3 className="font-black text-xs sm:text-sm text-neutral-900 group-hover:text-[#B45309] transition-colors">
+                    {language === "ta" ? "நேரடி தொடர்பு" : "Contact Us"}
+                  </h3>
+                  <p className="text-[9px] sm:text-[10px] text-neutral-500 mt-0.5 line-clamp-1">
+                    {language === "ta" ? "அழைப்பு, வாட்ஸ்அப் & அலுவலகம்" : "Phone, WhatsApp & Office"}
+                  </p>
+                </div>
               </button>
+
             </div>
           </section>
         </div>
@@ -1385,10 +1278,6 @@ export default function HomePage() {
                 {/* Direct Contact strip */}
                 <div className="pt-3 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
-                    <span>{language === "ta" ? "100% தூய கம்ப்யூட்டர் பட்டா & வில்லங்கமற்ற பத்திரங்கள்" : "100% Computer Patta & Transparent Documentation"}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
                     <span className="font-semibold text-neutral-700">{language === "ta" ? "நேரடி ஆலோசனை:" : "Direct Assistance:"}</span>
                     <a href="tel:+917708966452" className="font-mono font-bold text-neutral-900 hover:text-[#B45309]">
                       +91 77089 66452
@@ -1491,11 +1380,11 @@ export default function HomePage() {
                       {activeCategory === "commercial" && (language === "ta" ? "வணிக கட்டிடம் & நெடுஞ்சாலை நிலங்கள்" : "Commercial Building & Highway Land Projects")}
                       {activeCategory === "farm" && (language === "ta" ? "இயற்கை பண்ணை நிலங்கள் & ஆரஞ்சு கார்டன்" : "Farm Land & Orange Garden Projects")}
                     </h3>
-                    <p className="text-xs sm:text-sm text-neutral-300 mt-1 max-w-2xl leading-relaxed">
+                    {/* <p className="text-xs sm:text-sm text-neutral-300 mt-1 max-w-2xl leading-relaxed">
                       {activeCategory === "residential" && (language === "ta" ? "அடுக்குமாடி குடியிருப்பு & வீட்டு மனைப்பிரிவுகள் — 100% கம்ப்யூட்டர் பட்டா மற்றும் உடனடி பத்திரப்பதிவு." : "Contemporary luxury flat apartments and ready-to-build villa plotted layouts with 100% verified computer patta.")}
                       {activeCategory === "commercial" && (language === "ta" ? "NH-44 & ரிங் ரோடு வணிக நிலங்கள், மருத்துவமனை, கிடங்கு, கல்லூரிகளுக்கு ஏற்ற பிரதான இடங்கள்." : "High-exposure commercial land parcels along NH-44, Madurai Outer Ring Road, and city commercial buildings.")}
                       {activeCategory === "farm" && (language === "ta" ? "சுத்தமான நிலத்தடி நீருடன் கூடிய இயற்கை விவசாய பண்ணை எஸ்டேட்கள் மற்றும் ஆரஞ்சு கார்டன்." : "Managed agro farm acreage, orchard estates, and fertile farmland with sweet potable water table.")}
-                    </p>
+                    </p> */}
                   </div>
                   <div className="shrink-0 flex sm:flex-col items-center sm:items-end justify-between gap-1 border-t sm:border-t-0 border-white/10 pt-2 sm:pt-0">
                     <span className="text-2xl font-black text-[#EAB308]">{activeCategoryProjects.length}</span>
@@ -2135,6 +2024,207 @@ export default function HomePage() {
             </section>
           )}
 
+          {/* =================================================================== */}
+          {/* TAB 6: CONTACT (Direct Communication Channels, Office HQ & Enquiry) */}
+          {/* =================================================================== */}
+          {activeTab === "contact" && (
+            <section className="space-y-6 animate-fadeIn pt-1">
+              {/* Back to Home Header */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 bg-white rounded-2xl border border-neutral-200/80 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setActiveTab("home")}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    <span>{language === "ta" ? "முகப்புக்கு திரும்புக" : "Back to Home"}</span>
+                  </button>
+                  <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
+                  <h3 className="text-sm font-black text-neutral-900 leading-tight">
+                    {language === "ta" ? "நேரடி தொடர்பு மையம் (Contact Us)" : "Direct Communication Channels & Contact"}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setActiveTab("home")}
+                  className="p-1.5 rounded-xl hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
+                  title="Close section"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              {/* Contact Top Banner */}
+              <div className="bg-[#0A0D12] text-white rounded-3xl p-6 sm:p-8 border border-neutral-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="max-w-xl">
+                
+                  <h2 className="text-2xl sm:text-3xl font-black mb-2">
+                    {language === "ta" ? "எங்களை நேரடியாக தொடர்பு கொள்ளவும்" : "Direct Communication Channels"}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                    {language === "ta"
+                      ? "மதுரையின் சிறந்த குடியிருப்பு, வணிகம் மற்றும் பண்ணை நிலங்களுக்கான நேரடி ஆலோசனை மற்றும் களப் பார்வை முன்பதிவு."
+                      : "Connect directly with our veteran land advisory team for certified computer patta verification, free site inspection cabs, and transparent pricing."}
+                  </p>
+                </div>
+                <div className="shrink-0 flex flex-col items-center sm:items-end gap-2 text-center sm:text-right">
+                  <span className="text-xs text-neutral-400 font-semibold">{language === "ta" ? "அலுவலக நேரம்:" : "Office Hours:"}</span>
+                  <span className="text-sm font-black text-[#EAB308]">8:30 AM – 8:30 PM (7 Days a Week)</span>
+                  <span className="text-[11px] text-emerald-400 font-bold flex items-center gap-1">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Site Visits Available Every Day
+                  </span>
+                </div>
+              </div>
+
+              {/* 4 Interactive Channels Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                {/* 1. Phone Call */}
+                <div className="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-xs hover:border-[#EAB308]/80 hover:shadow-md transition-all flex flex-col justify-between group">
+                  <div>
+                    <div className="h-12 w-12 rounded-xl bg-amber-50 text-[#B45309] border border-amber-200 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                      <Phone className="h-6 w-6 text-[#B45309]" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-[#B45309] block mb-0.5">
+                      {language === "ta" ? "தொலைபேசி அழைப்பு" : "Direct Call"}
+                    </span>
+                    <h4 className="text-base font-black text-neutral-900 mb-1">+91 77089 66452</h4>
+                    <p className="text-xs text-neutral-500 mb-4">
+                      {language === "ta" ? "நில ஆலோசகருடன் உடனே பேச நேரடி அழைப்பு." : "Speak directly with our senior land acquisition specialist."}
+                    </p>
+                  </div>
+                  <a
+                    href="tel:+917708966452"
+                    className="w-full py-2.5 px-3 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                  >
+                    <PhoneCall className="h-3.5 w-3.5 text-[#EAB308]" />
+                    <span>{language === "ta" ? "அழைக்க" : "Call Now"}</span>
+                  </a>
+                </div>
+
+                {/* 2. WhatsApp Business */}
+                <div className="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-xs hover:border-emerald-500/80 hover:shadow-md transition-all flex flex-col justify-between group">
+                  <div>
+                    <div className="h-12 w-12 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                      <MessageCircle className="h-6 w-6 text-emerald-600 fill-emerald-100" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 block mb-0.5">
+                      {language === "ta" ? "வாட்ஸ்அப் அரட்டை" : "WhatsApp Chat"}
+                    </span>
+                    <h4 className="text-base font-black text-neutral-900 mb-1">WhatsApp Official</h4>
+                    <p className="text-xs text-neutral-500 mb-4">
+                      {language === "ta" ? "மனை வரைபடங்கள், விலை பட்டியல் மற்றும் வீடியோ பெற." : "Instant layout blueprints, pricing quotes, and video reels."}
+                    </p>
+                  </div>
+                  <a
+                    href="https://wa.me/917708966452?text=Hello%20Surya%20Promoters,%20I%20am%20interested%20in%20your%20Madurai%20projects."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                  >
+                    <MessageCircle className="h-3.5 w-3.5 fill-white" />
+                    <span>{language === "ta" ? "வாட்ஸ்அப் தொடர்பு" : "Chat on WhatsApp"}</span>
+                  </a>
+                </div>
+
+                {/* 3. Corporate Email */}
+                <div className="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-xs hover:border-blue-500/80 hover:shadow-md transition-all flex flex-col justify-between group">
+                  <div>
+                    <div className="h-12 w-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                      <Mail className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-blue-700 block mb-0.5">
+                      {language === "ta" ? "மின்னஞ்சல்" : "Official Email"}
+                    </span>
+                    <h4 className="text-base font-black text-neutral-900 mb-1 truncate">info@suryapromoters.com</h4>
+                    <p className="text-xs text-neutral-500 mb-4">
+                      {language === "ta" ? "கார்ப்பரேட் கோரிக்கைகள் மற்றும் கூட்டாண்மை விசாரணை." : "Send corporate inquiries, deeds verification, or proposals."}
+                    </p>
+                  </div>
+                  <a
+                    href="mailto:info@suryapromoters.com"
+                    className="w-full py-2.5 px-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors border border-neutral-300"
+                  >
+                    <Mail className="h-3.5 w-3.5 text-blue-600" />
+                    <span>{language === "ta" ? "மின்னஞ்சல் அனுப்ப" : "Send Email"}</span>
+                  </a>
+                </div>
+
+                {/* 4. Book Free Site Inspection Cab */}
+                <div className="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-xs hover:border-[#EAB308]/80 hover:shadow-md transition-all flex flex-col justify-between group">
+                  <div>
+                    <div className="h-12 w-12 rounded-xl bg-amber-50 text-[#854D0E] border border-amber-200 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                      <FileCheck className="h-6 w-6 text-[#EAB308]" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-[#854D0E] block mb-0.5">
+                      {language === "ta" ? "களப் பார்வை முன்பதிவு" : "Site Visit & Booking"}
+                    </span>
+                    <h4 className="text-base font-black text-neutral-900 mb-1">{language === "ta" ? "இலவச வாகன வசதி" : "Enquiry"}</h4>
+                    <p className="text-xs text-neutral-500 mb-4">
+                      {language === "ta" ? "குடும்பத்துடன் இடத்தை நேரில் பார்வையிட இலவச ஏற்பாடு." : "Complimentary pick-up & drop cab across Madurai."}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setIsEnquiryModalOpen(true)}
+                    className="w-full py-2.5 px-3 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                  >
+                    <Sparkles className="h-3.5 w-3.5" />
+                    <span>{language === "ta" ? "முன்பதிவு படிவம்" : "Book Site Inspection"}</span>
+                  </button>
+                </div>
+
+              </div>
+
+              {/* Head Office Information & Map Link (Buttons Aligned to Right Side) */}
+              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200/90 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="max-w-2xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Building className="h-5 w-5 text-[#B45309]" />
+                    <span className="text-xs font-black uppercase tracking-wider text-[#B45309]">
+                      {language === "ta" ? "தலைமை அலுவலகம்" : "Corporate Headquarters"}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-black text-neutral-900 mb-2">
+                    SURYA PROMOTERS · MADURAI
+                  </h3>
+                  <div className="space-y-2 text-xs text-neutral-600">
+                    <div className="flex items-start gap-2">
+                      <MapPin className="h-4 w-4 text-[#B45309] shrink-0 mt-0.5" />
+                      <span>Madurai City Corporate Office & Project Centers across Ring Road, NH-44 & Thiruppuvanam Road, Madurai, Tamil Nadu.</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-neutral-700 font-semibold">
+                      <Clock className="h-4 w-4 text-emerald-600 shrink-0" />
+                      <span>Mon – Sun: 8:30 AM to 8:30 PM (Direct Site Visits Every Day)</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Aligned Action Buttons */}
+                <div className="shrink-0 flex flex-wrap sm:flex-nowrap items-center md:justify-end gap-2.5">
+                  <a
+                    href="https://maps.google.com/?q=Madurai,Tamil+Nadu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white font-bold text-xs inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                  >
+                    <Navigation className="h-3.5 w-3.5 text-[#EAB308]" />
+                    <span>{language === "ta" ? "கூகிள் மேப்ஸ் வழித்தடம்" : "Open in Google Maps"}</span>
+                  </a>
+                  <a
+                    href="https://mapbhoomi.com/l/surya-promoters"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold text-xs inline-flex items-center gap-1.5 transition-colors cursor-pointer border border-neutral-300 shadow-2xs"
+                  >
+                    <Compass className="h-3.5 w-3.5 text-[#EAB308]" />
+                    <span>Mapbhoomi 3D Store ↗</span>
+                  </a>
+                </div>
+              </div>
+
+            </section>
+          )}
+
         </main>
       </div>
 
@@ -2175,48 +2265,48 @@ export default function HomePage() {
           </span>
         </button>
 
-        {/* Location */}
+        {/* Site Location */}
         <button
           onClick={() => setActiveTab("location")}
-          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+          className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-all cursor-pointer ${
             activeTab === "location" ? "text-blue-600 font-black" : "text-neutral-500 font-medium"
           }`}
         >
           <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "location" ? "bg-blue-600 text-white shadow-xs" : "text-neutral-500"}`}>
-            <MapPin className="h-4.5 w-4.5" />
+            <MapPin className="h-4 w-4" />
           </div>
-          <span className="text-[10px] mt-0.5 leading-none">
-            {language === "ta" ? "இடம்" : "Location"}
+          <span className="text-[9px] mt-0.5 leading-none">
+            {language === "ta" ? "அமைவிடம்" : "Site Location"}
           </span>
         </button>
 
-        {/* Gallery */}
-        <button
-          onClick={() => setActiveTab("gallery")}
-          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
-            activeTab === "gallery" ? "text-purple-600 font-black" : "text-neutral-500 font-medium"
-          }`}
-        >
-          <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "gallery" ? "bg-purple-600 text-white shadow-xs" : "text-neutral-500"}`}>
-            <Camera className="h-4.5 w-4.5" />
-          </div>
-          <span className="text-[10px] mt-0.5 leading-none">
-            {language === "ta" ? "மீடியா" : "Gallery"}
-          </span>
-        </button>
-
-        {/* Download */}
+        {/* Download Layout */}
         <button
           onClick={() => setActiveTab("download")}
-          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+          className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-all cursor-pointer ${
             activeTab === "download" ? "text-amber-700 font-black" : "text-neutral-500 font-medium"
           }`}
         >
           <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "download" ? "bg-amber-600 text-white shadow-xs" : "text-neutral-500"}`}>
-            <Download className="h-4.5 w-4.5" />
+            <Download className="h-4 w-4" />
           </div>
-          <span className="text-[10px] mt-0.5 leading-none">
-            {language === "ta" ? "பதிவிறக்கம்" : "Downloads"}
+          <span className="text-[9px] mt-0.5 leading-none">
+            {language === "ta" ? "வரைபடம்" : "Layout"}
+          </span>
+        </button>
+
+        {/* Contact */}
+        <button
+          onClick={() => setActiveTab("contact")}
+          className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-all cursor-pointer ${
+            activeTab === "contact" ? "text-[#B45309] font-black" : "text-neutral-500 font-medium"
+          }`}
+        >
+          <div className={`p-1.5 rounded-xl transition-colors ${activeTab === "contact" ? "bg-[#0A0D12] text-[#EAB308] shadow-xs" : "text-neutral-500"}`}>
+            <PhoneCall className="h-4 w-4" />
+          </div>
+          <span className="text-[9px] mt-0.5 leading-none">
+            {language === "ta" ? "தொடர்பு" : "Contact"}
           </span>
         </button>
       </nav>
@@ -2765,9 +2855,7 @@ export default function HomePage() {
                             </p>
                           </div>
                         </div>
-                        <span className="px-3 py-1 rounded-full text-xs font-black bg-white/10 text-[#EAB308] border border-[#EAB308]/40 self-start sm:self-auto">
-                          100% Clear Computer Patta
-                        </span>
+                     
                       </div>
 
                       {/* Reviews Grid */}

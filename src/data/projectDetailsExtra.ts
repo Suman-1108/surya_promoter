@@ -105,7 +105,7 @@ export const PROJECT_DETAILS_MAP: Record<string, ProjectExtendedDetails> = {
         rating: 5,
         date: "October 2026",
         comment: {
-          en: "Surya Promoters provided 100% clear computer patta documentation and immediate lift & covered parking handover. The sweet potable groundwater at 40ft and calm neighborhood make this the best home for our family.",
+          en: "Surya Promoters provided documentation and immediate lift & covered parking handover. The sweet potable groundwater at 40ft and calm neighborhood make this the best home for our family.",
           ta: "100% தெளிவான கணினி பட்டா ஆவணங்கள் மற்றும் உடனடி கார் பார்க்கிங், லிப்ட் வசதி கிடைத்தது. 40 அடியில் இனிய நன்னீர் மற்றும் அமைதியான குடியிருப்பு பகுதி எங்கள் குடும்பத்திற்கு முழு திருப்தி அளிக்கிறது.",
         },
       },
