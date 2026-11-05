@@ -703,14 +703,14 @@ export default function HomePage() {
         <div className="max-w-[1760px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           
           {/* Left Brand Identity: "S" Logo + Surya Promoters */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative h-10 w-10 shrink-0 rounded-xl overflow-hidden border-2 border-[#EAB308] bg-[#0A0D12] p-0.5 shadow-sm transition-transform group-hover:scale-105">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
+            <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 rounded-2xl overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/images/surya-logo.png"
-                alt="Surya Promoters S Logo"
+                alt="Surya Promoters Logo"
                 fill
                 priority
-                sizes="40px"
+                sizes="44px"
                 className="object-contain"
               />
             </div>

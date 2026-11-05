@@ -46,7 +46,7 @@ export default function Navbar() {
             </button>
 
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A66B] bg-white shadow-xs p-0.5 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 rounded-2xl overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src="/images/surya-logo.png"
                   alt="Surya Promoters Logo"

@@ -138,7 +138,7 @@ export default function AdminDashboardClient() {
       <div className="min-h-screen bg-[#173D2B] flex items-center justify-center p-6 text-[#171B18]">
         <div className="max-w-md w-full bg-white rounded-3xl p-8 shadow-2xl border border-[#C6A66B]/40 space-y-6">
           <div className="text-center space-y-2">
-            <div className="relative h-14 w-14 mx-auto rounded-full overflow-hidden border-2 border-[#C6A66B] p-0.5">
+            <div className="relative h-14 w-14 mx-auto rounded-2xl overflow-hidden border-2 border-[#EAB308] p-0.5">
               <Image
                 src="/images/surya-logo.png"
                 alt="Surya Promoters Logo"
@@ -201,7 +201,7 @@ export default function AdminDashboardClient() {
       <header className="sticky top-0 z-40 bg-[#173D2B] text-white border-b border-[#64865A]/40 shadow-sm">
         <div className="max-w-[1760px] mx-auto px-4 sm:px-8 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="relative h-9 w-9 rounded-full overflow-hidden border border-[#C6A66B] bg-white p-0.5">
+            <div className="relative h-9 w-9 rounded-xl overflow-hidden border border-[#EAB308] bg-white p-0.5">
               <Image
                 src="/images/surya-logo.png"
                 alt="Surya Promoters"

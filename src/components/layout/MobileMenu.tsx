@@ -38,7 +38,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 px-6 py-5 bg-[#122e20]">
             <div className="flex items-center gap-3">
-              <div className="relative h-11 w-11 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A66B] bg-white p-0.5">
+              <div className="relative h-11 w-11 shrink-0 rounded-2xl overflow-hidden border-2 border-[#EAB308] bg-white p-1">
                 <Image
                   src="/images/surya-logo.png"
                   alt="Surya Promoters Logo"

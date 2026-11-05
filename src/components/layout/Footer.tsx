@@ -17,7 +17,7 @@ export default function Footer() {
           {/* Brand & IAF Heritage */}
           <div className="lg:col-span-4 space-y-5">
             <Link href="/" className="inline-flex items-center gap-3.5">
-              <div className="relative h-12 w-12 shrink-0 rounded-full overflow-hidden border-2 border-[#C6A66B] bg-white p-0.5">
+              <div className="relative h-12 w-12 shrink-0 rounded-2xl overflow-hidden border-2 border-[#EAB308] bg-white p-1">
                 <Image
                   src="/images/surya-logo.png"
                   alt="Surya Promoters Logo"
