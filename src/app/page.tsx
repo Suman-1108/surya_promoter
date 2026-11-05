@@ -252,6 +252,7 @@ const ALL_PROJECTS: AppProject[] = [
       en: "High-traffic commercial showroom and investment plots situated near the bustling Pandi Kovil Ring Road corridor with heavy daily vehicle footfall.",
       ta: "அதிக போக்குவரத்து நெரிசலும் விளம்பர மதிப்பும் கொண்ட பாண்டி கோவில் ரிங் ரோடு பகுதியில் அமைந்துள்ள வணிக முதலீட்டு நிலங்கள்.",
     },
+    
     highlights: {
       en: [
         "Prime junction visibility with continuous vehicular traffic",
@@ -965,7 +966,6 @@ export default function HomePage() {
                 <span>{language === "ta" ? "பிரதான சேவைகள் & அம்சங்கள்" : "Explore Surya Promoters (6 Main Icons)"}</span>
                 <ChevronRight className="h-4 w-4 text-neutral-400 shrink-0" />
               </h2>
-              <span className="text-[10px] sm:text-xs text-neutral-500 font-medium whitespace-nowrap">Play Store Style</span>
             </div>
 
             {/* The 6 Rounded Squircle App Tiles */}
@@ -1273,7 +1273,7 @@ export default function HomePage() {
                       <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </button>
-                </div>
+               </div>
 
                 {/* Direct Contact strip */}
                 <div className="pt-3 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
@@ -1294,13 +1294,13 @@ export default function HomePage() {
               {/* Back to Categories Navigation Header */}
               <div className="bg-white rounded-2xl p-4 sm:p-5 border border-neutral-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-                  {/* ← Back to Categories Button */}
+                  {/* Back to Categories Button */}
                   <button
                     onClick={() => setActiveCategory(null)}
                     className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white text-xs sm:text-sm font-black transition-all hover:scale-105 cursor-pointer shadow-md"
                   >
                     <ArrowLeft className="h-4 w-4 text-[#EAB308]" />
-                    <span>{language === "ta" ? "← 3 பிரிவுகளுக்கு திரும்புக" : "← Back to Categories"}</span>
+                    <span>{language === "ta" ? "3 பிரிவுகளுக்கு திரும்புக" : "Back to Categories"}</span>
                   </button>
 
                   <button
