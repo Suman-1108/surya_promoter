@@ -54,6 +54,7 @@ interface AppProject {
   distanceInfo: { en: string; ta: string };
   image: string;
   blueprint?: string;
+  mapbhoomiUrl?: string;
   statusBadge: { en: string; ta: string };
   rating: string;
   description: { en: string; ta: string };
@@ -157,6 +158,7 @@ const ALL_PROJECTS: AppProject[] = [
     location: { en: "Madurai Outer Ring Road & NH-44", ta: "மதுரை அவுட்டர் ரிங் ரோடு & NH-44" },
     distanceInfo: { en: "Direct National Highway Frontage · High multi-axle exposure", ta: "தேசிய நெடுஞ்சாலை முகப்பு · கனரக வாகன வசதி" },
     image: "/images/generated/vaigai-elite-garden.jpg",
+    mapbhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/madurai-rameshwaram-nh-road",
     statusBadge: { en: "Prime Corridor", ta: "பிரைம் காரிடார்" },
     rating: "4.9",
     description: {
@@ -355,6 +357,7 @@ const ALL_PROJECTS: AppProject[] = [
     location: { en: "Agricultural Green Belt, Madurai", ta: "விவசாய பசுமை மண்டலம், மதுரை" },
     distanceInfo: { en: "Scenic Countryside · 25 min from Madurai city center", ta: "இயற்கை எழில் கொஞ்சும் கிராமப்புறம் · 25 நிமிடம்" },
     image: "/images/projects/madurai-farms.jpg",
+    mapbhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/green-acres",
     statusBadge: { en: "Managed Agro Estate", ta: "நிர்வகிக்கப்படும் பண்ணை" },
     rating: "4.9",
     description: {
@@ -394,6 +397,7 @@ const ALL_PROJECTS: AppProject[] = [
     distanceInfo: { en: "Direct Main Road Frontage · 10 Numbered Gated Plots", ta: "பிரதான சாலை முகப்பு · 10 இலக்கமிடப்பட்ட மனைகள்" },
     image: "/images/generated/orange-garden.jpg",
     blueprint: "/images/projects/orange-garden/layout-blueprint.jpg",
+    mapbhoomiUrl: "https://mapbhoomi.com/l/surya-promoters/Kalathur",
     statusBadge: { en: "Running Ongoing Project", ta: "நடைபெறும் திட்டம்" },
     rating: "5.0",
     description: {
@@ -550,6 +554,15 @@ const GALLERY_IMAGE_FOLDERS = [
 // Downloads Hub Items
 const DOWNLOAD_ITEMS = [
   {
+    id: "mapbhoomi-cadastral-portal",
+    title: { en: "Mapbhoomi Interactive 3D Cadastral Layout Portal", ta: "Mapbhoomi நேரடி 3D மனை வரைபட தளம்" },
+    category: { en: "Interactive Cadastral Layouts", ta: "நேரடி மனை வரைபடம்" },
+    fileType: "Live 3D / Web App",
+    fileSize: "Live Online",
+    downloadUrl: "https://mapbhoomi.com/l/surya-promoters",
+    badge: "Official Surya Promoters Hub",
+  },
+  {
     id: "orange-garden-map",
     title: { en: "Orange Garden Cadastral Layout Map", ta: "ஆரஞ்ச் கார்டன் கள வரைபடம் (புளூபிரிண்ட்)" },
     category: { en: "Cadastral Layout Blueprint", ta: "கள வரைபடம்" },
@@ -613,7 +626,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<"home" | "projects" | "location" | "gallery" | "about" | "download">("home");
 
   // In "Our Projects": Which Category is Active ('residential' | 'commercial' | 'farm')
-  const [activeCategory, setActiveCategory] = useState<"residential" | "commercial" | "farm" | null>("residential");
+  const [activeCategory, setActiveCategory] = useState<"residential" | "commercial" | "farm" | null>(null);
 
   // Search input query
   const [searchQuery, setSearchQuery] = useState("");
@@ -624,6 +637,21 @@ export default function HomePage() {
   const [selectedVideo, setSelectedVideo] = useState<{ title: string; duration: string } | null>(null);
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Lock body & background scrolling whenever any modal popup is open
+  useEffect(() => {
+    const isAnyModalOpen = Boolean(selectedProject || selectedFolderImages || selectedVideo || isEnquiryModalOpen);
+    if (isAnyModalOpen) {
+      const originalBodyOverflow = document.body.style.overflow;
+      const originalHtmlOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalBodyOverflow;
+        document.documentElement.style.overflow = originalHtmlOverflow;
+      };
+    }
+  }, [selectedProject, selectedFolderImages, selectedVideo, isEnquiryModalOpen]);
 
   // Filter projects inside active category
   const activeCategoryProjects = activeCategory
@@ -775,9 +803,7 @@ export default function HomePage() {
             <button
               onClick={() => {
                 setActiveTab(activeTab === "projects" ? "home" : "projects");
-                if (activeTab !== "projects" && !activeCategory) {
-                  setActiveCategory("residential");
-                }
+                setActiveCategory(null);
               }}
               className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer relative ${
                 activeTab === "projects"
@@ -947,7 +973,7 @@ export default function HomePage() {
                 <button
                   onClick={() => {
                     setActiveTab("projects");
-                    if (!activeCategory) setActiveCategory("residential");
+                    setActiveCategory(null);
                   }}
                   className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs sm:text-sm transition-all shadow-lg hover:shadow-[#EAB308]/20 cursor-pointer flex items-center gap-2"
                 >
@@ -1010,16 +1036,10 @@ export default function HomePage() {
               {/* App Tile 1: Our Projects */}
               <button
                 onClick={() => {
-                  setActiveTab(activeTab === "projects" ? "home" : "projects");
-                  if (activeTab !== "projects" && !activeCategory) {
-                    setActiveCategory("residential");
-                  }
+                  setActiveTab("projects");
+                  setActiveCategory(null);
                 }}
-                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
-                  activeTab === "projects"
-                    ? "bg-[#FFFFFF] border-[#EAB308] shadow-lg ring-2 ring-[#EAB308]/40"
-                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
-                }`}
+                className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-[#EAB308]/60 hover:shadow-md"
               >
                 <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                   <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-amber-50 text-[#B45309] border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
@@ -1041,12 +1061,8 @@ export default function HomePage() {
 
               {/* App Tile 2: Location */}
               <button
-                onClick={() => setActiveTab(activeTab === "location" ? "home" : "location")}
-                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
-                  activeTab === "location"
-                    ? "bg-[#FFFFFF] border-blue-500 shadow-lg ring-2 ring-blue-500/40"
-                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
-                }`}
+                onClick={() => setActiveTab("location")}
+                className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-blue-400/60 hover:shadow-md"
               >
                 <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                   <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
@@ -1068,12 +1084,8 @@ export default function HomePage() {
 
               {/* App Tile 3: Gallery */}
               <button
-                onClick={() => setActiveTab(activeTab === "gallery" ? "home" : "gallery")}
-                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
-                  activeTab === "gallery"
-                    ? "bg-[#FFFFFF] border-purple-500 shadow-lg ring-2 ring-purple-500/40"
-                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
-                }`}
+                onClick={() => setActiveTab("gallery")}
+                className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-purple-400/60 hover:shadow-md"
               >
                 <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                   <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
@@ -1095,12 +1107,8 @@ export default function HomePage() {
 
               {/* App Tile 4: About */}
               <button
-                onClick={() => setActiveTab(activeTab === "about" ? "home" : "about")}
-                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between ${
-                  activeTab === "about"
-                    ? "bg-[#FFFFFF] border-emerald-600 shadow-lg ring-2 ring-emerald-600/40"
-                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
-                }`}
+                onClick={() => setActiveTab("about")}
+                className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-emerald-500/60 hover:shadow-md"
               >
                 <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                   <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
@@ -1122,12 +1130,8 @@ export default function HomePage() {
 
               {/* App Tile 5: Download Map */}
               <button
-                onClick={() => setActiveTab(activeTab === "download" ? "home" : "download")}
-                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between col-span-2 sm:col-span-1 ${
-                  activeTab === "download"
-                    ? "bg-[#FFFFFF] border-amber-600 shadow-lg ring-2 ring-amber-600/40"
-                    : "bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs"
-                }`}
+                onClick={() => setActiveTab("download")}
+                className="p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer group flex flex-col justify-between col-span-2 sm:col-span-1 bg-[#FFFFFF] hover:bg-neutral-50 border-neutral-200/80 shadow-xs hover:border-amber-500/60 hover:shadow-md"
               >
                 <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                   <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
@@ -1199,257 +1203,356 @@ export default function HomePage() {
       )}
 
       {/* =================================================================== */}
-      {/* 2. TAB 1: OUR PROJECTS (Screen Changes Completely to 3 Categories)  */}
+      {/* =================================================================== */}
+      {/* 2. TAB 1: OUR PROJECTS (Screen Changes Completely: Categories vs Cards) */}
       {/* =================================================================== */}
       {activeTab === "projects" && (
         <section className="space-y-6 animate-fadeIn pt-1">
-          
-          {/* Back to Home & Section Title Header */}
-          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-neutral-200/80 shadow-xs">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setActiveTab("home")}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 text-xs font-bold transition-all hover:scale-105 cursor-pointer shadow-xs"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                <span>{language === "ta" ? "முகப்புக்கு திரும்புக" : "Back to Home"}</span>
-              </button>
-              <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
-              <div>
-                <h3 className="text-sm sm:text-base font-black text-neutral-900 leading-tight">
-                  {language === "ta" ? "எங்கள் திட்டங்கள் (3 முக்கிய பிரிவுகள்)" : "Our Projects (3 Main Categories)"}
-                </h3>
-                <p className="text-[11px] text-neutral-500 hidden sm:block">
-                  {language === "ta" ? "பிரிவை தேர்வு செய்து திட்டங்களின் கார்டுகளை காண்க" : "Select a category below to explore individual project cards"}
-                </p>
+          {activeCategory === null ? (
+            /* ----------------------------------------------------------------- */
+            /* SCREEN A: 3 CATEGORY SELECTION CARDS ONLY (No project cards below) */
+            /* ----------------------------------------------------------------- */
+            <div className="space-y-6">
+              {/* Back to Home & Section Title Header */}
+              <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-neutral-200/80 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setActiveTab("home")}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 text-xs font-bold transition-all hover:scale-105 cursor-pointer shadow-xs"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                    <span>{language === "ta" ? "முகப்புக்கு திரும்புக" : "Back to Home"}</span>
+                  </button>
+                  <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
+                  <div>
+                    <h3 className="text-sm sm:text-base font-black text-neutral-900 leading-tight">
+                      {language === "ta" ? "எங்கள் திட்டங்கள் (3 முக்கிய பிரிவுகள்)" : "Our Projects (3 Main Categories)"}
+                    </h3>
+                    <p className="text-[11px] text-neutral-500 hidden sm:block">
+                      {language === "ta" ? "பிரிவை கிளிக் செய்து அந்த பிரிவின் திட்டங்களை தனி பக்கத்தில் காண்க" : "Click any category below to navigate to its dedicated project cards"}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setActiveTab("home")}
+                  className="p-2 rounded-xl hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
+                  title="Close section and return to Home"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              {/* 3 Categories Main Hub Box */}
+              <div className="bg-white rounded-3xl p-5 sm:p-7 border border-neutral-200/80 shadow-xs space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-100 pb-3">
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-[#B45309] tracking-wider block mb-0.5">
+                      {language === "ta" ? "படி 1: திட்ட பிரிவை தேர்ந்தெடுக்கவும்" : "Step 1: Choose Property Category"}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black text-neutral-900">
+                      {language === "ta" ? "3 பிரிவுகள் (Residential · Commercial · Farm Land)" : "Our 3 Property Categories"}
+                    </h3>
+                    <p className="text-xs text-neutral-500 mt-0.5">
+                      {language === "ta" ? "கீழே உள்ள பிரிவை கிளிக் செய்யவும் — திட்டங்கள் புதிய பக்கத்தில் திறக்கும்" : "Click a category card to open that category's dedicated project page"}
+                    </p>
+                  </div>
+                  <span className="text-xs font-bold text-neutral-500 bg-neutral-100 px-3.5 py-1.5 rounded-full w-fit">
+                    9 Total Developments
+                  </span>
+                </div>
+
+                {/* 3 Categories Box / Icons Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Category 1: Residential plot / flat project */}
+                  <button
+                    onClick={() => setActiveCategory("residential")}
+                    className="p-5 sm:p-6 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden bg-white hover:bg-amber-50/40 text-neutral-900 border-neutral-200 shadow-xs hover:shadow-lg hover:border-[#EAB308] hover:-translate-y-0.5"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="h-14 w-14 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-xs bg-amber-50 text-[#B45309] border border-amber-200">
+                        <Home className="h-7 w-7" />
+                      </div>
+                      <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-[#B45309]">
+                        2 Projects
+                      </span>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-widest block text-neutral-400 mb-1">
+                        Category 01
+                      </span>
+                      <h4 className="text-base sm:text-lg font-black leading-snug group-hover:text-[#B45309] transition-colors">
+                        {language === "ta" ? "1. குடியிருப்பு பிளாட் / அடுக்குமாடி" : "1. Residential Plot / Flat Project"}
+                      </h4>
+                      <p className="text-xs mt-1.5 leading-relaxed text-neutral-500">
+                        {language === "ta" ? "Flat Project & Plot Project (2 Cards)" : "Flat Project & Plot Project Cards (2 Sites)"}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-bold text-[#B45309]">
+                      <span>{language === "ta" ? "கார்டுகளை காண கிளிக் செய்க" : "Click to View Cards"}</span>
+                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </button>
+
+                  {/* Category 2: Commercial building / land project */}
+                  <button
+                    onClick={() => setActiveCategory("commercial")}
+                    className="p-5 sm:p-6 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden bg-white hover:bg-blue-50/40 text-neutral-900 border-neutral-200 shadow-xs hover:shadow-lg hover:border-blue-400 hover:-translate-y-0.5"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="h-14 w-14 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-xs bg-blue-50 text-blue-600 border border-blue-200">
+                        <Briefcase className="h-7 w-7" />
+                      </div>
+                      <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-100 text-blue-700">
+                        5 Projects
+                      </span>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-widest block text-neutral-400 mb-1">
+                        Category 02
+                      </span>
+                      <h4 className="text-base sm:text-lg font-black leading-snug group-hover:text-blue-700 transition-colors">
+                        {language === "ta" ? "2. வணிக கட்டிடம் / நிலம்" : "2. Commercial Building / Land Project"}
+                      </h4>
+                      <p className="text-xs mt-1.5 leading-relaxed text-neutral-500">
+                        {language === "ta" ? "NH-44 & ரிங் ரோடு வணிக நிலங்கள் (5 Cards)" : "NH-44, Ring Road & Buildings (5 Cards)"}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-bold text-blue-600">
+                      <span>{language === "ta" ? "கார்டுகளை காண கிளிக் செய்க" : "Click to View Cards"}</span>
+                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </button>
+
+                  {/* Category 3: Farm land project */}
+                  <button
+                    onClick={() => setActiveCategory("farm")}
+                    className="p-5 sm:p-6 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden bg-white hover:bg-emerald-50/40 text-neutral-900 border-neutral-200 shadow-xs hover:shadow-lg hover:border-emerald-400 hover:-translate-y-0.5"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="h-14 w-14 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-xs bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <Trees className="h-7 w-7" />
+                      </div>
+                      <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800">
+                        2 Projects
+                      </span>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-widest block text-neutral-400 mb-1">
+                        Category 03
+                      </span>
+                      <h4 className="text-base sm:text-lg font-black leading-snug group-hover:text-emerald-800 transition-colors">
+                        {language === "ta" ? "3. பண்ணை நில திட்டங்கள்" : "3. Farm Land Project"}
+                      </h4>
+                      <p className="text-xs mt-1.5 leading-relaxed text-neutral-500">
+                        {language === "ta" ? "மதுரை பார்ம்ஸ் & ஆரஞ்சு கார்டன் (2 Cards)" : "Madurai Farms & Orange Garden (2 Cards)"}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-bold text-emerald-700">
+                      <span>{language === "ta" ? "கார்டுகளை காண கிளிக் செய்க" : "Click to View Cards"}</span>
+                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </button>
+                </div>
+
+                {/* Direct Contact strip */}
+                <div className="pt-3 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-[#EAB308]" />
+                    <span>{language === "ta" ? "100% தூய கம்ப்யூட்டர் பட்டா & வில்லங்கமற்ற பத்திரங்கள்" : "100% Computer Patta & Transparent Documentation"}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-neutral-700">{language === "ta" ? "நேரடி ஆலோசனை:" : "Direct Assistance:"}</span>
+                    <a href="tel:+917708966452" className="font-mono font-bold text-neutral-900 hover:text-[#B45309]">
+                      +91 77089 66452
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-            <button
-              onClick={() => setActiveTab("home")}
-              className="p-2 rounded-xl hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors cursor-pointer"
-              title="Close section and return to Home"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
+          ) : (
+            /* ----------------------------------------------------------------- */
+            /* SCREEN B: DEDICATED CATEGORY PROJECTS VIEW (Cards ONLY, no hub)   */
+            /* ----------------------------------------------------------------- */
+            <div className="space-y-6">
+              {/* Back to Categories Navigation Header */}
+              <div className="bg-white rounded-2xl p-4 sm:p-5 border border-neutral-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                  {/* ← Back to Categories Button */}
+                  <button
+                    onClick={() => setActiveCategory(null)}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-white text-xs sm:text-sm font-black transition-all hover:scale-105 cursor-pointer shadow-md"
+                  >
+                    <ArrowLeft className="h-4 w-4 text-[#EAB308]" />
+                    <span>{language === "ta" ? "← 3 பிரிவுகளுக்கு திரும்புக" : "← Back to Categories"}</span>
+                  </button>
 
-          {/* Category Selector Box/Icons */}
-          <div className="bg-white rounded-3xl p-5 sm:p-7 border border-neutral-200/80 shadow-xs space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-100 pb-3">
-              <div>
-                <span className="text-[10px] font-black uppercase text-[#B45309] tracking-wider block mb-0.5">
-                  Step 1: Choose Property Category
-                </span>
-                <h3 className="text-xl sm:text-2xl font-black text-neutral-900">
-                  {language === "ta" ? "3 பிரிவுகள் (Residential · Commercial · Farm Land)" : "Our 3 Property Categories"}
-                </h3>
+                  <button
+                    onClick={() => {
+                      setActiveTab("home");
+                      setActiveCategory(null);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-semibold transition-all cursor-pointer"
+                  >
+                    <Home className="h-3.5 w-3.5" />
+                    <span>{language === "ta" ? "முகப்பு" : "Home"}</span>
+                  </button>
+
+                  <div className="h-4 w-px bg-neutral-200 hidden md:block" />
+
+                  {/* Breadcrumb */}
+                  <div className="text-xs text-neutral-500 font-medium hidden sm:flex items-center gap-1.5">
+                    <span>Our Projects</span>
+                    <span>/</span>
+                    <span className="font-bold text-neutral-900">
+                      {activeCategory === "residential" && (language === "ta" ? "1. குடியிருப்பு" : "1. Residential")}
+                      {activeCategory === "commercial" && (language === "ta" ? "2. வணிகம்" : "2. Commercial")}
+                      {activeCategory === "farm" && (language === "ta" ? "3. பண்ணை நிலம்" : "3. Farm Land")}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Category Switcher Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+                  <button
+                    onClick={() => setActiveCategory("residential")}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      activeCategory === "residential"
+                        ? "bg-[#0A0D12] text-[#EAB308] shadow-xs font-black ring-1 ring-[#EAB308]"
+                        : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                    }`}
+                  >
+                    1. Residential (2)
+                  </button>
+                  <button
+                    onClick={() => setActiveCategory("commercial")}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      activeCategory === "commercial"
+                        ? "bg-[#0A0D12] text-[#EAB308] shadow-xs font-black ring-1 ring-[#EAB308]"
+                        : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                    }`}
+                  >
+                    2. Commercial (5)
+                  </button>
+                  <button
+                    onClick={() => setActiveCategory("farm")}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      activeCategory === "farm"
+                        ? "bg-[#0A0D12] text-[#EAB308] shadow-xs font-black ring-1 ring-[#EAB308]"
+                        : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                    }`}
+                  >
+                    3. Farm Land (2)
+                  </button>
+                </div>
               </div>
-              <span className="text-xs font-bold text-neutral-500 bg-neutral-100 px-3 py-1 rounded-full w-fit">
-                9 Total Developments
-              </span>
-            </div>
 
-            {/* 3 Categories Box / Icons Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              
-              {/* Category 1: Residential plot / flat project */}
-              <button
-                onClick={() => setActiveCategory("residential")}
-                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden ${
-                  activeCategory === "residential"
-                    ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-xl ring-2 ring-[#EAB308]"
-                    : "bg-neutral-50 hover:bg-neutral-100 text-neutral-900 border-neutral-200/80 shadow-xs hover:border-amber-300"
-                }`}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className={`h-13 w-13 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-xs ${
-                    activeCategory === "residential" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-[#B45309] border border-amber-200"
-                  }`}>
-                    <Home className="h-6 w-6" />
+              {/* Category Page Title Banner */}
+              <div className="bg-gradient-to-r from-[#0A0D12] via-[#111827] to-[#1F2937] text-white rounded-3xl p-5 sm:p-7 shadow-lg border border-neutral-800">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#EAB308] text-xs font-bold mb-2">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      <span>
+                        {activeCategory === "residential" && (language === "ta" ? "பிரிவு 01: குடியிருப்பு திட்டங்கள்" : "Category 01: Residential Projects")}
+                        {activeCategory === "commercial" && (language === "ta" ? "பிரிவு 02: வணிக பெருநிலங்கள் & கட்டிடங்கள்" : "Category 02: Commercial Projects")}
+                        {activeCategory === "farm" && (language === "ta" ? "பிரிவு 03: பண்ணை நிலங்கள் & எஸ்டேட்கள்" : "Category 03: Farm Land Projects")}
+                      </span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-black text-white">
+                      {activeCategory === "residential" && (language === "ta" ? "குடியிருப்பு பிளாட் / அடுக்குமாடி திட்டங்கள்" : "Residential Plot & Flat Projects")}
+                      {activeCategory === "commercial" && (language === "ta" ? "வணிக கட்டிடம் & நெடுஞ்சாலை நிலங்கள்" : "Commercial Building & Highway Land Projects")}
+                      {activeCategory === "farm" && (language === "ta" ? "இயற்கை பண்ணை நிலங்கள் & ஆரஞ்சு கார்டன்" : "Farm Land & Orange Garden Projects")}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-300 mt-1 max-w-2xl leading-relaxed">
+                      {activeCategory === "residential" && (language === "ta" ? "அடுக்குமாடி குடியிருப்பு & வீட்டு மனைப்பிரிவுகள் — 100% கம்ப்யூட்டர் பட்டா மற்றும் உடனடி பத்திரப்பதிவு." : "Contemporary luxury flat apartments and ready-to-build villa plotted layouts with 100% verified computer patta.")}
+                      {activeCategory === "commercial" && (language === "ta" ? "NH-44 & ரிங் ரோடு வணிக நிலங்கள், மருத்துவமனை, கிடங்கு, கல்லூரிகளுக்கு ஏற்ற பிரதான இடங்கள்." : "High-exposure commercial land parcels along NH-44, Madurai Outer Ring Road, and city commercial buildings.")}
+                      {activeCategory === "farm" && (language === "ta" ? "சுத்தமான நிலத்தடி நீருடன் கூடிய இயற்கை விவசாய பண்ணை எஸ்டேட்கள் மற்றும் ஆரஞ்சு கார்டன்." : "Managed agro farm acreage, orchard estates, and fertile farmland with sweet potable water table.")}
+                    </p>
                   </div>
-                  <span className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                    activeCategory === "residential" ? "bg-white/20 text-[#EAB308]" : "bg-amber-100 text-[#B45309]"
-                  }`}>
-                    2 Projects
-                  </span>
-                </div>
-
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-widest block opacity-75 mb-1">
-                    Category 01
-                  </span>
-                  <h4 className="text-sm sm:text-base font-black leading-snug">
-                    {language === "ta" ? "1. குடியிருப்பு பிளாட் / அடுக்குமாடி" : "1. Residential Plot / Flat Project"}
-                  </h4>
-                  <p className={`text-xs mt-1 leading-relaxed ${activeCategory === "residential" ? "text-amber-200" : "text-neutral-500"}`}>
-                    {language === "ta" ? "Flat Project & Plot Project (2 Cards)" : "Flat Project & Plot Project Cards (2 Sites)"}
-                  </p>
-                </div>
-
-                <div className="mt-3 pt-2.5 border-t border-neutral-200/20 flex items-center justify-between text-xs font-bold">
-                  <span className={activeCategory === "residential" ? "text-[#EAB308]" : "text-[#B45309]"}>
-                    {activeCategory === "residential" ? "● Selected Category" : "Click to View Cards"}
-                  </span>
-                  <ChevronRight className={`h-4 w-4 transition-transform ${activeCategory === "residential" ? "rotate-90 text-[#EAB308]" : "group-hover:translate-x-1"}`} />
-                </div>
-              </button>
-
-              {/* Category 2: Commercial building / land project */}
-              <button
-                onClick={() => setActiveCategory("commercial")}
-                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden ${
-                  activeCategory === "commercial"
-                    ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-xl ring-2 ring-[#EAB308]"
-                    : "bg-neutral-50 hover:bg-neutral-100 text-neutral-900 border-neutral-200/80 shadow-xs hover:border-blue-300"
-                }`}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className={`h-13 w-13 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-xs ${
-                    activeCategory === "commercial" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-blue-600 border border-blue-200"
-                  }`}>
-                    <Briefcase className="h-6 w-6" />
+                  <div className="shrink-0 flex sm:flex-col items-center sm:items-end justify-between gap-1 border-t sm:border-t-0 border-white/10 pt-2 sm:pt-0">
+                    <span className="text-2xl font-black text-[#EAB308]">{activeCategoryProjects.length}</span>
+                    <span className="text-xs text-neutral-400 font-semibold">{language === "ta" ? "திட்டங்கள் உள்ளன" : "Verified Projects"}</span>
                   </div>
-                  <span className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                    activeCategory === "commercial" ? "bg-white/20 text-[#EAB308]" : "bg-blue-100 text-blue-700"
-                  }`}>
-                    5 Projects
-                  </span>
                 </div>
+              </div>
 
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-widest block opacity-75 mb-1">
-                    Category 02
-                  </span>
-                  <h4 className="text-sm sm:text-base font-black leading-snug">
-                    {language === "ta" ? "2. வணிக கட்டிடம் / நிலம்" : "2. Commercial Building / Land Project"}
-                  </h4>
-                  <p className={`text-xs mt-1 leading-relaxed ${activeCategory === "commercial" ? "text-amber-200" : "text-neutral-500"}`}>
-                    {language === "ta" ? "NH-44 & ரிங் ரோடு வணிக நிலங்கள் (5 Cards)" : "NH-44, Ring Road & Buildings (5 Cards)"}
-                  </p>
-                </div>
+              {/* Cards Grid for activeCategory */}
+              <div className={`grid grid-cols-1 md:grid-cols-2 ${activeCategoryProjects.length > 2 ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-5`}>
+                {activeCategoryProjects.map((project) => (
+                  <div
+                    key={project.id}
+                    className="bg-white rounded-3xl overflow-hidden border border-neutral-200 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
+                  >
+                    {/* Card Thumbnail */}
+                    <div className="relative h-56 w-full overflow-hidden bg-neutral-900">
+                      <Image
+                        src={project.image}
+                        alt={project.name.en}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                      
+                      <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#0A0D12]/90 text-[#EAB308] border border-[#EAB308]/40">
+                        {project.statusBadge[language]}
+                      </div>
 
-                <div className="mt-3 pt-2.5 border-t border-neutral-200/20 flex items-center justify-between text-xs font-bold">
-                  <span className={activeCategory === "commercial" ? "text-[#EAB308]" : "text-blue-600"}>
-                    {activeCategory === "commercial" ? "● Selected Category" : "Click to View Cards"}
-                  </span>
-                  <ChevronRight className={`h-4 w-4 transition-transform ${activeCategory === "commercial" ? "rotate-90 text-[#EAB308]" : "group-hover:translate-x-1"}`} />
-                </div>
-              </button>
-
-              {/* Category 3: Farm land project */}
-              <button
-                onClick={() => setActiveCategory("farm")}
-                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden ${
-                  activeCategory === "farm"
-                    ? "bg-[#0A0D12] text-white border-[#0A0D12] shadow-xl ring-2 ring-[#EAB308]"
-                    : "bg-neutral-50 hover:bg-neutral-100 text-neutral-900 border-neutral-200/80 shadow-xs hover:border-emerald-300"
-                }`}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className={`h-13 w-13 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-xs ${
-                    activeCategory === "farm" ? "bg-[#EAB308] text-[#0A0D12]" : "bg-white text-emerald-700 border border-emerald-200"
-                  }`}>
-                    <Trees className="h-6 w-6" />
-                  </div>
-                  <span className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                    activeCategory === "farm" ? "bg-white/20 text-[#EAB308]" : "bg-emerald-100 text-emerald-800"
-                  }`}>
-                    2 Projects
-                  </span>
-                </div>
-
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-widest block opacity-75 mb-1">
-                    Category 03
-                  </span>
-                  <h4 className="text-sm sm:text-base font-black leading-snug">
-                    {language === "ta" ? "3. பண்ணை நில திட்டங்கள்" : "3. Farm Land Project"}
-                  </h4>
-                  <p className={`text-xs mt-1 leading-relaxed ${activeCategory === "farm" ? "text-amber-200" : "text-neutral-500"}`}>
-                    {language === "ta" ? "மதுரை பார்ம்ஸ் & ஆரஞ்சு கார்டன் (2 Cards)" : "Madurai Farms & Orange Garden (2 Cards)"}
-                  </p>
-                </div>
-
-                <div className="mt-3 pt-2.5 border-t border-neutral-200/20 flex items-center justify-between text-xs font-bold">
-                  <span className={activeCategory === "farm" ? "text-[#EAB308]" : "text-emerald-700"}>
-                    {activeCategory === "farm" ? "● Selected Category" : "Click to View Cards"}
-                  </span>
-                  <ChevronRight className={`h-4 w-4 transition-transform ${activeCategory === "farm" ? "rotate-90 text-[#EAB308]" : "group-hover:translate-x-1"}`} />
-                </div>
-              </button>
-
-            </div>
-          </div>
-
-              {/* Project Cards for Active Category */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-base font-black text-neutral-900">
-                    {activeCategory === "residential" && (language === "ta" ? "குடியிருப்பு திட்டங்கள் (2 Projects)" : "Residential Projects (2 Projects)")}
-                    {activeCategory === "commercial" && (language === "ta" ? "வணிக திட்டங்கள் (5 Projects)" : "Commercial Projects (5 Projects)")}
-                    {activeCategory === "farm" && (language === "ta" ? "பண்ணை நில திட்டங்கள் (2 Projects)" : "Farm Land Projects (2 Projects)")}
-                    {!activeCategory && (language === "ta" ? "பிரிவை தேர்ந்தெடுக்கவும்" : "Select a Category Above")}
-                  </h4>
-                  <span className="text-xs text-neutral-500 font-semibold">
-                    {activeCategoryProjects.length} Cards
-                  </span>
-                </div>
-
-                {/* Cards Grid */}
-                <div className={`grid grid-cols-1 md:grid-cols-2 ${activeCategoryProjects.length > 2 ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-5`}>
-                  {activeCategoryProjects.map((project) => (
-                    <div
-                      key={project.id}
-                      className="bg-white rounded-3xl overflow-hidden border border-neutral-200 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
-                    >
-                      {/* Card Thumbnail */}
-                      <div className="relative h-56 w-full overflow-hidden bg-neutral-900">
-                        <Image
-                          src={project.image}
-                          alt={project.name.en}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-                        
-                        <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#0A0D12]/90 text-[#EAB308] border border-[#EAB308]/40">
-                          {project.statusBadge[language]}
-                        </div>
-
-                        <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-white/90 text-[#0A0D12]">
+                      <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+                        {project.mapbhoomiUrl && (
+                          <a
+                            href={project.mapbhoomiUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="px-2.5 py-0.5 rounded-full text-[9px] font-black bg-[#0A0D12]/95 hover:bg-[#EAB308] text-[#EAB308] hover:text-[#0A0D12] border border-[#EAB308]/60 flex items-center gap-1 shadow-md transition-all hover:scale-105"
+                            title="Open map on Mapbhoomi"
+                          >
+                            <Compass className="h-3 w-3" />
+                            <span>Mapbhoomi ↗</span>
+                          </a>
+                        )}
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-white/90 text-[#0A0D12]">
                           {project.subcategoryLabel[language]}
-                        </div>
+                        </span>
+                      </div>
 
-                        <div className="absolute bottom-3 left-3 right-3 text-white">
-                          <h3 className="text-base font-black leading-tight drop-shadow-md">
-                            {project.name[language]}
-                          </h3>
-                          <div className="flex items-center gap-1.5 text-xs text-neutral-300 mt-0.5">
-                            <MapPin className="h-3 w-3 text-[#EAB308] shrink-0" />
-                            <span className="line-clamp-1">{project.location[language]}</span>
-                          </div>
+                      <div className="absolute bottom-3 left-3 right-3 text-white">
+                        <h3 className="text-base font-black leading-tight drop-shadow-md">
+                          {project.name[language]}
+                        </h3>
+                        <div className="flex items-center gap-1.5 text-xs text-neutral-300 mt-0.5">
+                          <MapPin className="h-3 w-3 text-[#EAB308] shrink-0" />
+                          <span className="line-clamp-1">{project.location[language]}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Card Body */}
+                    <div className="p-4 flex-1 flex flex-col justify-between">
+                      <div>
+                        <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed mb-3">
+                          {project.description[language]}
+                        </p>
+
+                        <div className="space-y-1 mb-4 pb-3 border-b border-neutral-100">
+                          {project.highlights[language].slice(0, 2).map((h, i) => (
+                            <div key={i} className="flex items-center gap-1.5 text-[11px] text-neutral-700 font-medium">
+                              <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
+                              <span className="line-clamp-1">{h}</span>
+                            </div>
+                          ))}
                         </div>
                       </div>
 
-                      {/* Card Body */}
-                      <div className="p-4 flex-1 flex flex-col justify-between">
-                        <div>
-                          <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed mb-3">
-                            {project.description[language]}
-                          </p>
-
-                          <div className="space-y-1 mb-4 pb-3 border-b border-neutral-100">
-                            {project.highlights[language].slice(0, 2).map((h, i) => (
-                              <div key={i} className="flex items-center gap-1.5 text-[11px] text-neutral-700 font-medium">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
-                                <span className="line-clamp-1">{h}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Actions */}
+                      {/* Actions */}
+                      <div className="space-y-2">
                         <div className="grid grid-cols-2 gap-2">
                           <button
                             onClick={() => setSelectedProject(project)}
@@ -1470,14 +1573,42 @@ export default function HomePage() {
                             <span>{language === "ta" ? "விசாரிக்க" : "Enquire"}</span>
                           </a>
                         </div>
+
+                        {/* Direct Mapbhoomi Layout Button */}
+                        {project.mapbhoomiUrl && (
+                          <a
+                            href={project.mapbhoomiUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-2 px-3 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-[#EAB308] hover:text-white border border-[#EAB308]/50 text-xs font-black transition-all flex items-center justify-center gap-1.5 shadow-sm group/mb cursor-pointer"
+                          >
+                            <Compass className="h-3.5 w-3.5 text-[#EAB308] group-hover/mb:rotate-45 transition-transform shrink-0" />
+                            <span>{language === "ta" ? "Mapbhoomi வரைபடம் (Open map ↗)" : "Open map (Mapbhoomi) ↗"}</span>
+                          </a>
+                        )}
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
 
-            </section>
+              {/* Bottom Back Button */}
+              <div className="flex items-center justify-center pt-4 pb-2">
+                <button
+                  onClick={() => {
+                    setActiveCategory(null);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 shadow-sm hover:shadow-md text-xs sm:text-sm font-bold transition-all cursor-pointer hover:border-[#EAB308]"
+                >
+                  <ArrowLeft className="h-4 w-4 text-[#B45309]" />
+                  <span>{language === "ta" ? "← அனைத்து 3 பிரிவுகளுக்கும் திரும்புக" : "← Back to All 3 Categories"}</span>
+                </button>
+              </div>
+            </div>
           )}
+        </section>
+      )}
 
           {/* ------------------------------------------------------------------- */}
           {/* TAB 2: LOCATION (All Project Maps in Card Style)                    */}
@@ -1508,20 +1639,29 @@ export default function HomePage() {
                 </button>
               </div>
 
-              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs">
+              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="max-w-xl">
                   <span className="text-[10px] font-black uppercase text-blue-600 tracking-wider block mb-1">
-                    Geolocation Hub
+                    Geolocation & Mapbhoomi Hub
                   </span>
                   <h3 className="text-xl font-black text-neutral-900 mb-1">
-                    {language === "ta" ? "அனைத்து திட்டங்களின் அமைவிடம் (Card Style)" : "All Project Map Locations (Card Style)"}
+                    {language === "ta" ? "அனைத்து திட்டங்களின் அமைவிடம் & Mapbhoomi" : "All Project Map Locations & Mapbhoomi"}
                   </h3>
                   <p className="text-xs text-neutral-600">
                     {language === "ta"
-                      ? "மதுரையின் முக்கிய தேசிய நெடுஞ்சாலைகள் மற்றும் நகர்ப்புற மையங்களில் அமைந்துள்ள திட்டங்களின் கூகிள் வரைபடங்கள்."
-                      : "Directly navigate to each development along Madurai's NH-44, Ring Road, and transit hubs."}
+                      ? "மதுரையின் முக்கிய தேசிய நெடுஞ்சாலைகள், ரிங் ரோடு மற்றும் Mapbhoomi நேரடி மனை வரைபடங்களை பார்வையிடவும்."
+                      : "Directly navigate to each development along Madurai's NH-44, Ring Road, and interactive Mapbhoomi 3D cadastral layouts."}
                   </p>
                 </div>
+                <a
+                  href="https://mapbhoomi.com/l/surya-promoters"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#0A0D12] text-[#EAB308] hover:bg-neutral-800 text-xs font-black transition-all border border-[#EAB308]/40 shadow-md shrink-0 w-fit"
+                >
+                  <Compass className="h-4 w-4 text-[#EAB308]" />
+                  <span>{language === "ta" ? "Mapbhoomi நேரடி தளம் ↗" : "Surya Promoters on Mapbhoomi ↗"}</span>
+                </a>
               </div>
 
               {/* Cards Grid */}
@@ -1565,6 +1705,18 @@ export default function HomePage() {
                     </div>
 
                     <div className="space-y-1.5">
+                      {project.mapbhoomiUrl && (
+                        <a
+                          href={project.mapbhoomiUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full py-2 px-3 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-[#EAB308] border border-[#EAB308]/40 text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                        >
+                          <Compass className="h-3.5 w-3.5 text-[#EAB308]" />
+                          <span>{language === "ta" ? "Mapbhoomi நேரடி வரைபடம் ↗" : "Open Mapbhoomi Cadastral ↗"}</span>
+                        </a>
+                      )}
+
                       <a
                         href={project.mapsUrl}
                         target="_blank"
@@ -1975,7 +2127,7 @@ export default function HomePage() {
         <button
           onClick={() => {
             setActiveTab("projects");
-            if (!activeCategory) setActiveCategory("residential");
+            setActiveCategory(null);
           }}
           className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
             activeTab === "projects" ? "text-[#0A0D12] font-black" : "text-neutral-500 font-medium"
@@ -2040,22 +2192,34 @@ export default function HomePage() {
       {/* ------------------------------------------------------------------------- */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto">
+          <div
+            data-lenis-prevent
+            onClick={() => setSelectedProject(null)}
+            onWheel={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-hidden"
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 my-8 flex flex-col max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
+              data-lenis-prevent
+              className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 flex flex-col max-h-[88vh] my-auto"
             >
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-20 h-9 w-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-transform hover:scale-110 cursor-pointer"
+                className="absolute top-4 right-4 z-20 h-9 w-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-transform hover:scale-110 cursor-pointer shadow-md"
                 title="Close"
               >
                 <X className="h-5 w-5" />
               </button>
 
-              <div className="overflow-y-auto p-5 sm:p-7 space-y-5">
+              <div
+                data-lenis-prevent
+                onWheel={(e) => e.stopPropagation()}
+                className="flex-1 min-h-0 overflow-y-auto p-5 sm:p-7 space-y-5 overscroll-contain"
+              >
                 
                 {/* Visual Top Banner */}
                 <div className="relative h-60 sm:h-72 w-full rounded-2xl overflow-hidden bg-neutral-900">
@@ -2087,6 +2251,39 @@ export default function HomePage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Mapbhoomi Live Cadastral Layout Feature */}
+                {selectedProject.mapbhoomiUrl && (
+                  <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0A0D12] via-[#111827] to-[#1F2937] text-white border border-[#EAB308]/40 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
+                    <div className="flex items-start sm:items-center gap-3">
+                      <div className="h-11 w-11 rounded-2xl bg-[#EAB308] text-[#0A0D12] flex items-center justify-center font-black text-sm shrink-0 shadow-md">
+                        <Compass className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h4 className="text-sm font-black text-white">Mapbhoomi Interactive 3D Cadastral Layout</h4>
+                          <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            Live Map
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-neutral-300 mt-0.5 max-w-xl leading-relaxed">
+                          {language === "ta"
+                            ? "ஒவ்வொரு மனையின் எல்லைகள், அளவு மற்றும் விபரங்களை Mapbhoomi நேரடி தளத்தில் பார்க்கவும்."
+                            : "Explore verified cadastral plot boundaries, numbering, and dimensions on the official Mapbhoomi interactive layout."}
+                        </p>
+                      </div>
+                    </div>
+                    <a
+                      href={selectedProject.mapbhoomiUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-5 py-2.5 rounded-xl bg-[#EAB308] hover:bg-[#CA8A04] text-[#0A0D12] font-black text-xs transition-all flex items-center justify-center gap-1.5 shrink-0 shadow-md hover:scale-105 cursor-pointer"
+                    >
+                      <Navigation className="h-3.5 w-3.5" />
+                      <span>Open map ↗</span>
+                    </a>
+                  </div>
+                )}
 
                 {/* Cadastral Blueprint if available (e.g. Orange Garden) */}
                 {selectedProject.blueprint && (
@@ -2158,15 +2355,29 @@ export default function HomePage() {
 
                 {/* Action Footer */}
                 <div className="pt-3 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-2.5">
-                  <a
-                    href={selectedProject.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <Navigation className="h-3.5 w-3.5 text-blue-600" />
-                    <span>{language === "ta" ? "கூகிள் மேப்ஸில் பார்க்க" : "View on Google Maps"}</span>
-                  </a>
+                  <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <a
+                      href={selectedProject.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-none px-3.5 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <Navigation className="h-3.5 w-3.5 text-blue-600" />
+                      <span>{language === "ta" ? "கூகிள் மேப்ஸ்" : "Google Maps"}</span>
+                    </a>
+
+                    {selectedProject.mapbhoomiUrl && (
+                      <a
+                        href={selectedProject.mapbhoomiUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none px-3.5 py-2.5 rounded-xl bg-[#0A0D12] hover:bg-neutral-800 text-[#EAB308] border border-[#EAB308]/50 font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                      >
+                        <Compass className="h-3.5 w-3.5 text-[#EAB308]" />
+                        <span>Mapbhoomi (Open map ↗)</span>
+                      </a>
+                    )}
+                  </div>
 
                   <div className="flex items-center gap-2 w-full sm:w-auto">
                     <a
@@ -2202,12 +2413,20 @@ export default function HomePage() {
       {/* ------------------------------------------------------------------------- */}
       <AnimatePresence>
         {selectedFolderImages && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+          <div
+            data-lenis-prevent
+            onClick={() => setSelectedFolderImages(null)}
+            onWheel={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-hidden"
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-5xl bg-white rounded-3xl p-5 sm:p-7 max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
+              data-lenis-prevent
+              className="relative w-full max-w-5xl bg-white rounded-3xl p-5 sm:p-7 max-h-[88vh] overflow-y-auto overscroll-contain"
             >
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
                 <h3 className="text-base font-black text-neutral-900">{selectedFolderImages.title}</h3>
@@ -2237,12 +2456,20 @@ export default function HomePage() {
 
       <AnimatePresence>
         {selectedVideo && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md">
+          <div
+            data-lenis-prevent
+            onClick={() => setSelectedVideo(null)}
+            onWheel={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md overflow-hidden"
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-2xl bg-[#0A0D12] text-white rounded-3xl p-6 border border-neutral-800"
+              onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
+              data-lenis-prevent
+              className="relative w-full max-w-2xl bg-[#0A0D12] text-white rounded-3xl p-6 border border-neutral-800 max-h-[88vh] overflow-y-auto overscroll-contain"
             >
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-800">
                 <h3 className="text-base font-black text-white">{selectedVideo.title}</h3>
@@ -2276,12 +2503,20 @@ export default function HomePage() {
       {/* ------------------------------------------------------------------------- */}
       <AnimatePresence>
         {isEnquiryModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md">
+          <div
+            data-lenis-prevent
+            onClick={() => setIsEnquiryModalOpen(false)}
+            onWheel={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-hidden"
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-neutral-200"
+              onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
+              data-lenis-prevent
+              className="relative w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-neutral-200 max-h-[88vh] overflow-y-auto overscroll-contain"
             >
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
                 <h3 className="text-base font-black text-neutral-900">Direct Enquiry</h3>

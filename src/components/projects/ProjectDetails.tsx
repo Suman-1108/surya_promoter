@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -39,6 +39,16 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
   const [copied, setCopied] = useState(false);
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [blueprintZoomed, setBlueprintZoomed] = useState(false);
+
+  useEffect(() => {
+    if (blueprintZoomed) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [blueprintZoomed]);
 
   const videos = project.videoUrls && project.videoUrls.length > 0
     ? project.videoUrls
@@ -754,6 +764,38 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
           </div>
         </div>
       </div>
+
+      {/* Zoomed Blueprint Lightbox Modal */}
+      {blueprintZoomed && project.layoutPlanImage && (
+        <div
+          data-lenis-prevent
+          onClick={() => setBlueprintZoomed(false)}
+          onWheel={(e) => e.stopPropagation()}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md overflow-hidden"
+        >
+          <button
+            onClick={() => setBlueprintZoomed(false)}
+            className="absolute top-5 right-5 z-50 h-10 w-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition cursor-pointer shadow-lg"
+            title="Close"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            onWheel={(e) => e.stopPropagation()}
+            data-lenis-prevent
+            className="relative max-w-5xl max-h-[88vh] w-full h-[80vh] rounded-2xl overflow-hidden shadow-2xl bg-[#060A10] border border-white/10 overscroll-contain"
+          >
+            <Image
+              src={project.layoutPlanImage}
+              alt={`${project.title[language]} Layout Plan Full`}
+              fill
+              className="object-contain p-4"
+              sizes="1400px"
+            />
+          </div>
+        </div>
+      )}
     </article>
   );
 }
