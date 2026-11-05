@@ -704,20 +704,20 @@ export default function HomePage() {
           
           {/* Left Brand Identity: "S" Logo + Surya Promoters */}
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
-            <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 rounded-2xl overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform duration-300 group-hover:scale-105">
+            <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
-                src="/images/surya-logo.png"
+                src="/images/surya-gold-logo.png"
                 alt="Surya Promoters Logo"
                 fill
                 priority
-                sizes="44px"
+                sizes="48px"
                 className="object-contain"
               />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-base tracking-tight text-[#0A0D12] group-hover:text-[#B45309] transition-colors">
-                  SURYA PROMOTERS
+                  <span className="sr-only">S</span>URYA PROMOTERS
                 </span>
                 <span className="hidden sm:inline-flex px-1.5 py-0.2 rounded-md text-[9px] font-black bg-[#FEF08A] text-[#854D0E] border border-amber-300">
                   ESTD. 2010

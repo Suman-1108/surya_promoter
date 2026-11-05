@@ -40,7 +40,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <div className="flex items-center gap-3">
               <div className="relative h-11 w-11 shrink-0 rounded-2xl overflow-hidden border-2 border-[#EAB308] bg-white p-1">
                 <Image
-                  src="/images/surya-logo.png"
+                  src="/images/surya-gold-logo.png"
                   alt="Surya Promoters Logo"
                   fill
                   sizes="40px"

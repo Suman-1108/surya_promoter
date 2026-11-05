@@ -19,7 +19,7 @@ export default function Footer() {
             <Link href="/" className="inline-flex items-center gap-3.5">
               <div className="relative h-12 w-12 shrink-0 rounded-2xl overflow-hidden border-2 border-[#EAB308] bg-white p-1">
                 <Image
-                  src="/images/surya-logo.png"
+                  src="/images/surya-gold-logo.png"
                   alt="Surya Promoters Logo"
                   fill
                   sizes="48px"

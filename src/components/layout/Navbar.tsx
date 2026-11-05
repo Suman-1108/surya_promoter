@@ -45,20 +45,20 @@ export default function Navbar() {
               <Menu className="h-6 w-6" />
             </button>
 
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 rounded-2xl overflow-hidden border-2 border-[#EAB308] bg-white shadow-xs p-0.5 transition-transform duration-300 group-hover:scale-105">
+            <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
+              <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 transition-transform duration-300 group-hover:scale-105">
                 <Image
-                  src="/images/surya-logo.png"
+                  src="/images/surya-gold-logo.png"
                   alt="Surya Promoters Logo"
                   fill
                   priority
-                  sizes="44px"
+                  sizes="48px"
                   className="object-contain"
                 />
               </div>
               <div className="flex flex-col">
                 <span className="font-display text-sm sm:text-base font-extrabold tracking-tight text-[#173D2B] group-hover:text-[#64865A] transition-colors">
-                  SURYA PROMOTERS
+                  <span className="sr-only">S</span>URYA PROMOTERS
                 </span>
                 <span className="hidden sm:inline-block text-[10px] font-mono text-[#64865A] tracking-wider uppercase font-semibold">
                   {language === "ta" ? "மதுரை மனைப்பிரிவுகள் & நில மேம்பாடு · 2010" : "LAND & PROPERTY DEVELOPERS · MADURAI · ESTD. 2010"}
